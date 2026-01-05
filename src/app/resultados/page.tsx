@@ -327,30 +327,30 @@ export default function ResultadosPage() {
         if (!first) {
           console.log('📊 Python não retornou resultados, criando resultado minimal...')
           // Criar resultado minimal a partir dos dados do wizard
-          const inputRow = rows[0]
+          const inputRow = rows[0] as Record<string, any>
           const minimalResult: ResultShape = {
             conditions: {
               sampleName: String(inputRow.sampleName ?? ""),
-              beverageType: inputRow.beverageType,
-              labelAbv: inputRow.labelAbv,
-              labelUnit: inputRow.labelUnit,
-              brand: inputRow.brand,
-              waterType: inputRow.waterType,
-              temperature: inputRow.waterTemperature,
-              sampleTemperature: inputRow.sampleTemperature,
-              ethanolMassPercent: inputRow.ethanolMassPercent,
-              methanolMassPercent: inputRow.methanolMassPercent,
+              beverageType: String(inputRow.beverageType ?? ""),
+              labelAbv: typeof inputRow.labelAbv === 'number' ? inputRow.labelAbv : undefined,
+              labelUnit: typeof inputRow.labelUnit === 'string' ? inputRow.labelUnit : undefined,
+              brand: typeof inputRow.brand === 'string' ? inputRow.brand : undefined,
+              waterType: typeof inputRow.waterType === 'string' ? inputRow.waterType : undefined,
+              temperature: typeof inputRow.waterTemperature === 'number' ? inputRow.waterTemperature : undefined,
+              sampleTemperature: typeof inputRow.sampleTemperature === 'number' ? inputRow.sampleTemperature : undefined,
+              ethanolMassPercent: typeof inputRow.ethanolMassPercent === 'number' ? inputRow.ethanolMassPercent : undefined,
+              methanolMassPercent: typeof inputRow.methanolMassPercent === 'number' ? inputRow.methanolMassPercent : undefined,
             },
             density: {
-              method: inputRow.method,
-              waterMass: inputRow.waterMass,
-              sampleMass: inputRow.sampleMass,
-              measuredValue: inputRow.measuredValue,
-              measuredUnit: inputRow.measuredUnit,
+              method: typeof inputRow.method === 'string' ? inputRow.method : undefined,
+              waterMass: typeof inputRow.waterMass === 'number' ? inputRow.waterMass : undefined,
+              sampleMass: typeof inputRow.sampleMass === 'number' ? inputRow.sampleMass : undefined,
+              measuredValue: typeof inputRow.measuredValue === 'number' ? inputRow.measuredValue : undefined,
+              measuredUnit: typeof inputRow.measuredUnit === 'string' ? inputRow.measuredUnit : undefined,
             },
             rawTimes: {
-              waterTimes: inputRow.waterTimes?.split(';').map(Number).filter((n: number) => !isNaN(n)) ?? [],
-              sampleTimes: inputRow.sampleTimes?.split(';').map(Number).filter((n: number) => !isNaN(n)) ?? [],
+              waterTimes: typeof inputRow.waterTimes === 'string' ? inputRow.waterTimes.split(';').map(Number).filter((n: number) => !isNaN(n)) : [],
+              sampleTimes: typeof inputRow.sampleTimes === 'string' ? inputRow.sampleTimes.split(';').map(Number).filter((n: number) => !isNaN(n)) : [],
             },
             expectedComposition: null, // Python não retornou, sem composição esperada
             conclusao: processingError ? `Erro no processamento: ${processingError}` : 'Processamento incompleto',
