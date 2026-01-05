@@ -507,8 +507,8 @@ def main():
 
     # CSV inputs
     p.add_argument("--conv", default="conversao_vv_para_wE_20C.csv", help="Conversion CSV (%v/v -> %m/m @20°C)")
-    p.add_argument("--dens_et", default="DENS_R~1.CSV", help="Relative density mesh (H2O-EtOH)")
-    p.add_argument("--dens_met", default="DENS_R~2.CSV", help="Relative density mesh (H2O-MeOH)")
+    p.add_argument("--dens_et", default="dens_rel_bin_H2O_EtOH.csv", help="Relative density mesh (H2O-EtOH)")
+    p.add_argument("--dens_met", default="dens_rel_bin_H2O_MetOH.csv", help="Relative density mesh (H2O-MeOH)")
     p.add_argument("--dens_gl", default="densidade_alcool_gl20a30.csv", help="Absolute density table by °GL and temperature (20–30°C)")
     p.add_argument("--dens_rel_bin_et", default="dens_rel_bin_H2O_EtOH.csv", help="Relative density binary mesh (H2O-EtOH) used in 2.3.2")
 

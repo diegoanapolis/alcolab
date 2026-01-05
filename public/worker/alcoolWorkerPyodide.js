@@ -48,7 +48,7 @@ async function ensurePyodide() {
     await putFile("/py/fluxo2_analise_ternaria/main.py", "/app/py/fluxo2_analise_ternaria/main.py");
 
     // Data files fluxo1
-    const f1 = ["conversao_vv_para_wE_20C.csv", "DENS_R~1.CSV", "DENS_R~2.CSV", "densidade_alcool_gl20a30.csv", "dens_rel_bin_H2O_EtOH.csv"];
+    const f1 = ["conversao_vv_para_wE_20C.csv", "dens_rel_bin_H2O_EtOH.csv", "dens_rel_bin_H2O_MetOH.csv", "densidade_alcool_gl20a30.csv"];
     for (const name of f1) {
       await putFile(`/data/fluxo1/${name}`, `/app/data/fluxo1/${name}`);
     }

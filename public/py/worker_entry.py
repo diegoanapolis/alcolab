@@ -25,8 +25,8 @@ def _load_density_mesh(path: Path) -> dict:
 def run_fluxo1(rows: List[Dict[str, Any]], data_dir: Path) -> List[Dict[str, Any]]:
     data_dir = Path(data_dir)
     _, conv_cols = read_csv_table(data_dir / "conversao_vv_para_wE_20C.csv")
-    dens_et = _load_density_mesh(data_dir / "DENS_R~1.CSV")
-    dens_met = _load_density_mesh(data_dir / "DENS_R~2.CSV")
+    dens_et = _load_density_mesh(data_dir / "dens_rel_bin_H2O_EtOH.csv")
+    dens_met = _load_density_mesh(data_dir / "dens_rel_bin_H2O_MetOH.csv")
     dens_gl = load_gl_density_table(data_dir / "densidade_alcool_gl20a30.csv")
     dens_rel_bin_et = _load_density_mesh(data_dir / "dens_rel_bin_H2O_EtOH.csv")
 
