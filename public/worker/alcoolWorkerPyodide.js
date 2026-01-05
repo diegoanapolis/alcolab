@@ -6,7 +6,7 @@ inside the browser.
 let pyodide = null;
 let readyPromise = null;
 
-const PYODIDE_BASE_URL = "https://cdn.jsdelivr.net/pyodide/v0.29.0/full/";
+const PYODIDE_BASE_URL = "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/";
 
 function formatError(e) {
   try {
