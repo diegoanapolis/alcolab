@@ -96,7 +96,7 @@ export default function StepProfile({ onNext, initialData }: { onNext: (data: Pr
   }
 
   const handleTypeSelect = (type: string) => {
-    setValue("beverageType", type)
+    setValue("beverageType", type as any)
   }
   
   return (
