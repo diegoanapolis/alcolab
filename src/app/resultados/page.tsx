@@ -129,8 +129,8 @@ export default function ResultadosPage() {
       erroMuMalhaPct: outputs.erroMuMalhaPct,
       wAlcoolInicial: outputs.wAlcoolInicial,
       wAlcoolBest: outputs.wAlcoolBest,
-      approvals: outputs.approvals,
-      flags: outputs.flags,
+      approvals: outputs.approvals as any,
+      flags: outputs.flags as any,
     }
 
     setResult(converted)
