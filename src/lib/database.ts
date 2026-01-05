@@ -72,8 +72,8 @@ export interface RunOutputs {
   conclusao?: string
   
   // Métricas e validações
-  approvals?: Record<string, boolean>
-  flags?: Record<string, boolean>
+  approvals?: Record<string, unknown>
+  flags?: Record<string, unknown>
   
   // Erros e logs
   erroMuMalhaAbs?: number
