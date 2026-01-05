@@ -178,7 +178,7 @@ export class DatabaseService {
       deviceInfo: typeof navigator !== 'undefined' ? navigator.userAgent : undefined
     }
     
-    return await db.experiments.add(experiment)
+    return await db.experiments.add(experiment) as number
   }
   
   // Buscar todos os experimentos ordenados por data (mais recentes primeiro)
