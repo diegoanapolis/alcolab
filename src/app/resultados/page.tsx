@@ -140,6 +140,11 @@ export default function ResultadosPage() {
     if (inputs.videoReplicatesSample) setSampleReplicates(inputs.videoReplicatesSample)
   }
 
+  // Função auxiliar para calcular volumesMarked a partir dos marks
+  const getVolumesMarked = (marks: Record<13|14|15|16|17|18, number|undefined>): Array<13|14|15|16|17|18> => {
+    return ([18, 17, 16, 15, 14, 13] as Array<13|14|15|16|17|18>).filter(v => marks[v] != null)
+  }
+
   // Função para salvar no banco de dados
   const saveToDatabase = async (resultData: ResultShape) => {
     if (!resultData.conditions || typeof window === 'undefined') return
@@ -163,8 +168,14 @@ export default function ResultadosPage() {
         measuredUnit: resultData.density?.measuredUnit,
         waterTimes: resultData.rawTimes?.waterTimes || [],
         sampleTimes: resultData.rawTimes?.sampleTimes || [],
-        videoReplicatesWater: waterReplicates,
-        videoReplicatesSample: sampleReplicates,
+        videoReplicatesWater: waterReplicates.map(r => ({
+          ...r,
+          volumesMarked: getVolumesMarked(r.marks)
+        })),
+        videoReplicatesSample: sampleReplicates.map(r => ({
+          ...r,
+          volumesMarked: getVolumesMarked(r.marks)
+        })),
       }
 
       const outputs: RunOutputs = {
