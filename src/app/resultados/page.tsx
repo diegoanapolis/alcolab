@@ -413,9 +413,9 @@ export default function ResultadosPage() {
             muAbsSample: safeNum(first.mu_amostra_abs_corr ?? first.mu_amostra_abs ?? first.muAbsSample),
           },
           expectedComposition: {
-            agua: safeNum(rep?.w_agua_est ?? first.w_agua_est),
-            et: safeNum(rep?.w_et_est ?? first.w_et_est),
-            met: safeNum(rep?.w_met_est ?? first.w_met_est),
+            agua: safeNum(rep?.w_agua_est ?? first.w_agua_est) ?? 0,
+            et: safeNum(rep?.w_et_est ?? first.w_et_est) ?? 0,
+            met: safeNum(rep?.w_met_est ?? first.w_met_est) ?? 0,
           },
           rawTimes: {
             waterTimes: manualTimesWater,
