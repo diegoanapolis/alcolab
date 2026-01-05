@@ -114,10 +114,10 @@ export default function ResultadosPage() {
         waterTimes: inputs.waterTimes,
         sampleTimes: inputs.sampleTimes,
       },
-      expectedComposition: outputs.expectedComposition ?? {
-        agua: outputs.w_agua_est ?? 0,
-        et: outputs.w_et_est ?? 0,
-        met: outputs.w_met_est ?? 0,
+      expectedComposition: {
+        agua: outputs.expectedComposition?.agua ?? outputs.w_agua_est ?? 0,
+        et: outputs.expectedComposition?.et ?? outputs.w_et_est ?? 0,
+        met: outputs.expectedComposition?.met ?? outputs.w_met_est ?? 0,
       },
       equivalentes: outputs.equivalentes,
       classe_final: outputs.classe_final,
