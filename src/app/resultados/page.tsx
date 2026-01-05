@@ -204,7 +204,7 @@ export default function ResultadosPage() {
         w_agua_est: resultData.expectedComposition?.agua,
         w_et_est: resultData.expectedComposition?.et,
         w_met_est: resultData.expectedComposition?.met,
-        expectedComposition: resultData.expectedComposition,
+        expectedComposition: resultData.expectedComposition ?? undefined,
       }
 
       const tags: RunTags = {
