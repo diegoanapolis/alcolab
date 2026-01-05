@@ -196,8 +196,8 @@ export default function ResultadosPage() {
         conclusao: resultData.conclusao,
         approvals: resultData.approvals,
         flags: resultData.flags,
-        erroMuMalhaAbs: resultData.erroMuMalhaAbs,
-        erroMuMalhaPct: resultData.erroMuMalhaPct,
+        erroMuMalhaAbs: resultData.erroMuMalhaAbs ?? undefined,
+        erroMuMalhaPct: resultData.erroMuMalhaPct ?? undefined,
         wAlcoolInicial: resultData.wAlcoolInicial,
         wAlcoolBest: resultData.wAlcoolBest,
         // Composição esperada
