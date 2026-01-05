@@ -64,10 +64,11 @@ export default function StepWaterTemp({ onNext, onBack, initialData }: { onNext:
 
   const handleFormSubmit = (data: WaterTempData) => {
     if (thermometerMode === "without" && sameTemperature === true) {
+      // Sem termômetro: usa temperatura padrão de 25°C (equilíbrio térmico assumido)
       onNext({
         ...data,
-        waterTemperature: undefined,
-        sampleTemperature: undefined
+        waterTemperature: 25,
+        sampleTemperature: 25
       })
     } else {
       onNext(data)
