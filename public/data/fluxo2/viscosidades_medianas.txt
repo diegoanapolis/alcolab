@@ -1,0 +1,20 @@
+115 µS/cm
+150 µS/cm
+
+115 µS/cm → +0,026 %
+
+150 µS/cm → +0,031 %
+
+
+2) Aplicar Jones–Dole → variação percentual de viscosidade
+
+
+
+Mathieu Orfila – Toxicologia
+
+ORFILA, M. Traité des poisons tirés des règnes minéral, végétal et animal. Paris, 1814.
+🔹 Considerado o pai da toxicologia forense. Estabeleceu bases científicas para a detecção de venenos em contextos judiciais.
+🔹 Marco inicial da Química Forense como disciplina científica.
+
+A química forense, já no século XVIII, tornou-se parte do processo de investigação criminal no Brasil, inicialmente na área de agentes tóxicos.
+
