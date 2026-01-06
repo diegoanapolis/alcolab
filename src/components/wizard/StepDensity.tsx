@@ -43,9 +43,24 @@ export default function StepDensity({ onNext, onBack, initialData }: { onNext: (
   const liquidWaterMass = rawWaterMass - containerMass
   const liquidSampleMass = rawSampleMass - containerMass
   
+  // Função de submissão que calcula massas líquidas
+  const onSubmit = (data: DensityData) => {
+    // Se método é Balança e há massa do conjunto, calcular massas líquidas
+    if (data.method === "Balança" && data.containerMass && data.containerMass > 0) {
+      const adjustedData = {
+        ...data,
+        waterMass: data.waterMass ? data.waterMass - data.containerMass : undefined,
+        sampleMass: data.sampleMass ? data.sampleMass - data.containerMass : undefined,
+      }
+      onNext(adjustedData)
+    } else {
+      onNext(data)
+    }
+  }
+
   // Hook de swipe
   useSwipe({
-    onSwipeLeft: handleSubmit(onNext),
+    onSwipeLeft: handleSubmit(onSubmit),
     onSwipeRight: onBack
   }, true)
 
@@ -252,7 +267,7 @@ export default function StepDensity({ onNext, onBack, initialData }: { onNext: (
 
         <NavigationButtons
           onBack={onBack}
-          onNext={handleSubmit(onNext)}
+          onNext={handleSubmit(onSubmit)}
         />
       </form>
 
