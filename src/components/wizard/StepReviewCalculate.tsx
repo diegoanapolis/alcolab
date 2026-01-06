@@ -29,9 +29,9 @@ export default function StepReviewCalculate({ data, onBack, onCalculate }: {
   return (
     <>
       <div className="p-4 space-y-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-[#002060]">Revise os dados antes do cálculo</h1>
-          <MethodologyButton onClick={() => setShowMethodology(true)} compact />
+        <div>
+          <h1 className="text-xl font-bold text-[#002060]">Revise antes de calcular</h1>
+          <MethodologyButton onClick={() => setShowMethodology(true)} />
         </div>
         
         {/* Camada 1: Texto mínimo */}
@@ -132,7 +132,7 @@ export default function StepReviewCalculate({ data, onBack, onCalculate }: {
 }
 
 function Replicas({ kind }: { kind: "water" | "sample" }) {
-  let list: Array<{ previewUrl: string; fileName?: string; fileCreatedAt?: string; marks: Record<13|14|15|16|17|18, number|undefined> }> = []
+  let list: Array<{ previewUrl: string; fileName?: string; fileCreatedAt?: string; marks: Record<14|15|16|17|18, number|undefined> }> = []
   if (typeof window !== 'undefined') {
     try {
       const raw = localStorage.getItem(kind === 'water' ? 'videoReplicasWater' : 'videoReplicasSample')
@@ -144,7 +144,7 @@ function Replicas({ kind }: { kind: "water" | "sample" }) {
     <div className="space-y-1">
       {list.map((r, idx) => (
         <div key={idx} className="text-xs text-gray-600">
-          <span className="font-medium">Rep. {idx + 1}:</span> {([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).filter((v) => r.marks[v] != null).length} pontos
+          <span className="font-medium">Rep. {idx + 1}:</span> {([18,17,16,15,14] as Array<14|15|16|17|18>).filter((v) => r.marks[v] != null).length} pontos
         </div>
       ))}
     </div>

@@ -84,9 +84,9 @@ export default function StepWaterTemp({ onNext, onBack, initialData }: { onNext:
   return (
     <>
       <form className="space-y-4 p-4" onSubmit={handleSubmit(handleFormSubmit)}>
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-[#002060]">Meça a temperatura — água e amostra</h1>
-          <MethodologyButton onClick={() => setShowMethodology(true)} compact />
+        <div>
+          <h1 className="text-xl font-bold text-[#002060]">Meça as temperaturas</h1>
+          <MethodologyButton onClick={() => setShowMethodology(true)} />
         </div>
 
         {/* Tipo de água */}

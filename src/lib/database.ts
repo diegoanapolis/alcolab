@@ -40,15 +40,15 @@ export interface RunInputs {
     previewUrl: string
     fileName?: string
     fileCreatedAt?: string
-    marks: Record<13|14|15|16|17|18, number|undefined>
-    volumesMarked: Array<13|14|15|16|17|18>
+    marks: Record<14|15|16|17|18, number|undefined>
+    volumesMarked: Array<14|15|16|17|18>
   }>
   videoReplicatesSample?: Array<{
     previewUrl: string
     fileName?: string
     fileCreatedAt?: string
-    marks: Record<13|14|15|16|17|18, number|undefined>
-    volumesMarked: Array<13|14|15|16|17|18>
+    marks: Record<14|15|16|17|18, number|undefined>
+    volumesMarked: Array<14|15|16|17|18>
   }>
 }
 
