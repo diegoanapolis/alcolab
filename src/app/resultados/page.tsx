@@ -66,8 +66,8 @@ type TernariaOut = {
 export default function ResultadosPage() {
   const [result, setResult] = useState<ResultShape | null>(null)
   const [activeTab, setActiveTab] = useState<"Resultados" | "Dados experimentais">("Resultados")
-  const [waterReplicates, setWaterReplicates] = useState<Array<{ previewUrl: string; fileName?: string; fileCreatedAt?: string; marks: Record<13|14|15|16|17|18, number|undefined> }>>([])
-  const [sampleReplicates, setSampleReplicates] = useState<Array<{ previewUrl: string; fileName?: string; fileCreatedAt?: string; marks: Record<13|14|15|16|17|18, number|undefined> }>>([])
+  const [waterReplicates, setWaterReplicates] = useState<Array<{ previewUrl: string; fileName?: string; fileCreatedAt?: string; marks: Record<14|15|16|17|18, number|undefined> }>>([])
+  const [sampleReplicates, setSampleReplicates] = useState<Array<{ previewUrl: string; fileName?: string; fileCreatedAt?: string; marks: Record<14|15|16|17|18, number|undefined> }>>([])
   const [tempRef, setTempRef] = useState<{ temperatura: number[]; viscosidade: number[] } | null>(null)
   const [showAnalysisList, setShowAnalysisList] = useState<boolean | null>(null)
   const [selectedExperiment, setSelectedExperiment] = useState<ExperimentRun | null>(null)
@@ -141,8 +141,8 @@ export default function ResultadosPage() {
   }
 
   // Função auxiliar para calcular volumesMarked a partir dos marks
-  const getVolumesMarked = (marks: Record<13|14|15|16|17|18, number|undefined>): Array<13|14|15|16|17|18> => {
-    return ([18, 17, 16, 15, 14, 13] as Array<13|14|15|16|17|18>).filter(v => marks[v] != null)
+  const getVolumesMarked = (marks: Record<14|15|16|17|18, number|undefined>): Array<14|15|16|17|18> => {
+    return ([18, 17, 16, 15, 14] as Array<14|15|16|17|18>).filter(v => marks[v] != null)
   }
 
   // Função para salvar no banco de dados
@@ -730,10 +730,10 @@ export default function ResultadosPage() {
     return best?.line ?? null
   }
 
-  const computeR2 = (marks: Record<13|14|15|16|17|18, number|undefined>) => {
+  const computeR2 = (marks: Record<14|15|16|17|18, number|undefined>) => {
     const xs: number[] = []
     const ys: number[] = []
-    ;([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).forEach((v) => {
+    ;([18,17,16,15,14] as Array<14|15|16|17|18>).forEach((v) => {
       const t = marks[v]
       if (typeof t === "number" && !isNaN(t)) { xs.push(v); ys.push(t) }
     })
@@ -749,10 +749,10 @@ export default function ResultadosPage() {
     return r*r
   }
 
-  const estimateDeltaTime = (marks: Record<13|14|15|16|17|18, number|undefined>) => {
+  const estimateDeltaTime = (marks: Record<14|15|16|17|18, number|undefined>) => {
     const xs: number[] = []
     const ys: number[] = []
-    ;([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).forEach((v) => {
+    ;([18,17,16,15,14] as Array<14|15|16|17|18>).forEach((v) => {
       const t = marks[v]
       if (typeof t === "number" && !isNaN(t)) { xs.push(v); ys.push(t) }
     })
@@ -1179,7 +1179,7 @@ export default function ResultadosPage() {
               <ul className="mt-1 space-y-1">
                 <li>Range de volume considerado (mL): 18–13</li>
                 <li>Vídeo(s) amostra: {sampleReplicates.length ? sampleReplicates.map(r => r.fileName ?? "-").join("; ") : "-"}</li>
-                <li>Instantes de escoamento: {sampleReplicates.length ? sampleReplicates.map(r => ([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")).join("; ") : "-"}</li>
+                <li>Instantes de escoamento: {sampleReplicates.length ? sampleReplicates.map(r => ([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")).join("; ") : "-"}</li>
                 <li>Ajuste(s) linear do escoamento (R²): {sampleReplicates.length ? sampleReplicates.map(r => { const v = computeR2(r.marks); return v != null ? v.toFixed(3) : "-" }).join("; ") : "-"}</li>
                 <li>Tempo estimado escoamento (s): {sampleReplicates.length ? sampleReplicates.map(r => { const v = estimateDeltaTime(r.marks); return v != null ? v.toFixed(2) : "-" }).join("; ") : "-"}</li>
                 <li>Tempos inseridos manualmente (s): {result?.rawTimes?.sampleTimes && result.rawTimes.sampleTimes.length ? result.rawTimes.sampleTimes.map((t) => t?.toFixed?.(2)).join(", ") : "-"}</li>
@@ -1202,7 +1202,7 @@ export default function ResultadosPage() {
               <ul className="mt-1 space-y-1">
                 <li>Range de volume considerado (mL): 18–13</li>
                 <li>Vídeo(s) água: {waterReplicates.length ? waterReplicates.map(r => r.fileName ?? "-").join("; ") : "-"}</li>
-                <li>Instantes de escoamento: {waterReplicates.length ? waterReplicates.map(r => ([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")).join("; ") : "-"}</li>
+                <li>Instantes de escoamento: {waterReplicates.length ? waterReplicates.map(r => ([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")).join("; ") : "-"}</li>
                 <li>Ajuste(s) linear do escoamento (R²): {waterReplicates.length ? waterReplicates.map(r => { const v = computeR2(r.marks); return v != null ? v.toFixed(3) : "-" }).join("; ") : "-"}</li>
                 <li>Tempo estimado escoamento (s): {waterReplicates.length ? waterReplicates.map(r => { const v = estimateDeltaTime(r.marks); return v != null ? v.toFixed(2) : "-" }).join("; ") : "-"}</li>
                 <li>Tempos inseridos manualmente (s): {result?.rawTimes?.waterTimes && result.rawTimes.waterTimes.length ? result.rawTimes.waterTimes.map((t) => t?.toFixed?.(2)).join(", ") : "-"}</li>
