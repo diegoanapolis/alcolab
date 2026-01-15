@@ -25,8 +25,10 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
 
   const [showVideoModal, setShowVideoModal] = useState(false)
   const [videoTarget, setVideoTarget] = useState<"water" | "sample" | null>(null)
-  const galleryInputRef = useRef<HTMLInputElement | null>(null)
-  const cameraInputRef = useRef<HTMLInputElement | null>(null)
+  const galleryInputWaterRef = useRef<HTMLInputElement | null>(null)
+  const cameraInputWaterRef = useRef<HTMLInputElement | null>(null)
+  const galleryInputSampleRef = useRef<HTMLInputElement | null>(null)
+  const cameraInputSampleRef = useRef<HTMLInputElement | null>(null)
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const videoContainerRef = useRef<HTMLDivElement | null>(null)
   const [videoUrl, setVideoUrl] = useState<string | null>(null)
@@ -37,7 +39,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
   const [fineTime, setFineTime] = useState<number>(0)
   const [currentTimeSec, setCurrentTimeSec] = useState<number>(0)
   const [marks, setMarks] = useState<Record<13 | 14 | 15 | 16 | 17 | 18, number | undefined>>({ 18: undefined, 17: undefined, 16: undefined, 15: undefined, 14: undefined, 13: undefined })
-  const [pendingAction, setPendingAction] = useState<"gallery"|"camera"|null>(null)
+  // Removido pendingAction - agora usamos labels direto
   const [waterReplicates, setWaterReplicates] = useState<Array<Replicate>>([])
   const [sampleReplicates, setSampleReplicates] = useState<Array<Replicate>>([])
   const [editing, setEditing] = useState<{target:"water"|"sample"; index:number} | null>(null)
@@ -162,15 +164,18 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
     return () => window.removeEventListener("clearReplicates", handler)
   }, [])
 
-  useEffect(() => {
-    if (showVideoModal && pendingAction === "camera") {
-      cameraInputRef.current?.click()
-      setPendingAction(null)
-    } else if (showVideoModal && pendingAction === "gallery") {
-      galleryInputRef.current?.click()
-      setPendingAction(null)
-    }
-  }, [showVideoModal, pendingAction])
+  // Handler para quando arquivo é selecionado - abre o modal automaticamente
+  const handleFilePickedWithModal = (file: File | null, target: "water" | "sample") => {
+    if (!file) return
+    const url = URL.createObjectURL(file)
+    setVideoUrl(url)
+    setVideoTarget(target)
+    setCurrentFileName(file.name)
+    try { setCurrentFileCreatedAt(new Date(file.lastModified).toISOString()) } catch { setCurrentFileCreatedAt(undefined) }
+    setZoom(1)
+    setOffset({ x: 0, y: 0 })
+    setShowVideoModal(true)
+  }
 
   const handleFilePicked = (file: File | null) => {
     if (!file) return
@@ -453,15 +458,18 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
           {/* ÁGUA */}
           <div>
             <div className="font-medium text-sm text-[#002060] mb-2">Água - vídeo(s)</div>
+            {/* Inputs hidden para água */}
+            <input ref={cameraInputWaterRef} id="camera-water" type="file" accept="video/*" capture="environment" className="hidden" onChange={(e) => handleFilePickedWithModal(e.target.files?.[0] || null, "water")} />
+            <input ref={galleryInputWaterRef} id="gallery-water" type="file" accept="video/*" className="hidden" onChange={(e) => handleFilePickedWithModal(e.target.files?.[0] || null, "water")} />
             <div className="flex flex-col gap-2">
-              <button type="button" onClick={() => { setVideoTarget("water"); setShowVideoModal(true); setPendingAction("camera") }} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
+              <label htmlFor="camera-water" className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors cursor-pointer">
                 <Camera className="w-4 h-4 text-[#002060]" aria-hidden="true" />
                 <span className="text-[#002060]">Gravar vídeo</span>
-              </button>
-              <button type="button" onClick={() => { setVideoTarget("water"); setShowVideoModal(true); setPendingAction("gallery") }} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
+              </label>
+              <label htmlFor="gallery-water" className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors cursor-pointer">
                 <ImageIcon className="w-4 h-4 text-[#002060]" aria-hidden="true" />
                 <span className="text-[#002060]">Selecionar galeria</span>
-              </button>
+              </label>
               {waterReplicates.length > 0 && <div className="mt-2 text-sm font-medium text-[#002060]">Ensaios realizados</div>}
               {waterReplicates.map((r, idx) => (
                 <div key={idx} className="space-y-2 bg-gray-50 p-2 rounded-lg">
@@ -504,15 +512,18 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
           {/* AMOSTRA */}
           <div>
             <div className="font-medium text-sm text-[#002060] mb-2">Amostra - vídeo(s)</div>
+            {/* Inputs hidden para amostra */}
+            <input ref={cameraInputSampleRef} id="camera-sample" type="file" accept="video/*" capture="environment" className="hidden" onChange={(e) => handleFilePickedWithModal(e.target.files?.[0] || null, "sample")} />
+            <input ref={galleryInputSampleRef} id="gallery-sample" type="file" accept="video/*" className="hidden" onChange={(e) => handleFilePickedWithModal(e.target.files?.[0] || null, "sample")} />
             <div className="flex flex-col gap-2">
-              <button type="button" onClick={() => { setVideoTarget("sample"); setShowVideoModal(true); setPendingAction("camera") }} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
+              <label htmlFor="camera-sample" className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors cursor-pointer">
                 <Camera className="w-4 h-4 text-[#002060]" aria-hidden="true" />
                 <span className="text-[#002060]">Gravar vídeo</span>
-              </button>
-              <button type="button" onClick={() => { setVideoTarget("sample"); setShowVideoModal(true); setPendingAction("gallery") }} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
+              </label>
+              <label htmlFor="gallery-sample" className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors cursor-pointer">
                 <ImageIcon className="w-4 h-4 text-[#002060]" aria-hidden="true" />
                 <span className="text-[#002060]">Selecionar galeria</span>
-              </button>
+              </label>
               {sampleReplicates.length > 0 && <div className="mt-2 text-sm font-medium text-[#002060]">Ensaios realizados</div>}
               {sampleReplicates.map((r, idx) => (
                 <div key={idx} className="space-y-2 bg-gray-50 p-2 rounded-lg">
@@ -573,11 +584,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
         <div className="fixed inset-0 bg-white z-50 h-screen w-screen flex flex-col">
           <div className="p-3 flex items-center justify-between border-b">
             <h2 className="text-base font-semibold text-[#002060]">Instantes do escoamento</h2>
-            <div className="flex items-center gap-2">
-              <input ref={galleryInputRef} type="file" accept="video/*" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
-              <input ref={cameraInputRef} type="file" accept="video/*" capture="environment" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
-              <button type="button" onClick={() => { setShowVideoModal(false); setVideoTarget(null); setVideoUrl(null) }} className="border rounded-lg py-1 px-3 text-sm">← Voltar</button>
-            </div>
+            <button type="button" onClick={() => { setShowVideoModal(false); setVideoTarget(null); setVideoUrl(null) }} className="border rounded-lg py-1 px-3 text-sm">← Voltar</button>
           </div>
           {videoUrl && (
             <div className="flex-1 flex flex-col gap-2 p-4 overflow-y-auto">
