@@ -37,7 +37,6 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
   const [fineTime, setFineTime] = useState<number>(0)
   const [currentTimeSec, setCurrentTimeSec] = useState<number>(0)
   const [marks, setMarks] = useState<Record<14 | 15 | 16 | 17 | 18, number | undefined>>({ 18: undefined, 17: undefined, 16: undefined, 15: undefined, 14: undefined })
-  const [pendingAction, setPendingAction] = useState<"gallery"|"camera"|null>(null)
   const [waterReplicates, setWaterReplicates] = useState<Array<Replicate>>([])
   const [sampleReplicates, setSampleReplicates] = useState<Array<Replicate>>([])
   const [editing, setEditing] = useState<{target:"water"|"sample"; index:number} | null>(null)
@@ -162,15 +161,18 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
     return () => window.removeEventListener("clearReplicates", handler)
   }, [])
 
-  useEffect(() => {
-    if (showVideoModal && pendingAction === "camera") {
+  // Função para abrir seletor de arquivo diretamente (mobile-friendly)
+  // Em mobile, o click() deve ser chamado diretamente no handler do evento do usuário
+  const openFileSelector = (target: "water" | "sample", mode: "camera" | "gallery") => {
+    setVideoTarget(target)
+    setShowVideoModal(true)
+    // Acionar o input diretamente no mesmo evento de clique do usuário
+    if (mode === "camera") {
       cameraInputRef.current?.click()
-      setPendingAction(null)
-    } else if (showVideoModal && pendingAction === "gallery") {
+    } else {
       galleryInputRef.current?.click()
-      setPendingAction(null)
     }
-  }, [showVideoModal, pendingAction])
+  }
 
   const handleFilePicked = (file: File | null) => {
     if (!file) return
@@ -462,11 +464,11 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
           <div>
             <div className="font-medium text-sm text-[#002060] mb-2">Água - vídeo(s)</div>
             <div className="flex flex-col gap-2">
-              <button type="button" onClick={() => { setVideoTarget("water"); setShowVideoModal(true); setPendingAction("camera") }} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
+              <button type="button" onClick={() => openFileSelector("water", "camera")} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
                 <Camera className="w-4 h-4 text-[#002060]" aria-hidden="true" />
                 <span className="text-[#002060]">Gravar vídeo</span>
               </button>
-              <button type="button" onClick={() => { setVideoTarget("water"); setShowVideoModal(true); setPendingAction("gallery") }} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
+              <button type="button" onClick={() => openFileSelector("water", "gallery")} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
                 <ImageIcon className="w-4 h-4 text-[#002060]" aria-hidden="true" />
                 <span className="text-[#002060]">Selecionar galeria</span>
               </button>
@@ -513,11 +515,11 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
           <div>
             <div className="font-medium text-sm text-[#002060] mb-2">Amostra - vídeo(s)</div>
             <div className="flex flex-col gap-2">
-              <button type="button" onClick={() => { setVideoTarget("sample"); setShowVideoModal(true); setPendingAction("camera") }} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
+              <button type="button" onClick={() => openFileSelector("sample", "camera")} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
                 <Camera className="w-4 h-4 text-[#002060]" aria-hidden="true" />
                 <span className="text-[#002060]">Gravar vídeo</span>
               </button>
-              <button type="button" onClick={() => { setVideoTarget("sample"); setShowVideoModal(true); setPendingAction("gallery") }} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
+              <button type="button" onClick={() => openFileSelector("sample", "gallery")} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
                 <ImageIcon className="w-4 h-4 text-[#002060]" aria-hidden="true" />
                 <span className="text-[#002060]">Selecionar galeria</span>
               </button>
