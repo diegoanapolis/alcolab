@@ -26,8 +26,6 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
 
   const [showVideoModal, setShowVideoModal] = useState(false)
   const [videoTarget, setVideoTarget] = useState<"water" | "sample" | null>(null)
-  const galleryInputRef = useRef<HTMLInputElement | null>(null)
-  const cameraInputRef = useRef<HTMLInputElement | null>(null)
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const videoContainerRef = useRef<HTMLDivElement | null>(null)
   const [videoUrl, setVideoUrl] = useState<string | null>(null)
@@ -162,12 +160,13 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
     return () => window.removeEventListener("clearReplicates", handler)
   }, [])
 
-  const handleFilePicked = (file: File | null) => {
+  const handleFilePicked = (file: File | null, target: "water" | "sample") => {
     if (!file) return
     const url = URL.createObjectURL(file)
     setVideoUrl(url)
     setCurrentFileName(file.name)
     try { setCurrentFileCreatedAt(new Date(file.lastModified).toISOString()) } catch { setCurrentFileCreatedAt(undefined) }
+    setVideoTarget(target)
     setZoom(1)
     setOffset({ x: 0, y: 0 })
     setShowVideoModal(true)
@@ -419,49 +418,31 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
         <p className="text-red-600 text-sm">{customError}</p>
       )}
       <p className="text-sm text-neutral-600">Use o mesmo bico/seringa; não bompeie o êmbolo. Observe o menisco à altura dos olhos. Se perder o acionamento, complete o volume e refaça.</p>
-
-      <input
-        ref={galleryInputRef}
-        type="file"
-        accept="video/*"
-        className="hidden"
-        onChange={(e) => handleFilePicked(e.target.files?.[0] || null)}
-      />
-      <input
-        ref={cameraInputRef}
-        type="file"
-        accept="video/*"
-        capture="environment"
-        className="hidden"
-        onChange={(e) => handleFilePicked(e.target.files?.[0] || null)}
-      />
-
       <div className="grid grid-cols-2 gap-4">
         <div>
           <div className="font-medium" style={{ color: "var(--color-label)" }}>Água - vídeo(s)</div>
           <div className="flex flex-col gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                setVideoTarget("water")
-                cameraInputRef.current?.click()
-              }}
-              className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"
-            >
+            <label className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2">
               <Camera className="w-4 h-4" aria-hidden="true" />
-              Gravar vídeo
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setVideoTarget("water")
-                galleryInputRef.current?.click()
-              }}
-              className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"
-            >
+              <span>Gravar vídeo</span>
+              <input
+                type="file"
+                accept="video/*"
+                capture="environment"
+                className="sr-only"
+                onChange={(e) => handleFilePicked(e.target.files?.[0] || null, "water")}
+              />
+            </label>
+            <label className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2">
               <ImageIcon className="w-4 h-4" aria-hidden="true" />
-              Selecionar galeria
-            </button>
+              <span>Selecionar galeria</span>
+              <input
+                type="file"
+                accept="video/*"
+                className="sr-only"
+                onChange={(e) => handleFilePicked(e.target.files?.[0] || null, "water")}
+              />
+            </label>
             {waterReplicates.length > 0 && <div className="mt-2 text-sm font-medium">Ensaios realizados</div>}
             {waterReplicates.map((r, idx) => (
               <div key={idx} className="space-y-2">
@@ -520,28 +501,27 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
         <div>
           <div className="font-medium" style={{ color: "var(--color-label)" }}>Amostra - vídeo(s)</div>
           <div className="flex flex-col gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                setVideoTarget("sample")
-                cameraInputRef.current?.click()
-              }}
-              className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"
-            >
+            <label className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2">
               <Camera className="w-4 h-4" aria-hidden="true" />
-              Gravar vídeo
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setVideoTarget("sample")
-                galleryInputRef.current?.click()
-              }}
-              className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"
-            >
+              <span>Gravar vídeo</span>
+              <input
+                type="file"
+                accept="video/*"
+                capture="environment"
+                className="sr-only"
+                onChange={(e) => handleFilePicked(e.target.files?.[0] || null, "sample")}
+              />
+            </label>
+            <label className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2">
               <ImageIcon className="w-4 h-4" aria-hidden="true" />
-              Selecionar galeria
-            </button>
+              <span>Selecionar galeria</span>
+              <input
+                type="file"
+                accept="video/*"
+                className="sr-only"
+                onChange={(e) => handleFilePicked(e.target.files?.[0] || null, "sample")}
+              />
+            </label>
             {sampleReplicates.length > 0 && <div className="mt-2 text-sm font-medium">Ensaios realizados</div>}
             {sampleReplicates.map((r, idx) => (
               <div key={idx} className="space-y-2">
