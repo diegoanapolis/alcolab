@@ -38,7 +38,6 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
   const [fineTime, setFineTime] = useState<number>(0)
   const [currentTimeSec, setCurrentTimeSec] = useState<number>(0)
   const [marks, setMarks] = useState<Record<13 | 14 | 15 | 16 | 17 | 18, number | undefined>>({ 18: undefined, 17: undefined, 16: undefined, 15: undefined, 14: undefined, 13: undefined })
-  const [pendingAction, setPendingAction] = useState<"gallery"|"camera"|null>(null)
   const [waterReplicates, setWaterReplicates] = useState<Array<Replicate>>([])
   const [sampleReplicates, setSampleReplicates] = useState<Array<Replicate>>([])
   const [editing, setEditing] = useState<{target:"water"|"sample"; index:number} | null>(null)
@@ -163,19 +162,6 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
     return () => window.removeEventListener("clearReplicates", handler)
   }, [])
 
-  useEffect(() => {
-    if (showVideoModal && pendingAction === "camera") {
-      cameraInputRef.current?.click()
-      setPendingAction(null)
-    } else if (showVideoModal && pendingAction === "gallery") {
-      galleryInputRef.current?.click()
-      setPendingAction(null)
-    }
-  }, [showVideoModal, pendingAction])
-
-
-
-  
   const handleFilePicked = (file: File | null) => {
     if (!file) return
     const url = URL.createObjectURL(file)
@@ -184,6 +170,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
     try { setCurrentFileCreatedAt(new Date(file.lastModified).toISOString()) } catch { setCurrentFileCreatedAt(undefined) }
     setZoom(1)
     setOffset({ x: 0, y: 0 })
+    setShowVideoModal(true)
   }
   
   const onLoadedMetadata = () => {
@@ -433,12 +420,48 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
       )}
       <p className="text-sm text-neutral-600">Use o mesmo bico/seringa; não bompeie o êmbolo. Observe o menisco à altura dos olhos. Se perder o acionamento, complete o volume e refaça.</p>
 
+      <input
+        ref={galleryInputRef}
+        type="file"
+        accept="video/*"
+        className="hidden"
+        onChange={(e) => handleFilePicked(e.target.files?.[0] || null)}
+      />
+      <input
+        ref={cameraInputRef}
+        type="file"
+        accept="video/*"
+        capture="environment"
+        className="hidden"
+        onChange={(e) => handleFilePicked(e.target.files?.[0] || null)}
+      />
+
       <div className="grid grid-cols-2 gap-4">
         <div>
           <div className="font-medium" style={{ color: "var(--color-label)" }}>Água - vídeo(s)</div>
           <div className="flex flex-col gap-2">
-            <button type="button" onClick={() => { setVideoTarget("water"); setShowVideoModal(true); setPendingAction("camera") }} className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"><Camera className="w-4 h-4" aria-hidden="true" />Gravar vídeo</button>
-            <button type="button" onClick={() => { setVideoTarget("water"); setShowVideoModal(true); setPendingAction("gallery") }} className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"><ImageIcon className="w-4 h-4" aria-hidden="true" />Selecionar galeria</button>
+            <button
+              type="button"
+              onClick={() => {
+                setVideoTarget("water")
+                cameraInputRef.current?.click()
+              }}
+              className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"
+            >
+              <Camera className="w-4 h-4" aria-hidden="true" />
+              Gravar vídeo
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setVideoTarget("water")
+                galleryInputRef.current?.click()
+              }}
+              className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"
+            >
+              <ImageIcon className="w-4 h-4" aria-hidden="true" />
+              Selecionar galeria
+            </button>
             {waterReplicates.length > 0 && <div className="mt-2 text-sm font-medium">Ensaios realizados</div>}
             {waterReplicates.map((r, idx) => (
               <div key={idx} className="space-y-2">
@@ -497,8 +520,28 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
         <div>
           <div className="font-medium" style={{ color: "var(--color-label)" }}>Amostra - vídeo(s)</div>
           <div className="flex flex-col gap-2">
-            <button type="button" onClick={() => { setVideoTarget("sample"); setShowVideoModal(true); setPendingAction("camera") }} className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"><Camera className="w-4 h-4" aria-hidden="true" />Gravar vídeo</button>
-            <button type="button" onClick={() => { setVideoTarget("sample"); setShowVideoModal(true); setPendingAction("gallery") }} className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"><ImageIcon className="w-4 h-4" aria-hidden="true" />Selecionar galeria</button>
+            <button
+              type="button"
+              onClick={() => {
+                setVideoTarget("sample")
+                cameraInputRef.current?.click()
+              }}
+              className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"
+            >
+              <Camera className="w-4 h-4" aria-hidden="true" />
+              Gravar vídeo
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setVideoTarget("sample")
+                galleryInputRef.current?.click()
+              }}
+              className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"
+            >
+              <ImageIcon className="w-4 h-4" aria-hidden="true" />
+              Selecionar galeria
+            </button>
             {sampleReplicates.length > 0 && <div className="mt-2 text-sm font-medium">Ensaios realizados</div>}
             {sampleReplicates.map((r, idx) => (
               <div key={idx} className="space-y-2">
@@ -562,9 +605,17 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
           <div className="p-3 flex items-center justify-between">
             <h2 className="text-base font-semibold">Instantes do escoamento</h2>
             <div className="flex items-center gap-2">
-              <input ref={galleryInputRef} type="file" accept="video/*" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
-              <input ref={cameraInputRef} type="file" accept="video/*" capture="environment" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
-              <button type="button" onClick={() => { setShowVideoModal(false); setVideoTarget(null); setVideoUrl(null) }} className="border rounded-lg py-1 px-2 text-xs inline-flex items-center gap-1"><span aria-hidden="true">←</span> Voltar</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowVideoModal(false)
+                  setVideoTarget(null)
+                  setVideoUrl(null)
+                }}
+                className="border rounded-lg py-1 px-2 text-xs inline-flex items-center gap-1"
+              >
+                <span aria-hidden="true">←</span> Voltar
+              </button>
             </div>
           </div>
           {videoUrl && (
