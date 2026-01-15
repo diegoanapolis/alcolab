@@ -73,6 +73,7 @@ export default function ResultadosPage() {
   const [selectedExperiment, setSelectedExperiment] = useState<ExperimentRun | null>(null)
   const [showingFromDatabase, setShowingFromDatabase] = useState(false)
   const [showMethodology, setShowMethodology] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false) // Estado para controlar loading durante processamento
   const router = useRouter()
 
   // Função para converter experimento do banco em formato de resultado
@@ -249,6 +250,7 @@ export default function ResultadosPage() {
           localStorage.removeItem('lastResult')
           localStorage.removeItem('lastOutputs')
           setShowAnalysisList(false)
+          setIsProcessing(true) // Iniciar estado de processamento - mostrar loading
           // Não retornar - deixar o segundo useEffect processar
           return
         }
@@ -360,6 +362,7 @@ export default function ResultadosPage() {
           try { localStorage.removeItem("frontend_export_rows") } catch {}
           
           setResult(minimalResult)
+          setIsProcessing(false) // Terminou processamento
           console.log('⚠️ Resultado minimal criado:', minimalResult)
           return
         }
@@ -445,6 +448,7 @@ export default function ResultadosPage() {
         await saveToDatabase(mapped)
         
         setResult(mapped)
+        setIsProcessing(false) // Terminou processamento
         console.log('✅ Resultado processado e exibido com sucesso')
         
       } catch (error) {
@@ -457,6 +461,7 @@ export default function ResultadosPage() {
             console.log('📊 Usando lastResult como fallback')
           }
         } catch {}
+        setIsProcessing(false) // Terminou processamento (mesmo com erro)
       }
     })()
     return () => { alive = false }
@@ -953,6 +958,19 @@ export default function ResultadosPage() {
     )
   }
 
+  // Se está processando dados do wizard, mostrar loading até terminar
+  if (isProcessing && !result) {
+    return (
+      <div className="md:max-w-md md:mx-auto p-4 flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#002060] mx-auto mb-4"></div>
+          <p className="text-[#002060] font-medium">Processando análise...</p>
+          <p className="text-gray-500 text-sm mt-2">Aguarde enquanto calculamos os resultados.</p>
+        </div>
+      </div>
+    )
+  }
+
   // Se deve mostrar lista de análises, renderizar AnalysisListPage
   if (showAnalysisList) {
     return <AnalysisListPage onSelectExperiment={handleSelectExperiment} />
@@ -1270,4 +1288,3 @@ export default function ResultadosPage() {
     </div>
   )
 }
-

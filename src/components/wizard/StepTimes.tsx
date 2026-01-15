@@ -259,9 +259,27 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
     ;([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).forEach((v) => { if (marks[v] != null) vols.push(v) })
     return vols
   })()
-  const allMarked = ([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).every((v) => marks[v] != null)
-  const increasing = allMarked ? ((marks[18] as number) < (marks[17] as number) && (marks[17] as number) < (marks[16] as number) && (marks[16] as number) < (marks[15] as number) && (marks[15] as number) < (marks[14] as number) && (marks[14] as number) < (marks[13] as number)) : false
-  const canFinalize = allMarked && increasing
+  const markedCount = markedVolumes.length
+  const minMarksRequired = 5 // Permite faltar 1 frame (5 de 6)
+  const hasEnoughMarks = markedCount >= minMarksRequired
+  
+  // Verificar se os tempos marcados estão em ordem crescente (18 -> 13)
+  const increasing = (() => {
+    if (markedCount < minMarksRequired) return false
+    // Pegar apenas os volumes marcados e verificar se estão em ordem crescente
+    const sortedVols = [...markedVolumes].sort((a, b) => b - a) // 18, 17, 16... (decrescente por volume)
+    for (let i = 0; i < sortedVols.length - 1; i++) {
+      const currentVol = sortedVols[i]
+      const nextVol = sortedVols[i + 1]
+      const currentTime = marks[currentVol]
+      const nextTime = marks[nextVol]
+      if (currentTime == null || nextTime == null) return false
+      if (currentTime >= nextTime) return false // tempo deve aumentar conforme volume diminui
+    }
+    return true
+  })()
+  
+  const canFinalize = hasEnoughMarks && increasing
   const persistReplicas = (target: "water" | "sample", list: Replicate[]) => {
     try {
       const key = target === "water" ? "videoReplicasWater" : "videoReplicasSample"
@@ -674,8 +692,8 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
                 ))}
               </div>
               <div className="flex flex-col gap-2">
-                {!allMarked && <div className="text-xs text-red-600">Marque todos os pontos (18 mL a 13 mL)</div>}
-                {allMarked && !increasing && <div className="text-xs text-red-600">Instantes inconsistentes: os tempos devem ser crescentes de 18 até 13 mL</div>}
+                {!hasEnoughMarks && <div className="text-xs text-red-600">Marque pelo menos {minMarksRequired} pontos ({markedCount}/6 marcados)</div>}
+                {hasEnoughMarks && !increasing && <div className="text-xs text-red-600">Instantes inconsistentes: os tempos devem ser crescentes de 18 até 13 mL</div>}
                 <button type="button" disabled={!canFinalize} onClick={finalizeReplicate} className="bg-[#002060] hover:bg-[#001040] text-white rounded-lg py-3 px-4 disabled:bg-gray-300 disabled:cursor-not-allowed font-medium">Salvar pontos</button>
               </div>
             </div>
