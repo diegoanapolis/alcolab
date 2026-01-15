@@ -3,25 +3,26 @@ import React, { useRef, useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { timesSchema, TimesData } from "@/lib/schemas"
+import Link from "next/link"
 import * as Slider from "@radix-ui/react-slider"
 import { Camera, Image as ImageIcon } from "lucide-react"
 import NavigationButtons from "./NavigationButtons"
 import useSwipe from "@/hooks/useSwipe"
-import InfoTooltip, { InlineTooltip } from "@/components/ui/InfoTooltip"
-import MethodologyModal, { MethodologyButton } from "@/components/ui/MethodologyModal"
-import { MethodologyEscoamento } from "@/lib/methodologyContent"
 
-type Replicate = { previewUrl: string; duration: number; fileName?: string; fileCreatedAt?: string; marks: Record<14|15|16|17|18, number|undefined>; volumesMarked: Array<14|15|16|17|18>; derived?: { points: Array<{x:number;y:number}>; slope: number; intercept: number; r2: number; estimatedTime: number } }
+ 
+
+type Replicate = { previewUrl: string; duration: number; fileName?: string; fileCreatedAt?: string; marks: Record<13|14|15|16|17|18, number|undefined>; volumesMarked: Array<13|14|15|16|17|18>; derived?: { points: Array<{x:number;y:number}>; slope: number; intercept: number; r2: number; estimatedTime: number } }
 
 export default function StepTimes({ onNext, onBack, initialData }: { onNext: (data: TimesData) => void; onBack: () => void; initialData?: TimesData }) {
-  const [showMethodology, setShowMethodology] = useState(false)
-  
   const { handleSubmit, formState: { errors }, setValue, watch } = useForm<TimesData>({
     resolver: zodResolver(timesSchema),
     defaultValues: initialData ?? { waterTimes: [], sampleTimes: [] },
   });
   const waterTimes = watch("waterTimes") || []
   const sampleTimes = watch("sampleTimes") || []
+
+  
+
 
   const [showVideoModal, setShowVideoModal] = useState(false)
   const [videoTarget, setVideoTarget] = useState<"water" | "sample" | null>(null)
@@ -36,7 +37,8 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
   const [fineMax, setFineMax] = useState<number>(0.5)
   const [fineTime, setFineTime] = useState<number>(0)
   const [currentTimeSec, setCurrentTimeSec] = useState<number>(0)
-  const [marks, setMarks] = useState<Record<14 | 15 | 16 | 17 | 18, number | undefined>>({ 18: undefined, 17: undefined, 16: undefined, 15: undefined, 14: undefined })
+  const [marks, setMarks] = useState<Record<13 | 14 | 15 | 16 | 17 | 18, number | undefined>>({ 18: undefined, 17: undefined, 16: undefined, 15: undefined, 14: undefined, 13: undefined })
+  const [pendingAction, setPendingAction] = useState<"gallery"|"camera"|null>(null)
   const [waterReplicates, setWaterReplicates] = useState<Array<Replicate>>([])
   const [sampleReplicates, setSampleReplicates] = useState<Array<Replicate>>([])
   const [editing, setEditing] = useState<{target:"water"|"sample"; index:number} | null>(null)
@@ -119,7 +121,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
       setFineMax(0.5)
       setFineTime(0)
       setCurrentTimeSec(0)
-      setMarks({ 18: undefined, 17: undefined, 16: undefined, 15: undefined, 14: undefined })
+      setMarks({ 18: undefined, 17: undefined, 16: undefined, 15: undefined, 14: undefined, 13: undefined })
       setZoom(1)
       setOffset({ x: 0, y: 0 })
     }
@@ -161,19 +163,19 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
     return () => window.removeEventListener("clearReplicates", handler)
   }, [])
 
-  // Função para abrir seletor de arquivo diretamente (mobile-friendly)
-  // Em mobile, o click() deve ser chamado diretamente no handler do evento do usuário
-  const openFileSelector = (target: "water" | "sample", mode: "camera" | "gallery") => {
-    setVideoTarget(target)
-    setShowVideoModal(true)
-    // Acionar o input diretamente no mesmo evento de clique do usuário
-    if (mode === "camera") {
+  useEffect(() => {
+    if (showVideoModal && pendingAction === "camera") {
       cameraInputRef.current?.click()
-    } else {
+      setPendingAction(null)
+    } else if (showVideoModal && pendingAction === "gallery") {
       galleryInputRef.current?.click()
+      setPendingAction(null)
     }
-  }
+  }, [showVideoModal, pendingAction])
 
+
+
+  
   const handleFilePicked = (file: File | null) => {
     if (!file) return
     const url = URL.createObjectURL(file)
@@ -247,22 +249,18 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
       repeatRef.current = null
     }
   }
-  const assignMark = (vol: 14 | 15 | 16 | 17 | 18) => {
+  const assignMark = (vol: 13 | 14 | 15 | 16 | 17 | 18) => {
     const t = currentTimeSec
     setMarks((prev) => ({ ...prev, [vol]: t }))
   }
-  const markedVolumes = ((): Array<14|15|16|17|18> => {
-    const vols: Array<14|15|16|17|18> = []
-    ;([18,17,16,15,14] as Array<14|15|16|17|18>).forEach((v) => { if (marks[v] != null) vols.push(v) })
+  const markedVolumes = ((): Array<13|14|15|16|17|18> => {
+    const vols: Array<13|14|15|16|17|18> = []
+    ;([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).forEach((v) => { if (marks[v] != null) vols.push(v) })
     return vols
   })()
-  const minMarked = markedVolumes.length >= 3
-  const increasing = minMarked ? markedVolumes.slice().sort((a,b) => b-a).every((v, i, arr) => {
-    if (i === 0) return true
-    const prevVol = arr[i-1]
-    return (marks[prevVol] as number) < (marks[v] as number)
-  }) : false
-  const canFinalize = minMarked && increasing
+  const allMarked = ([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).every((v) => marks[v] != null)
+  const increasing = allMarked ? ((marks[18] as number) < (marks[17] as number) && (marks[17] as number) < (marks[16] as number) && (marks[16] as number) < (marks[15] as number) && (marks[15] as number) < (marks[14] as number) && (marks[14] as number) < (marks[13] as number)) : false
+  const canFinalize = allMarked && increasing
   const persistReplicas = (target: "water" | "sample", list: Replicate[]) => {
     try {
       const key = target === "water" ? "videoReplicasWater" : "videoReplicasSample"
@@ -296,6 +294,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
         worker.terminate()
       }
       worker.onerror = () => {
+        // Persist even if worker fails, without derived data
         const replicate = { ...replicateBase }
         if (editing && editing.target === "water") {
           setWaterReplicates(prev => { const next = prev.map((r, i) => (i === editing.index ? replicate : r)); persistReplicas("water", next); return next })
@@ -377,7 +376,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
     if (waterReplicates.length > 0 && sampleReplicates.length > 0) {
       const w = waterReplicates.reduce((a,b) => (b.volumesMarked.length > a.volumesMarked.length ? b : a))
       const s = sampleReplicates.reduce((a,b) => (b.volumesMarked.length > a.volumesMarked.length ? b : a))
-      if (w.volumesMarked.length < 3 || s.volumesMarked.length < 3) { setCustomError("Cada vídeo deve ter pelo menos 3 de 5 frames marcados."); return false }
+      if (w.volumesMarked.length < 4 || s.volumesMarked.length < 4) { setCustomError("Cada vídeo deve ter pelo menos 4 de 6 frames marcados."); return false }
       const big = w.volumesMarked.length >= s.volumesMarked.length ? w : s
       const small = big === w ? s : w
       const ok = small.volumesMarked.every((v) => big.volumesMarked.includes(v))
@@ -403,194 +402,175 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
     onSwipeLeft: canProgress() ? submitHandler : undefined,
     onSwipeRight: onBack
   }, !showVideoModal && !showTimerModal && canProgress())
-
   return (
-    <>
-      {/* Hidden file inputs - must be outside modal for proper timing */}
-      <input ref={galleryInputRef} type="file" accept="video/*" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
-      <input ref={cameraInputRef} type="file" accept="video/*" capture="environment" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
-      
-      <form className="space-y-4 p-4" onSubmit={submitHandler}>
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-[#002060]">Registre o{" "}
-            <InlineTooltip 
-              term="escoamento" 
-              tooltip="Tempo para atravessar um intervalo fixo de volume."
-            />
-          </h1>
-          <MethodologyButton onClick={() => setShowMethodology(true)} compact />
-        </div>
-        
-        {/* Camada 1: Instruções mínimas */}
-        <div className="text-sm text-neutral-700 text-justify space-y-2">
-          <p>
-            <span className="font-bold">Etapa mais sensível da metodologia.</span> A estimativa do tempo de escoamento 
-            (sempre de 18 mL a 14 mL, usando{" "}
-            <InlineTooltip 
-              term="menisco" 
-              tooltip="Parte inferior da superfície curva do líquido."
-            />{" "}
-            como referência) por vídeo é mais{" "}
-            <InlineTooltip 
-              term="robusta" 
-              tooltip="Capacidade de fornecer resultados confiáveis mesmo com pequenas variações nas condições do ensaio."
-            />{" "}
-            e recomendada.
-          </p>
-          <p>
-            Recomenda-se pelo menos duas{" "}
-            <InlineTooltip 
-              term="repetições" 
-              tooltip="Aumentam a confiabilidade da análise."
-            />{" "}
-            para cada (água e amostra).
-          </p>
-          <p>
-            É possível mesclar replicatas em vídeo e por inserção manual do tempo. 
-            Se optar por cronometrar o tempo total de escoamento, dê preferência ao cronômetro desta janela.
-          </p>
-        </div>
+    <form className="space-y-3 p-4" onSubmit={submitHandler}>
+      <h1 className="text-xl font-bold text-[#002060]">Registre o escoamento</h1>
+      <div className="text-xs leading-tight text-neutral-700 text-justify space-y-1">
+        <p>
+          <span className="font-bold">Etapa mais sensível da metodologia</span>. Não deixe de consultar a <Link href="/metodologia" className="underline">Metodologia</Link> em caso de dúvida.
+        </p>
+        <ol className="list-decimal pl-5 space-y-1">
+          <li>
+            <span className="font-bold">Use seringa de 20 mL limpa e seca</span>, livre de detergente, ou a enxágue com o líquido analisado.
+          </li>
+          <li>
+            Deixe o cronômetro em posição de disparar em sua mão, <span className="font-bold">preencha a seringa (sem êmbulo) com o líquido analisado</span>, por cima, até próximo à marcação de 20 mL e mantenha os seus olhos na altura do menisco (parte inferior da curva que define o nível do líquido).
+          </li>
+          <li>
+            Quando o menisco <span className="font-bold">encostar na graduação 15 mL</span>, dispare o cronômetro imediatamente. Continue acompanhando o menisco e interrompa o menisco imediatamente quando o menisco <span className="font-bold">tocar a marcação de 10 mL</span>.
+          </li>
+        </ol>
+        <p>
+          <span className="font-bold">Faça pelo menos dois escoamento (replicata)</span>. Se o recipiente coletor estiver limpo e seco, você poderá reaproveitar o líquido.
+        </p>
+      </div>
+      {/* Show validation messages when not enough replicas */}
+      {(errors?.waterTimes || errors?.sampleTimes) && (
+        <p className="text-red-600 text-sm">{errors?.waterTimes?.message || errors?.sampleTimes?.message as string}</p>
+      )}
+      {customError && (
+        <p className="text-red-600 text-sm">{customError}</p>
+      )}
+      <p className="text-sm text-neutral-600">Use o mesmo bico/seringa; não bompeie o êmbolo. Observe o menisco à altura dos olhos. Se perder o acionamento, complete o volume e refaça.</p>
 
-        {/* Validation messages */}
-        {(errors?.waterTimes || errors?.sampleTimes) && (
-          <p className="text-red-600 text-sm">{errors?.waterTimes?.message || errors?.sampleTimes?.message as string}</p>
-        )}
-        {customError && (
-          <p className="text-red-600 text-sm">{customError}</p>
-        )}
-
-        <div className="grid grid-cols-2 gap-4">
-          {/* ÁGUA */}
-          <div>
-            <div className="font-medium text-sm text-[#002060] mb-2">Água - vídeo(s)</div>
-            <div className="flex flex-col gap-2">
-              <button type="button" onClick={() => openFileSelector("water", "camera")} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
-                <Camera className="w-4 h-4 text-[#002060]" aria-hidden="true" />
-                <span className="text-[#002060]">Gravar vídeo</span>
-              </button>
-              <button type="button" onClick={() => openFileSelector("water", "gallery")} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
-                <ImageIcon className="w-4 h-4 text-[#002060]" aria-hidden="true" />
-                <span className="text-[#002060]">Selecionar galeria</span>
-              </button>
-              {waterReplicates.length > 0 && <div className="mt-2 text-sm font-medium text-[#002060]">Ensaios realizados</div>}
-              {waterReplicates.map((r, idx) => (
-                <div key={idx} className="space-y-2 bg-gray-50 p-2 rounded-lg">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium">Replicata {idx + 1}</span>
-                    <div className="flex items-center gap-3">
-                      <button type="button" className="text-xs underline text-[#002060]" onClick={() => { setEditing({ target: "water", index: idx }); setVideoTarget("water"); setVideoUrl(r.previewUrl); setMarks(r.marks); setShowVideoModal(true) }}>Editar</button>
-                      <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("water", idx)}>Excluir</button>
-                    </div>
-                  </div>
-                  <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
-                  <div className="w-full overflow-hidden h-20 rounded">
-                    <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadata" />
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <div className="font-medium" style={{ color: "var(--color-label)" }}>Água - vídeo(s)</div>
+          <div className="flex flex-col gap-2">
+            <button type="button" onClick={() => { setVideoTarget("water"); setShowVideoModal(true); setPendingAction("camera") }} className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"><Camera className="w-4 h-4" aria-hidden="true" />Gravar vídeo</button>
+            <button type="button" onClick={() => { setVideoTarget("water"); setShowVideoModal(true); setPendingAction("gallery") }} className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"><ImageIcon className="w-4 h-4" aria-hidden="true" />Selecionar galeria</button>
+            {waterReplicates.length > 0 && <div className="mt-2 text-sm font-medium">Ensaios realizados</div>}
+            {waterReplicates.map((r, idx) => (
+              <div key={idx} className="space-y-2">
+                <div className="px-3 py-2 border rounded-lg flex items-center justify-between">
+                  <span className="text-xs">Replicata {idx + 1}</span>
+                  <div className="flex items-center gap-3">
+                    <button type="button" className="text-xs underline" onClick={() => { setEditing({ target: "water", index: idx }); setVideoTarget("water"); setVideoUrl(r.previewUrl); setMarks(r.marks); setShowVideoModal(true) }}>Editar</button>
+                    <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("water", idx)}>Excluir</button>
                   </div>
                 </div>
-              ))}
-              
-              {/* Inserção manual */}
-              <div className="mt-3 pt-3 border-t">
-                <div className="font-medium text-xs text-[#002060] mb-2">Inserção manual de tempo (s)</div>
-                <div className="flex gap-1">
-                  <input type="text" inputMode="decimal" placeholder="99.1" value={manualWaterInput} onChange={(e) => setManualWaterInput(e.target.value)} className="border rounded-lg p-2 min-w-0 flex-1 text-sm text-center" />
-                  <button type="button" onClick={() => addManualTime("water")} className="border border-[#002060] rounded-lg w-10 flex-shrink-0 text-sm text-[#002060] font-medium">+</button>
+                <div className="text-xs text-neutral-600">Arquivo: {r.fileName ?? "-"} • Criado: {r.fileCreatedAt ? new Date(r.fileCreatedAt).toLocaleString() : "-"}</div>
+                <div className="text-xs text-neutral-600">Instantes (mL:s): {([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
+                <div className="w-full max-w-sm overflow-hidden h-24 md:h-28">
+                  <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadata" />
                 </div>
-                <button type="button" onClick={() => openTimer("water")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">⏱️ Cronômetro</button>
-                {waterTimes.length > 0 && (
-                  <div className="mt-2 space-y-1">
-                    {waterTimes.map((t, i) => (
-                      <div key={i} className="px-2 py-1.5 bg-gray-50 rounded flex items-center justify-between text-xs">
-                        <span>Tempo {waterReplicates.length + i + 1}: {t.toFixed(2)} s</span>
-                        <button type="button" onClick={() => removeManualTime("water", i)} className="text-red-600 hover:text-red-800">✕</button>
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
+            ))}
+            <div className="mt-3">
+              <div className="font-medium text-sm" style={{ color: "var(--color-label)" }}>Inserção manual de tempo (s)</div>
+              <div className="mt-1">
+                <input type="text" inputMode="decimal" placeholder="Tempo (s)" value={manualWaterInput} onChange={(e) => setManualWaterInput(e.target.value)} className="border rounded-lg p-2 w-full" />
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <button type="button" onClick={() => addManualTime("water")} className="border rounded-lg px-3 py-2 text-sm">Adicionar</button>
+                <button type="button" onClick={() => openTimer("water")} className="border rounded-lg px-3 py-2 text-sm">Cronômetro</button>
+              </div>
+              {waterTimes.length > 0 && (
+                <div className="mt-2 space-y-2">
+                  {waterTimes.map((t, i) => (
+                    <div key={i} className="space-y-1">
+                      <div className="px-3 py-2 bg-gray-50 border rounded-lg flex items-center justify-between">
+                        <div className="flex flex-col">
+                          <span className="text-xs font-medium">Replicata {waterReplicates.length + i + 1}</span>
+                          <span className="text-xs text-neutral-600">Tempo: {t.toFixed(2)} s</span>
+                        </div>
+                        <button 
+                          type="button" 
+                          onClick={() => removeManualTime("water", i)}
+                          className="text-red-600 hover:text-red-800 p-1"
+                          title="Excluir tempo"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-
-          {/* AMOSTRA */}
-          <div>
-            <div className="font-medium text-sm text-[#002060] mb-2">Amostra - vídeo(s)</div>
-            <div className="flex flex-col gap-2">
-              <button type="button" onClick={() => openFileSelector("sample", "camera")} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
-                <Camera className="w-4 h-4 text-[#002060]" aria-hidden="true" />
-                <span className="text-[#002060]">Gravar vídeo</span>
-              </button>
-              <button type="button" onClick={() => openFileSelector("sample", "gallery")} className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors">
-                <ImageIcon className="w-4 h-4 text-[#002060]" aria-hidden="true" />
-                <span className="text-[#002060]">Selecionar galeria</span>
-              </button>
-              {sampleReplicates.length > 0 && <div className="mt-2 text-sm font-medium text-[#002060]">Ensaios realizados</div>}
-              {sampleReplicates.map((r, idx) => (
-                <div key={idx} className="space-y-2 bg-gray-50 p-2 rounded-lg">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium">Replicata {idx + 1}</span>
-                    <div className="flex items-center gap-3">
-                      <button type="button" className="text-xs underline text-[#002060]" onClick={() => { setEditing({ target: "sample", index: idx }); setVideoTarget("sample"); setVideoUrl(r.previewUrl); setMarks(r.marks); setShowVideoModal(true) }}>Editar</button>
-                      <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("sample", idx)}>Excluir</button>
-                    </div>
-                  </div>
-                  <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
-                  <div className="w-full overflow-hidden h-20 rounded">
-                    <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadata" />
-                  </div>
-                </div>
-              ))}
-              
-              {/* Inserção manual */}
-              <div className="mt-3 pt-3 border-t">
-                <div className="font-medium text-xs text-[#002060] mb-2">Inserção manual de tempo (s)</div>
-                <div className="flex gap-1">
-                  <input type="text" inputMode="decimal" placeholder="253.5" value={manualSampleInput} onChange={(e) => setManualSampleInput(e.target.value)} className="border rounded-lg p-2 min-w-0 flex-1 text-sm text-center" />
-                  <button type="button" onClick={() => addManualTime("sample")} className="border border-[#002060] rounded-lg w-10 flex-shrink-0 text-sm text-[#002060] font-medium">+</button>
-                </div>
-                <button type="button" onClick={() => openTimer("sample")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">⏱️ Cronômetro</button>
-                {sampleTimes.length > 0 && (
-                  <div className="mt-2 space-y-1">
-                    {sampleTimes.map((t, i) => (
-                      <div key={i} className="px-2 py-1.5 bg-gray-50 rounded flex items-center justify-between text-xs">
-                        <span>Tempo {sampleReplicates.length + i + 1}: {t.toFixed(2)} s</span>
-                        <button type="button" onClick={() => removeManualTime("sample", i)} className="text-red-600 hover:text-red-800">✕</button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          
         </div>
 
-        <NavigationButtons
-          onBack={onBack}
-          onNext={submitHandler}
-        />
-      </form>
+        <div>
+          <div className="font-medium" style={{ color: "var(--color-label)" }}>Amostra - vídeo(s)</div>
+          <div className="flex flex-col gap-2">
+            <button type="button" onClick={() => { setVideoTarget("sample"); setShowVideoModal(true); setPendingAction("camera") }} className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"><Camera className="w-4 h-4" aria-hidden="true" />Gravar vídeo</button>
+            <button type="button" onClick={() => { setVideoTarget("sample"); setShowVideoModal(true); setPendingAction("gallery") }} className="border rounded-lg px-3 py-3 text-sm inline-flex items-center gap-2"><ImageIcon className="w-4 h-4" aria-hidden="true" />Selecionar galeria</button>
+            {sampleReplicates.length > 0 && <div className="mt-2 text-sm font-medium">Ensaios realizados</div>}
+            {sampleReplicates.map((r, idx) => (
+              <div key={idx} className="space-y-2">
+                <div className="px-3 py-2 border rounded-lg flex items-center justify-between">
+                  <span className="text-xs">Replicata {idx + 1}</span>
+                  <div className="flex items-center gap-3">
+                    <button type="button" className="text-xs underline" onClick={() => { setEditing({ target: "sample", index: idx }); setVideoTarget("sample"); setVideoUrl(r.previewUrl); setMarks(r.marks); setShowVideoModal(true) }}>Editar</button>
+                    <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("sample", idx)}>Excluir</button>
+                  </div>
+                </div>
+                <div className="text-xs text-neutral-600">Arquivo: {r.fileName ?? "-"} • Criado: {r.fileCreatedAt ? new Date(r.fileCreatedAt).toLocaleString() : "-"}</div>
+                <div className="text-xs text-neutral-600">Instantes (mL:s): {([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
+                <div className="w-full max-w-sm overflow-hidden h-24 md:h-28">
+                  <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadata" />
+                </div>
+              </div>
+            ))}
+            <div className="mt-3">
+              <div className="font-medium text-sm" style={{ color: "var(--color-label)" }}>Inserção manual de tempo (s)</div>
+              <div className="mt-1">
+                <input type="text" inputMode="decimal" placeholder="Tempo (s)" value={manualSampleInput} onChange={(e) => setManualSampleInput(e.target.value)} className="border rounded-lg p-2 w-full" />
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <button type="button" onClick={() => addManualTime("sample")} className="border rounded-lg px-3 py-2 text-sm">Adicionar</button>
+                <button type="button" onClick={() => openTimer("sample")} className="border rounded-lg px-3 py-2 text-sm">Cronômetro</button>
+              </div>
+              {sampleTimes.length > 0 && (
+                <div className="mt-2 space-y-2">
+                  {sampleTimes.map((t, i) => (
+                    <div key={i} className="space-y-1">
+                      <div className="px-3 py-2 bg-gray-50 border rounded-lg flex items-center justify-between">
+                        <div className="flex flex-col">
+                          <span className="text-xs font-medium">Replicata {sampleReplicates.length + i + 1}</span>
+                          <span className="text-xs text-neutral-600">Tempo: {t.toFixed(2)} s</span>
+                        </div>
+                        <button 
+                          type="button" 
+                          onClick={() => removeManualTime("sample", i)}
+                          className="text-red-600 hover:text-red-800 p-1"
+                          title="Excluir tempo"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+          
+        </div>
+      </div>
 
-      {/* Modal de Metodologia da Etapa (Camada 3) */}
-      <MethodologyModal
-        isOpen={showMethodology}
-        onClose={() => setShowMethodology(false)}
-        title="Metodologia: Escoamento"
-      >
-        <MethodologyEscoamento />
-      </MethodologyModal>
 
-      {/* Video Modal */}
+
       {showVideoModal && (
         <div className="fixed inset-0 bg-white z-50 h-screen w-screen flex flex-col">
-          <div className="p-3 flex items-center justify-between border-b">
-            <h2 className="text-base font-semibold text-[#002060]">Instantes do escoamento</h2>
-            <button type="button" onClick={() => { setShowVideoModal(false); setVideoTarget(null); setVideoUrl(null) }} className="border rounded-lg py-1 px-3 text-sm">← Voltar</button>
+          <div className="p-3 flex items-center justify-between">
+            <h2 className="text-base font-semibold">Instantes do escoamento</h2>
+            <div className="flex items-center gap-2">
+              <input ref={galleryInputRef} type="file" accept="video/*" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
+              <input ref={cameraInputRef} type="file" accept="video/*" capture="environment" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
+              <button type="button" onClick={() => { setShowVideoModal(false); setVideoTarget(null); setVideoUrl(null) }} className="border rounded-lg py-1 px-2 text-xs inline-flex items-center gap-1"><span aria-hidden="true">←</span> Voltar</button>
+            </div>
           </div>
           {videoUrl && (
             <div className="flex-1 flex flex-col gap-2 p-4 overflow-y-auto">
-              <p className="text-xs leading-tight text-neutral-700 text-justify">
-                Use zoom 🤏🔍 e centralização ✋👆 da região do <span className="font-bold">menisco</span>, em conjunto com <span className="font-bold">Linha do tempo</span> e botões de <span className="font-bold">Ajuste fino</span> para localizar os instantes que o menisco toca cada um dos pontos <span className="font-bold">18 mL a 14 mL</span>.
-              </p>
-              <div ref={videoContainerRef} className="w-full max-w-3xl mx-auto bg-black overflow-hidden rounded-lg" style={{ touchAction: "pan-y", aspectRatio: "16 / 9.2" }} onTouchStart={(e) => {
+              <p className="text-xs leading-tight text-neutral-700 text-justify">Use zoom 🤏🔍 e centralização ✋👆 da região do menisco, em conjunto com <span className="font-bold">Linha do tempo</span> e botões de <span className="font-bold">Ajuste fino</span> para localizar os instantes que o <span className="font-bold">menisco (parte inferior da superfície do líquido)</span> toca cada um dos seguintes <span className="font-bold">pontos 18 mL a 13 mL</span>. Ao alcançar cada instante, clique no botão do respectivo volume, na parte inferior</p>
+              <div ref={videoContainerRef} className="w-full max-w-3xl mx-auto bg-black overflow-hidden" style={{ touchAction: "pan-y", aspectRatio: "16 / 9.2" }} onTouchStart={(e) => {
                 const pts = Array.from(e.touches).map(t => ({id: t.identifier, x: t.clientX, y: t.clientY}))
                 const half = typeof window !== 'undefined' ? window.innerHeight / 2 : 0
                 if (pts.length === 2 || (pts.length === 1 && pts[0].y < half)) {
@@ -627,23 +607,23 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
                 <video ref={videoRef} src={videoUrl} className="w-full h-full" style={{ transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`, transformOrigin: "center center" }} playsInline preload="metadata" controls={false} onLoadedMetadata={onLoadedMetadata} onTimeUpdate={() => setCurrentTimeSec(videoRef.current?.currentTime || 0)} />
               </div>
               <div className="space-y-2">
-                <div className="font-medium text-xs text-[#002060]">Zoom</div>
+                <div className="font-medium text-xs" style={{ color: "var(--color-label)" }}>Zoom</div>
                 <Slider.Root value={[zoom]} min={1} max={16} step={0.1} onValueChange={(v) => setZoom(v[0])} className="relative flex items-center select-none touch-none h-5">
                   <Slider.Track className="bg-neutral-200 relative grow rounded-full h-1">
-                    <Slider.Range className="absolute bg-[#002060] h-1 rounded-full" />
+                    <Slider.Range className="absolute bg-brand h-1 rounded-full" />
                   </Slider.Track>
-                  <Slider.Thumb className="block w-4 h-4 bg-[#002060] rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#002060]" aria-label="Zoom" />
+                  <Slider.Thumb className="block w-4 h-4 bg-brand rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" aria-label="Zoom" />
                 </Slider.Root>
               </div>
               <div className="space-y-2">
-                <div className="font-medium text-xs text-[#002060]">Linha do tempo</div>
+                <div className="font-medium text-xs" style={{ color: "var(--color-label)" }}>Linha do tempo</div>
                 <Slider.Root value={[coarseTime]} min={0} max={duration || 1} step={0.1} onValueChange={onChangeCoarse} className="relative flex items-center select-none touch-none h-5">
                   <Slider.Track className="bg-neutral-200 relative grow rounded-full h-1">
-                    <Slider.Range className="absolute bg-[#002060] h-1 rounded-full" />
+                    <Slider.Range className="absolute bg-brand h-1 rounded-full" />
                   </Slider.Track>
-                  <Slider.Thumb className="block w-4 h-4 bg-[#002060] rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#002060]" aria-label="Coarse" />
+                  <Slider.Thumb className="block w-4 h-4 bg-brand rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" aria-label="Coarse" />
                 </Slider.Root>
-                <div className="font-medium text-xs text-[#002060]">Ajuste fino</div>
+                <div className="font-medium text-xs" style={{ color: "var(--color-label)" }}>Ajuste fino</div>
                 <div className="grid grid-cols-6 gap-1">
                   {[-1.0, -0.5, -0.1, 0.1, 0.5, 1.0].map((d) => (
                     <button
@@ -654,53 +634,61 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
                       onMouseLeave={stopRepeat}
                       onTouchStart={() => startRepeat(d)}
                       onTouchEnd={stopRepeat}
-                      className="border rounded-lg py-2 px-2 text-xs hover:bg-gray-100"
+                      className="border rounded-lg py-2 px-2 text-xs"
                     >
                       {d > 0 ? `+${d.toFixed(1)}s` : `${d.toFixed(1)}s`}
                     </button>
                   ))}
                 </div>
-                <div className="text-sm text-neutral-700">Tempo atual: <span className="font-semibold">{currentTimeSec.toFixed(2)} s</span></div>
+                <div className="text-sm text-neutral-700">Tempo atual: {currentTimeSec.toFixed(2)} s</div>
               </div>
-              <div className="grid grid-cols-5 gap-2">
-                {[18,17,16,15,14].map((v) => (
-                  <button key={v} type="button" onClick={() => assignMark(v as 14|15|16|17|18)} className={`border rounded-lg py-2.5 px-2 leading-tight text-sm font-medium ${marks[v as 14|15|16|17|18] != null ? "bg-[#002060] text-white" : "hover:bg-gray-100"}`}>{v} mL</button>
+              <div className="grid grid-cols-6 gap-2">
+                {[18,17,16,15,14,13].map((v) => (
+                  <button key={v} type="button" onClick={() => assignMark(v as 13|14|15|16|17|18)} className={`border rounded-lg py-2.5 px-2 leading-tight ${marks[v as 13|14|15|16|17|18] != null ? "bg-brand text-white" : ""}`}>{v} mL</button>
                 ))}
               </div>
-              <div className="grid grid-cols-5 gap-2">
-                {[18,17,16,15,14].map((v) => (
-                  <div key={v} className="text-xs text-center font-medium">{marks[v as 14|15|16|17|18] != null ? `${(marks[v as 14|15|16|17|18] as number).toFixed(2)} s` : ""}</div>
+              <div className="grid grid-cols-6 gap-2">
+                {[18,17,16,15,14,13].map((v) => (
+                  <div key={v} className="text-xs text-center">{marks[v as 13|14|15|16|17|18] != null ? `${(marks[v as 13|14|15|16|17|18] as number).toFixed(2)} s` : ""}</div>
                 ))}
               </div>
               <div className="flex flex-col gap-2">
-                {!minMarked && <div className="text-xs text-red-600">Recomenda-se marcar todos os pontos (mín. 3)</div>}
-                {minMarked && !increasing && <div className="text-xs text-red-600">Instantes inconsistentes: os tempos devem ser crescentes de 18 até 14 mL</div>}
-                <button type="button" disabled={!canFinalize} onClick={finalizeReplicate} className="bg-[#002060] hover:bg-[#001040] text-white rounded-lg py-3 px-4 disabled:bg-gray-300 disabled:cursor-not-allowed font-medium">Salvar pontos</button>
+                {!allMarked && <div className="text-xs text-red-600">Marque todos os pontos (18 mL a 13 mL)</div>}
+                {allMarked && !increasing && <div className="text-xs text-red-600">Instantes de escoamento inconsistentes: os tempos devem ser crescentes de 18 até 13 mL</div>}
+                <div className="flex gap-2">
+                  <button type="button" disabled={!canFinalize} onClick={finalizeReplicate} className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-3 px-4 disabled:bg-blue-300 disabled:cursor-not-allowed">Salvar pontos</button>
+                </div>
               </div>
             </div>
           )}
         </div>
       )}
 
-      {/* Timer Modal */}
       {showTimerModal && (
         <div className="fixed inset-0 bg-white z-50 h-screen w-screen flex flex-col">
-          <div className="p-3 flex items-center justify-between border-b">
-            <h2 className="text-base font-semibold text-[#002060]">Cronômetro</h2>
-            <button type="button" onClick={() => { setShowTimerModal(false); setTimerTarget(null); stopTimer() }} className="border rounded-lg py-1 px-3 text-sm">Voltar</button>
+          <div className="p-3 flex items-center justify-between">
+            <h2 className="text-base font-semibold">Cronômetro</h2>
+            <div className="flex items-center gap-2">
+              <button type="button" onClick={() => { setShowTimerModal(false); setTimerTarget(null); stopTimer() }} className="border rounded-lg py-1 px-2 text-xs">Voltar</button>
+            </div>
           </div>
           <div className="flex-1 flex flex-col items-center justify-center gap-6 p-4">
-            <div className="text-5xl font-bold text-[#002060]">{(Math.round((elapsedMs/1000)*10)/10).toFixed(1)} s</div>
-            <button type="button" onClick={() => { timerRunning ? stopTimer() : startTimer() }} className={`rounded-full w-48 h-48 text-xl font-bold transition-colors ${timerRunning ? "bg-red-600 hover:bg-red-700 text-white" : "bg-green-600 hover:bg-green-700 text-white"}`}>{timerRunning ? "Parar" : "Disparar"}</button>
+            <div className="text-3xl font-bold">{(Math.round((elapsedMs/1000)*10)/10).toFixed(1)} s</div>
+            <button type="button" onClick={() => { timerRunning ? stopTimer() : startTimer() }} className={`rounded-full w-52 h-52 text-xl font-bold ${timerRunning ? "bg-red-600 text-white" : "bg-green-600 text-white"}`}>{timerRunning ? "Parar" : "Disparar"}</button>
             {!timerRunning && elapsedMs > 0 && (
-              <div className="flex gap-3">
-                <button type="button" onClick={saveTimer} className="bg-[#002060] hover:bg-[#001040] text-white rounded-lg py-3 px-6 font-medium">Salvar tempo</button>
-                <button type="button" onClick={() => { setElapsedMs(0) }} className="border border-gray-300 rounded-lg py-3 px-6">Descartar</button>
+              <div className="flex gap-2">
+                <button type="button" onClick={saveTimer} className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-3 px-4">Salvar tempo</button>
+                <button type="button" onClick={() => { setElapsedMs(0) }} className="border rounded-lg py-3 px-4">Descartar</button>
               </div>
             )}
           </div>
         </div>
       )}
-    </>
+
+      <NavigationButtons
+        onBack={onBack}
+        onNext={submitHandler}
+      />
+    </form>
   );
 }
