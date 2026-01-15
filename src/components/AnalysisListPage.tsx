@@ -1,14 +1,303 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { DatabaseService, ExperimentRun } from '@/lib/database'
+import { DatabaseService, ExperimentRun, RunOutputs, APP_VERSION } from '@/lib/database'
+import { runAlcoolPipeline } from '@/lib/alcoolWorkerClient'
+import { normalizeRow } from '@/lib/backendMapping'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { Download, Upload, Filter, Calendar, Search, FileDown, AlertCircle, Info, RefreshCw, CheckSquare, Square } from 'lucide-react'
+import { Download, Upload, Filter, Search, AlertCircle, Info, RefreshCw, CheckSquare, Square, Loader2 } from 'lucide-react'
 import { BEVERAGE_TYPES } from '@/lib/constants'
 import MultiSelectDropdown from './MultiSelectDropdown'
 
 interface AnalysisListPageProps {
   onSelectExperiment?: (exp: ExperimentRun) => void
+}
+
+// Função para verificar se balança tem baixa precisão e checar inconsistência
+const checkLowPrecisionConsistency = async (exp: ExperimentRun): Promise<{
+  canProcess: boolean
+  blockedReason?: string
+  message?: string
+}> => {
+  const inputs = exp.inputs
+  
+  // Se não tem informação de precisão da balança, pode processar normalmente
+  if (inputs.balancaTemDecimal === undefined || inputs.balancaTemDecimal === true) {
+    return { canProcess: true }
+  }
+  
+  // Balança sem casa decimal - verificar se há dados de lowPrecisionCheckResult
+  const checkResult = inputs.lowPrecisionCheckResult
+  
+  // Se o checkResult indicou erro (inconsistência), bloquear reprocessamento
+  if (checkResult?.status === 'error') {
+    return {
+      canProcess: false,
+      blockedReason: 'inconsistencia_precisao',
+      message: checkResult.message || 'Inconsistência entre densidade e teor de rótulo que, em conjunto com a baixa sensibilidade da balança, impede a análise de avançar.'
+    }
+  }
+  
+  // Se passou com warning ou não tem checkResult, precisa refazer a verificação
+  // (para casos de dados importados ou versões antigas)
+  if (!checkResult && inputs.method === 'Balança') {
+    // Tentar refazer a verificação de precisão
+    const waterMass = inputs.waterMassRaw ?? inputs.waterMass
+    const sampleMass = inputs.sampleMassRaw ?? inputs.sampleMass
+    const containerMass = inputs.containerMass ?? 0
+    
+    if (waterMass && sampleMass) {
+      const m_w = waterMass - containerMass
+      const m_s = sampleMass - containerMass
+      
+      if (m_w > 0 && m_s > 0) {
+        // Calcular intervalo de erro
+        const rho_min = (m_s - 0.5) / (m_w + 0.5)
+        const rho_max = (m_s + 0.5) / (m_w - 0.5)
+        
+        // Carregar tabela de conversão
+        try {
+          const convResponse = await fetch("/data/conversao_vv_para_wE_20C.json")
+          if (convResponse.ok) {
+            const convTable = await convResponse.json()
+            const rhoArray = convTable.rho_mix_g_per_mL_20C as number[]
+            const wEArray = convTable.wE_percent as number[]
+            
+            // Função para interpolar teor a partir de densidade relativa
+            const densityToAlcoholContent = (rho: number): number | null => {
+              if (rho >= rhoArray[0]) return 0
+              if (rho <= rhoArray[rhoArray.length - 1]) return 100
+              
+              for (let i = 0; i < rhoArray.length - 1; i++) {
+                if (rho <= rhoArray[i] && rho >= rhoArray[i + 1]) {
+                  const rho0 = rhoArray[i]
+                  const rho1 = rhoArray[i + 1]
+                  const w0 = wEArray[i]
+                  const w1 = wEArray[i + 1]
+                  const t = (rho - rho0) / (rho1 - rho0)
+                  return w0 + t * (w1 - w0)
+                }
+              }
+              return null
+            }
+            
+            const teor_min = densityToAlcoholContent(rho_max)
+            const teor_max = densityToAlcoholContent(rho_min)
+            
+            if (teor_min !== null && teor_max !== null) {
+              // Obter teor de rótulo
+              let labelTeorMM: number | null = null
+              
+              if (inputs.beverageType === "Outra hidroalcoólica") {
+                const etMM = inputs.ethanolMassPercent ?? 0
+                const metMM = inputs.methanolMassPercent ?? 0
+                labelTeorMM = etMM + metMM
+              } else if (inputs.labelAbv !== undefined && inputs.labelAbv !== null) {
+                if (inputs.labelUnit === "INPM ou % m/m") {
+                  labelTeorMM = inputs.labelAbv
+                } else {
+                  // Converter v/v para m/m
+                  const glArray = convTable.gl as number[]
+                  const glIndex = glArray.findIndex(v => v >= inputs.labelAbv!)
+                  if (glIndex >= 0 && glIndex < wEArray.length) {
+                    if (glIndex === 0 || glArray[glIndex] === inputs.labelAbv) {
+                      labelTeorMM = wEArray[glIndex]
+                    } else {
+                      const g0 = glArray[glIndex - 1]
+                      const g1 = glArray[glIndex]
+                      const w0 = wEArray[glIndex - 1]
+                      const w1 = wEArray[glIndex]
+                      const t = (inputs.labelAbv! - g0) / (g1 - g0)
+                      labelTeorMM = w0 + t * (w1 - w0)
+                    }
+                  }
+                }
+              }
+              
+              // Verificar se rótulo está no intervalo
+              if (labelTeorMM !== null) {
+                const rotuloNoIntervalo = labelTeorMM >= teor_min && labelTeorMM <= teor_max
+                
+                if (!rotuloNoIntervalo) {
+                  const rho_central = m_s / m_w
+                  const teor_central = densityToAlcoholContent(rho_central)
+                  
+                  return {
+                    canProcess: false,
+                    blockedReason: 'inconsistencia_precisao',
+                    message: `Inconsistência entre densidade e teor de rótulo que, em conjunto com a baixa sensibilidade da balança, impede a análise de avançar.\n\nConsiderando as massas informadas e variações máximas em cada pesagem (± 0,5 g), obtivemos teor alcoólico inicial de ${teor_central?.toFixed(1) ?? '?'}% e um intervalo possível entre ${teor_min.toFixed(1)}% e ${teor_max.toFixed(1)}% (% m/m).\n\nComo o teor de rótulo não se encontra dentro desse intervalo e a sensibilidade das pesagens é insuficiente para restringir a faixa estimada, recomenda-se repetir as pesagens com uma balança com pelo menos uma casa decimal ou utilizar um densímetro.`
+                  }
+                }
+              }
+            }
+          }
+        } catch (e) {
+          console.error('Erro ao verificar precisão:', e)
+        }
+      }
+    }
+  }
+  
+  return { canProcess: true }
+}
+
+// Função para reprocessar um experimento
+const reprocessExperiment = async (
+  exp: ExperimentRun,
+  onProgress?: (message: string) => void
+): Promise<{ success: boolean; error?: string; blocked?: boolean; blockMessage?: string }> => {
+  try {
+    onProgress?.(`Verificando ${exp.tags.sampleName || 'amostra'}...`)
+    
+    // Verificar se pode processar (baixa precisão de balança)
+    const precisionCheck = await checkLowPrecisionConsistency(exp)
+    if (!precisionCheck.canProcess) {
+      // Atualizar o experimento com status bloqueado
+      const blockedOutputs: Partial<RunOutputs> = {
+        processamentoStatus: 'bloqueado_precisao',
+        processamentoMensagem: precisionCheck.message,
+        // Limpar resultados anteriores que seriam inválidos
+        equivalentes: undefined,
+        classe_final: undefined,
+        compativel: undefined,
+        mostLikely: undefined,
+        conclusao: precisionCheck.message,
+      }
+      
+      await DatabaseService.updateExperiment(
+        exp.id!,
+        { outputs: blockedOutputs as RunOutputs },
+        { fromVersion: exp.appVersion, changesApplied: ['bloqueado_por_precisao'] }
+      )
+      
+      return { 
+        success: false, 
+        blocked: true, 
+        blockMessage: precisionCheck.message 
+      }
+    }
+    
+    onProgress?.(`Processando ${exp.tags.sampleName || 'amostra'}...`)
+    
+    const inputs = exp.inputs
+    
+    // Calcular média dos tempos
+    const mean = (arr: number[]) => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : NaN
+    const waterMean = mean(inputs.waterTimes)
+    const sampleMean = mean(inputs.sampleTimes)
+    
+    // Montar objeto de exportação
+    const exportRow: Record<string, unknown> = {
+      sampleName: inputs.sampleName ?? "",
+      beverageType: inputs.beverageType ?? "",
+      labelAbv: inputs.labelAbv ?? null,
+      labelUnit: inputs.labelUnit ?? "",
+      ethanolMassPercent: inputs.ethanolMassPercent ?? null,
+      methanolMassPercent: inputs.methanolMassPercent ?? null,
+      brand: inputs.brand ?? "",
+      
+      waterTemperature: inputs.waterTemperature ?? null,
+      sampleTemperature: inputs.sampleTemperature ?? null,
+      waterType: inputs.waterType ?? "",
+      
+      method: inputs.method ?? "",
+      containerMass: inputs.containerMass ?? null,
+      waterMass: inputs.waterMass ?? null,
+      sampleMass: inputs.sampleMass ?? null,
+      measuredUnit: inputs.measuredUnit ?? "",
+      measuredValue: inputs.measuredValue ?? null,
+      
+      t_agua: Number.isFinite(waterMean) ? waterMean : null,
+      t_amostra: Number.isFinite(sampleMean) ? sampleMean : null,
+      waterTimes: inputs.waterTimes.join(';'),
+      sampleTimes: inputs.sampleTimes.join(';'),
+      
+      n_extra_video_sample: Math.max(0, (inputs.videoReplicatesSample?.length ?? 0) - 1),
+      n_extra_manual_sample: Math.max(0, inputs.sampleTimes.length - 1),
+    }
+    
+    // Normalizar e processar
+    const normalizedRow = normalizeRow(exportRow)
+    
+    // Chamar o pipeline
+    const result = await runAlcoolPipeline([normalizedRow])
+    
+    if (!result || !result.resultados || result.resultados.length === 0) {
+      throw new Error('Pipeline não retornou resultados')
+    }
+    
+    const first = result.resultados[0]
+    const rep = result.repeticoes?.[0] ?? null
+    
+    // Montar novos outputs
+    const safeNum = (v: any): number | undefined => 
+      (typeof v === "number" && isFinite(v)) ? v : undefined
+    
+    const newOutputs: RunOutputs = {
+      waterMeanTime: safeNum(waterMean),
+      sampleMeanTime: safeNum(sampleMean),
+      viscosityRel: safeNum(first.mu_ratio ?? first.viscosityRel),
+      muAbsWater: safeNum(first.mu_agua_abs ?? first.muAbsWater),
+      muAbsSample: safeNum(first.mu_amostra_abs_corr ?? first.mu_amostra_abs ?? first.muAbsSample),
+      cvWaterTime: safeNum(first.cv_water_time ?? first.cvWaterTime),
+      cvSampleTime: safeNum(first.cv_sample_time ?? first.cvSampleTime),
+      
+      classe_final: rep?.classe_final ?? undefined,
+      equivalentes: rep?.equivalentes ?? undefined,
+      mostLikely: rep?.most_likely_txt ?? rep?.classe_final ?? undefined,
+      compativel: rep?.compativel ?? undefined,
+      seletividade: rep?.seletividade ?? undefined,
+      conclusao: rep?.conclusao ?? undefined,
+      
+      approvals: rep?.approvals ?? undefined,
+      flags: rep?.flags ?? undefined,
+      
+      erroMuMalhaAbs: safeNum(first.erro_mu_malha ?? first.erroMuMalhaAbs),
+      erroMuMalhaPct: safeNum(first.erro_mu_malha_pct ?? first.erroMuMalhaPct),
+      wAlcoolInicial: safeNum(first.w_alcool),
+      wAlcoolBest: safeNum(first.w_alcool_best ?? rep?.w_alcool_best),
+      
+      w_agua_est: safeNum(rep?.w_agua_est ?? first.w_agua_est),
+      w_et_est: safeNum(rep?.w_et_est ?? first.w_et_est),
+      w_met_est: safeNum(rep?.w_met_est ?? first.w_met_est),
+      expectedComposition: {
+        agua: safeNum(rep?.w_agua_est ?? first.w_agua_est) ?? 0,
+        et: safeNum(rep?.w_et_est ?? first.w_et_est) ?? 0,
+        met: safeNum(rep?.w_met_est ?? first.w_met_est) ?? 0,
+      },
+      
+      processamentoStatus: 'sucesso',
+      processamentoMensagem: undefined,
+    }
+    
+    // Atualizar no banco
+    await DatabaseService.updateExperiment(
+      exp.id!,
+      { outputs: newOutputs },
+      { fromVersion: exp.appVersion, changesApplied: ['reprocessamento_completo'] }
+    )
+    
+    return { success: true }
+    
+  } catch (error) {
+    console.error('Erro ao reprocessar:', error)
+    
+    // Atualizar com status de erro
+    try {
+      await DatabaseService.updateExperiment(
+        exp.id!,
+        { 
+          outputs: {
+            ...exp.outputs,
+            processamentoStatus: 'erro',
+            processamentoMensagem: String(error),
+          }
+        },
+        { fromVersion: exp.appVersion, changesApplied: ['erro_reprocessamento'] }
+      )
+    } catch {}
+    
+    return { success: false, error: String(error) }
+  }
 }
 
 export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPageProps) {
@@ -19,6 +308,13 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
   const [showEducationalAlert, setShowEducationalAlert] = useState(false)
   const [showReprocessing, setShowReprocessing] = useState(false)
   const [selectedForReprocessing, setSelectedForReprocessing] = useState<Set<number>>(new Set())
+  const [isReprocessing, setIsReprocessing] = useState(false)
+  const [reprocessingProgress, setReprocessingProgress] = useState<{
+    current: number
+    total: number
+    currentName: string
+    results: Array<{ id: number; name: string; success: boolean; blocked?: boolean; message?: string }>
+  } | null>(null)
   const [filters, setFilters] = useState({
     sampleName: '',
     brand: '',
@@ -26,7 +322,6 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
     startDate: '',
     endDate: ''
   })
-  const router = useRouter()
 
   useEffect(() => {
     loadExperiments()
@@ -83,6 +378,16 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
   }
 
   const getSemaforoColor = (exp: ExperimentRun): { backgroundColor: string; textColor: string; text: string; status: string } => {
+    // Verificar se foi bloqueado por precisão
+    if (exp.outputs.processamentoStatus === 'bloqueado_precisao') {
+      return {
+        backgroundColor: 'bg-gray-100',
+        textColor: 'text-gray-800',
+        text: 'Bloqueado: inconsistência balança',
+        status: 'Bloqueado'
+      }
+    }
+    
     const compativel = exp.outputs.compativel || 'Indeterminado'
     const beverageType = exp.inputs.beverageType
     const approvals = exp.outputs.approvals as any
@@ -133,11 +438,9 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
     }
     
     if (tipoBebida) {
-      // Verificar se é "Outra hidroalcoólica" com metanol informado > 0%
       const isOutraHidroComMetanol = beverageType === "Outra hidroalcoólica" && 
         (exp.inputs.methanolMassPercent != null && exp.inputs.methanolMassPercent > 0)
       
-      // Se é "Outra hidroalcoólica" com metanol informado, não alertar sobre metanol
       if (!isOutraHidroComMetanol && compativel === 'Incompatível' && eqHasMetanolAlto && experimentoAprovado) {
         return { 
           backgroundColor: 'bg-red-100', 
@@ -170,7 +473,6 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
       }
     }
     
-    // Caso padrão
     return { 
       backgroundColor: 'bg-yellow-100', 
       textColor: 'text-yellow-800',
@@ -204,13 +506,73 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
       return
     }
     
-    const confirmMsg = `Deseja reprocessar ${selectedForReprocessing.size} análise(s) com a versão atual do aplicativo?`
-    if (confirm(confirmMsg)) {
-      // TODO: Implementar lógica de reprocessamento
-      alert('Funcionalidade de reprocessamento em desenvolvimento')
-      setShowReprocessing(false)
-      setSelectedForReprocessing(new Set())
+    const confirmMsg = `Deseja reprocessar ${selectedForReprocessing.size} análise(s) com a versão atual do aplicativo (v${APP_VERSION})?\n\nIsso irá recalcular os resultados usando o fluxograma atualizado.`
+    if (!confirm(confirmMsg)) return
+    
+    setIsReprocessing(true)
+    const toProcess = filteredExperiments.filter(exp => selectedForReprocessing.has(exp.id!))
+    const results: Array<{ id: number; name: string; success: boolean; blocked?: boolean; message?: string }> = []
+    
+    setReprocessingProgress({
+      current: 0,
+      total: toProcess.length,
+      currentName: '',
+      results: []
+    })
+    
+    for (let i = 0; i < toProcess.length; i++) {
+      const exp = toProcess[i]
+      const name = exp.tags.sampleName || exp.inputs.beverageType || `Análise ${exp.id}`
+      
+      setReprocessingProgress({
+        current: i + 1,
+        total: toProcess.length,
+        currentName: name,
+        results: [...results]
+      })
+      
+      const result = await reprocessExperiment(exp, (msg) => {
+        setReprocessingProgress(prev => prev ? { ...prev, currentName: msg } : null)
+      })
+      
+      results.push({
+        id: exp.id!,
+        name,
+        success: result.success,
+        blocked: result.blocked,
+        message: result.blocked ? result.blockMessage : result.error
+      })
     }
+    
+    setReprocessingProgress({
+      current: toProcess.length,
+      total: toProcess.length,
+      currentName: 'Concluído',
+      results
+    })
+    
+    // Recarregar experimentos
+    await loadExperiments()
+    
+    setIsReprocessing(false)
+    setShowReprocessing(false)
+    setSelectedForReprocessing(new Set())
+    
+    // Mostrar resumo
+    const successCount = results.filter(r => r.success).length
+    const blockedCount = results.filter(r => r.blocked).length
+    const errorCount = results.filter(r => !r.success && !r.blocked).length
+    
+    let summaryMsg = `Reprocessamento concluído!\n\n✅ Sucesso: ${successCount}`
+    if (blockedCount > 0) {
+      summaryMsg += `\n⚠️ Bloqueados (baixa precisão balança): ${blockedCount}`
+    }
+    if (errorCount > 0) {
+      summaryMsg += `\n❌ Erros: ${errorCount}`
+    }
+    
+    alert(summaryMsg)
+    setReprocessingProgress(null)
   }
 
   const formatDate = (isoString: string) => {
@@ -249,12 +611,10 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
   }
 
   const selectExperiment = (exp: ExperimentRun) => {
-    // Se temos callback do pai, usar diretamente (sem recarregar)
     if (onSelectExperiment) {
       onSelectExperiment(exp)
       return
     }
-    // Fallback: salvar no localStorage e recarregar
     localStorage.setItem('selectedExperiment', JSON.stringify(exp))
     window.location.reload()
   }
@@ -294,8 +654,6 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
       }
     }
     reader.readAsText(file)
-    
-    // Reset input
     event.target.value = ''
   }
 
@@ -342,6 +700,7 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
         <button
           onClick={() => setShowFilters(!showFilters)}
           className="flex items-center gap-2 px-3 py-2 border rounded-lg text-sm bg-white"
+          disabled={isReprocessing}
         >
           <Filter className="w-4 h-4" />
           Filtros
@@ -355,6 +714,7 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
             }
           }}
           className="flex items-center gap-2 px-3 py-2 border rounded-lg text-sm bg-white"
+          disabled={isReprocessing}
         >
           <RefreshCw className="w-4 h-4" />
           Reprocessar
@@ -363,12 +723,13 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
         <button
           onClick={exportToJSON}
           className="flex items-center gap-2 px-3 py-2 bg-[#002060] text-white rounded-lg text-sm"
+          disabled={isReprocessing}
         >
           <Download className="w-4 h-4" />
           Backup
         </button>
         
-        <label className="flex items-center gap-2 px-3 py-2 border rounded-lg text-sm bg-white cursor-pointer">
+        <label className={`flex items-center gap-2 px-3 py-2 border rounded-lg text-sm bg-white cursor-pointer ${isReprocessing ? 'opacity-50 cursor-not-allowed' : ''}`}>
           <Upload className="w-4 h-4" />
           Restaurar
           <input
@@ -376,6 +737,7 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
             accept=".json"
             onChange={handleImportJSON}
             className="hidden"
+            disabled={isReprocessing}
           />
         </label>
         
@@ -388,9 +750,9 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
       </div>
 
       {/* Painel de reprocessamento */}
-      {showReprocessing && (
+      {showReprocessing && !isReprocessing && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-wrap gap-2">
             <span className="text-sm font-medium text-blue-800">
               Selecionar análises para reprocessar ({selectedForReprocessing.size} selecionadas)
             </span>
@@ -399,7 +761,7 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
                 onClick={selectAllForReprocessing}
                 className="text-xs text-blue-600 underline"
               >
-                Selecionar todas filtradas
+                Selecionar todas
               </button>
               <button
                 onClick={clearReprocessingSelection}
@@ -409,6 +771,11 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
               </button>
             </div>
           </div>
+          
+          <p className="text-xs text-blue-700">
+            O reprocessamento aplica o fluxograma atualizado (v{APP_VERSION}) aos dados brutos salvos.
+            Análises com balança sem casa decimal e inconsistência de densidade serão bloqueadas.
+          </p>
           
           {selectedForReprocessing.size > 0 && (
             <div className="flex gap-2">
@@ -431,12 +798,30 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
           )}
         </div>
       )}
+      
+      {/* Progresso do reprocessamento */}
+      {isReprocessing && reprocessingProgress && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-3">
+          <div className="flex items-center gap-2">
+            <Loader2 className="w-5 h-5 text-blue-600 animate-spin" />
+            <span className="text-sm font-medium text-blue-800">
+              Reprocessando... ({reprocessingProgress.current}/{reprocessingProgress.total})
+            </span>
+          </div>
+          <p className="text-xs text-blue-700">{reprocessingProgress.currentName}</p>
+          <div className="w-full bg-blue-200 rounded-full h-2">
+            <div 
+              className="bg-blue-600 h-2 rounded-full transition-all"
+              style={{ width: `${(reprocessingProgress.current / reprocessingProgress.total) * 100}%` }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Painel de filtros */}
       {showFilters && (
         <div className="bg-gray-50 border rounded-lg p-4 space-y-3">
           <div className="space-y-3">
-            {/* Tipo de amostra - dropdown multi-select com tags */}
             <MultiSelectDropdown
               label="Tipo de amostra"
               options={BEVERAGE_TYPES}
@@ -531,13 +916,14 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
           filteredExperiments.map((exp) => {
             const semaforoStyle = getSemaforoColor(exp)
             const isSelected = selectedForReprocessing.has(exp.id!)
+            const isBlocked = exp.outputs.processamentoStatus === 'bloqueado_precisao'
             
             return (
               <div
                 key={exp.id}
                 className={`border rounded-lg p-4 bg-white transition-colors ${
                   showReprocessing ? 'cursor-pointer' : 'cursor-pointer hover:bg-gray-50'
-                } ${isSelected ? 'ring-2 ring-blue-500 bg-blue-50' : ''}`}
+                } ${isSelected ? 'ring-2 ring-blue-500 bg-blue-50' : ''} ${isBlocked ? 'border-gray-300 bg-gray-50' : ''}`}
                 onClick={() => {
                   if (showReprocessing) {
                     toggleReprocessingSelection(exp.id!)
@@ -575,54 +961,63 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
                       <span>Tipo: {exp.inputs.beverageType}</span>
                     </div>
                     
-                    {/* Mostrar composições estatisticamente equivalentes */}
-                    <div className="text-xs">
-                      <span className="font-medium">Composições estatisticamente equivalentes:</span>
-                      <div className="mt-1 text-gray-700 text-xs leading-relaxed">
-                        {(() => {
-                          const eq = exp.outputs.equivalentes
-                          if (!eq || eq.trim() === '') {
-                            // Tentar gerar a partir dos dados disponíveis
-                            const labelAbv = exp.inputs.labelAbv
-                            const labelUnit = exp.inputs.labelUnit || '% v/v'
-                            if (labelAbv && labelAbv > 0) {
-                              // Calcular composição esperada
-                              let etanolMass = labelAbv * 0.8 // Conversão v/v -> m/m
-                              if (labelUnit.includes('m/m') || labelUnit.includes('INPM')) {
-                                etanolMass = labelAbv
-                              }
-                              const aguaMass = 100 - etanolMass
-                              return `Água ${aguaMass.toFixed(1)}%; etanol ${etanolMass.toFixed(1)}%.`
-                            }
-                            return 'Dados insuficientes'
-                          }
-                          // Formatar equivalentes existentes com quebra de linha
-                          const lines = eq.split(/\r?\n/).map(l => l.trim()).filter(Boolean)
-                          const uniqueLines = Array.from(new Set(lines))
-                          // Mostrar cada composição em uma linha separada
-                          return (
-                            <>
-                              {uniqueLines.map((line, idx) => (
-                                <div key={idx}>{line}</div>
-                              ))}
-                            </>
-                          )
-                        })()}
+                    {/* Mostrar mensagem de bloqueio se aplicável */}
+                    {isBlocked ? (
+                      <div className="text-xs bg-gray-100 p-2 rounded border border-gray-200">
+                        <span className="font-medium text-gray-700">⚠️ Análise bloqueada:</span>
+                        <p className="mt-1 text-gray-600">
+                          {exp.outputs.processamentoMensagem?.substring(0, 150) || 'Inconsistência entre densidade e teor de rótulo com balança de baixa precisão.'}
+                          {(exp.outputs.processamentoMensagem?.length ?? 0) > 150 && '...'}
+                        </p>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="text-xs">
+                        <span className="font-medium">Composições estatisticamente equivalentes:</span>
+                        <div className="mt-1 text-gray-700 text-xs leading-relaxed">
+                          {(() => {
+                            const eq = exp.outputs.equivalentes
+                            if (!eq || eq.trim() === '') {
+                              const labelAbv = exp.inputs.labelAbv
+                              const labelUnit = exp.inputs.labelUnit || '% v/v'
+                              if (labelAbv && labelAbv > 0) {
+                                let etanolMass = labelAbv * 0.8
+                                if (labelUnit.includes('m/m') || labelUnit.includes('INPM')) {
+                                  etanolMass = labelAbv
+                                }
+                                const aguaMass = 100 - etanolMass
+                                return `Água ${aguaMass.toFixed(1)}%; etanol ${etanolMass.toFixed(1)}%.`
+                              }
+                              return 'Dados insuficientes'
+                            }
+                            const lines = eq.split(/\r?\n/).map(l => l.trim()).filter(Boolean)
+                            const uniqueLines = Array.from(new Set(lines))
+                            return (
+                              <>
+                                {uniqueLines.map((line, idx) => (
+                                  <div key={idx}>{line}</div>
+                                ))}
+                              </>
+                            )
+                          })()}
+                        </div>
+                      </div>
+                    )}
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-400">v{exp.appVersion}</span>
+                    <span className="text-xs text-gray-400">
+                      v{exp.appVersion}
+                      {exp.lastProcessedVersion && exp.lastProcessedVersion !== exp.appVersion && (
+                        <span className="ml-1 text-blue-500">→ v{exp.lastProcessedVersion}</span>
+                      )}
+                    </span>
                     
-                    {/* Indicador do semáforo com cor e texto */}
                     <div className="flex items-center gap-2">
-                      {/* Bolinha colorida do semáforo */}
                       <span className={`w-3 h-3 rounded-full flex-shrink-0 ${
+                        isBlocked ? 'bg-gray-400' :
                         semaforoStyle.backgroundColor.includes('green') ? 'bg-green-500' :
                         semaforoStyle.backgroundColor.includes('red') ? 'bg-red-500' : 'bg-yellow-500'
                       }`} />
-                      {/* Texto resumido do resultado */}
                       <span className={`px-2 py-1 rounded text-xs font-medium ${
                         semaforoStyle.backgroundColor} ${semaforoStyle.textColor}
                       `}>

@@ -167,6 +167,11 @@ export default function MedirPage() {
         return String(n)
       }).filter(Boolean).join(";")
 
+      // Preparar dados de precisão da balança para salvar
+      const densityData = data.density as any // Cast para acessar campos extras
+      const balancaTemDecimal = densityData?.balancaTemDecimal
+      const lowPrecisionCheckResult = densityData?.lowPrecisionCheckResult
+      
       const exportRow: Record<string, unknown> = {
         sampleName: data.profile?.sampleName ?? "",
         beverageType: data.profile?.beverageType ?? "",
@@ -174,16 +179,25 @@ export default function MedirPage() {
         labelUnit: data.profile?.labelUnit ?? "",
         ethanolMassPercent: data.profile?.ethanolMassPercent ?? null,
         methanolMassPercent: data.profile?.methanolMassPercent ?? null,
+        brand: data.profile?.brand ?? "",
 
         waterTemperature: data.waterTemp?.waterTemperature ?? null,
         sampleTemperature: data.waterTemp?.sampleTemperature ?? null,
         waterType: data.waterTemp?.waterType ?? "",
 
         method: data.density?.method ?? "",
+        containerMass: data.density?.containerMass ?? null,
         waterMass: data.density?.waterMass ?? null,
         sampleMass: data.density?.sampleMass ?? null,
+        // Guardar massas brutas (com recipiente) para referência
+        waterMassRaw: densityData?.waterMassRaw ?? null,
+        sampleMassRaw: densityData?.sampleMassRaw ?? null,
         measuredUnit: data.density?.measuredUnit ?? "",
         measuredValue: data.density?.measuredValue ?? null,
+        
+        // Dados de precisão da balança
+        balancaTemDecimal: balancaTemDecimal,
+        lowPrecisionCheckResult: lowPrecisionCheckResult,
 
         t_agua: Number.isFinite(waterMean) ? waterMean : null,
         t_amostra: Number.isFinite(sampleMean) ? sampleMean : null,
@@ -474,7 +488,7 @@ export default function MedirPage() {
         <StepSampleData initialData={data.profile} onBack={back} onNext={(d) => { setData({ ...data, profile: d }); next(); }} />
       )}
       {step === 3 && (
-        <StepDensity initialData={data.density} onBack={back} onNext={(d) => { setData({ ...data, density: d }); next(); }} />
+        <StepDensity initialData={data.density} onBack={back} onNext={(d) => { setData({ ...data, density: d }); next(); }} wizardData={{ profile: data.profile }} />
       )}
       {step === 4 && (
         <StepWaterTemp initialData={data.waterTemp} onBack={back} onNext={(d) => { setData({ ...data, waterTemp: d }); next(); }} />

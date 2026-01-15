@@ -1,9 +1,9 @@
 import Dexie, { Table } from 'dexie'
 
 // Versões do sistema
-export const APP_VERSION = "1.0.0"
+export const APP_VERSION = "1.1.0"
 export const CALIBRATION_VERSION = "1.0.0" 
-export const SCHEMA_VERSION = "1.0.0"
+export const SCHEMA_VERSION = "1.1.0"
 
 // Interface para os dados de entrada do usuário
 export interface RunInputs {
@@ -26,10 +26,24 @@ export interface RunInputs {
   
   // Densidade
   method?: string
-  waterMass?: number
-  sampleMass?: number
+  containerMass?: number // Massa do conjunto (seringa, êmbolo, agulha) - NOVO
+  waterMass?: number // Massa líquida da água
+  sampleMass?: number // Massa líquida da amostra
+  waterMassRaw?: number // Massa bruta da água (com recipiente) - NOVO
+  sampleMassRaw?: number // Massa bruta da amostra (com recipiente) - NOVO
   measuredValue?: number
   measuredUnit?: string
+  
+  // Informação de precisão da balança - NOVO
+  balancaTemDecimal?: boolean // true = tem casa decimal, false = não tem, undefined = não perguntado
+  lowPrecisionCheckResult?: {
+    status: 'ok' | 'warning' | 'error'
+    message: string
+    teor_inicial_pct?: number
+    teor_min_pct?: number
+    teor_max_pct?: number
+    useLabelAsInitial?: boolean
+  }
   
   // Tempos de escoamento
   waterTimes: number[]
@@ -87,6 +101,10 @@ export interface RunOutputs {
   w_et_est?: number
   w_met_est?: number
   expectedComposition?: { agua?: number; et?: number; met?: number }
+  
+  // Status de processamento - NOVO
+  processamentoStatus?: 'sucesso' | 'bloqueado_precisao' | 'erro'
+  processamentoMensagem?: string // Mensagem explicativa quando bloqueado
 }
 
 // Interface para tags/metadados
@@ -104,11 +122,15 @@ export interface RunTags {
 export interface ExperimentRun {
   id?: number // Auto-incrementado pelo Dexie
   createdAt: string // ISO string
+  updatedAt?: string // ISO string - NOVO (para reprocessamentos)
   
   // Versões do sistema
   appVersion: string
   calibrationVersion: string
   schemaVersion: string
+  
+  // Versão do processamento (atualizada em reprocessamentos) - NOVO
+  lastProcessedVersion?: string
   
   // Dados principais
   inputs: RunInputs
@@ -118,6 +140,14 @@ export interface ExperimentRun {
   // Metadados adicionais
   processingTime?: number
   deviceInfo?: string
+  
+  // Histórico de reprocessamentos - NOVO
+  reprocessingHistory?: Array<{
+    date: string
+    fromVersion: string
+    toVersion: string
+    changesApplied?: string[]
+  }>
 }
 
 // Classe do banco de dados
@@ -127,8 +157,24 @@ class ExperimentDatabase extends Dexie {
   constructor() {
     super('experimentos_alcolab_db')
     
+    // Versão 1: Schema original
     this.version(1).stores({
       experiments: '++id, createdAt, tags.sampleName, tags.brand, tags.lot, tags.year, tags.month, appVersion, calibrationVersion, schemaVersion'
+    })
+    
+    // Versão 2: Adiciona updatedAt e lastProcessedVersion como índices
+    this.version(2).stores({
+      experiments: '++id, createdAt, updatedAt, tags.sampleName, tags.brand, tags.lot, tags.year, tags.month, appVersion, calibrationVersion, schemaVersion, lastProcessedVersion'
+    }).upgrade(tx => {
+      // Migração: adicionar campos novos aos registros existentes
+      return tx.table('experiments').toCollection().modify(exp => {
+        if (!exp.lastProcessedVersion) {
+          exp.lastProcessedVersion = exp.appVersion
+        }
+        if (!exp.updatedAt) {
+          exp.updatedAt = exp.createdAt
+        }
+      })
     })
   }
 }
@@ -162,16 +208,19 @@ export class DatabaseService {
     outputs: RunOutputs,
     tags: RunTags
   ): Promise<number> {
+    const now = new Date().toISOString()
     const experiment: ExperimentRun = {
-      createdAt: new Date().toISOString(),
+      createdAt: now,
+      updatedAt: now,
       appVersion: APP_VERSION,
       calibrationVersion: CALIBRATION_VERSION,
       schemaVersion: SCHEMA_VERSION,
+      lastProcessedVersion: APP_VERSION,
       inputs,
       outputs,
       tags: {
         ...tags,
-        fullDate: new Date().toISOString(),
+        fullDate: now,
         year: new Date().getFullYear(),
         month: new Date().getMonth() + 1
       },
@@ -179,6 +228,54 @@ export class DatabaseService {
     }
     
     return await db.experiments.add(experiment) as number
+  }
+  
+  // Atualizar um experimento existente (para reprocessamento) - NOVO
+  static async updateExperiment(
+    id: number,
+    updates: {
+      outputs?: RunOutputs
+      inputs?: Partial<RunInputs>
+      tags?: Partial<RunTags>
+    },
+    reprocessingInfo?: { fromVersion: string; changesApplied?: string[] }
+  ): Promise<void> {
+    const existing = await db.experiments.get(id)
+    if (!existing) {
+      throw new Error(`Experimento ${id} não encontrado`)
+    }
+    
+    const now = new Date().toISOString()
+    const updateData: Partial<ExperimentRun> = {
+      updatedAt: now,
+      lastProcessedVersion: APP_VERSION
+    }
+    
+    if (updates.outputs) {
+      updateData.outputs = { ...existing.outputs, ...updates.outputs }
+    }
+    
+    if (updates.inputs) {
+      updateData.inputs = { ...existing.inputs, ...updates.inputs }
+    }
+    
+    if (updates.tags) {
+      updateData.tags = { ...existing.tags, ...updates.tags }
+    }
+    
+    // Adicionar ao histórico de reprocessamento
+    if (reprocessingInfo) {
+      const history = existing.reprocessingHistory || []
+      history.push({
+        date: now,
+        fromVersion: reprocessingInfo.fromVersion,
+        toVersion: APP_VERSION,
+        changesApplied: reprocessingInfo.changesApplied
+      })
+      updateData.reprocessingHistory = history
+    }
+    
+    await db.experiments.update(id, updateData)
   }
   
   // Buscar todos os experimentos ordenados por data (mais recentes primeiro)
@@ -214,6 +311,12 @@ export class DatabaseService {
       .equals(tagValue)
       .reverse()
       .toArray()
+  }
+  
+  // Buscar experimentos que precisam de reprocessamento (versão antiga) - NOVO
+  static async getExperimentsNeedingReprocessing(): Promise<ExperimentRun[]> {
+    const all = await this.getAllExperiments()
+    return all.filter(exp => exp.lastProcessedVersion !== APP_VERSION)
   }
   
   // Busca combinada com filtros
@@ -306,6 +409,10 @@ export class DatabaseService {
           // Remover o ID para forçar criação de novo
           const newExp = { ...exp }
           delete newExp.id
+          
+          // Garantir campos novos
+          if (!newExp.updatedAt) newExp.updatedAt = newExp.createdAt
+          if (!newExp.lastProcessedVersion) newExp.lastProcessedVersion = newExp.appVersion
           
           await db.experiments.add(newExp)
           imported++
