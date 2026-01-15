@@ -11,7 +11,7 @@ import InfoTooltip, { InlineTooltip } from "@/components/ui/InfoTooltip"
 import MethodologyModal, { MethodologyButton } from "@/components/ui/MethodologyModal"
 import { MethodologyEscoamento } from "@/lib/methodologyContent"
 
-type Replicate = { previewUrl: string; duration: number; fileName?: string; fileCreatedAt?: string; marks: Record<13|14|15|16|17|18, number|undefined>; volumesMarked: Array<13|14|15|16|17|18>; derived?: { points: Array<{x:number;y:number}>; slope: number; intercept: number; r2: number; estimatedTime: number } }
+type Replicate = { previewUrl: string; duration: number; fileName?: string; fileCreatedAt?: string; marks: Record<14|15|16|17|18, number|undefined>; volumesMarked: Array<14|15|16|17|18>; derived?: { points: Array<{x:number;y:number}>; slope: number; intercept: number; r2: number; estimatedTime: number } }
 
 export default function StepTimes({ onNext, onBack, initialData }: { onNext: (data: TimesData) => void; onBack: () => void; initialData?: TimesData }) {
   const [showMethodology, setShowMethodology] = useState(false)
@@ -38,7 +38,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
   const [fineMax, setFineMax] = useState<number>(0.5)
   const [fineTime, setFineTime] = useState<number>(0)
   const [currentTimeSec, setCurrentTimeSec] = useState<number>(0)
-  const [marks, setMarks] = useState<Record<13 | 14 | 15 | 16 | 17 | 18, number | undefined>>({ 18: undefined, 17: undefined, 16: undefined, 15: undefined, 14: undefined, 13: undefined })
+  const [marks, setMarks] = useState<Record<14 | 15 | 16 | 17 | 18, number | undefined>>({ 18: undefined, 17: undefined, 16: undefined, 15: undefined, 14: undefined })
   // Removido pendingAction - agora usamos labels direto
   const [waterReplicates, setWaterReplicates] = useState<Array<Replicate>>([])
   const [sampleReplicates, setSampleReplicates] = useState<Array<Replicate>>([])
@@ -122,7 +122,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
       setFineMax(0.5)
       setFineTime(0)
       setCurrentTimeSec(0)
-      setMarks({ 18: undefined, 17: undefined, 16: undefined, 15: undefined, 14: undefined, 13: undefined })
+      setMarks({ 18: undefined, 17: undefined, 16: undefined, 15: undefined, 14: undefined })
       setZoom(1)
       setOffset({ x: 0, y: 0 })
     }
@@ -250,20 +250,20 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
       repeatRef.current = null
     }
   }
-  const assignMark = (vol: 13 | 14 | 15 | 16 | 17 | 18) => {
+  const assignMark = (vol: 14 | 15 | 16 | 17 | 18) => {
     const t = currentTimeSec
     setMarks((prev) => ({ ...prev, [vol]: t }))
   }
-  const markedVolumes = ((): Array<13|14|15|16|17|18> => {
-    const vols: Array<13|14|15|16|17|18> = []
-    ;([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).forEach((v) => { if (marks[v] != null) vols.push(v) })
+  const markedVolumes = ((): Array<14|15|16|17|18> => {
+    const vols: Array<14|15|16|17|18> = []
+    ;([18,17,16,15,14] as Array<14|15|16|17|18>).forEach((v) => { if (marks[v] != null) vols.push(v) })
     return vols
   })()
   const markedCount = markedVolumes.length
-  const minMarksRequired = 5 // Permite faltar 1 frame (5 de 6)
+  const minMarksRequired = 4 // Permite faltar 1 frame (4 de 5)
   const hasEnoughMarks = markedCount >= minMarksRequired
   
-  // Verificar se os tempos marcados estão em ordem crescente (18 -> 13)
+  // Verificar se os tempos marcados estão em ordem crescente (18 -> 14)
   const increasing = (() => {
     if (markedCount < minMarksRequired) return false
     // Pegar apenas os volumes marcados e verificar se estão em ordem crescente
@@ -274,7 +274,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
       const currentTime = marks[currentVol]
       const nextTime = marks[nextVol]
       if (currentTime == null || nextTime == null) return false
-      if (currentTime >= nextTime) return false // tempo deve aumentar conforme volume diminui
+      if (currentTime >= nextTime) return false // tempo deve aumentar conforme volume diminui (18 -> 14)
     }
     return true
   })()
@@ -394,7 +394,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
     if (waterReplicates.length > 0 && sampleReplicates.length > 0) {
       const w = waterReplicates.reduce((a,b) => (b.volumesMarked.length > a.volumesMarked.length ? b : a))
       const s = sampleReplicates.reduce((a,b) => (b.volumesMarked.length > a.volumesMarked.length ? b : a))
-      if (w.volumesMarked.length < 4 || s.volumesMarked.length < 4) { setCustomError("Cada vídeo deve ter pelo menos 4 de 6 frames marcados."); return false }
+      if (w.volumesMarked.length < 4 || s.volumesMarked.length < 4) { setCustomError("Cada vídeo deve ter pelo menos 4 de 5 frames marcados."); return false }
       const big = w.volumesMarked.length >= s.volumesMarked.length ? w : s
       const small = big === w ? s : w
       const ok = small.volumesMarked.every((v) => big.volumesMarked.includes(v))
@@ -498,7 +498,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
                       <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("water", idx)}>Excluir</button>
                     </div>
                   </div>
-                  <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
+                  <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
                   <div className="w-full overflow-hidden h-20 rounded">
                     <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadata" />
                   </div>
@@ -552,7 +552,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
                       <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("sample", idx)}>Excluir</button>
                     </div>
                   </div>
-                  <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14,13] as Array<13|14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
+                  <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
                   <div className="w-full overflow-hidden h-20 rounded">
                     <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadata" />
                   </div>
@@ -607,7 +607,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
           {videoUrl && (
             <div className="flex-1 flex flex-col gap-2 p-4 overflow-y-auto">
               <p className="text-xs leading-tight text-neutral-700 text-justify">
-                Use zoom 🤏🔍 e centralização ✋👆 da região do <span className="font-bold">menisco</span>, em conjunto com <span className="font-bold">Linha do tempo</span> e botões de <span className="font-bold">Ajuste fino</span> para localizar os instantes que o menisco toca cada um dos pontos <span className="font-bold">18 mL a 13 mL</span>.
+                Use zoom 🤏🔍 e centralização ✋👆 da região do <span className="font-bold">menisco</span>, em conjunto com <span className="font-bold">Linha do tempo</span> e botões de <span className="font-bold">Ajuste fino</span> para localizar os instantes que o menisco toca cada um dos pontos <span className="font-bold">18 mL a 14 mL</span>.
               </p>
               <div ref={videoContainerRef} className="w-full max-w-3xl mx-auto bg-black overflow-hidden rounded-lg" style={{ touchAction: "pan-y", aspectRatio: "16 / 9.2" }} onTouchStart={(e) => {
                 const pts = Array.from(e.touches).map(t => ({id: t.identifier, x: t.clientX, y: t.clientY}))
@@ -681,19 +681,19 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
                 </div>
                 <div className="text-sm text-neutral-700">Tempo atual: <span className="font-semibold">{currentTimeSec.toFixed(2)} s</span></div>
               </div>
-              <div className="grid grid-cols-6 gap-2">
-                {[18,17,16,15,14,13].map((v) => (
-                  <button key={v} type="button" onClick={() => assignMark(v as 13|14|15|16|17|18)} className={`border rounded-lg py-2.5 px-2 leading-tight text-sm font-medium ${marks[v as 13|14|15|16|17|18] != null ? "bg-[#002060] text-white" : "hover:bg-gray-100"}`}>{v} mL</button>
+              <div className="grid grid-cols-5 gap-2">
+                {[18,17,16,15,14].map((v) => (
+                  <button key={v} type="button" onClick={() => assignMark(v as 14|15|16|17|18)} className={`border rounded-lg py-2.5 px-2 leading-tight text-sm font-medium ${marks[v as 14|15|16|17|18] != null ? "bg-[#002060] text-white" : "hover:bg-gray-100"}`}>{v} mL</button>
                 ))}
               </div>
-              <div className="grid grid-cols-6 gap-2">
-                {[18,17,16,15,14,13].map((v) => (
-                  <div key={v} className="text-xs text-center font-medium">{marks[v as 13|14|15|16|17|18] != null ? `${(marks[v as 13|14|15|16|17|18] as number).toFixed(2)} s` : ""}</div>
+              <div className="grid grid-cols-5 gap-2">
+                {[18,17,16,15,14].map((v) => (
+                  <div key={v} className="text-xs text-center font-medium">{marks[v as 14|15|16|17|18] != null ? `${(marks[v as 14|15|16|17|18] as number).toFixed(2)} s` : ""}</div>
                 ))}
               </div>
               <div className="flex flex-col gap-2">
-                {!hasEnoughMarks && <div className="text-xs text-red-600">Marque pelo menos {minMarksRequired} pontos ({markedCount}/6 marcados)</div>}
-                {hasEnoughMarks && !increasing && <div className="text-xs text-red-600">Instantes inconsistentes: os tempos devem ser crescentes de 18 até 13 mL</div>}
+                {!hasEnoughMarks && <div className="text-xs text-red-600">Marque pelo menos {minMarksRequired} pontos ({markedCount}/5 marcados)</div>}
+                {hasEnoughMarks && !increasing && <div className="text-xs text-red-600">Instantes inconsistentes: os tempos devem ser crescentes de 18 até 14 mL</div>}
                 <button type="button" disabled={!canFinalize} onClick={finalizeReplicate} className="bg-[#002060] hover:bg-[#001040] text-white rounded-lg py-3 px-4 disabled:bg-gray-300 disabled:cursor-not-allowed font-medium">Salvar pontos</button>
               </div>
             </div>
