@@ -404,6 +404,10 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
 
   return (
     <>
+      {/* Hidden file inputs - must be outside modal for proper timing */}
+      <input ref={galleryInputRef} type="file" accept="video/*" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
+      <input ref={cameraInputRef} type="file" accept="video/*" capture="environment" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
+      
       <form className="space-y-4 p-4" onSubmit={submitHandler}>
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold text-[#002060]">Registre o{" "}
@@ -577,11 +581,7 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
         <div className="fixed inset-0 bg-white z-50 h-screen w-screen flex flex-col">
           <div className="p-3 flex items-center justify-between border-b">
             <h2 className="text-base font-semibold text-[#002060]">Instantes do escoamento</h2>
-            <div className="flex items-center gap-2">
-              <input ref={galleryInputRef} type="file" accept="video/*" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
-              <input ref={cameraInputRef} type="file" accept="video/*" capture="environment" className="hidden" onChange={(e) => handleFilePicked(e.target.files?.[0] || null)} />
-              <button type="button" onClick={() => { setShowVideoModal(false); setVideoTarget(null); setVideoUrl(null) }} className="border rounded-lg py-1 px-3 text-sm">← Voltar</button>
-            </div>
+            <button type="button" onClick={() => { setShowVideoModal(false); setVideoTarget(null); setVideoUrl(null) }} className="border rounded-lg py-1 px-3 text-sm">← Voltar</button>
           </div>
           {videoUrl && (
             <div className="flex-1 flex flex-col gap-2 p-4 overflow-y-auto">
