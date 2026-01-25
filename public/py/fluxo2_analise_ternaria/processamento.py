@@ -220,7 +220,7 @@ class MalhaBusca:
 
     def z_to_idx(self, z: float) -> int:
         z = float(np.clip(z, float(self.zmet_values.min()), float(self.zmet_values.max())))
-        idx = int(round(z * 1000.0)) - 1
+        idx = int(round(z * 1000.0))  # Nova malha começa em z=0.000 (removido -1)
         return int(np.clip(idx, 0, len(self.zmet_values) - 1))
 
     def idx_to_w(self, idx: int) -> float:
