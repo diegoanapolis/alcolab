@@ -66,7 +66,7 @@ function computeMarks(dt: number, t18: number): Record<14 | 15 | 16 | 17 | 18, n
 }
 
 const COMMON_BANNER_SAMPLE = 'Rótulo indicava teor alcoólico 40% v/v, com indicações de fabricante e lote ilegíveis. Dados pré-preenchidos abaixo.'
-const bannerDensity = (sampleMass: number) => `Mediu-se as seguintes massas: seringa+agulha 10.6 g; seringa+agulha+água 30.4 g; seringa+agulha+amostra ${sampleMass} g. Dados pré-preenchidos abaixo.`
+const bannerDensity = (waterMass: number, sampleMass: number) => `Mediu-se as seguintes massas: seringa+agulha 10.6 g; seringa+agulha+água ${waterMass} g; seringa+agulha+amostra ${sampleMass} g. Dados pré-preenchidos abaixo.`
 const COMMON_BANNER_TEMP = 'Experimento realizado a 25 °C, utilizando como padrão água mineral sem gás.'
 const COMMON_BANNER_TIMES_HEADER = 'Vídeos dos escoamentos disponibilizados e pré-selecionados abaixo. Para melhor compreensão da marcação dos instantes (etapa crítica), recomendamos clicar em "Editar" de cada vídeo e usar as pistas visuais para realizar as marcações. Caso prefira teste mais célere, apenas avance ou remova os 4 vídeos em "Excluir" e insira manualmente os tempos de escoamento (18 a 14 mL) fornecidos abaixo. Após digitar cada tempo, clique em "+".'
 
@@ -104,7 +104,7 @@ export const DEMO_SCENARIOS: DemoScenario[] = [
     density: {
       method: "Balança",
       containerMass: 10.6,
-      waterMass: 30.4,
+      waterMass: 30.3,
       sampleMass: 29.3,
     },
     waterTemp: {
@@ -132,7 +132,7 @@ export const DEMO_SCENARIOS: DemoScenario[] = [
     manualTimesText: "Água: 103.9 e 104.9 segundos\nAmostra: 214.8 e 219.2 segundos",
     banners: {
       sampleData: COMMON_BANNER_SAMPLE,
-      density: bannerDensity(29.3),
+      density: bannerDensity(30.3, 29.3),
       waterTemp: COMMON_BANNER_TEMP,
       times: `${COMMON_BANNER_TIMES_HEADER}\nÁgua: 103.9 e 104.9 segundos\nAmostra: 214.8 e 219.2 segundos`,
     },
@@ -154,7 +154,7 @@ export const DEMO_SCENARIOS: DemoScenario[] = [
     density: {
       method: "Balança",
       containerMass: 10.6,
-      waterMass: 30.4,
+      waterMass: 30.5,
       sampleMass: 29.5,
     },
     waterTemp: {
@@ -182,7 +182,7 @@ export const DEMO_SCENARIOS: DemoScenario[] = [
     manualTimesText: "Água: 103.9 e 104.9 segundos\nAmostra: 216.8 e 223.5 segundos",
     banners: {
       sampleData: COMMON_BANNER_SAMPLE,
-      density: bannerDensity(29.5),
+      density: bannerDensity(30.5, 29.5),
       waterTemp: COMMON_BANNER_TEMP,
       times: `${COMMON_BANNER_TIMES_HEADER}\nÁgua: 103.9 e 104.9 segundos\nAmostra: 216.8 e 223.5 segundos`,
     },
@@ -232,7 +232,7 @@ export const DEMO_SCENARIOS: DemoScenario[] = [
     manualTimesText: "Água: 103.9 e 104.9 segundos\nAmostra: 264.5 e 263.6 segundos",
     banners: {
       sampleData: COMMON_BANNER_SAMPLE,
-      density: bannerDensity(29.4),
+      density: bannerDensity(30.4, 29.4),
       waterTemp: COMMON_BANNER_TEMP,
       times: `${COMMON_BANNER_TIMES_HEADER}\nÁgua: 103.9 e 104.9 segundos\nAmostra: 264.5 e 263.6 segundos`,
     },
