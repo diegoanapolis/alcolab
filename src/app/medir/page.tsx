@@ -571,6 +571,7 @@ export default function MedirPage() {
             renderAfterTitle={
               <div className="text-left">
                 <button
+                  type="button"
                   onClick={() => setShowDemoModal(true)}
                   className="text-xs text-[#002060] underline hover:text-blue-700 transition-colors inline-flex items-center gap-1"
                 >
