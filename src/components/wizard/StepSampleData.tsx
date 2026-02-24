@@ -102,7 +102,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
               <input 
                 type="text" 
                 inputMode="decimal" 
-                placeholder="40.0" 
+                placeholder="Ex.: 40.0" 
                 {...register("labelAbv", { 
                   setValueAs: (v) => { 
                     const s = String(v ?? "").trim()

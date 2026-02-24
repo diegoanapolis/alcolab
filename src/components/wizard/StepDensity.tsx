@@ -505,7 +505,7 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
               <input
                 type="text"
                 inputMode="decimal"
-                placeholder="10.2"
+                placeholder="Ex.: 10.6"
                 className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent"
                 {...register("containerMass", { setValueAs: (v) => {
                   const s = String(v ?? "").trim()
@@ -525,7 +525,7 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
                 <input
                   type="text"
                   inputMode="decimal"
-                  placeholder="30.1"
+                  placeholder="Ex.: 30.4"
                   className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent"
                   {...register("waterMass", { setValueAs: (v) => {
                     const s = String(v ?? "").trim()
@@ -540,7 +540,7 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
                 <input
                   type="text"
                   inputMode="decimal"
-                  placeholder="27.5"
+                  placeholder="Ex.: 29.4"
                   className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent"
                   {...register("sampleMass", { setValueAs: (v) => {
                     const s = String(v ?? "").trim()

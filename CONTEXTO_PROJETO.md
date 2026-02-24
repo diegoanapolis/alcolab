@@ -1,293 +1,304 @@
-# CONTEXTUALIZAÇÃO DO PROJETO - PWA Análise de Álcool via Viscosidade
+# AlcoLab — Contexto Completo do Projeto
 
-## 📋 VISÃO GERAL
+## 1. O que é o AlcoLab
 
-### O que é a aplicação?
-Uma **Progressive Web App (PWA)** que analisa a composição de bebidas alcoólicas destiladas através de medidas de viscosidade. A aplicação estima a composição em **água, etanol e metanol**, auxiliando na triagem de bebidas potencialmente adulteradas.
+AlcoLab é uma **Progressive Web App (PWA)** de triagem analítica de soluções hidroalcoólicas. A partir de medidas simples de **massa** (balança) e **tempo de escoamento** (seringa + celular), o app estima a composição ternária **água / etanol / metanol** de uma amostra, comparando-a com o rótulo declarado.
 
-### Propósito
-- **Ferramenta preventiva de triagem** para proteção da saúde pública
-- Detectar possível presença de metanol em bebidas destiladas
-- **NÃO é exame confirmatório** - não substitui análises laboratoriais oficiais
-
-### Tecnologias Principais
-- **Frontend**: Next.js 14 + React + TypeScript + Tailwind CSS
-- **Processamento Python**: Pyodide (Python rodando no navegador via WebAssembly)
-- **Análise estatística**: NumPy, SciPy (Monte Carlo, testes estatísticos)
+É uma ferramenta de **triagem** — não substitui análises laboratoriais oficiais, mas é capaz de sinalizar contaminação por metanol e incompatibilidades graves usando apenas materiais acessíveis.
 
 ---
 
-## 📁 LOCALIZAÇÃO DO PROJETO
+## 2. Público-alvo e diferenciais
 
-```
-C:\Users\USUARIO\Documents\projetosclaude\pwa_alcool_app\pwa_integrated
-```
+### Quem usa
+- **Agentes de fiscalização sanitária** (Vigilância Sanitária, MAPA) — triagem rápida em campo
+- **Peritos e policiais** — evidência preliminar em apreensões
+- **Vendedores e distribuidores** — verificação de autenticidade de lotes
+- **Consumidor final** — qualquer pessoa com acesso a uma seringa e uma balança
+
+### Diferenciais
+| Característica | Detalhe |
+|---|---|
+| **Acessibilidade total** | Requer apenas seringa com agulha, balança (até de cozinha) e celular |
+| **Zero infraestrutura** | PWA funciona offline após primeiro acesso; processamento 100% no navegador |
+| **Alternativa analítica única** | Não existe outra ferramenta acessível que estime composição ternária água-etanol-metanol fora de laboratório |
+| **Processamento Python no browser** | Pipeline científico validado roda via Pyodide (WebAssembly), sem servidor |
+| **Análise por vídeo** | Usuário grava escoamento na seringa e marca volumes frame a frame; o app calcula regressão linear |
+| **Semáforo de segurança** | Verde/amarelo/vermelho com alertas de metanol e compatibilidade com rótulo |
+| **Modo demonstração** | 3 cenários reais (vodka contaminada, whisky contaminado, whisky legítimo) com vídeos hospedados em Cloudflare R2 |
+| **Banco local** | IndexedDB (Dexie) armazena histórico de análises no dispositivo, com export/import JSON |
+| **Dark mode** | Respeita `prefers-color-scheme` do sistema |
 
 ---
 
-## 🗂️ ESTRUTURA DE DIRETÓRIOS
+## 3. Conceito analítico (resumo)
 
+### Grandezas medidas
+1. **Densidade relativa** — razão entre massa da amostra e massa da água (mesmo volume, mesma temperatura), medida por pesagem diferencial com seringa
+2. **Viscosidade relativa** — razão entre tempos de escoamento da amostra e da água na mesma seringa (faixa 18 → 14 mL)
+
+### Pipeline de cálculo
+
+**Fluxo 1 — Teor alcoólico inicial (binário água-etanol)**
+- A partir da densidade relativa e tabelas de referência (Gay-Lussac, OIML), estima o teor em massa de etanol assumindo mistura binária água-etanol.
+- Converte entre unidades: % v/v, °GL, INPM, % m/m.
+
+**Fluxo 2 — Composição ternária (água-etanol-metanol)**
+- Combina densidade relativa + viscosidade relativa (corrigida para 20°C) em uma malha 3D pré-calculada que mapeia (densidade, viscosidade) → composições ternárias equivalentes.
+- Usa interpolação na malha (`malha_viscosidade_ajuste_bordas_f32.npz`) para encontrar todas as composições que satisfazem simultaneamente a densidade e a viscosidade medidas.
+- Compara com a composição esperada pelo rótulo e classifica: compatível, incompatível, ou possível presença de metanol.
+
+### Qualidade do resultado
+- CV (coeficiente de variação) das replicatas de tempo
+- R² da regressão linear (marcação por vídeo)
+- Tolerância de ±3% para compatibilidade com rótulo
+- Semáforo integrado (verde/amarelo/vermelho)
+
+---
+
+## 4. Fluxo do usuário (wizard de 6 etapas)
+
+```
+[Home] → "Medir" → Wizard 6 steps → [Resultados]
+```
+
+### Step 1 — Selecione solução hidroalcoólica (`StepProfile`)
+- Escolha do tipo de bebida/solução (vodka, cachaça, whisky, etanol combustível, metanol comercial, outra hidroalcoólica, etc.)
+- Botão "Teste com dados de exemplos reais" para modo demonstração
+- Botão "Limpar - Nova análise" e "Não se aplica" (lista de categorias excluídas)
+
+### Step 2 — Informe dados da amostra (`StepSampleData`)
+- Teor de rótulo (% v/v, °GL, ou INPM)
+- Nome da amostra, marca, lote (opcionais)
+- Para "Outra hidroalcoólica": campos de % m/m etanol e metanol
+
+### Step 3 — Meça massa ou densidade (`StepDensity`)
+- Método "Balança" (preferencial): massa do conjunto vazio (seringa+agulha), com água, com amostra
+  - Calcula massas líquidas (bruta − container) e densidade relativa
+  - Verificação de precisão da balança (decimal ou inteiro)
+  - Alertas de massa negativa, líquido insuficiente, etc.
+- Método "Densímetro ou alcôometro": entrada direta de valor e unidade
+
+### Step 4 — Temperatura (`StepWaterTemp`)
+- Tipo de água (mineral sem gás, potável, deionizada)
+- Temperatura da água e da amostra (20–30°C, diferença máx. 2°C)
+
+### Step 5 — Registre o escoamento (`StepTimes`)
+- **Via vídeo**: upload de vídeo do escoamento → player com timeline, zoom, marcação de volumes (18, 17, 16, 15, 14 mL) frame a frame → regressão linear → Δt estimado
+- **Via inserção manual**: digitação direta do tempo de escoamento (18→14 mL)
+- Replicatas: mínimo 2 para água e 2 para amostra (duplicata)
+- Cards de replicata com R², Δt, CV entre replicatas
+
+### Step 6 — Revise e calcule (`StepReviewCalculate`)
+- Resumo de todos os dados inseridos
+- Botão "Calcular" dispara o pipeline Python via Web Worker
+
+### Tela de resultados (`/resultados`)
+- Semáforo (verde/amarelo/vermelho) com texto conclusivo
+- Aba "Resultados": composição equivalente, síntese analítica (viscosidades, teores, erro da malha)
+- Aba "Dados experimentais": massas, tempos, CV, R², dados de referência
+- Histórico de análises (lista de experimentos salvos em IndexedDB)
+- Export JSON do banco de dados
+
+---
+
+## 5. Modo demonstração
+
+3 cenários com dados reais pré-preenchidos + vídeos hospedados no Cloudflare R2:
+
+| # | Cenário | Composição real | Massa água bruta | Massa amostra bruta | Δt amostra (vídeos) |
+|---|---|---|---|---|---|
+| 1 | Vodka 40% v/v contaminada | 16.6% etanol + 16.6% metanol | 30.3 g | 29.3 g | ~214.8 / ~219.2 s |
+| 2 | Whisky 40% v/v contaminado | 16.6% etanol + 16.6% metanol | 30.5 g | 29.5 g | ~216.8 / ~223.5 s |
+| 3 | Whisky 40% v/v não contaminado | ~33% etanol (legítimo) | 30.4 g | 29.4 g | ~264.5 / ~263.6 s |
+
+Água (comum a todos): Δt ~103.9 / ~104.9 s
+
+Vídeos no R2: `https://pub-ebe8be4f7ca3479c8147d4d9117bcc6f.r2.dev/` (8 vídeos, ~480 MB total)
+
+Massa do container (seringa+agulha): 10.6 g para todos.
+
+---
+
+## 6. Stack tecnológico
+
+| Camada | Tecnologia |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| UI | React 18 + TypeScript + Tailwind CSS |
+| Validação | Zod + React Hook Form |
+| Ícones | Lucide React |
+| Banco local | Dexie (IndexedDB) |
+| PDF | jsPDF |
+| Processamento científico | Python (Pyodide 0.26.2 via WebAssembly) |
+| Bibliotecas Python | NumPy, SciPy |
+| Hospedagem de vídeos | Cloudflare R2 (free tier) |
+| Deploy | Railway (ou qualquer host Node.js estático) |
+| Dark mode | CSS `prefers-color-scheme` nativo |
+
+---
+
+## 7. Estrutura de código
+
+### Raiz do projeto
 ```
 pwa_integrated/
+├── public/                          # Arquivos estáticos
+│   ├── data/                        # Dados de referência
+│   │   ├── fluxo1/                  # Tabelas Fluxo 1 (densidades, conversão °GL)
+│   │   ├── fluxo2/                  # Malhas Fluxo 2 (.npz) + referência temperatura
+│   │   ├── conversao_vv_para_wE_20C.json
+│   │   └── temperatura_referencia_v2.json
+│   ├── py/                          # Pipeline Python (roda via Pyodide)
+│   │   ├── worker_entry.py          # Ponto de entrada: orquestra Fluxo 1 + Fluxo 2
+│   │   ├── utils_nopandas.py        # Leitura de CSV sem pandas
+│   │   ├── fluxo1_w_alcool/src/
+│   │   │   └── app_w_alcool_v2.py   # Fluxo 1: densidade → teor alcoólico (567 linhas)
+│   │   └── fluxo2_analise_ternaria/
+│   │       ├── processamento.py     # Fluxo 2: viscosidade + malha → ternária (1573 linhas)
+│   │       └── main.py              # CLI alternativo do Fluxo 2 (168 linhas)
+│   └── worker/
+│       └── alcoolWorkerPyodide.js   # Web Worker: carrega Pyodide, injeta scripts, executa pipeline (163 linhas)
 ├── src/
-│   ├── app/                          # Páginas da aplicação (App Router do Next.js)
-│   │   ├── page.tsx                  # Página inicial (Home)
-│   │   ├── layout.tsx                # Layout global
-│   │   ├── globals.css               # Estilos globais
-│   │   ├── medir/
-│   │   │   └── page.tsx              # Página de medição (wizard)
-│   │   ├── resultados/
-│   │   │   └── page.tsx              # Página de exibição de resultados
-│   │   ├── metodologia/
-│   │   │   └── page.tsx              # Explicação da metodologia científica
-│   │   └── sobre/
-│   │       └── page.tsx              # Informações sobre a aplicação
-│   │
-│   ├── components/                   # Componentes React reutilizáveis
-│   │   ├── AnalysisListPage.tsx      # Lista de análises salvas
-│   │   ├── MultiSelectDropdown.tsx   # Dropdown de seleção múltipla
-│   │   ├── ui/                       # Componentes de UI base (shadcn/ui)
-│   │   └── wizard/                   # Componentes do wizard de medição
-│   │
-│   ├── hooks/                        # React hooks customizados
-│   │
-│   └── lib/
-│       └── alcoolWorkerClient.ts     # Cliente que comunica com o Pyodide Worker
-│
-├── public/
-│   └── py/                           # Código Python executado pelo Pyodide
-│       ├── worker_entry.py           # Entry point do Python (importa módulos)
-│       ├── utils_nopandas.py         # Utilitários sem dependência do Pandas
-│       ├── fluxo1_w_alcool/          # Fluxo 1: Estimativa inicial de teor alcoólico
-│       │   └── src/
-│       └── fluxo2_analise_ternaria/  # Fluxo 2: Análise completa de composição
-│           ├── processamento.py      # ⭐ ARQUIVO PRINCIPAL (~1574 linhas)
-│           ├── main.py
-│           └── processamento_v8_original.py  # Backup da versão original
-│
-├── package.json
-├── next.config.js
+│   ├── app/                         # Páginas Next.js (App Router)
+│   │   ├── page.tsx                 # Home — apresentação, botões nav, botão demo (150 linhas)
+│   │   ├── layout.tsx               # Layout raiz (providers, TopBar, BottomTabs, TermsGate)
+│   │   ├── globals.css              # Estilos globais + dark mode overrides
+│   │   ├── medir/page.tsx           # Orquestrador do wizard de 6 steps (609 linhas)
+│   │   ├── resultados/page.tsx      # Exibição de resultados + semáforo + histórico (1306 linhas)
+│   │   ├── metodologia/page.tsx     # Página de metodologia
+│   │   └── sobre/page.tsx           # Página sobre
+│   ├── components/
+│   │   ├── wizard/                  # Steps do wizard de medição
+│   │   │   ├── StepProfile.tsx      # Step 1: tipo de bebida (212 linhas)
+│   │   │   ├── StepSampleData.tsx   # Step 2: dados da amostra/rótulo (265 linhas)
+│   │   │   ├── StepDensity.tsx      # Step 3: massas ou densímetro (708 linhas)
+│   │   │   ├── StepWaterTemp.tsx    # Step 4: tipo de água + temperaturas (278 linhas)
+│   │   │   ├── StepTimes.tsx        # Step 5: vídeos/tempos de escoamento (732 linhas)
+│   │   │   ├── StepReviewCalculate.tsx # Step 6: revisão + botão calcular (152 linhas)
+│   │   │   └── NavigationButtons.tsx   # Botões Voltar/Avançar reutilizáveis
+│   │   ├── ui/                      # Componentes de interface
+│   │   │   ├── BottomTabs.tsx       # Navegação inferior (tabs)
+│   │   │   ├── TopBar.tsx           # Barra superior (título)
+│   │   │   ├── ClientLayout.tsx     # Layout client-side (SplashScreen, TermsGate)
+│   │   │   ├── SplashScreen.tsx     # Splash de loading inicial
+│   │   │   ├── TermsGate.tsx        # Aceite de termos de uso
+│   │   │   ├── CalculatingOverlay.tsx # Overlay "Calculando..." durante processamento
+│   │   │   ├── InfoTooltip.tsx      # Tooltips inline e com ícone (?)
+│   │   │   ├── MethodologyModal.tsx # Modal de metodologia contextual por step
+│   │   │   ├── DemoModal.tsx        # Modal de seleção de cenário demo
+│   │   │   ├── DemoBanner.tsx       # Banner azul "Modo demonstração" nos steps
+│   │   │   └── WorkerPreload.tsx    # Pré-carregamento do Web Worker Pyodide
+│   │   ├── AnalysisListPage.tsx     # Lista de análises anteriores (IndexedDB)
+│   │   └── MultiSelectDropdown.tsx  # Dropdown multi-select reutilizável
+│   ├── hooks/
+│   │   ├── useSwipe.ts              # Hook de swipe left/right para navegação
+│   │   └── useStopwatch.ts          # Hook de cronômetro (não usado atualmente)
+│   └── lib/                         # Lógica de negócio e utilitários
+│       ├── alcoolWorkerClient.ts    # Cliente TypeScript do Web Worker (init, run, status) (122 linhas)
+│       ├── backendMapping.ts        # Normalização de campos wizard → pipeline Python (68 linhas)
+│       ├── constants.ts             # Lista de tipos de bebida (17 linhas)
+│       ├── database.ts             # Dexie/IndexedDB: schema, CRUD, export/import JSON (445 linhas)
+│       ├── demoScenarios.ts         # 3 cenários demo com dados + URLs R2 (259 linhas)
+│       ├── methodologyContent.tsx   # Conteúdo textual dos modais de metodologia
+│       ├── schemas.ts               # Schemas Zod para validação dos steps (53 linhas)
+│       └── semaphoreLogic.ts        # Lógica do semáforo (pode estar inline em resultados)
+├── package.json                     # Dependências (next, react, dexie, jspdf, pyodide via CDN)
 ├── tailwind.config.js
-└── tsconfig.json
+├── tsconfig.json
+└── next.config.js
 ```
 
 ---
 
-## 🖥️ TELAS DA APLICAÇÃO
+## 8. Fluxo de dados detalhado
 
-### 1. **Home** (`/`)
-- Apresentação da ferramenta
-- Avisos importantes sobre uso (não é exame confirmatório)
-- Menu de navegação com 4 opções: Medir, Resultados, Metodologia, Sobre
-
-### 2. **Medir** (`/medir`)
-- **Wizard de medição em etapas**:
-  1. Seleção do tipo de bebida (Whisky, Vodka, Cachaça, etc.)
-  2. Informação do teor alcoólico declarado no rótulo
-  3. Instruções para medição de viscosidade
-  4. Entrada dos valores medidos (tempo de escoamento)
-  5. Processamento e cálculo
-
-- **Fluxo de dados**:
-  - Usuário informa: tipo de bebida + teor declarado + medidas de viscosidade
-  - Sistema processa via Pyodide (Python no navegador)
-  - Resultados são salvos no localStorage e redirecionados para `/resultados`
-
-### 3. **Resultados** (`/resultados`)
-- **Exibe análise completa**:
-  - Classificação da composição (binária água-etanol ou ternária água-etanol-metanol)
-  - Composição estimada com intervalos de confiança
-  - Probabilidades de cada hipótese (Monte Carlo)
-  - **Composição compatível**: verifica se resultado é compatível com rótulo declarado
-  - Alertas visuais (vermelho para suspeita de metanol, verde para normal)
-
-- **Lista de análises anteriores** (salvas no localStorage)
-
-### 4. **Metodologia** (`/metodologia`)
-- Explicação científica do método
-- Princípios da análise por viscosidade
-- Limitações e considerações
-
-### 5. **Sobre** (`/sobre`)
-- Informações sobre a aplicação
-- Créditos e versão
-
----
-
-## ⚙️ FLUXO DE PROCESSAMENTO
-
-### Fluxo 1: Estimativa Inicial (w_alcool)
-- Entrada: medidas de viscosidade + temperatura
-- Saída: estimativa inicial do teor alcoólico total
-
-### Fluxo 2: Análise Ternária Completa
-- **Entrada**: 
-  - `mu_mean`: viscosidade média medida
-  - `mu_sd`: desvio padrão das medidas
-  - `w_input`: teor alcoólico declarado no rótulo
-  - `temperature`: temperatura da medição
-
-- **Processamento** (`processamento.py`):
-  1. Carrega malha de viscosidade pré-calculada
-  2. Encontra melhor composição na malha (w_best, z_best)
-  3. Classifica: binário (água-etanol) ou ternário (água-etanol-metanol)
-  4. Executa Monte Carlo para calcular probabilidades
-  5. Aplica testes estatísticos
-  6. Define range de busca: ±2.5% absoluto centrado em w_best
-
-- **Saída** (JSON):
-  ```json
-  {
-    "classe_final": "ternario" | "bin_etoh" | "bin_meoh",
-    "melhor": {
-      "w_alcool": 0.40,
-      "z_etoh": 0.85,
-      "comp_agua": 0.60,
-      "comp_etoh": 0.34,
-      "comp_meoh": 0.06
-    },
-    "melhores": [...],  // Lista de composições compatíveis no range
-    "prob_ternario": 0.75,
-    "prob_etoh": 0.20,
-    "prob_meoh": 0.05,
-    ...
-  }
-  ```
-
----
-
-## 🔧 ARQUIVOS-CHAVE PARA MODIFICAÇÕES
-
-### Frontend (Layout/UX)
-| Arquivo | Descrição |
-|---------|-----------|
-| `src/app/page.tsx` | Página inicial |
-| `src/app/medir/page.tsx` | Wizard de medição |
-| `src/app/resultados/page.tsx` | Exibição de resultados |
-| `src/app/globals.css` | Estilos globais |
-| `src/components/wizard/` | Componentes do wizard |
-
-### Backend (Processamento Python)
-| Arquivo | Descrição |
-|---------|-----------|
-| `public/py/fluxo2_analise_ternaria/processamento.py` | Lógica principal de análise |
-| `public/py/worker_entry.py` | Entry point que importa os módulos |
-| `src/lib/alcoolWorkerClient.ts` | Cliente TypeScript que comunica com Pyodide |
-
----
-
-## 🚀 COMO EXECUTAR
-
-```bash
-# Navegar até o diretório do projeto
-cd C:\Users\USUARIO\Documents\projetosclaude\pwa_alcool_app\pwa_integrated
-
-# Instalar dependências (se necessário)
-npm install
-
-# Executar em modo desenvolvimento
-npm run dev
-
-# Acessar no navegador
-http://localhost:3000
+```
+[Wizard Steps 1-5]
+    │
+    ▼ (localStorage: wizardData, videoReplicas*, manualTimes*)
+[StepReviewCalculate] → monta frontend_export_rows (JSON com todos os campos)
+    │
+    ▼ localStorage.setItem("frontend_export_rows", ...)
+[/resultados/page.tsx]
+    │
+    ▼ lê frontend_export_rows, chama normalizeRow() (backendMapping.ts)
+    │
+    ▼ runAlcoolPipeline(rows) → alcoolWorkerClient.ts
+    │
+    ▼ Web Worker (alcoolWorkerPyodide.js)
+    │   ├── Carrega Pyodide + NumPy + SciPy (CDN)
+    │   ├── Injeta scripts Python no FS virtual
+    │   ├── Carrega dados (.csv, .npz) no FS virtual
+    │   └── Executa worker_entry.py → run_full_from_rows()
+    │       ├── Fluxo 1: density → teor alcoólico (app_w_alcool_v2.py)
+    │       └── Fluxo 2: viscosity + malha → composição ternária (processamento.py)
+    │
+    ▼ Resultado: { resultados: [...], repeticoes: [...] }
+    │
+    ▼ Mapeamento → ResultShape (condições, densidade, viscosidade, composição, etc.)
+    │
+    ▼ Salva no IndexedDB (database.ts) + exibe na tela
+    │
+    ▼ Semáforo: repsOk + cvOk + r2Ok + compatStatus → verde/amarelo/vermelho
 ```
 
 ---
 
-## 🛠️ CORREÇÕES RECENTES APLICADAS
+## 9. Arquivos críticos para manutenção
 
-### Sessão Atual - Bugs de Sintaxe Python
-
-**Bug 1: Variáveis com nomes inválidos**
-- **Problema**: Substituição global corrompeu `gatilho_31` → `gatilho_2.51`
-- **Correção**: Restaurado para `gatilho_31`, `gatilho_32`
-- **Arquivo**: `public/py/fluxo2_analise_ternaria/processamento.py` linhas 1212-1217
-
-**Bug 2: Formato de número inválido**
-- **Problema**: `:.2.5f` (formato Python inválido)
-- **Correção**: Alterado para `:.5f`
-- **Arquivo**: `processamento.py` múltiplas linhas
-
-### Sessão Atual - Lógica do Semáforo (Frontend)
-
-**Bug 3: Composição compatível não sendo detectada**
-- **Problema**: Função `parseCompositionLine` não parseava todos os formatos de composição
-- **Correção**: Adicionados múltiplos padrões de regex para aceitar formatos variados
-- **Arquivo**: `src/app/resultados/page.tsx` função `parseCompositionLine`
-
-**Bug 4: Split de composições equivalentes não funcionando**
-- **Problema**: Função `pickCompatibleLine` não separava corretamente composições separadas por ". "
-- **Correção**: Implementado split mais robusto usando normalização de string
-- **Arquivo**: `src/app/resultados/page.tsx` função `pickCompatibleLine`
-
-**Bug 5: Inconsistência entre valor do Python e cálculo do frontend**
-- **Problema**: Exibição usava `result?.compativel ?? compatStatus`, dando prioridade ao Python
-- **Correção**: Alterado para usar sempre `compatStatus` calculado pelo frontend
-- **Arquivo**: `src/app/resultados/page.tsx` linha de "Rótulo e resultados (±3%)"
-
-### Regras do Semáforo Já Implementadas
-
-1. **Metanol comercial**: Tratado separadamente, sem alerta de "Possível presença de metanol"
-2. **Outra hidroalcoólica com metanol > 0**: Quando o usuário informa metanol esperado, não mostra alerta
-3. **Bebidas normais**: 
-   - Verde se `compatStatus === "Compatível"` e experimento aprovado
-   - Vermelho "Possível presença de metanol" se incomp. + metanol alto + aprovado
-   - Vermelho "Incompatível com rótulo" se incomp. + aprovado (sem metanol alto)
-   - Amarelo se experimento não aprovado
+| Prioridade | Arquivo | Responsabilidade |
+|---|---|---|
+| ★★★ | `resultados/page.tsx` | Toda a lógica de resultado, semáforo, compatStatus, display — arquivo mais complexo (1306 linhas) |
+| ★★★ | `processamento.py` | Pipeline Fluxo 2 completo — malha ternária, interpolação, classificação (1573 linhas) |
+| ★★★ | `medir/page.tsx` | Orquestrador do wizard — estado, demo mode, cálculo, navegação (609 linhas) |
+| ★★☆ | `StepTimes.tsx` | Player de vídeo, marcação frame a frame, regressão, replicatas (732 linhas) |
+| ★★☆ | `StepDensity.tsx` | Lógica de massas, precisão de balança, método alternativo (708 linhas) |
+| ★★☆ | `app_w_alcool_v2.py` | Pipeline Fluxo 1 — conversões, densidade, teor alcoólico (567 linhas) |
+| ★★☆ | `database.ts` | Schema IndexedDB, save/load/export/import (445 linhas) |
+| ★☆☆ | `demoScenarios.ts` | Dados dos 3 cenários de demonstração (259 linhas) |
+| ★☆☆ | `alcoolWorkerClient.ts` | Interface TypeScript para o Web Worker (122 linhas) |
+| ★☆☆ | `alcoolWorkerPyodide.js` | Web Worker: bootstrap Pyodide + execução Python (163 linhas) |
 
 ---
 
-## 🎨 SUGESTÕES PARA AJUSTES DE LAYOUT/UX
+## 10. Deploy e repositórios
 
-1. **Página de Resultados**: 
-   - Cards de composição podem ser mais visuais
-   - Gráficos de barras para composição
-   - Indicadores de alerta mais proeminentes
+| Item | Localização |
+|---|---|
+| **Código local (desenvolvimento)** | `C:\Users\USUARIO\Documents\projetosclaude\pwa_alcool_app\pwa_integrated\` |
+| **Código para deploy (GitHub/Railway)** | `C:\Users\USUARIO\Documents\projetosclaude\pwa_alcool_app\pwa_deploy_railway\` |
+| **Vídeos demo** | Cloudflare R2 bucket `alcolabdemo` (público) |
+| **Servidor** | `npm run dev` (local) ou Railway (produção) |
 
-2. **Wizard de Medição**:
-   - Progress bar visual
-   - Animações de transição entre etapas
-   - Validação em tempo real
-
-3. **Responsividade**:
-   - Verificar comportamento em diferentes tamanhos de tela
-   - PWA: testar instalação no mobile
-
-4. **Acessibilidade**:
-   - Verificar contraste de cores
-   - Labels em inputs
-   - Navegação por teclado
+Sincronização: copiar tudo de `pwa_integrated/` para `pwa_deploy_railway/` exceto `.git`, `node_modules`, `.next`. O `.git` do deploy é preservado.
 
 ---
 
-## 📦 DEPENDÊNCIAS PRINCIPAIS
+## 11. Estado atual e o que já foi feito
 
-```json
-{
-  "next": "14.2.x",
-  "react": "18.x",
-  "typescript": "5.x",
-  "tailwindcss": "3.x",
-  "lucide-react": "ícones",
-  "pyodide": "0.29.0 (via CDN)"
-}
-```
+### Funcionalidades completas
+- ✅ Wizard completo de 6 etapas com validação Zod
+- ✅ Player de vídeo com marcação frame a frame e regressão linear
+- ✅ Pipeline Python (Fluxo 1 + Fluxo 2) via Pyodide no browser
+- ✅ Semáforo de compatibilidade (verde/amarelo/vermelho)
+- ✅ Detecção de metanol em bebidas
+- ✅ Banco local IndexedDB com histórico e export/import JSON
+- ✅ Modo demonstração com 3 cenários reais + vídeos R2
+- ✅ Dark mode completo (prefers-color-scheme)
+- ✅ Tooltips contextuais e modais de metodologia por step
+- ✅ Verificação de precisão de balança
+- ✅ Suporte a múltiplos métodos de entrada (balança vs densímetro)
+- ✅ Cálculo de CV entre replicatas e R² de regressão
+- ✅ Swipe navigation entre steps
+- ✅ TermsGate (aceite de termos antes de usar)
+- ✅ Splash screen com pré-carregamento do Worker
 
----
+### Tipos de solução suportados
+Vodka, Cachaça branca, Whisky, Aguardente, Rum branco, Gin seco, Tequila blanca, Pisco, Tiquira, Etanol comercial, Etanol combustível, Metanol comercial, Outra hidroalcoólica.
 
-## ⚠️ NOTAS IMPORTANTES
-
-1. **Cache do Pyodide**: O Pyodide faz cache agressivo dos arquivos Python no IndexedDB. Se modificar arquivos `.py`, pode ser necessário:
-   - Limpar IndexedDB do navegador
-   - Deletar pasta `.next` e reiniciar servidor
-   - Usar modo anônimo para testar
-
-2. **Arquivos Python**: Estão em `public/py/` e são servidos estaticamente pelo Next.js
-
-3. **LocalStorage**: Análises são salvas no localStorage do navegador com a chave de armazenamento específica
-
-4. **PWA**: A aplicação é instalável como PWA - verificar service worker e manifest
-
----
-
-*Documentação gerada em 05/01/2026*
+### Limitações declaradas
+- Não substitui análise laboratorial oficial
+- Limite de detecção de metanol: ≥ 5% m/m
+- Bebidas não aplicáveis: licores, cremes, fermentadas, saborizadas, turvas, com polpa
+- Precisão dependente da qualidade da balança e da técnica de escoamento

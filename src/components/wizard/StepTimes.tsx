@@ -51,6 +51,9 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
   const [pointers, setPointers] = useState<Array<{id:number;x:number;y:number}>>([])
   const [initialGesture, setInitialGesture] = useState<{dist:number;zoom:number;offset:{x:number;y:number}} | null>(null)
   const [customError, setCustomError] = useState<string | null>(null)
+  const [showSingleRepWarning, setShowSingleRepWarning] = useState(false)
+  const [singleRepWarningMsg, setSingleRepWarningMsg] = useState("")
+  const pendingFormDataRef = useRef<TimesData | null>(null)
   const [zoom, setZoom] = useState<number>(2)
   const [interactionMode, setInteractionMode] = useState<'video'|'scroll'|null>(null)
   const repeatRef = useRef<number | null>(null)
@@ -407,8 +410,28 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
 
   const submitHandler = handleSubmit((formData) => {
     if (!validateReplicasBeforeNext()) return
+    // Verificar se há apenas 1 dado para água ou amostra
+    const waterCount = waterReplicates.length + waterTimes.length
+    const sampleCount = sampleReplicates.length + sampleTimes.length
+    const warnings: string[] = []
+    if (waterCount === 1) warnings.push("água (apenas 1 valor)")
+    if (sampleCount === 1) warnings.push("amostra (apenas 1 valor)")
+    if (warnings.length > 0) {
+      setSingleRepWarningMsg(`Foi inserido somente um dado para ${warnings.join(" e ")}. Sugere-se pelo menos dois valores (duplicata) para maior confiabilidade do resultado. Deseja prosseguir mesmo assim?`)
+      pendingFormDataRef.current = formData
+      setShowSingleRepWarning(true)
+      return
+    }
     onNext(formData)
   })
+
+  const confirmSingleRep = () => {
+    setShowSingleRepWarning(false)
+    if (pendingFormDataRef.current) {
+      onNext(pendingFormDataRef.current)
+      pendingFormDataRef.current = null
+    }
+  }
   
   // Verificar se pode avançar
   const canProgress = () => {
@@ -516,7 +539,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
               <div className="mt-3 pt-3 border-t">
                 <div className="font-medium text-xs text-[#002060] mb-2">Inserção manual de tempo (s)</div>
                 <div className="flex gap-1">
-                  <input type="text" inputMode="decimal" placeholder="99.1" value={manualWaterInput} onChange={(e) => setManualWaterInput(e.target.value)} className="border rounded-lg p-2 min-w-0 flex-1 text-sm text-center" />
+                  <input type="text" inputMode="decimal" placeholder="Ex.: 99.1" value={manualWaterInput} onChange={(e) => setManualWaterInput(e.target.value)} className="border rounded-lg p-2 min-w-0 flex-1 text-sm text-center" />
                   <button type="button" onClick={() => addManualTime("water")} className="border border-[#002060] rounded-lg w-10 flex-shrink-0 text-sm text-[#002060] font-medium">+</button>
                 </div>
                 <button type="button" onClick={() => openTimer("water")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">⏱️ Cronômetro</button>
@@ -570,7 +593,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
               <div className="mt-3 pt-3 border-t">
                 <div className="font-medium text-xs text-[#002060] mb-2">Inserção manual de tempo (s)</div>
                 <div className="flex gap-1">
-                  <input type="text" inputMode="decimal" placeholder="253.5" value={manualSampleInput} onChange={(e) => setManualSampleInput(e.target.value)} className="border rounded-lg p-2 min-w-0 flex-1 text-sm text-center" />
+                  <input type="text" inputMode="decimal" placeholder="Ex.: 253.5" value={manualSampleInput} onChange={(e) => setManualSampleInput(e.target.value)} className="border rounded-lg p-2 min-w-0 flex-1 text-sm text-center" />
                   <button type="button" onClick={() => addManualTime("sample")} className="border border-[#002060] rounded-lg w-10 flex-shrink-0 text-sm text-[#002060] font-medium">+</button>
                 </div>
                 <button type="button" onClick={() => openTimer("sample")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">⏱️ Cronômetro</button>
@@ -724,6 +747,35 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                 <button type="button" onClick={() => { setElapsedMs(0) }} className="border border-gray-300 rounded-lg py-3 px-6">Descartar</button>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Modal de aviso de replicata única */}
+      {showSingleRepWarning && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setShowSingleRepWarning(false)}>
+          <div className="bg-white rounded-xl shadow-xl mx-4 max-w-sm w-full p-5 space-y-4" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center gap-2">
+              <span className="text-yellow-500 text-xl">⚠️</span>
+              <h3 className="font-semibold text-sm text-[#002060]">Atenção</h3>
+            </div>
+            <p className="text-sm text-neutral-700 text-justify leading-relaxed">{singleRepWarningMsg}</p>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setShowSingleRepWarning(false)}
+                className="flex-1 border border-[#002060] text-[#002060] rounded-lg py-2 text-sm font-medium"
+              >
+                Voltar
+              </button>
+              <button
+                type="button"
+                onClick={confirmSingleRep}
+                className="flex-1 bg-[#002060] text-white rounded-lg py-2 text-sm font-medium"
+              >
+                Prosseguir
+              </button>
+            </div>
           </div>
         </div>
       )}
