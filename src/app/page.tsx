@@ -1,10 +1,53 @@
 "use client"
 import Link from "next/link"
-import React from "react"
-import { Beaker, LineChart, BookOpen, Info } from "lucide-react"
+import React, { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Beaker, LineChart, BookOpen, Info, FlaskConical } from "lucide-react"
 import { InlineTooltip } from "@/components/ui/InfoTooltip"
+import DemoModal from "@/components/ui/DemoModal"
+import { getDemoScenario, DemoScenarioId, clearDemoMode } from "@/lib/demoScenarios"
 
 export default function Home() {
+  const [showDemoModal, setShowDemoModal] = useState(false)
+  const router = useRouter()
+
+  // Limpar demo mode ao chegar na Home (usuário saiu do fluxo demo)
+  React.useEffect(() => {
+    clearDemoMode()
+  }, [])
+
+  const handleDemoSelect = (id: DemoScenarioId) => {
+    const scenario = getDemoScenario(id)
+    if (!scenario) return
+    // Limpar estado anterior antes de iniciar novo demo
+    try {
+      localStorage.removeItem("wizardData")
+      localStorage.removeItem("wizardStep")
+      localStorage.removeItem("videoReplicasWater")
+      localStorage.removeItem("videoReplicasSample")
+      localStorage.removeItem("manualTimesWater")
+      localStorage.removeItem("manualTimesSample")
+    } catch {}
+    localStorage.setItem("demoScenario", id)
+    setShowDemoModal(false)
+    // Hard navigation para garantir re-mount do medir
+    window.location.href = "/medir"
+  }
+
+  const handleMedir = () => {
+    // Limpar estado demo ao navegar normalmente para Medir
+    clearDemoMode()
+    try {
+      localStorage.removeItem("wizardData")
+      localStorage.removeItem("wizardStep")
+      localStorage.removeItem("videoReplicasWater")
+      localStorage.removeItem("videoReplicasSample")
+      localStorage.removeItem("manualTimesWater")
+      localStorage.removeItem("manualTimesSample")
+    } catch {}
+    router.push("/medir")
+  }
+
   return (
     <div className="p-4 space-y-5">
       {/* Título e subtítulo */}
@@ -25,13 +68,13 @@ export default function Home() {
             term="triagem" 
             tooltip="Análise preventiva e estimativa, não confirmatória."
           />{" "}
-          de bebidas destiladas puras ("secas"); etanol combustível; metanol reagente e{" "}
+          de bebidas destiladas puras (&quot;secas&quot;); etanol combustível; metanol reagente e{" "}
           <InlineTooltip 
             term="soluções hidroalcoólicas" 
             tooltip="Misturas compostas predominantemente por água, etanol e/ou metanol."
           />{" "}
           compostas de água, etanol e metanol, conforme opções listadas em{" "}
-          <Link href="/medir" className="underline text-[#002060] font-medium">Medir</Link>.{" "}
+          <button onClick={handleMedir} className="underline text-[#002060] font-medium">Medir</button>.{" "}
           <span className="font-bold">Não substitui exame confirmatório.</span>
         </p>
         <p>
@@ -41,13 +84,13 @@ export default function Home() {
       
       {/* Botões de navegação */}
       <div className="grid grid-cols-2 gap-3">
-        <Link 
-          href="/medir" 
+        <button 
+          onClick={handleMedir}
           className="border-2 border-[#002060] rounded-lg p-4 text-center flex flex-col items-center gap-2 hover:bg-blue-50 transition-colors"
         >
           <Beaker className="w-8 h-8 text-[#002060]" aria-hidden="true" />
           <span className="text-sm font-medium text-[#002060]">Medir</span>
-        </Link>
+        </button>
         <Link 
           href="/resultados" 
           className="border-2 border-[#002060] rounded-lg p-4 text-center flex flex-col items-center gap-2 hover:bg-blue-50 transition-colors"
@@ -71,6 +114,24 @@ export default function Home() {
         </Link>
       </div>
       
+      {/* Link para demo — alinhado à esquerda, com ícone, sem itálico */}
+      <div className="text-left">
+        <button
+          onClick={() => setShowDemoModal(true)}
+          className="text-xs text-[#002060] underline hover:text-blue-700 transition-colors inline-flex items-center gap-1"
+        >
+          <FlaskConical className="w-3.5 h-3.5" />
+          Teste com dados de exemplos reais
+        </button>
+      </div>
+
+      {/* Modal de seleção demo */}
+      <DemoModal
+        isOpen={showDemoModal}
+        onClose={() => setShowDemoModal(false)}
+        onSelect={handleDemoSelect}
+      />
+
       {/* Alerta de suspeita - destaque */}
       <div className="bg-red-50 border-l-4 border-red-600 p-4 rounded-r-lg">
         <p className="text-red-700 font-bold text-sm mb-2">

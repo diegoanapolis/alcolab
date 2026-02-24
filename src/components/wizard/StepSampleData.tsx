@@ -13,9 +13,13 @@ interface StepSampleDataProps {
   onNext: (data: ProfileData) => void
   onBack: () => void
   initialData?: ProfileData
+  demoMode?: string | null
 }
 
-export default function StepSampleData({ onNext, onBack, initialData }: StepSampleDataProps) {
+import DemoBanner from "@/components/ui/DemoBanner"
+import { getDemoScenario } from "@/lib/demoScenarios"
+
+export default function StepSampleData({ onNext, onBack, initialData, demoMode }: StepSampleDataProps) {
   const [showMethodology, setShowMethodology] = useState(false)
   
   const { register, handleSubmit, formState: { errors }, watch } = useForm<ProfileData>({ 
@@ -73,6 +77,12 @@ export default function StepSampleData({ onNext, onBack, initialData }: StepSamp
           </h1>
           <MethodologyButton onClick={() => setShowMethodology(true)} compact />
         </div>
+
+        {/* Banner demo */}
+        {demoMode && (() => {
+          const s = getDemoScenario(demoMode)
+          return s ? <DemoBanner text={s.banners.sampleData} /> : null
+        })()}
 
         {/* Camada 1: Texto auxiliar */}
         <p className="text-sm text-neutral-600">

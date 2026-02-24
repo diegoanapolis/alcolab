@@ -10,10 +10,12 @@ import useSwipe from "@/hooks/useSwipe"
 import InfoTooltip, { InlineTooltip } from "@/components/ui/InfoTooltip"
 import MethodologyModal, { MethodologyButton } from "@/components/ui/MethodologyModal"
 import { MethodologyEscoamento } from "@/lib/methodologyContent"
+import DemoBanner from "@/components/ui/DemoBanner"
+import { getDemoScenario } from "@/lib/demoScenarios"
 
 type Replicate = { previewUrl: string; duration: number; fileName?: string; fileCreatedAt?: string; marks: Record<14|15|16|17|18, number|undefined>; volumesMarked: Array<14|15|16|17|18>; derived?: { points: Array<{x:number;y:number}>; slope: number; intercept: number; r2: number; estimatedTime: number } }
 
-export default function StepTimes({ onNext, onBack, initialData }: { onNext: (data: TimesData) => void; onBack: () => void; initialData?: TimesData }) {
+export default function StepTimes({ onNext, onBack, initialData, demoMode }: { onNext: (data: TimesData) => void; onBack: () => void; initialData?: TimesData; demoMode?: string | null }) {
   const [showMethodology, setShowMethodology] = useState(false)
   
   const { handleSubmit, formState: { errors }, setValue, watch } = useForm<TimesData>({
@@ -433,6 +435,11 @@ export default function StepTimes({ onNext, onBack, initialData }: { onNext: (da
           </h1>
           <MethodologyButton onClick={() => setShowMethodology(true)} compact />
         </div>
+
+        {demoMode && (() => {
+          const s = getDemoScenario(demoMode)
+          return s ? <DemoBanner text={s.banners.times} small /> : null
+        })()}
         
         {/* Camada 1: Instruções mínimas */}
         <div className="text-sm text-neutral-700 text-justify space-y-2">

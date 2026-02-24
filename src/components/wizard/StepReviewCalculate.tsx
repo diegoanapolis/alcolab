@@ -78,8 +78,8 @@ export default function StepReviewCalculate({ data, onBack, onCalculate }: {
               <p><span className="text-gray-500">Método:</span> {data.density?.method ?? '-'}</p>
               {data.density?.method === 'Balança' && (
                 <>
-                  <p><span className="text-gray-500">Massa água:</span> {typeof data.density?.waterMass === 'number' ? `${data.density?.waterMass} g` : '-'}</p>
-                  <p><span className="text-gray-500">Massa amostra:</span> {typeof data.density?.sampleMass === 'number' ? `${data.density?.sampleMass} g` : '-'}</p>
+                  <p><span className="text-gray-500">Massa água:</span> {typeof data.density?.waterMass === 'number' ? `${parseFloat(data.density.waterMass.toFixed(3))} g` : '-'}</p>
+                  <p><span className="text-gray-500">Massa amostra:</span> {typeof data.density?.sampleMass === 'number' ? `${parseFloat(data.density.sampleMass.toFixed(3))} g` : '-'}</p>
                 </>
               )}
               {data.density?.method === 'Densímetro ou alcôometro' && (

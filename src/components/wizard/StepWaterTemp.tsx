@@ -10,8 +10,10 @@ import useSwipe from "@/hooks/useSwipe"
 import InfoTooltip, { InlineTooltip } from "@/components/ui/InfoTooltip"
 import MethodologyModal, { MethodologyButton } from "@/components/ui/MethodologyModal"
 import { MethodologyTemperatura } from "@/lib/methodologyContent"
+import DemoBanner from "@/components/ui/DemoBanner"
+import { getDemoScenario } from "@/lib/demoScenarios"
 
-export default function StepWaterTemp({ onNext, onBack, initialData }: { onNext: (data: WaterTempData) => void; onBack: () => void; initialData?: WaterTempData }) {
+export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }: { onNext: (data: WaterTempData) => void; onBack: () => void; initialData?: WaterTempData; demoMode?: string | null }) {
   const [thermometerMode, setThermometerMode] = useState<"with" | "without">("with")
   const [sameTemperature, setSameTemperature] = useState<boolean | null>(null)
   const [showMethodology, setShowMethodology] = useState(false)
@@ -88,6 +90,11 @@ export default function StepWaterTemp({ onNext, onBack, initialData }: { onNext:
           <h1 className="text-xl font-bold text-[#002060]">Meça as temperaturas</h1>
           <MethodologyButton onClick={() => setShowMethodology(true)} />
         </div>
+
+        {demoMode && (() => {
+          const s = getDemoScenario(demoMode)
+          return s ? <DemoBanner text={s.banners.waterTemp} /> : null
+        })()}
 
         {/* Tipo de água */}
         <div>

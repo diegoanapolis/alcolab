@@ -36,7 +36,7 @@ export default function MethodologyModal({ isOpen, onClose, title, children }: M
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 bg-white flex flex-col">
+    <div className="fixed inset-0 z-50 bg-white dark-modal flex flex-col">
       {/* Header */}
       <header className="flex items-center justify-between p-4 border-b bg-[#002060] text-white">
         <div className="flex items-center gap-2">

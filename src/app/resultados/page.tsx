@@ -330,6 +330,7 @@ export default function ResultadosPage() {
           console.log('📊 Python não retornou resultados, criando resultado minimal...')
           // Criar resultado minimal a partir dos dados do wizard
           const inputRow = rows[0] as Record<string, any>
+          const rawRow = rowsRaw[0] as Record<string, any>
           const minimalResult: ResultShape = {
             conditions: {
               sampleName: String(inputRow.sampleName ?? ""),
@@ -351,8 +352,8 @@ export default function ResultadosPage() {
               measuredUnit: typeof inputRow.measuredUnit === 'string' ? inputRow.measuredUnit : undefined,
             },
             rawTimes: {
-              waterTimes: typeof inputRow.waterTimes === 'string' ? inputRow.waterTimes.split(';').map(Number).filter((n: number) => !isNaN(n)) : [],
-              sampleTimes: typeof inputRow.sampleTimes === 'string' ? inputRow.sampleTimes.split(';').map(Number).filter((n: number) => !isNaN(n)) : [],
+              waterTimes: typeof rawRow?.waterTimes === 'string' ? rawRow.waterTimes.split(';').map(Number).filter((n: number) => !isNaN(n)) : [],
+              sampleTimes: typeof rawRow?.sampleTimes === 'string' ? rawRow.sampleTimes.split(';').map(Number).filter((n: number) => !isNaN(n)) : [],
             },
             expectedComposition: null, // Python não retornou, sem composição esperada
             conclusao: processingError ? `Erro no processamento: ${processingError}` : 'Processamento incompleto',
@@ -386,6 +387,14 @@ export default function ResultadosPage() {
         }
         const manualTimesWater = loadNumArray("manualTimesWater")
         const manualTimesSample = loadNumArray("manualTimesSample")
+        // Tempos mesclados (vídeo + manual) vindos do wizard (usar dados ANTES de normalizar)
+        const rawInputRow = rowsRaw[0] as Record<string, any>
+        const mergedWaterTimes = typeof rawInputRow?.waterTimes === 'string' && rawInputRow.waterTimes.trim()
+          ? rawInputRow.waterTimes.split(';').map(Number).filter((n: number) => !isNaN(n))
+          : []
+        const mergedSampleTimes = typeof rawInputRow?.sampleTimes === 'string' && rawInputRow.sampleTimes.trim()
+          ? rawInputRow.sampleTimes.split(';').map(Number).filter((n: number) => !isNaN(n))
+          : []
 
         const mapped: ResultShape = {
           conditions: {
@@ -421,8 +430,8 @@ export default function ResultadosPage() {
             met: safeNum(rep?.w_met_est ?? first.w_met_est) ?? 0,
           },
           rawTimes: {
-            waterTimes: manualTimesWater,
-            sampleTimes: manualTimesSample,
+            waterTimes: mergedWaterTimes.length > 0 ? mergedWaterTimes : manualTimesWater,
+            sampleTimes: mergedSampleTimes.length > 0 ? mergedSampleTimes : manualTimesSample,
           },
           equivalentes: rep?.equivalentes ?? undefined,
           classe_final: rep?.classe_final ?? undefined,
@@ -770,9 +779,9 @@ export default function ResultadosPage() {
     for (let i=0;i<xs.length;i++) { const dx = xs[i]-xm; num += dx*(ys[i]-ym); den += dx*dx }
     const slope = den ? num/den : 0
     const intercept = ym - slope*xm
-    const t10 = slope*10 + intercept
-    const t15 = slope*15 + intercept
-    const dt = t10 - t15
+    const t18 = slope*18 + intercept
+    const t14 = slope*14 + intercept
+    const dt = t14 - t18
     if (typeof dt !== "number" || isNaN(dt)) return null
     return dt
   }
@@ -829,6 +838,12 @@ export default function ResultadosPage() {
   }, [result, sampleReplicates, waterReplicates, sampleCvTimes, waterCvTimes])
 
   const compatStatus = useMemo(() => {
+    // Verificar se há apenas 1 valor de amostra (sem duplicata)
+    const manualSampleT = result?.rawTimes?.sampleTimes?.filter((t): t is number => typeof t === 'number' && !isNaN(t)) ?? []
+    const videoSampleT = sampleReplicates.map(r => estimateDeltaTime(r.marks)).filter((v): v is number => typeof v === 'number' && !isNaN(v))
+    const totalSampleValues = manualSampleT.length + videoSampleT.length
+    if (totalSampleValues === 1) return "Necess\u00e1rio realizar duplicata"
+
     const ternaria: TernariaOut | undefined = result ? ((result as unknown as { ternaria?: TernariaOut }).ternaria) : undefined
     
     // Primeiro verificar se há alguma composição equivalente compatível com o rótulo
@@ -855,7 +870,7 @@ export default function ResultadosPage() {
     if (equivalentes) return "Incompatível"
     
     return "Indeterminado"
-  }, [result])
+  }, [result, sampleReplicates])
 
   const semaforo = useMemo(() => {
     const bt = result?.conditions?.beverageType
@@ -1178,8 +1193,8 @@ export default function ResultadosPage() {
               <h2 className="font-medium">Dados de massa e densidade</h2>
               <ul className="mt-1 space-y-1">
                 <li>Método: {result?.density?.method ?? "-"}</li>
-                <li>Massa água (g): {result?.density?.waterMass != null ? result.density.waterMass : "-"}</li>
-                <li>Massa amostra (g): {result?.density?.sampleMass != null ? result.density.sampleMass : "-"}</li>
+                <li>Massa água (g): {result?.density?.waterMass != null ? parseFloat(Number(result.density.waterMass).toFixed(3)) : "-"}</li>
+                <li>Massa amostra (g): {result?.density?.sampleMass != null ? parseFloat(Number(result.density.sampleMass).toFixed(3)) : "-"}</li>
                 <li>Valor medido: {result?.density?.measuredValue != null ? result.density.measuredValue : "-"}</li>
                 <li>Unidade: {result?.density?.measuredUnit ?? "-"}</li>
               </ul>
@@ -1195,7 +1210,7 @@ export default function ResultadosPage() {
             <div className="border rounded-lg p-3">
               <h2 className="font-medium">Escoamento - Amostra</h2>
               <ul className="mt-1 space-y-1">
-                <li>Range de volume considerado (mL): 18–13</li>
+                <li>Range de volume considerado (mL): 18–14</li>
                 <li>Vídeo(s) amostra: {sampleReplicates.length ? sampleReplicates.map(r => r.fileName ?? "-").join("; ") : "-"}</li>
                 <li>Instantes de escoamento: {sampleReplicates.length ? sampleReplicates.map(r => ([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")).join("; ") : "-"}</li>
                 <li>Ajuste(s) linear do escoamento (R²): {sampleReplicates.length ? sampleReplicates.map(r => { const v = computeR2(r.marks); return v != null ? v.toFixed(3) : "-" }).join("; ") : "-"}</li>
@@ -1218,7 +1233,7 @@ export default function ResultadosPage() {
             <div className="border rounded-lg p-3">
               <h2 className="font-medium">Escoamento - Água</h2>
               <ul className="mt-1 space-y-1">
-                <li>Range de volume considerado (mL): 18–13</li>
+                <li>Range de volume considerado (mL): 18–14</li>
                 <li>Vídeo(s) água: {waterReplicates.length ? waterReplicates.map(r => r.fileName ?? "-").join("; ") : "-"}</li>
                 <li>Instantes de escoamento: {waterReplicates.length ? waterReplicates.map(r => ([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")).join("; ") : "-"}</li>
                 <li>Ajuste(s) linear do escoamento (R²): {waterReplicates.length ? waterReplicates.map(r => { const v = computeR2(r.marks); return v != null ? v.toFixed(3) : "-" }).join("; ") : "-"}</li>
@@ -1288,3 +1303,4 @@ export default function ResultadosPage() {
     </div>
   )
 }
+

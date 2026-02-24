@@ -21,7 +21,7 @@ const NAO_SE_APLICA = [
   "Misturas caseiras não homogêneas (coquetéis)"
 ]
 
-export default function StepProfile({ onNext, initialData }: { onNext: (data: ProfileData) => void; initialData?: ProfileData }) {
+export default function StepProfile({ onNext, initialData, renderAfterTitle }: { onNext: (data: ProfileData) => void; initialData?: ProfileData; renderAfterTitle?: React.ReactNode }) {
   const [showMethodology, setShowMethodology] = useState(false)
   const [showNaoAplica, setShowNaoAplica] = useState(false)
   
@@ -110,6 +110,8 @@ export default function StepProfile({ onNext, initialData }: { onNext: (data: Pr
             tooltip="Mistura composta predominantemente por água, etanol e/ou metanol."
           />
         </h1>
+
+        {renderAfterTitle}
 
         {/* Ações superiores: Limpar, Não se aplica, Metodologia */}
         <div className="flex items-center justify-between">

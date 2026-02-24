@@ -7,22 +7,79 @@ import StepDensity from "@/components/wizard/StepDensity"
 import StepTimes from "@/components/wizard/StepTimes"
 import StepReviewCalculate, { WizardData } from "@/components/wizard/StepReviewCalculate"
 import CalculatingOverlay from "@/components/ui/CalculatingOverlay"
-import { useRouter } from "next/navigation"
+import DemoModal from "@/components/ui/DemoModal"
+import { getDemoScenario, getDemoId, clearDemoMode, DemoScenarioId } from "@/lib/demoScenarios"
+import { FlaskConical } from "lucide-react"
+import { useRouter, usePathname } from "next/navigation"
 
 export default function MedirPage() {
   const [step, setStep] = useState(1)
   const [data, setData] = useState<WizardData>({})
   const [calculating, setCalculating] = useState(false)
+  const [demoMode, setDemoMode] = useState<string | null>(null)
+  const [showDemoModal, setShowDemoModal] = useState(false)
   const router = useRouter()
 
+  // Inicialização no mount
   useEffect(() => {
     try {
+      const demoId = getDemoId()
+      if (demoId) {
+        const scenario = getDemoScenario(demoId)
+        if (scenario) {
+          setDemoMode(demoId)
+          const demoData: WizardData = {
+            profile: scenario.profile as any,
+            density: scenario.density as any,
+            waterTemp: scenario.waterTemp as any,
+          }
+          setData(demoData)
+          localStorage.setItem("wizardData", JSON.stringify(demoData))
+          const waterReps = scenario.waterVideos.map(v => ({
+            previewUrl: v.url,
+            duration: v.duration,
+            fileName: v.fileName,
+            marks: v.marks,
+            volumesMarked: v.volumesMarked,
+          }))
+          const sampleReps = scenario.sampleVideos.map(v => ({
+            previewUrl: v.url,
+            duration: v.duration,
+            fileName: v.fileName,
+            marks: v.marks,
+            volumesMarked: v.volumesMarked,
+          }))
+          localStorage.setItem("videoReplicasWater", JSON.stringify(waterReps))
+          localStorage.setItem("videoReplicasSample", JSON.stringify(sampleReps))
+          setStep(2)
+          localStorage.setItem("wizardStep", "2")
+          return
+        }
+      }
+      // Normal mode
+      setDemoMode(null)
       const rawData = localStorage.getItem("wizardData")
       if (rawData) setData(JSON.parse(rawData))
       setStep(1)
       localStorage.setItem("wizardStep", "1")
     } catch {}
   }, [])
+
+  // Detectar quando demoMode foi limpo externamente (ex: usuário foi pra Home que limpa demoScenario)
+  // Checa via interval curto - cobre soft navigation via BottomTabs onde useEffect[] não re-roda
+  useEffect(() => {
+    if (!demoMode) return // Só monitorar quando estamos em modo demo
+    const interval = setInterval(() => {
+      const currentDemoId = getDemoId()
+      if (!currentDemoId) {
+        // Demo foi limpo externamente - resetar para step 1
+        setDemoMode(null)
+        setStep(1)
+        localStorage.setItem("wizardStep", "1")
+      }
+    }, 500)
+    return () => clearInterval(interval)
+  }, [demoMode])
 
   useEffect(() => {
     try { localStorage.setItem("wizardData", JSON.stringify(data)) } catch {}
@@ -33,7 +90,30 @@ export default function MedirPage() {
   }, [step])
 
   const next = () => setStep((s) => s + 1)
-  const back = () => setStep((s) => Math.max(1, s - 1))
+  const back = () => {
+    if (step === 2 && demoMode) {
+      // Exiting demo mode
+      clearDemoMode()
+      setDemoMode(null)
+    }
+    setStep((s) => Math.max(1, s - 1))
+  }
+
+  const handleDemoSelect = (id: DemoScenarioId) => {
+    // Limpar estado anterior antes de iniciar novo demo
+    try {
+      localStorage.removeItem("wizardData")
+      localStorage.removeItem("wizardStep")
+      localStorage.removeItem("videoReplicasWater")
+      localStorage.removeItem("videoReplicasSample")
+      localStorage.removeItem("manualTimesWater")
+      localStorage.removeItem("manualTimesSample")
+    } catch {}
+    localStorage.setItem("demoScenario", id)
+    setShowDemoModal(false)
+    // Hard reload para garantir re-mount limpo
+    window.location.reload()
+  }
 
   type ConvTable = Record<string, number[]>
   let convCache: ConvTable | null = null
@@ -116,6 +196,8 @@ export default function MedirPage() {
 
   const handleCalculate = async () => {
     setCalculating(true)
+    clearDemoMode()
+    setDemoMode(null)
     try {
       try { localStorage.removeItem("lastResult") } catch {}
       const estimateDeltaTime = (marks: Record<13|14|15|16|17|18, number|undefined>) => {
@@ -134,9 +216,9 @@ export default function MedirPage() {
         for (let i=0;i<xs.length;i++) { const dx = xs[i]-xm; num += dx*(ys[i]-ym); den += dx*dx }
         const slope = den ? num/den : 0
         const intercept = ym - slope*xm
-        const t10 = slope*10 + intercept
-        const t15 = slope*15 + intercept
-        const dt = t10 - t15
+        const t18 = slope*18 + intercept
+        const t14 = slope*14 + intercept
+        const dt = t14 - t18
         if (typeof dt !== "number" || isNaN(dt)) return null
         return dt
       }
@@ -482,19 +564,40 @@ export default function MedirPage() {
   return (
     <div className="md:max-w-md md:mx-auto">
       {step === 1 && (
-        <StepProfile initialData={data.profile} onNext={(d) => { setData({ ...data, profile: d }); next(); }} />
+        <>
+          <StepProfile
+            initialData={data.profile}
+            onNext={(d) => { setData({ ...data, profile: d }); next(); }}
+            renderAfterTitle={
+              <div className="text-left">
+                <button
+                  onClick={() => setShowDemoModal(true)}
+                  className="text-xs text-[#002060] underline hover:text-blue-700 transition-colors inline-flex items-center gap-1"
+                >
+                  <FlaskConical className="w-3.5 h-3.5" />
+                  Teste com dados de exemplos reais
+                </button>
+              </div>
+            }
+          />
+          <DemoModal
+            isOpen={showDemoModal}
+            onClose={() => setShowDemoModal(false)}
+            onSelect={handleDemoSelect}
+          />
+        </>
       )}
       {step === 2 && (
-        <StepSampleData initialData={data.profile} onBack={back} onNext={(d) => { setData({ ...data, profile: d }); next(); }} />
+        <StepSampleData initialData={data.profile} onBack={back} onNext={(d) => { setData({ ...data, profile: d }); next(); }} demoMode={demoMode} />
       )}
       {step === 3 && (
-        <StepDensity initialData={data.density} onBack={back} onNext={(d) => { setData({ ...data, density: d }); next(); }} wizardData={{ profile: data.profile }} />
+        <StepDensity initialData={data.density} onBack={back} onNext={(d) => { setData({ ...data, density: d }); next(); }} wizardData={{ profile: data.profile }} demoMode={demoMode} />
       )}
       {step === 4 && (
-        <StepWaterTemp initialData={data.waterTemp} onBack={back} onNext={(d) => { setData({ ...data, waterTemp: d }); next(); }} />
+        <StepWaterTemp initialData={data.waterTemp} onBack={back} onNext={(d) => { setData({ ...data, waterTemp: d }); next(); }} demoMode={demoMode} />
       )}
       {step === 5 && (
-        <StepTimes initialData={data.times} onBack={back} onNext={(d) => { setData({ ...data, times: d }); next(); }} />
+        <StepTimes initialData={data.times} onBack={back} onNext={(d) => { setData({ ...data, times: d }); next(); }} demoMode={demoMode} />
       )}
       {step === 6 && (
         <StepReviewCalculate data={data} onBack={back} onCalculate={handleCalculate} />

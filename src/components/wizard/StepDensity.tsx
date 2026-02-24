@@ -55,6 +55,7 @@ interface StepDensityProps {
   onNext: (data: DensityData) => void
   onBack: () => void
   initialData?: DensityData
+  demoMode?: string | null
   wizardData?: {
     profile?: {
       beverageType?: string
@@ -66,7 +67,10 @@ interface StepDensityProps {
   }
 }
 
-export default function StepDensity({ onNext, onBack, initialData, wizardData }: StepDensityProps) {
+import DemoBanner from "@/components/ui/DemoBanner"
+import { getDemoScenario } from "@/lib/demoScenarios"
+
+export default function StepDensity({ onNext, onBack, initialData, wizardData, demoMode }: StepDensityProps) {
   const [showMethodology, setShowMethodology] = useState(false)
   const [balancaTemDecimal, setBalancaTemDecimal] = useState<boolean | null>(null)
   const [checkingPrecision, setCheckingPrecision] = useState(false)
@@ -430,6 +434,12 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
           </h1>
           <MethodologyButton onClick={() => setShowMethodology(true)} compact />
         </div>
+
+        {/* Banner demo */}
+        {demoMode && (() => {
+          const s = getDemoScenario(demoMode)
+          return s ? <DemoBanner text={s.banners.density} /> : null
+        })()}
 
         {/* Camada 1: Instruções concisas */}
         <p className="text-sm text-neutral-700 text-justify">
