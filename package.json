@@ -1,7 +1,25 @@
 {
-  "name": "pwa-alcool-integrated",
+  "name": "alcolab",
+  "version": "1.0.0",
+  "description": "Open-source PWA for methanol screening in hydroalcoholic solutions using density and viscosity analysis",
+  "author": "Diego Mendes de Souza, Pedro Augusto de Oliveira Morais, Nayara Ferreira Santos",
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diegoanapolis/alcolab.git"
+  },
+  "homepage": "https://alcolab.org",
+  "keywords": [
+    "methanol",
+    "screening",
+    "food-safety",
+    "public-health",
+    "pwa",
+    "analytical-chemistry",
+    "pyodide",
+    "hydroalcoholic"
+  ],
   "private": true,
-  "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

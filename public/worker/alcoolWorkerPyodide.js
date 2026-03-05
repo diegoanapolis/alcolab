@@ -1,3 +1,8 @@
+// AlcoLab — Analytical Screening of Methanol in Hydroalcoholic Solutions
+// Copyright (c) 2024-2026 Diego Mendes de Souza, Pedro Augusto de Oliveira Morais, Nayara Ferreira Santos
+// SPDX-License-Identifier: AGPL-3.0-only
+// See LICENSE file in the project root.
+
 /*
 Pyodide Web Worker that runs the SAME validated Python pipeline (Fluxo 1 + Fluxo 2)
 inside the browser.

@@ -266,8 +266,8 @@ pwa_integrated/
 
 | Item | Localização |
 |---|---|
-| **Código local (desenvolvimento)** | `C:\Users\USUARIO\Documents\projetosclaude\pwa_alcool_app\pwa_integrated\` |
-| **Código para deploy (GitHub/Railway)** | `C:\Users\USUARIO\Documents\projetosclaude\pwa_alcool_app\pwa_deploy_railway\` |
+| **Código local (desenvolvimento)** | `./` |
+| **Código para deploy (GitHub/Railway)** | `./\` |
 | **Vídeos demo** | Cloudflare R2 bucket `alcolabdemo` (público) |
 | **Servidor** | `npm run dev` (local) ou Railway (produção) |
 
