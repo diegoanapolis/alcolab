@@ -15,5 +15,9 @@ export const metadata: Metadata = {
 };
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  return <ClientLayout>{children}</ClientLayout>;
+  return (
+    <div className="pt-12">
+      <ClientLayout>{children}</ClientLayout>
+    </div>
+  );
 }
