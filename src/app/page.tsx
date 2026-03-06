@@ -119,7 +119,7 @@ export default function HomePage() {
             {/* Botões */}
             <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
               <Link
-                href="/app/medir"
+                href="/app/measure"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#002060] text-white font-semibold hover:bg-[#001040] transition-colors text-sm"
               >
                 <Beaker className="w-4 h-4" />
@@ -309,7 +309,7 @@ export default function HomePage() {
 
           <div className="text-center pt-4">
             <Link
-              href="/app/metodologia"
+              href="/app/methodology"
               className="inline-flex items-center gap-2 text-sm font-medium text-[#002060] hover:underline"
             >
               <BookOpen className="w-4 h-4" />
@@ -502,7 +502,7 @@ export default function HomePage() {
           </p>
           <div className="text-center">
             <Link
-              href="/app/metodologia"
+              href="/app/methodology"
               className="inline-flex items-center gap-2 text-sm font-medium text-[#002060] hover:underline"
             >
               <BookOpen className="w-4 h-4" />
@@ -697,13 +697,13 @@ export default function HomePage() {
               GitHub
             </a>
             <Link
-              href="/app/metodologia"
+              href="/app/methodology"
               className="text-blue-200 hover:text-white transition-colors"
             >
               Metodologia
             </Link>
             <Link
-              href="/app/sobre"
+              href="/app/about"
               className="text-blue-200 hover:text-white transition-colors"
             >
               Sobre

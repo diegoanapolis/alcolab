@@ -293,7 +293,7 @@ export default function MedirPage() {
       try { localStorage.setItem("frontend_export_rows", JSON.stringify([exportRow])) } catch {}
       try { localStorage.removeItem("wizardData"); localStorage.removeItem("wizardStep") } catch {}
       setTimeout(() => {
-        router.push("/app/resultados")
+        router.push("/app/results")
       }, 1000)
       return
 
@@ -430,10 +430,10 @@ export default function MedirPage() {
             }
             try { localStorage.setItem("lastResult", JSON.stringify(merged)) } catch {}
             try { localStorage.removeItem("wizardData"); localStorage.removeItem("wizardStep") } catch {}
-            router.push("/app/resultados")
+            router.push("/app/results")
           } else {
             try { localStorage.setItem("lastResult", JSON.stringify(minimal)) } catch {}
-            router.push("/app/resultados")
+            router.push("/app/results")
           }
           t.terminate()
         })
@@ -495,7 +495,7 @@ export default function MedirPage() {
           }
           minimal.equivalentes = expected2 ? fmt(expected2) : null
           try { localStorage.setItem("lastResult", JSON.stringify(minimal)) } catch {}
-          router.push("/app/resultados")
+          router.push("/app/results")
           t.terminate()
         })
       }
@@ -556,7 +556,7 @@ export default function MedirPage() {
         }
         minimal.equivalentes = expected ? fmt(expected) : null
         try { localStorage.setItem("lastResult", JSON.stringify(minimal)) } catch {}
-        router.push("/app/resultados")
+        router.push("/app/results")
       })
     }
   }

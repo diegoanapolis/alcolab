@@ -36,7 +36,7 @@ export default function Home() {
     localStorage.setItem("demoScenario", id)
     setShowDemoModal(false)
     // Hard navigation para garantir re-mount do medir
-    window.location.href = "/app/medir"
+    window.location.href = "/app/measure"
   }
 
   const handleMedir = () => {
@@ -50,7 +50,7 @@ export default function Home() {
       localStorage.removeItem("manualTimesWater")
       localStorage.removeItem("manualTimesSample")
     } catch {}
-    router.push("/app/medir")
+    router.push("/app/measure")
   }
 
   return (
@@ -97,21 +97,21 @@ export default function Home() {
           <span className="text-sm font-medium text-[#002060]">Medir</span>
         </button>
         <Link 
-          href="/app/resultados" 
+          href="/app/results" 
           className="border-2 border-[#002060] rounded-lg p-4 text-center flex flex-col items-center gap-2 hover:bg-blue-50 transition-colors"
         >
           <LineChart className="w-8 h-8 text-[#002060]" aria-hidden="true" />
           <span className="text-sm font-medium text-[#002060]">Resultados</span>
         </Link>
         <Link 
-          href="/app/metodologia" 
+          href="/app/methodology" 
           className="border-2 border-[#002060] rounded-lg p-4 text-center flex flex-col items-center gap-2 hover:bg-blue-50 transition-colors"
         >
           <BookOpen className="w-8 h-8 text-[#002060]" aria-hidden="true" />
           <span className="text-sm font-medium text-[#002060]">Materiais e método</span>
         </Link>
         <Link 
-          href="/app/sobre" 
+          href="/app/about" 
           className="border-2 border-[#002060] rounded-lg p-4 text-center flex flex-col items-center gap-2 hover:bg-blue-50 transition-colors"
         >
           <Info className="w-8 h-8 text-[#002060]" aria-hidden="true" />
