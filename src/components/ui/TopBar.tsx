@@ -13,11 +13,11 @@ export default function TopBar() {
   useEffect(() => { if (open) setDrawerSlideIn(true) }, [open])
   const closeMenu = () => { setDrawerSlideIn(false); setTimeout(() => setOpen(false), 200) }
   const tabs = [
-    { href: "/", label: "Home", icon: Home },
-    { href: "/medir", label: "Medição", icon: Beaker },
-    { href: "/resultados", label: "Resultados", icon: LineChart },
-    { href: "/metodologia", label: "Metodologia", icon: BookOpen },
-    { href: "/sobre", label: "Sobre", icon: Info },
+    { href: "/app", label: "Home", icon: Home },
+    { href: "/app/medir", label: "Medição", icon: Beaker },
+    { href: "/app/resultados", label: "Resultados", icon: LineChart },
+    { href: "/app/metodologia", label: "Metodologia", icon: BookOpen },
+    { href: "/app/sobre", label: "Sobre", icon: Info },
   ]
   return (
     <>

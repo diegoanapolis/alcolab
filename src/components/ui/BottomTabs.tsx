@@ -7,11 +7,11 @@ import { Beaker, LineChart, BookOpen, Info, Home } from "lucide-react"
 export default function BottomTabs() {
   const pathname = usePathname()
   const tabs = [
-    { href: "/", label: "Home", icon: Home },
-    { href: "/medir", label: "Medição", icon: Beaker },
-    { href: "/resultados", label: "Resultados", icon: LineChart },
-    { href: "/metodologia", label: "Metodologia", icon: BookOpen },
-    { href: "/sobre", label: "Sobre", icon: Info },
+    { href: "/app", label: "Home", icon: Home },
+    { href: "/app/medir", label: "Medição", icon: Beaker },
+    { href: "/app/resultados", label: "Resultados", icon: LineChart },
+    { href: "/app/metodologia", label: "Metodologia", icon: BookOpen },
+    { href: "/app/sobre", label: "Sobre", icon: Info },
   ]
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-neutral-200 md:max-w-md md:mx-auto">

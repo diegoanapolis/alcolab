@@ -5,15 +5,14 @@
 
 import type { Metadata } from "next";
 import "./globals.css";
-import ClientLayout from "@/components/ui/ClientLayout";
 
 export const metadata: Metadata = {
   title: {
-    default: "AlcoLab — Methanol Screening Tool",
+    default: "AlcoLab — Triagem de Metanol Acessível a Todos",
     template: "%s | AlcoLab",
   },
   description:
-    "Free, open-source PWA for screening methanol contamination in alcoholic beverages and hydroalcoholic solutions. Uses density and viscosity analysis with a syringe and a scale. Works offline, no lab required.",
+    "Ferramenta gratuita e open-source para triagem de metanol em bebidas e soluções hidroalcoólicas. Usa análise de densidade e viscosidade com seringa e balança. Funciona offline, sem laboratório.",
   keywords: [
     "methanol detection",
     "methanol screening",
@@ -23,6 +22,9 @@ export const metadata: Metadata = {
     "metanol",
     "bebida adulterada",
     "triagem metanol",
+    "como identificar metanol em bebida",
+    "teste metanol álcool",
+    "methanol detection app",
   ],
   authors: [
     { name: "Diego Mendes de Souza" },
@@ -30,9 +32,9 @@ export const metadata: Metadata = {
     { name: "Nayara Ferreira Santos" },
   ],
   openGraph: {
-    title: "AlcoLab — Methanol Screening Tool",
+    title: "AlcoLab — Triagem de Metanol Acessível a Todos",
     description:
-      "Free PWA for screening methanol in alcoholic beverages. No lab required.",
+      "Ferramenta gratuita para triagem de metanol em bebidas. Sem laboratório.",
     url: "https://alcolab.org",
     siteName: "AlcoLab",
     locale: "pt_BR",
@@ -40,17 +42,17 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "AlcoLab — Methanol Screening Tool",
+    title: "AlcoLab — Triagem de Metanol Acessível a Todos",
     description:
-      "Free PWA for screening methanol in alcoholic beverages. No lab required.",
+      "Ferramenta gratuita para triagem de metanol em bebidas. Sem laboratório.",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={"antialiased min-h-dvh bg-background text-foreground pt-12"}>
-        <ClientLayout>{children}</ClientLayout>
+      <body className="antialiased min-h-dvh bg-background text-foreground">
+        {children}
       </body>
     </html>
   );
