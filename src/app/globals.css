@@ -280,6 +280,28 @@
   /* ===== PROGRESS BAR ===== */
   .bg-blue-200 { background-color: #1e3a5f !important; }
   .bg-blue-600 { background-color: #3b82f6 !important; }
+
+  /* ===== HOMEPAGE DARK MODE ===== */
+  .bg-neutral-50 { background-color: var(--dm-surface-alt) !important; }
+  .bg-neutral-100 { background-color: var(--dm-surface-alt) !important; }
+  .text-neutral-800 { color: var(--dm-text) !important; }
+  .text-neutral-400 { color: #94a3b8 !important; }
+  .border-\[\#002060\]\/20 { border-color: var(--dm-border) !important; }
+  .border-\[\#002060\]\/30 { border-color: var(--dm-border) !important; }
+  .text-\[\#002060\]\/70 { color: var(--dm-title) !important; }
+  .bg-white\/10 { background-color: rgba(255,255,255,0.1) !important; }
+  .text-green-700 { color: #86efac !important; }
+  code { color: var(--dm-text) !important; background-color: var(--dm-surface) !important; border-color: var(--dm-border) !important; }
+
+  /* Homepage: force white text where needed */
+  .text-neutral-700 { color: var(--dm-text-muted) !important; }
+  .text-neutral-600 { color: var(--dm-text-muted) !important; }
+
+  /* Seção 'Por que existe': título branco sobre fundo azul */
+  .text-white { color: #ffffff !important; }
+
+  /* Seção Apoie: labels Pix/Internacional */
+  .bg-neutral-50 .text-neutral-700 { color: var(--dm-text-muted) !important; }
 }
 
 body { background: var(--background); color: var(--foreground); }

@@ -105,11 +105,12 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
           {/* Texto */}
           <div className="flex-1 text-center lg:text-left space-y-6">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#002060] leading-tight">
-              Triagem de metanol
-              <br />
-              acessível a todos
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#002060] leading-tight">
+              AlcoLab
             </h1>
+            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#002060]/70">
+              Triagem de metanol acessível a todos
+            </p>
             <p className="text-base sm:text-lg text-neutral-600 max-w-xl mx-auto lg:mx-0">
               Ferramenta gratuita e open-source que estima contaminação por
               metanol em bebidas e soluções — sem laboratório.
@@ -133,7 +134,7 @@ export default function HomePage() {
               </Link>
               <a
                 href="#como-funciona"
-                className="inline-flex items-center gap-1 text-sm text-[#002060] font-medium hover:underline"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-[#002060] text-[#002060] font-semibold hover:bg-blue-50 transition-colors text-sm"
               >
                 Como funciona?
                 <ChevronDown className="w-4 h-4" />
@@ -157,7 +158,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── SEÇÃO 2: COMO FUNCIONA ─── */}
-      <section id="como-funciona" className="bg-neutral-50 px-6 py-16 lg:px-16 lg:py-20">
+      <section id="como-funciona" className="bg-neutral-100 px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-5xl mx-auto space-y-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#002060] text-center">
             Como funciona
@@ -180,7 +181,7 @@ export default function HomePage() {
                   O app instrui o usuário a realizar duas medições para a amostra
                   e para água (padrão de referência):
                 </p>
-                <ul className="text-sm text-neutral-700 space-y-1 pl-4">
+                <ul className="text-sm text-neutral-700 space-y-2 pl-6 list-disc marker:text-[#002060]">
                   <li>
                     <span className="font-medium">Densidade relativa</span> —
                     razão entre a massa da amostra e a massa da água (mesmo
@@ -195,7 +196,7 @@ export default function HomePage() {
                 </ul>
               </div>
               <div className="flex gap-3 justify-center md:justify-end shrink-0">
-                <div className="w-32 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                <div className="w-40 sm:w-44 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/step-pesagem.png"
                     alt="Tela de pesagem do AlcoLab"
@@ -204,10 +205,10 @@ export default function HomePage() {
                     className="w-full h-auto"
                   />
                 </div>
-                <div className="w-32 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                <div className="w-40 sm:w-44 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
-                    src="/images/homepage/step-cronometro.png"
-                    alt="Tela de cronometragem do AlcoLab"
+                    src="/images/homepage/step-video-menisco.png"
+                    alt="Tela de marcação dos meniscos por vídeo no AlcoLab"
                     width={390}
                     height={844}
                     className="w-full h-auto"
@@ -294,7 +295,7 @@ export default function HomePage() {
                   assume cor vermelha.
                 </p>
               </div>
-              <div className="w-32 shrink-0 mx-auto md:mx-0 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+              <div className="w-40 sm:w-44 shrink-0 mx-auto md:mx-0 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                 <Image
                   src="/images/homepage/semaforo-vermelho.png"
                   alt="Resultado com semáforo vermelho"
@@ -321,7 +322,7 @@ export default function HomePage() {
       {/* ─── SEÇÃO 3: POR QUE IMPORTA ─── */}
       <section className="bg-[#002060] text-white px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-5xl mx-auto space-y-10">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-white">
             Por que o AlcoLab existe
           </h2>
 
@@ -346,8 +347,8 @@ export default function HomePage() {
             <div className="text-center space-y-2 p-6 rounded-xl bg-white/10">
               <p className="text-4xl sm:text-5xl font-extrabold">R$ 0</p>
               <p className="text-sm text-blue-100 leading-snug">
-                custo do AlcoLab — contra R$ 50.000+ de um cromatógrafo gasoso
-                e centenas de reais por análise
+                Custo por análise no AlcoLab — contra R$ 50.000+ de um cromatógrafo
+                gasoso e centenas de reais por análise
               </p>
             </div>
           </div>
@@ -419,7 +420,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── SEÇÃO 5: EXPERIMENTE AGORA ─── */}
-      <section className="bg-neutral-50 px-6 py-16 lg:px-16 lg:py-20">
+      <section className="bg-neutral-100 px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-4xl mx-auto">
           <div className="border-2 border-[#002060]/20 rounded-2xl p-8 sm:p-10 bg-white space-y-6">
             <h2 className="text-xl sm:text-2xl font-bold text-[#002060] text-center">
@@ -435,7 +436,7 @@ export default function HomePage() {
             {/* Screenshots lado a lado */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 py-4">
               <div className="text-center space-y-2">
-                <div className="w-40 sm:w-44 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                <div className="w-44 sm:w-52 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/semaforo-verde.png"
                     alt="Resultado com semáforo verde — amostra legítima"
@@ -449,7 +450,7 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="text-center space-y-2">
-                <div className="w-40 sm:w-44 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                <div className="w-44 sm:w-52 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/semaforo-vermelho.png"
                     alt="Resultado com semáforo vermelho — amostra contaminada"
@@ -512,7 +513,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── SEÇÃO 7: EQUIPE ─── */}
-      <section className="bg-neutral-50 px-6 py-16 lg:px-16 lg:py-20">
+      <section className="bg-neutral-100 px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-5xl mx-auto space-y-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#002060] text-center">
             Equipe
@@ -661,7 +662,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── SEÇÃO 9: CONTATO ─── */}
-      <section className="bg-neutral-50 px-6 py-16 lg:px-16 lg:py-20">
+      <section className="bg-neutral-100 px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#002060] flex items-center justify-center gap-2">
             <Mail className="w-6 h-6" />
