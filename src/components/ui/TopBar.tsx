@@ -14,10 +14,10 @@ export default function TopBar() {
   const closeMenu = () => { setDrawerSlideIn(false); setTimeout(() => setOpen(false), 200) }
   const tabs = [
     { href: "/app", label: "Home", icon: Home },
-    { href: "/app/medir", label: "Medição", icon: Beaker },
-    { href: "/app/resultados", label: "Resultados", icon: LineChart },
-    { href: "/app/metodologia", label: "Metodologia", icon: BookOpen },
-    { href: "/app/sobre", label: "Sobre", icon: Info },
+    { href: "/app/measure", label: "Medição", icon: Beaker },
+    { href: "/app/results", label: "Resultados", icon: LineChart },
+    { href: "/app/methodology", label: "Metodologia", icon: BookOpen },
+    { href: "/app/about", label: "Sobre", icon: Info },
   ]
   return (
     <>

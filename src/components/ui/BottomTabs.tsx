@@ -8,10 +8,10 @@ export default function BottomTabs() {
   const pathname = usePathname()
   const tabs = [
     { href: "/app", label: "Home", icon: Home },
-    { href: "/app/medir", label: "Medição", icon: Beaker },
-    { href: "/app/resultados", label: "Resultados", icon: LineChart },
-    { href: "/app/metodologia", label: "Metodologia", icon: BookOpen },
-    { href: "/app/sobre", label: "Sobre", icon: Info },
+    { href: "/app/measure", label: "Medição", icon: Beaker },
+    { href: "/app/results", label: "Resultados", icon: LineChart },
+    { href: "/app/methodology", label: "Metodologia", icon: BookOpen },
+    { href: "/app/about", label: "Sobre", icon: Info },
   ]
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-neutral-200 md:max-w-md md:mx-auto">
