@@ -2,10 +2,10 @@
 // Copyright (c) 2024-2026 Diego Mendes de Souza, Pedro Augusto de Oliveira Morais, Nayara Ferreira Santos
 // SPDX-License-Identifier: AGPL-3.0-only
 
-import type { Metadate } from "next";
+import type { Metadata } from "next";
 import ClientLayout from "@/components/ui/ClientLayout";
 
-export const metadate: Metadate = {
+export const metadata: Metadata = {
   title: {
     default: "AlcoLab — Methanol Screening Tool",
     template: "%s | AlcoLab",

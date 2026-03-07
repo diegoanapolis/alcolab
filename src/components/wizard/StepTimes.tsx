@@ -194,7 +194,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
     setOffset({ x: 0, y: 0 })
   }
   
-  const onLoadedMetadate = () => {
+  const onLoadedMetadata = () => {
     const d = videoRef.current?.duration || 0
     setDuration(d)
     setCoarseTime(0)
@@ -532,7 +532,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                   </div>
                   <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
                   <div className="w-full overflow-hidden h-20 rounded">
-                    <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadate" />
+                    <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadata" />
                   </div>
                 </div>
               ))}
@@ -586,7 +586,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                   </div>
                   <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
                   <div className="w-full overflow-hidden h-20 rounded">
-                    <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadate" />
+                    <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadata" />
                   </div>
                 </div>
               ))}
@@ -675,7 +675,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                   setPointers(pts)
                 }
               }} onTouchEnd={() => { setPointers([]); setInitialGesture(null); setInteractionMode(null) }}>
-                <video ref={videoRef} src={videoUrl} className="w-full h-full" style={{ transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`, transformOrigin: "center center" }} playsInline preload="metadate" controls={false} onLoadedMetadate={onLoadedMetadate} onTimeUpdate={() => setCurrentTimeSec(videoRef.current?.currentTime || 0)} />
+                <video ref={videoRef} src={videoUrl} className="w-full h-full" style={{ transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`, transformOrigin: "center center" }} playsInline preload="metadata" controls={false} onLoadedMetadata={onLoadedMetadata} onTimeUpdate={() => setCurrentTimeSec(videoRef.current?.currentTime || 0)} />
               </div>
               <div className="space-y-2">
                 <div className="font-medium text-xs text-[#002060]">Zoom</div>

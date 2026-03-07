@@ -3,10 +3,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // See LICENSE file in the project root.
 
-import type { Metadate } from "next";
+import type { Metadata } from "next";
 import "./globals.css";
 
-export const metadate: Metadate = {
+export const metadata: Metadata = {
   title: {
     default: "AlcoLab — Accessible Methanol Screening",
     template: "%s | AlcoLab",
