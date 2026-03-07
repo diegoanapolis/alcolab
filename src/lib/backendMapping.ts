@@ -46,7 +46,7 @@ export function normalizeRow(row: Record<string, unknown>) {
   }
   
   // Set defaults
-  if (!out["beverageType"]) out["beverageType"] = "Outra hidroalcoólica"
+  if (!out["beverageType"]) out["beverageType"] = "Other hydroalcoholic"
   if (out["delta_v"] == null || out["delta_v"] === "") out["delta_v"] = 4
   if (out["hm"] == null || out["hm"] === "") out["hm"] = 7
   

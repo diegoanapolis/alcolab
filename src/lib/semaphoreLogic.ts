@@ -28,7 +28,7 @@ export interface SemaphoreInput {
 export interface SemaphoreResult {
   cor: 'green' | 'yellow' | 'red'
   texto: string
-  experimentoAprovado: boolean
+  experimentApproved: boolean
 }
 
 /**
@@ -52,11 +52,11 @@ export function calculateSemaphore(input: SemaphoreInput): SemaphoreResult {
     isManualTimes
   } = input
 
-  // Verificar se há metanol alto nas equivalentes
-  const eqHasMetanolAlto = (() => {
+  // Verificar se há methanol alto nas equivalentes
+  const eqHasMethanolAlto = (() => {
     if (typeof methanolAbove5InEquivalents === 'boolean') return methanolAbove5InEquivalents
     const ternEq = String(equivalentes ?? '').toLowerCase()
-    const m = ternEq.match(/metanol\s+(\d+(?:[\.,]\d+)?)%/)
+    const m = ternEq.match(/methanol\s+(\d+(?:[\.,]\d+)?)%/)
     if (!m) return false
     const v = Number(String(m[1]).replace(',', '.'))
     return isFinite(v) && v > 5
@@ -78,63 +78,63 @@ export function calculateSemaphore(input: SemaphoreInput): SemaphoreResult {
     waterViscOk = muAbsWater >= waterViscosityRef * 0.85 && muAbsWater <= waterViscosityRef * 1.15
   }
 
-  const experimentoAprovado = repsOk && cvOk && r2Ok && waterViscOk
+  const experimentApproved = repsOk && cvOk && r2Ok && waterViscOk
 
   // Tipos de amostra
-  const tipoMetanolComercial = beverageType === 'Metanol comercial'
-  const tipoEtanolCombustivel = beverageType === 'Etanol combustível'
-  const tipoBebida = beverageType && !tipoMetanolComercial && !tipoEtanolCombustivel
+  const tipoMethanolComercial = beverageType === 'Commercial methanol'
+  const tipoEtanolCombustivel = beverageType === 'Fuel ethanol'
+  const tipoBebida = beverageType && !tipoMethanolComercial && !tipoEtanolCombustivel
 
   // Lógica do semáforo
-  if (tipoMetanolComercial || tipoEtanolCombustivel) {
-    if (compativel === 'Compatível' && experimentoAprovado) {
+  if (tipoMethanolComercial || tipoEtanolCombustivel) {
+    if (compativel === 'Compatible' && experimentApproved) {
       return {
         cor: 'green',
-        texto: 'Compatibilidade entre rótulo e experimento',
-        experimentoAprovado
+        texto: 'Compatibility between label and experiment',
+        experimentApproved
       }
     }
-    if (compativel === 'Incompatível' && experimentoAprovado) {
+    if (compativel === 'Incompatible' && experimentApproved) {
       return {
         cor: 'red',
-        texto: 'Incompatível com o rótulo',
-        experimentoAprovado
+        texto: 'Incompatible with the label',
+        experimentApproved
       }
     }
     return {
       cor: 'yellow',
-      texto: 'Necessários mais dados experimentais',
-      experimentoAprovado
+      texto: 'More experimental data needed',
+      experimentApproved
     }
   }
 
   if (tipoBebida) {
-    if (compativel === 'Incompatível' && eqHasMetanolAlto && experimentoAprovado) {
+    if (compativel === 'Incompatible' && eqHasMethanolAlto && experimentApproved) {
       return {
         cor: 'red',
-        texto: 'Possível presença de metanol',
-        experimentoAprovado
+        texto: 'Possible methanol presence',
+        experimentApproved
       }
     }
-    if (compativel === 'Compatível' && experimentoAprovado) {
+    if (compativel === 'Compatible' && experimentApproved) {
       return {
         cor: 'green',
-        texto: 'Compatibilidade entre rótulo e experimento',
-        experimentoAprovado
+        texto: 'Compatibility between label and experiment',
+        experimentApproved
       }
     }
     return {
       cor: 'yellow',
-      texto: 'Necessários mais dados experimentais',
-      experimentoAprovado
+      texto: 'More experimental data needed',
+      experimentApproved
     }
   }
 
   // Caso padrão
   return {
     cor: 'yellow',
-    texto: 'Necessários mais dados experimentais',
-    experimentoAprovado
+    texto: 'More experimental data needed',
+    experimentApproved
   }
 }
 

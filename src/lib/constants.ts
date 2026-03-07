@@ -3,15 +3,15 @@ export const BEVERAGE_TYPES = [
   "Cachaça branca",
   "Whisky",
   "Aguardente",
-  "Rum branco",
-  "Gin seco",
+  "White rum",
+  "Dry gin",
   "Tequila blanca",
   "Pisco",
   "Tiquira",
-  "Etanol comercial*",
-  "Etanol combustível",
-  "Metanol comercial",
-  "Outra hidroalcoólica",
+  "Commercial ethanol*",
+  "Fuel ethanol",
+  "Commercial methanol",
+  "Other hydroalcoholic",
 ] as const;
 
 export type BeverageType = typeof BEVERAGE_TYPES[number];

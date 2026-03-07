@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react"
 import { Lock } from "lucide-react"
 import Link from "next/link"
+import { useT } from "@/lib/i18n"
 
 export default function TermsGate({ children }: { children: React.ReactNode }) {
+  const t = useT()
   const [accepted, setAccepted] = useState(false)
   const [ready, setReady] = useState(false)
   
@@ -33,20 +35,20 @@ export default function TermsGate({ children }: { children: React.ReactNode }) {
         <div className="w-full max-w-md bg-[#002060] border border-gray-600 rounded-2xl shadow-xl p-5 space-y-3">
           <div className="flex items-center gap-2">
             <Lock className="h-6 w-6 text-white" aria-hidden="true" />
-            <h1 className="text-lg font-semibold text-white">Termo de Uso e Responsabilidade</h1>
+            <h1 className="text-lg font-semibold text-white">{t("Terms of Use and Liability")}</h1>
           </div>
           <div className="space-y-2 text-sm text-white text-justify">
             <p>
-              Esta ferramenta possui finalidade exclusivamente preventiva e de triagem, auxiliando na proteção da saúde pública. Não substitui exames laboratoriais oficiais. Os resultados são estimativos e podem variar conforme a precisão das medições realizadas pelo próprio usuário. A confiabilidade dos resultados depende inteiramente do cuidado do usuário ao seguir a metodologia descrita no aplicativo.
+              This tool is intended exclusively for preventive screening purposes, supporting public health protection. It does not replace official laboratory analyses. Results are estimates and may vary depending on the precision of measurements performed by the user. The reliability of results depends entirely on the user’s care in following the methodology described in the application.
             </p>
             <p>
-              Os desenvolvedores não se responsabilizam por quaisquer interpretações equivocadas, decisões de consumo ou consequências decorrentes do uso incorreto, incompleto ou indevido da ferramenta. Em caso de suspeita de adulteração ou presença de metanol, recomenda-se não consumir a bebida e acionar Vigilância Sanitária local, Polícia Civil (197), PROCON e, quando couber, o MAPA.
+              The developers assume no responsibility for any misinterpretations, consumption decisions, or consequences arising from incorrect, incomplete, or improper use of the tool. If adulteration or methanol presence is suspected, do not consume the beverage and contact local health authorities and law enforcement.
             </p>
             <p>
-              Em caso de suspeita de contaminação por metanol, busque serviço de saúde imediatamente e ligue para o Disque-Intoxicação 0800 722 6001.
+              If methanol contamination is suspected, seek medical help immediately. In Brazil, call Disque-Intoxicação: 0800 722 6001.
             </p>
             <p>
-              Ao clicar em "Li e concordo", você declara ter lido, entendido e aceitado os Termos de Uso e a Política de Privacidade disponíveis no aplicativo.
+              By clicking "I have read and agree", you declare that you have read, understood, and accepted the Terms of Use and Privacy Policy available in the application.
             </p>
           </div>
           <div className="flex gap-3 pt-2">
@@ -54,18 +56,18 @@ export default function TermsGate({ children }: { children: React.ReactNode }) {
               onClick={handleAccept} 
               className="flex-1 bg-white hover:bg-gray-100 text-[#002060] font-semibold rounded-lg py-2"
             >
-              Li e Concordo
+              I have read and agree
             </button>
             <button 
-              onClick={() => alert("O uso do aplicativo requer concordância com os Termos.")} 
+              onClick={() => alert("Using the application requires agreement with the Terms.")} 
               className="flex-1 bg-gray-500 hover:bg-gray-600 text-white rounded-lg py-2"
             >
-              Não Concordo
+              I do not agree
             </button>
           </div>
           <div className="text-xs text-white text-center">
-            Leia a <Link href="/metodologia" className="underline text-blue-300">Metodologia</Link> e as 
-            informações em <Link href="/sobre" className="underline text-blue-300">Sobre</Link>.
+            Read the <Link href="/app/methodology" className="underline text-blue-300">Methodology</Link> and 
+            the information in <Link href="/app/about" className="underline text-blue-300">About</Link>.
           </div>
         </div>
       </div>

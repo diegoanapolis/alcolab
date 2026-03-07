@@ -9,14 +9,16 @@ import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Beaker, LineChart, BookOpen, Info, FlaskConical } from "lucide-react"
 import { InlineTooltip } from "@/components/ui/InfoTooltip"
+import { useT } from "@/lib/i18n"
 import DemoModal from "@/components/ui/DemoModal"
 import { getDemoScenario, DemoScenarioId, clearDemoMode } from "@/lib/demoScenarios"
 
 export default function Home() {
   const [showDemoModal, setShowDemoModal] = useState(false)
   const router = useRouter()
+  const t = useT()
 
-  // Limpar demo mode ao chegar na Home (usuário saiu do fluxo demo)
+  // Clear demo mode when arriving at Home (user left demo flow)
   React.useEffect(() => {
     clearDemoMode()
   }, [])
@@ -24,7 +26,7 @@ export default function Home() {
   const handleDemoSelect = (id: DemoScenarioId) => {
     const scenario = getDemoScenario(id)
     if (!scenario) return
-    // Limpar estado anterior antes de iniciar novo demo
+    // Clear previous state before starting new demo
     try {
       localStorage.removeItem("wizardData")
       localStorage.removeItem("wizardStep")
@@ -35,12 +37,12 @@ export default function Home() {
     } catch {}
     localStorage.setItem("demoScenario", id)
     setShowDemoModal(false)
-    // Hard navigation para garantir re-mount do medir
+    // Hard navigation to ensure re-mount of measure
     window.location.href = "/app/measure"
   }
 
   const handleMedir = () => {
-    // Limpar estado demo ao navegar normalmente para Medir
+    // Clear demo state when navigating normally to Measure
     clearDemoMode()
     try {
       localStorage.removeItem("wizardData")
@@ -58,32 +60,32 @@ export default function Home() {
       {/* Título e subtítulo */}
       <div className="space-y-1">
         <h1 className="text-xl font-bold text-[#002060]">
-          Triagem soluções hidroalcoólicas
+          {t("Hydroalcoholic solution screening")}
         </h1>
         <p className="text-sm font-bold text-[#002060]">
-          Estimativa de água, etanol e metanol (≥ 5%)
+          {t("Estimation of water, ethanol and methanol (≥ 5%)")}
         </p>
       </div>
 
       {/* Camada 1: Texto mínimo obrigatório */}
       <div className="space-y-2 text-sm text-neutral-700 text-justify">
         <p>
-          Dedicado à{" "}
+          Dedicated to the{" "}
           <InlineTooltip 
-            term="triagem" 
-            tooltip="Análise preventiva e estimativa, não confirmatória."
+            term="screening" 
+            tooltip="Preventive and estimative analysis, not confirmatory."
           />{" "}
-          de bebidas destiladas puras (&quot;secas&quot;); etanol combustível; metanol reagente e{" "}
+          of pure distilled beverages (\u201cdry\u201d); fuel ethanol; reagent methanol and{" "}
           <InlineTooltip 
-            term="soluções hidroalcoólicas" 
-            tooltip="Misturas compostas predominantemente por água, etanol e/ou metanol."
+            term="hydroalcoholic solutions" 
+            tooltip="Mixtures composed predominantly of water, ethanol and/or methanol."
           />{" "}
-          compostas de água, etanol e metanol, conforme opções listadas em{" "}
-          <button onClick={handleMedir} className="underline text-[#002060] font-medium">Medir</button>.{" "}
-          <span className="font-bold">Não substitui exame confirmatório.</span>
+          made of water, ethanol and methanol, as per options listed in{" "}
+          <button onClick={handleMedir} className="underline text-[#002060] font-medium">Measure</button>.{" "}
+          <span className="font-bold">{t("Does not replace confirmatory analysis.")}</span>
         </p>
         <p>
-          Desenvolvida para auxiliar na proteção da saúde pública e na defesa do consumidor.
+          {t("Developed to support public health protection and consumer safety.")}
         </p>
       </div>
       
@@ -94,28 +96,28 @@ export default function Home() {
           className="border-2 border-[#002060] rounded-lg p-4 text-center flex flex-col items-center gap-2 hover:bg-blue-50 transition-colors"
         >
           <Beaker className="w-8 h-8 text-[#002060]" aria-hidden="true" />
-          <span className="text-sm font-medium text-[#002060]">Medir</span>
+          <span className="text-sm font-medium text-[#002060]">{t("Measure")}</span>
         </button>
         <Link 
           href="/app/results" 
           className="border-2 border-[#002060] rounded-lg p-4 text-center flex flex-col items-center gap-2 hover:bg-blue-50 transition-colors"
         >
           <LineChart className="w-8 h-8 text-[#002060]" aria-hidden="true" />
-          <span className="text-sm font-medium text-[#002060]">Resultados</span>
+          <span className="text-sm font-medium text-[#002060]">{t("Results")}</span>
         </Link>
         <Link 
           href="/app/methodology" 
           className="border-2 border-[#002060] rounded-lg p-4 text-center flex flex-col items-center gap-2 hover:bg-blue-50 transition-colors"
         >
           <BookOpen className="w-8 h-8 text-[#002060]" aria-hidden="true" />
-          <span className="text-sm font-medium text-[#002060]">Materiais e método</span>
+          <span className="text-sm font-medium text-[#002060]">{t("Materials & method")}</span>
         </Link>
         <Link 
           href="/app/about" 
           className="border-2 border-[#002060] rounded-lg p-4 text-center flex flex-col items-center gap-2 hover:bg-blue-50 transition-colors"
         >
           <Info className="w-8 h-8 text-[#002060]" aria-hidden="true" />
-          <span className="text-sm font-medium text-[#002060]">Sobre</span>
+          <span className="text-sm font-medium text-[#002060]">{t("About")}</span>
         </Link>
       </div>
       
@@ -126,7 +128,7 @@ export default function Home() {
           className="text-xs text-[#002060] underline hover:text-blue-700 transition-colors inline-flex items-center gap-1"
         >
           <FlaskConical className="w-3.5 h-3.5" />
-          Teste com dados de exemplos reais
+          {t("Try with real example data")}
         </button>
       </div>
 
@@ -140,14 +142,14 @@ export default function Home() {
       {/* Alerta de suspeita - destaque */}
       <div className="bg-red-50 border-l-4 border-red-600 p-4 rounded-r-lg">
         <p className="text-red-700 font-bold text-sm mb-2">
-          🚨 Suspeita de contaminação por metanol
+          🚨 {t("Suspected methanol contamination")}
         </p>
         <p className="text-red-700 text-sm">
-          Procure serviço de saúde imediatamente.<br />
-          Ligue para o Disque-Intoxicação: <span className="font-bold">0800 722 6001</span>.
+          {t("Seek medical help immediately.")}<br />
+          In Brazil, call Disque-Intoxicação: <span className="font-bold">0800 722 6001</span>.
         </p>
         <p className="text-red-600 text-xs mt-3 italic">
-          Em casos suspeitos, denuncie: Vigilância Sanitária local, Polícia Civil (197), PROCON e, quando aplicável, MAPA.
+          In suspicious cases, report to: local health surveillance, Civil Police (197), PROCON and, when applicable, MAPA (Brazil).
         </p>
       </div>
     </div>

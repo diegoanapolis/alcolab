@@ -6,8 +6,9 @@ import { densitySchema, DensityData } from "@/lib/schemas"
 import NavigationButtons from "./NavigationButtons"
 import useSwipe from "@/hooks/useSwipe"
 import InfoTooltip, { InlineTooltip } from "@/components/ui/InfoTooltip"
+import { useT } from "@/lib/i18n"
 import MethodologyModal, { MethodologyButton } from "@/components/ui/MethodologyModal"
-import { MethodologyMassaDensidade } from "@/lib/methodologyContent"
+import { MethodologyMassaDensidadeI18n as MethodologyMassaDensidade } from "@/lib/methodologyContent.i18n"
 
 const parseFlexibleDecimal = (input: string): number => {
   if (typeof input !== "string") input = String(input ?? "")
@@ -48,11 +49,11 @@ interface LowPrecisionCheckResult {
   teor_inicial_pct?: number
   teor_min_pct?: number
   teor_max_pct?: number
-  useLabelAsInitial?: boolean // Flag para indicar que deve usar teor de rótulo como inicial
+  useLabelAsInitial?: boolean // Flag para indicar que deve usar label content como inicial
 }
 
 interface StepDensityProps {
-  onNext: (data: DensityData) => void
+  onNext: (date: DensityData) => void
   onBack: () => void
   initialData?: DensityData
   demoMode?: string | null
@@ -71,20 +72,21 @@ import DemoBanner from "@/components/ui/DemoBanner"
 import { getDemoScenario } from "@/lib/demoScenarios"
 
 export default function StepDensity({ onNext, onBack, initialData, wizardData, demoMode }: StepDensityProps) {
+  const t = useT()
   const [showMethodology, setShowMethodology] = useState(false)
   const [balancaTemDecimal, setBalancaTemDecimal] = useState<boolean | null>(null)
   const [checkingPrecision, setCheckingPrecision] = useState(false)
   const [precisionCheckResult, setPrecisionCheckResult] = useState<LowPrecisionCheckResult | null>(null)
   
-  // Ref para rastrear valores anteriores das massas
+  // Ref para rastrear valores previouses das massas
   const prevMassesRef = useRef<{container: number, water: number, sample: number} | null>(null)
   
   const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm<DensityData>({
     resolver: zodResolver(densitySchema),
-    defaultValues: (initialData ?? { method: "Balança" }) as DensityData,
+    defaultValues: (initialData ?? { method: "Scale" }) as DensityData,
   })
   
-  const method = watch("method") ?? "Balança"
+  const method = watch("method") ?? "Scale"
   const measuredUnit = watch("measuredUnit")
   const containerMass = watch("containerMass") ?? 0
   const rawWaterMass = watch("waterMass") ?? 0
@@ -96,7 +98,7 @@ export default function StepDensity({ onNext, onBack, initialData, wizardData, d
   
   // Verificar se deve mostrar pergunta sobre casa decimal
   const shouldAskDecimalQuestion = useMemo(() => {
-    if (method !== "Balança") return false
+    if (method !== "Scale") return false
     if (!rawWaterMass || !rawSampleMass) return false
     
     // Contar massas que são inteiros
@@ -147,7 +149,7 @@ export default function StepDensity({ onNext, onBack, initialData, wizardData, d
     setCheckingPrecision(true)
     setPrecisionCheckResult(null)
     
-    // Simular delay para UX
+    // Simulate delay for UX
     await new Promise(resolve => setTimeout(resolve, 800))
     
     try {
@@ -158,13 +160,13 @@ export default function StepDensity({ onNext, onBack, initialData, wizardData, d
       if (m_w <= 0 || m_s <= 0) {
         setPrecisionCheckResult({
           status: 'error',
-          message: 'Massas líquidas devem ser positivas. Verifique os valores informados.'
+          message: 'Liquid masses must be positive. Check the values entered.'
         })
         setCheckingPrecision(false)
         return
       }
       
-      // Calcular densidade relativa central
+      // Calcular relative density central
       const rho_central = m_s / m_w
       
       // Calcular intervalo de erro (pior caso com ±0.5g)
@@ -173,20 +175,20 @@ export default function StepDensity({ onNext, onBack, initialData, wizardData, d
       
       // Carregar tabela de conversão
       const convResponse = await fetch("/data/conversao_vv_para_wE_20C.json")
-      if (!convResponse.ok) throw new Error("Falha ao carregar tabela de conversão")
+      if (!convResponse.ok) throw new Error("Failed to load conversion table")
       const convTable = await convResponse.json()
       
       const rhoArray = convTable.rho_mix_g_per_mL_20C as number[]
       const wEArray = convTable.wE_percent as number[]
       
-      // Função para interpolar teor a partir de densidade relativa
+      // Função para interpolar teor a partir de relative density
       const densityToAlcoholContent = (rho: number): number | null => {
-        // A tabela está ordenada de forma que densidade diminui conforme teor aumenta
+        // A tabela está ordenada de forma que density diminui conforme teor aumenta
         // Então precisamos encontrar o intervalo correto
         
         // Limitar ao range da tabela
-        if (rho >= rhoArray[0]) return 0 // densidade >= 1.0 → teor = 0
-        if (rho <= rhoArray[rhoArray.length - 1]) return 100 // densidade muito baixa → teor = 100
+        if (rho >= rhoArray[0]) return 0 // density >= 1.0 → teor = 0
+        if (rho <= rhoArray[rhoArray.length - 1]) return 100 // density muito baixa → teor = 100
         
         // Encontrar índices para interpolação
         for (let i = 0; i < rhoArray.length - 1; i++) {
@@ -211,29 +213,29 @@ export default function StepDensity({ onNext, onBack, initialData, wizardData, d
       if (teor_central === null || teor_min === null || teor_max === null) {
         setPrecisionCheckResult({
           status: 'error',
-          message: 'Não foi possível calcular o teor alcoólico. Valores fora do range esperado.'
+          message: 'Could not calculate the alcohol content. Values outside the expected range.'
         })
         setCheckingPrecision(false)
         return
       }
       
-      // Obter teor de rótulo do perfil
+      // Obter label content do perfil
       let labelTeorMM: number | null = null
       
       if (wizardData?.profile) {
         const profile = wizardData.profile
         
-        if (profile.beverageType === "Outra hidroalcoólica") {
+        if (profile.beverageType === "Other hydroalcoholic") {
           // Para mistura ternária, usar média ponderada
           const etMM = profile.ethanolMassPercent ?? 0
           const metMM = profile.methanolMassPercent ?? 0
           labelTeorMM = etMM + metMM // soma dos teores alcoólicos em % m/m
         } else if (profile.labelAbv !== undefined && profile.labelAbv !== null) {
-          // Converter teor de rótulo para % m/m se necessário
-          if (profile.labelUnit === "INPM ou % m/m") {
+          // Converter label content para % m/m se necessário
+          if (profile.labelUnit === "INPM or % w/w") {
             labelTeorMM = profile.labelAbv
           } else {
-            // % v/v ou °GL - converter para % m/m usando tabela
+            // % v/v or °GL - converter para % m/m usando tabela
             const glArray = convTable.gl as number[]
             const glIndex = glArray.findIndex(v => v >= profile.labelAbv!)
             if (glIndex >= 0 && glIndex < wEArray.length) {
@@ -253,47 +255,47 @@ export default function StepDensity({ onNext, onBack, initialData, wizardData, d
         }
       }
       
-      // Verificar se teor de rótulo está no intervalo
+      // Verificar se label content está no intervalo
       if (labelTeorMM !== null) {
         const rotuloNoIntervalo = labelTeorMM >= teor_min && labelTeorMM <= teor_max
         
         if (rotuloNoIntervalo) {
           setPrecisionCheckResult({
             status: 'warning',
-            message: `As massas informadas sugerem inicialmente um **teor alcoólico de cerca de ${teor_central.toFixed(1)}%** (% m/m).
+            message: `The reported masses initially suggest an **alcohol content of approximately ${teor_central.toFixed(1)}%** (% w/w).
 
-Considerando a incerteza típica de balanças desse tipo (± 0,5 g), o teor alcoólico da amostra pode estar entre ${teor_min.toFixed(1)}% e ${teor_max.toFixed(1)}% (% m/m).
+Considering the typical uncertainty of this type of scale (± 0.5 g), the sample alcohol content may be between ${teor_min.toFixed(1)}% and ${teor_max.toFixed(1)}% (% w/w).
 
-Como o teor de rótulo está dentro desse intervalo, ainda que muito largo, a análise pode prosseguir, **porém com menor seletividade**. Nesse caso, considera-se um intervalo contido no anterior e mais estreito em torno do teor do rótulo.
+Since the label content is within this range, even if very wide, the analysis can proceed, **but with lower selectivity**. In this case, a narrower interval around the label content is considered.
 
-Para maior confiabilidade, recomenda-se repetir esta etapa com uma **balança com pelo menos uma casa decimal** ou **com um densímetro**.`,
+For greater reliability, it is recommended to repeat this step with a **scale with at least one decimal place** or **with a hydrometer**.`,
             teor_inicial_pct: teor_central,
             teor_min_pct: teor_min,
             teor_max_pct: teor_max,
-            useLabelAsInitial: true // Indica que deve usar teor de rótulo como inicial
+            useLabelAsInitial: true // Indica que deve usar label content como inicial
           })
         } else {
           setPrecisionCheckResult({
             status: 'error',
-            message: `**Inconsistência entre densidade e teor de rótulo** que, em conjunto com a baixa sensibilidade da balança, **impede a análise de avançar**.
+            message: `**Inconsistency between density and label content** which, combined with the low scale sensitivity, **prevents the analysis from proceeding**.
 
-Considerando as massas informadas e variações máximas em cada pesagem (± 0,5 g), obtivemos teor alcoólico inicial de ${teor_central.toFixed(1)}% e um intervalo possível entre ${teor_min.toFixed(1)}% e ${teor_max.toFixed(1)}% (% m/m).
+Considering the masses entered and maximum variations in each weighing (± 0.5 g), we obtained an initial alcohol content of ${teor_central.toFixed(1)}% and a possible range between ${teor_min.toFixed(1)}% and ${teor_max.toFixed(1)}% (% w/w).
 
-Como o teor de rótulo não se encontra dentro desse intervalo e a sensibilidade das pesagens é insuficiente para restringir a faixa estimada, recomenda-se **repetir as pesagens com uma balança com pelo menos uma casa decimal** ou **utilizar um densímetro**.`,
+Since the label content is not within this range and the weighing sensitivity is insufficient to narrow the estimated range, it is recommended to **repeat the weighings with a scale with at least one decimal place** or **use a hydrometer**.`,
             teor_inicial_pct: teor_central,
             teor_min_pct: teor_min,
             teor_max_pct: teor_max
           })
         }
       } else {
-        // Sem teor de rótulo para comparar
+        // Sem label content para comparar
         setPrecisionCheckResult({
           status: 'warning',
-          message: `As massas informadas indicam um teor alcoólico inicial de cerca de ${teor_central.toFixed(1)}% (% m/m).
+          message: `The masses entered indicate an initial alcohol content of approximately ${teor_central.toFixed(1)}% (% w/w).
 
-Considerando a incerteza típica de balanças sem casa decimal (± 0,5 g), o teor alcoólico pode estar entre ${teor_min.toFixed(1)}% e ${teor_max.toFixed(1)}%.
+Considering the typical uncertainty of scales without decimal places (± 0.5 g), the alcohol content may be between ${teor_min.toFixed(1)}% and ${teor_max.toFixed(1)}%.
 
-Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma casa decimal.`,
+For greater reliability, it is recommended to use a scale with at least one decimal place.`,
           teor_inicial_pct: teor_central,
           teor_min_pct: teor_min,
           teor_max_pct: teor_max
@@ -301,17 +303,17 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
       }
       
     } catch (error) {
-      console.error("Erro ao verificar precisão:", error)
+      console.error("Error checking precision:", error)
       setPrecisionCheckResult({
         status: 'error',
-        message: 'Erro ao verificar compatibilidade. Tente novamente.'
+        message: 'Error checking compatibility. Try again.'
       })
     }
     
     setCheckingPrecision(false)
   }
   
-  // Executar verificação quando usuário responde "Não" à pergunta
+  // Executar verificação quando usuário responde "No" à pergunta
   useEffect(() => {
     if (balancaTemDecimal === false && shouldAskDecimalQuestion) {
       checkLowPrecisionBalance()
@@ -326,10 +328,10 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
     // Se ainda não respondeu a pergunta, não pode avançar
     if (balancaTemDecimal === null) return false
     
-    // Se respondeu "Sim", pode avançar
+    // Se respondeu "Yes", pode avançar
     if (balancaTemDecimal === true) return true
     
-    // Se respondeu "Não", verificar resultado da checagem
+    // Se respondeu "No", verificar resultado da checagem
     if (balancaTemDecimal === false) {
       // Se ainda está verificando, não pode avançar
       if (checkingPrecision) return false
@@ -357,7 +359,7 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
   }
   
   // Função de submissão que calcula massas líquidas
-  const onSubmit = (data: DensityData) => {
+  const onSubmit = (date: DensityData) => {
     // Verificar se pode prosseguir
     if (!canProceed) return
     
@@ -371,26 +373,26 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
     }
     
     // Se foi permitido avançar com warning (useLabelAsInitial), 
-    // mudar para usar teor de rótulo como inicial (equivalente a % v/v - rótulo)
+    // mudar para usar label content como inicial (equivalente a % v/v - label)
     if (precisionCheckResult?.useLabelAsInitial && balancaTemDecimal === false) {
-      // Converter para usar teor de rótulo em vez da densidade medida
-      // Isso é feito passando o measuredValue como teor de rótulo e measuredUnit como "% v/v - rótulo"
+      // Converter para usar label content em vez da density medida
+      // Isso é feito passando o measuredValue como label content e measuredUnit como "% v/v - label"
       const labelAbv = wizardData?.profile?.labelAbv
       const labelUnit = wizardData?.profile?.labelUnit
       
       if (labelAbv !== undefined && labelAbv !== null) {
         // Determinar a unidade correta para passar ao fluxo
         let measuredUnitToUse: string
-        if (labelUnit === "INPM ou % m/m") {
-          measuredUnitToUse = "% m/m ou INPM"
+        if (labelUnit === "INPM or % w/w") {
+          measuredUnitToUse = "% m/m or INPM"
         } else {
-          measuredUnitToUse = "% v/v - rótulo"
+          measuredUnitToUse = "% v/v - label"
         }
         
         const adjustedData = {
           ...data,
           ...extraData,
-          method: "Densímetro ou alcôometro", // Muda o método para usar o fluxo de teor direto
+          method: "Hydrometer or alcoholmeter", // Muda o método para usar o fluxo de teor direto
           measuredValue: labelAbv,
           measuredUnit: measuredUnitToUse as any,
           // Manter as massas líquidas para referência no relatório
@@ -403,7 +405,7 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
     }
     
     // Fluxo normal: Se método é Balança e há massa do conjunto, calcular massas líquidas
-    if (data.method === "Balança" && data.containerMass && data.containerMass > 0) {
+    if (data.method === "Scale" && data.containerMass && data.containerMass > 0) {
       const adjustedData = {
         ...data,
         ...extraData,
@@ -426,10 +428,10 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
     <>
       <form className="space-y-4 p-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-[#002060]">Meça massa ou{" "}
+          <h1 className="text-xl font-bold text-[#002060]">{t("Measure mass or")}{" "}
             <InlineTooltip 
-              term="densidade" 
-              tooltip="Relação entre massa e volume do líquido."
+              term="density" 
+              tooltip="Ratio between mass and volume of the liquid."
             />
           </h1>
           <MethodologyButton onClick={() => setShowMethodology(true)} compact />
@@ -443,65 +445,65 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
 
         {/* Camada 1: Instruções concisas */}
         <p className="text-sm text-neutral-700 text-justify">
-          Se for estimar a{" "}
+          To estimate{" "}
           <InlineTooltip 
-            term="densidade" 
-            tooltip="Relação entre massa e volume do líquido."
+            term="density" 
+            tooltip="Ratio between mass and volume of the liquid."
           />{" "}
-          por massa, selecione <span className="font-medium">Balança</span>. Caso contrário, a aba{" "}
-          <span className="font-medium">Densímetro, alcoômetro ou rótulo</span>.
+          by mass, select <span className="font-medium">{t("Scale")}</span>. Otherwise, use the{" "}
+          <span className="font-medium">{t("Hydrometer, alcoholmeter or label")}</span>.
         </p>
 
         {/* Abas estilo moderno */}
         <div className="flex items-center gap-2 border-b">
           <button 
             type="button" 
-            onClick={() => setValue("method", "Balança", { shouldValidate: true })} 
+            onClick={() => setValue("method", "Scale", { shouldValidate: true })} 
             className={`py-2 px-4 font-medium text-sm ${
-              method === "Balança" 
+              method === "Scale" 
                 ? "border-b-2 border-[#002060] text-[#002060]" 
                 : "text-gray-600"
             }`}
           >
-            Balança
+            Scale
           </button>
           <button 
             type="button" 
-            onClick={() => setValue("method", "Densímetro ou alcôometro", { shouldValidate: true })} 
+            onClick={() => setValue("method", "Hydrometer or alcoholmeter", { shouldValidate: true })} 
             className={`py-2 px-4 font-medium text-sm ${
-              method === "Densímetro ou alcôometro" 
+              method === "Hydrometer or alcoholmeter" 
                 ? "border-b-2 border-[#002060] text-[#002060]" 
                 : "text-gray-600"
             }`}
           >
-            Densímetro, alcôometro ou rótulo
+            Hydrometer, alcoholmeter or label
           </button>
         </div>
 
-        {method === "Balança" && (
+        {method === "Scale" && (
           <div className="space-y-4">
             {/* Camada 1: Instruções da aba Balança */}
             <div className="text-sm text-neutral-700 text-justify space-y-2">
               <p>
-                Para as pesagens, aspire 20 mL de água e, separadamente, 20 mL da amostra, 
-                utilizando a mesma seringa e posicionando o êmbolo na mesma marcação em ambos os casos.
+                For weighing, aspirate 20 mL of water and, separately, 20 mL of the sample, 
+                using the same syringe and positioning the plunger at the same mark in both cases.
               </p>
               <p>
-                Uma pesagem para cada é suficiente para{" "}
+                One weighing for each is sufficient for the{" "}
                 <InlineTooltip 
-                  term="estimativa inicial" 
-                  tooltip="Utilizada apenas para localizarmos a faixa aproximada de teor alcoólico da amostra."
+                  term="initial estimate" 
+                  tooltip="Used only to find the approximate alcohol content range of the sample."
                 />{" "}
-                da densidade. Recomenda-se uso de balança com pelo menos 1 casa decimal.
+                of density. A scale with at least 1 decimal place is recommended.
               </p>
               <p>
-                Recomenda-se medir também a massa do conjunto seringa com êmbolo e agulha.
+                It is also recommended to measure the mass of the syringe with plunger and needle assembly.
               </p>
             </div>
             
             {/* Campo massa do conjunto */}
             <div>
-              <div className="font-medium text-sm text-[#002060] mb-2">Massa do conjunto (seringa, êmbolo, agulha) (g)</div>
+              <div className="font-medium text-sm text-[#002060] mb-2">Assembly mass (syringe, plunger, needle) (g)</div>
               <input
                 type="text"
                 inputMode="decimal"
@@ -514,14 +516,14 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
                 } })}
               />
               <p className="text-xs text-neutral-500 mt-1">
-                Aplicar 0.0 se for inserir massa líquida nos campos abaixo
+                Enter 0.0 if entering liquid mass in the fields below
               </p>
             </div>
           
             {/* Campos de massa */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <div className="font-medium text-sm text-[#002060] mb-2">Massa água (g)</div>
+                <div className="font-medium text-sm text-[#002060] mb-2">{t("Water mass (g)")}</div>
                 <input
                   type="text"
                   inputMode="decimal"
@@ -536,7 +538,7 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
                 {errors.waterMass && <p className="text-red-600 text-xs mt-1">{String(errors.waterMass.message)}</p>}
               </div>
               <div>
-                <div className="font-medium text-sm text-[#002060] mb-2">Massa amostra (g)</div>
+                <div className="font-medium text-sm text-[#002060] mb-2">{t("Sample mass (g)")}</div>
                 <input
                   type="text"
                   inputMode="decimal"
@@ -555,13 +557,13 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
             {/* Mostrar massas líquidas calculadas se houver massa do conjunto */}
             {containerMass > 0 && (rawWaterMass > 0 || rawSampleMass > 0) && (
               <div className="bg-blue-50 p-3 rounded-lg">
-                <div className="text-sm font-medium text-[#002060] mb-2">Massas líquidas calculadas:</div>
+                <div className="text-sm font-medium text-[#002060] mb-2">Calculated liquid masses:</div>
                 <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
                   <div>
-                    Água: {liquidWaterMass > 0 ? `${liquidWaterMass.toFixed(2)} g` : "-"}
+                    Water: {liquidWaterMass > 0 ? `${liquidWaterMass.toFixed(2)} g` : "-"}
                   </div>
                   <div>
-                    Amostra: {liquidSampleMass > 0 ? `${liquidSampleMass.toFixed(2)} g` : "-"}
+                    Sample: {liquidSampleMass > 0 ? `${liquidSampleMass.toFixed(2)} g` : "-"}
                   </div>
                 </div>
               </div>
@@ -571,7 +573,7 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
             {shouldAskDecimalQuestion && (
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 space-y-3">
                 <p className="text-sm font-medium text-amber-800">
-                  Balança possui pelo menos uma casa decimal?
+                  Does the scale have at least one decimal place?
                 </p>
                 <div className="flex gap-3">
                   <button
@@ -586,7 +588,7 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
                         : "bg-white border border-gray-300 text-gray-700 hover:border-[#002060]"
                     }`}
                   >
-                    Sim
+                    Yes
                   </button>
                   <button
                     type="button"
@@ -597,14 +599,14 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
                         : "bg-white border border-gray-300 text-gray-700 hover:border-[#002060]"
                     }`}
                   >
-                    Não
+                    No
                   </button>
                 </div>
                 
                 {/* Indicador de carregamento */}
                 {checkingPrecision && (
                   <div className="flex items-center gap-2 text-sm text-amber-700">
-                    <span>Aguarde enquanto checo uns valores</span>
+                    <span>Please wait while checking values</span>
                     <span className="inline-flex">
                       <span className="animate-[pulse_1s_ease-in-out_infinite]">.</span>
                       <span className="animate-[pulse_1s_ease-in-out_0.2s_infinite]">.</span>
@@ -628,21 +630,21 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
           </div>
         )}
 
-        {method === "Densímetro ou alcôometro" && (
+        {method === "Hydrometer or alcoholmeter" && (
           <div className="space-y-4">
             {/* Camada 1: Instruções da aba Densímetro */}
             <div className="text-sm text-neutral-700 text-justify space-y-2">
               <p>
-                Utilize recipiente cilíndrico, permitindo que o instrumento flutue sem tocar as paredes e o fundo.
+                Use a cylindrical container, allowing the instrument to float without touching the walls or bottom.
               </p>
               <p>
-                Aguarde estabilização do instrumento antes da leitura.
+                Wait for instrument stabilization before reading.
               </p>
             </div>
             
             <div>
               <div className="font-medium text-sm text-[#002060] mb-2">
-                Densidade ou teor alcoólico
+                Density or alcohol content
               </div>
               <input
                 type="text"
@@ -660,7 +662,7 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
             
             <div>
               <div className="font-medium text-sm text-[#002060] mb-2">
-                Unidade
+                Unit
               </div>
               <select 
                 {...register("measuredUnit", { setValueAs: (v) => {
@@ -669,20 +671,20 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
                 } })} 
                 className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent"
               >
-                <option value="">Selecione...</option>
-                <option value="g/mL ou g/cm³">g/mL ou g/cm³</option>
-                <option value="% v/v ou °GL">% v/v ou °GL</option>
-                <option value="% m/m ou INPM">% m/m ou INPM</option>
-                <option value="% v/v - rótulo">% v/v - rótulo</option>
+                <option value="">{t("Select...")}</option>
+                <option value="g/mL or g/cm³">g/mL or g/cm³</option>
+                <option value="% v/v or °GL">% v/v or °GL</option>
+                <option value="% m/m or INPM">% m/m or INPM</option>
+                <option value="% v/v - label">% v/v - label</option>
               </select>
               {errors.measuredUnit && <p className="text-red-600 text-xs mt-1">{String(errors.measuredUnit.message)}</p>}
             </div>
             
-            {measuredUnit === "% v/v - rótulo" && (
+            {measuredUnit === "% v/v - label" && (
               <p className="text-xs text-red-600 text-justify bg-red-50 p-3 rounded-lg">
-                <span className="font-bold">⚠️ Atenção:</span> O uso do teor de rótulo reduz a seletividade da análise. 
-                Passa a funcionar como checagem de compatibilidade entre o teor declarado e o escoamento experimental 
-                (viscosidade). Em muitos casos, não exclui a possibilidade de outras composições hidroalcoólicas.
+                <span className="font-bold">⚠️ Warning:</span> Using the label content reduces analysis selectivity. 
+                It works as a compatibility check between the declared content and the experimental flow 
+                (viscosity). In many cases, it does not exclude other hydroalcoholic compositions.
               </p>
             )}
           </div>
@@ -699,7 +701,7 @@ Para maior confiabilidade, recomenda-se usar uma balança com pelo menos uma cas
       <MethodologyModal
         isOpen={showMethodology}
         onClose={() => setShowMethodology(false)}
-        title="Metodologia: Massa ou Densidade"
+        title="Methodology: Mass or Density"
       >
         <MethodologyMassaDensidade />
       </MethodologyModal>

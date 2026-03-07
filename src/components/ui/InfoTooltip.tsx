@@ -13,7 +13,7 @@ export default function InfoTooltip({ text, children, className = "" }: InfoTool
   const tooltipRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLSpanElement>(null)
 
-  // Fechar ao clicar fora
+  // Close ao clicar fora
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
@@ -46,7 +46,7 @@ export default function InfoTooltip({ text, children, className = "" }: InfoTool
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
         className="cursor-help inline-flex items-center"
-        aria-label="Informação"
+        aria-label="Information"
       >
         <Info className="w-4 h-4 text-[#002060]" />
       </span>
@@ -69,7 +69,7 @@ export default function InfoTooltip({ text, children, className = "" }: InfoTool
   )
 }
 
-// Versão inline para termos destacados
+// Inline version for highlighted terms
 export function InlineTooltip({ term, tooltip, className = "" }: { term: string; tooltip: string; className?: string }) {
   const [isOpen, setIsOpen] = useState(false)
   const tooltipRef = useRef<HTMLDivElement>(null)

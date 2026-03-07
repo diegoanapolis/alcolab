@@ -1,4 +1,5 @@
 "use client"
+import { useT } from "@/lib/i18n"
 import React, { useEffect } from "react"
 import { X, Search } from "lucide-react"
 
@@ -10,6 +11,7 @@ interface MethodologyModalProps {
 }
 
 export default function MethodologyModal({ isOpen, onClose, title, children }: MethodologyModalProps) {
+  const t = useT()
   // Bloquear scroll do body quando modal está aberto
   useEffect(() => {
     if (isOpen) {
@@ -22,7 +24,7 @@ export default function MethodologyModal({ isOpen, onClose, title, children }: M
     }
   }, [isOpen])
 
-  // Fechar com ESC
+  // Close com ESC
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose()
@@ -46,7 +48,7 @@ export default function MethodologyModal({ isOpen, onClose, title, children }: M
         <button
           onClick={onClose}
           className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-          aria-label="Fechar"
+          aria-label="Close"
         >
           <X className="w-6 h-6" />
         </button>
@@ -66,7 +68,7 @@ export default function MethodologyModal({ isOpen, onClose, title, children }: M
             onClick={onClose}
             className="bg-[#002060] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#001040] transition-colors"
           >
-            Voltar
+            {t("Back")}
           </button>
         </div>
       </footer>
@@ -76,6 +78,7 @@ export default function MethodologyModal({ isOpen, onClose, title, children }: M
 
 // Botão para abrir a metodologia da etapa
 export function MethodologyButton({ onClick, className = "", compact = false }: { onClick: () => void; className?: string; compact?: boolean }) {
+  const t = useT()
   if (compact) {
     return (
       <button
@@ -84,7 +87,7 @@ export function MethodologyButton({ onClick, className = "", compact = false }: 
         className={`inline-flex items-center gap-1 text-xs text-[#002060] hover:underline ${className}`}
       >
         <Search className="w-3.5 h-3.5" />
-        <span>Metodologia</span>
+        <span>{t("Methodology")}</span>
       </button>
     )
   }
@@ -96,7 +99,7 @@ export function MethodologyButton({ onClick, className = "", compact = false }: 
       className={`inline-flex items-center gap-1.5 text-sm text-[#002060] hover:underline ${className}`}
     >
       <Search className="w-4 h-4" />
-      <span>Entenda a metodologia</span>
+      <span>{t("Methodology")}</span>
     </button>
   )
 }

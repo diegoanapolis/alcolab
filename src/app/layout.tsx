@@ -3,16 +3,16 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // See LICENSE file in the project root.
 
-import type { Metadata } from "next";
+import type { Metadate } from "next";
 import "./globals.css";
 
-export const metadata: Metadata = {
+export const metadate: Metadate = {
   title: {
-    default: "AlcoLab — Triagem de Metanol Acessível a Todos",
+    default: "AlcoLab — Accessible Methanol Screening",
     template: "%s | AlcoLab",
   },
   description:
-    "Ferramenta gratuita e open-source para triagem de metanol em bebidas e soluções hidroalcoólicas. Usa análise de densidade e viscosidade com seringa e balança. Funciona offline, sem laboratório.",
+    "Free, open-source tool for methanol screening in beverages and hydroalcoholic solutions. Uses density and viscosity analysis with a syringe and scale. Works offline, no lab required.",
   keywords: [
     "methanol detection",
     "methanol screening",
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     "hydroalcoholic analysis",
     "metanol",
     "bebida adulterada",
-    "triagem metanol",
+    "screening metanol",
     "como identificar metanol em bebida",
-    "teste metanol álcool",
+    "methanol alcohol test",
     "methanol detection app",
   ],
   authors: [
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     { name: "Nayara Ferreira Santos" },
   ],
   openGraph: {
-    title: "AlcoLab — Triagem de Metanol Acessível a Todos",
+    title: "AlcoLab — Accessible Methanol Screening",
     description:
-      "Ferramenta gratuita para triagem de metanol em bebidas. Sem laboratório.",
+      "Free tool for methanol screening in beverages. No lab required.",
     url: "https://alcolab.org",
     siteName: "AlcoLab",
     locale: "pt_BR",
@@ -42,9 +42,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "AlcoLab — Triagem de Metanol Acessível a Todos",
+    title: "AlcoLab — Accessible Methanol Screening",
     description:
-      "Ferramenta gratuita para triagem de metanol em bebidas. Sem laboratório.",
+      "Free tool for methanol screening in beverages. No lab required.",
   },
 };
 

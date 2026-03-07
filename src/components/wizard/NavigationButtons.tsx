@@ -1,6 +1,7 @@
 "use client"
 import React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useT } from "@/lib/i18n"
 
 interface NavigationButtonsProps {
   onBack?: () => void
@@ -19,25 +20,22 @@ export default function NavigationButtons({
   showNext = true,
   showBack = true
 }: NavigationButtonsProps) {
+  const t = useT()
   return (
     <div className="flex justify-between items-center pt-6">
-      {/* Botão Voltar */}
       {showBack && onBack ? (
         <button
           onClick={onBack}
           className="w-12 h-12 rounded-full flex items-center justify-center bg-[#002060] text-white hover:bg-[#001040] transition-colors"
-          aria-label="Voltar"
+          aria-label={t("Back")}
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
       ) : (
-        <div className="w-12 h-12" /> // Espaço vazio para manter alinhamento
+        <div className="w-12 h-12" />
       )}
-
-      {/* Botão Próximo */}
       {showNext && onNext ? (
         nextLabel ? (
-          // Botão "Calcular" (texto)
           <button
             onClick={onNext}
             disabled={nextDisabled}
@@ -50,7 +48,6 @@ export default function NavigationButtons({
             {nextLabel}
           </button>
         ) : (
-          // Botão seta circular
           <button
             onClick={onNext}
             disabled={nextDisabled}
@@ -59,7 +56,7 @@ export default function NavigationButtons({
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                 : "bg-[#002060] text-white hover:bg-[#001040]"
             }`}
-            aria-label="Próximo"
+            aria-label={t("Next")}
           >
             <ChevronRight className="w-6 h-6" />
           </button>

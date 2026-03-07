@@ -938,7 +938,7 @@ def _build_classe_final_text(
     ck = (classe_key or "").strip().lower()
 
     if ck == "agua":
-        return "Compatível com água ou solução aquosa diluída"
+        return "Compatible with water or dilute aqueous solution"
 
     if ck in {"bin_etoh", "bin_meoh"}:
         alc = "etanol" if ck == "bin_etoh" else "metanol"
@@ -1026,14 +1026,14 @@ def _avaliar_amostra(row: Dict[str, object], df_linhas: List[Dict[str, object]],
     met_exp = _safe_float(row.get("w_met_est", None))
 
     # Regra especial (alinhada ao frontend otimizado):
-    # Para "Outra hidroalcoólica" quando o usuário informou o teor em "% m/m ou INPM",
+    # Para "Other hydroalcoholic" quando o usuário informou o teor em "% m/m ou INPM",
     # a compatibilidade deve ser avaliada contra esse teor.
     # - Se o usuário informou etanol E metanol, divide o teor total proporcionalmente entre eles.
     # - Se informou apenas um álcool, assume o total como sendo daquele álcool (metanol esperado 0).
     bt = str(row.get("beverageType", "") or "").strip()
     mu_unit = str(row.get("measuredUnit", "") or "").lower()
     mv = _safe_float(row.get("measuredValue", None))
-    if bt == "Outra hidroalcoólica" and mv is not None and ("inpm" in mu_unit or "% m/m" in mu_unit):
+    if bt == "Other hydroalcoholic" and mv is not None and ("inpm" in mu_unit or "% m/m" in mu_unit):
         # teor total de álcool em % (pode vir em fração 0-1 ou % 0-100)
         total_pct = float(mv * 100.0) if mv <= 1.5 else float(mv)
         total_pct = float(np.clip(total_pct, 0.0, 100.0))
@@ -1066,14 +1066,14 @@ def _avaliar_amostra(row: Dict[str, object], df_linhas: List[Dict[str, object]],
     # ------------------------------------------------------------
     if (w_alcool_est <= W_AQUOSO_DILUIDO) or (agua_est >= W_PURE_WATER):
         return {
-            "classe_final": "Compatível com água ou solução aquosa diluída",
+            "classe_final": "Compatible with water or dilute aqueous solution",
             "equivalentes": "Água 100.0%.",
-            "compativel": ("Compatível" if (has_expected and _matches_expected({"agua": 100.0, "et": 0.0, "met": 0.0}, agua_exp, et_exp, met_exp, tol=2.5)) else ("Incompatível" if has_expected else "")),
+            "compativel": ("Compatible" if (has_expected and _matches_expected({"agua": 100.0, "et": 0.0, "met": 0.0}, agua_exp, et_exp, met_exp, tol=2.5)) else ("Incompatible" if has_expected else "")),
             "prob_ternario": 0.0,
             "prob_bin_etoh": 0.0,
             "prob_bin_meoh": 0.0,
             "prob_trace": 0.0,
-            "conclusao": "Compatível com água ou solução aquosa diluída",
+            "conclusao": "Compatible with water or dilute aqueous solution",
             "seletividade": "muito baixa",
             "criterio_aplicado": "w_alcool_est <= 0.025 OU agua_est >= 0.97",
             "melhores_condicoes": "",
@@ -1084,12 +1084,12 @@ def _avaliar_amostra(row: Dict[str, object], df_linhas: List[Dict[str, object]],
         return {
             "classe_final": "Substância pura etanol ou de teor elevado (> 98%)",
             "equivalentes": "Etanol puro ou de teor elevado (> 98%).",
-            "compativel": ("Compatível" if (has_expected and _matches_expected({"agua": 0.0, "et": 100.0, "met": 0.0}, agua_exp, et_exp, met_exp, tol=2.5)) else ("Incompatível" if has_expected else "")),
+            "compativel": ("Compatible" if (has_expected and _matches_expected({"agua": 0.0, "et": 100.0, "met": 0.0}, agua_exp, et_exp, met_exp, tol=2.5)) else ("Incompatible" if has_expected else "")),
             "prob_ternario": 0.0,
             "prob_bin_etoh": 0.0,
             "prob_bin_meoh": 0.0,
             "prob_trace": 0.0,
-            "conclusao": "Compatível com substância pura Etanol ou teor elevado (> 98%)",
+            "conclusao": "Compatible with pure Ethanol or high content (> 98%)",
             "seletividade": "alta",
             "criterio_aplicado": "et_est >= 0.98",
             "melhores_condicoes": "",
@@ -1100,12 +1100,12 @@ def _avaliar_amostra(row: Dict[str, object], df_linhas: List[Dict[str, object]],
         return {
             "classe_final": "Substância pura metanol ou de teor elevado (> 98%)",
             "equivalentes": "Metanol puro ou de teor elevado (> 98%).",
-            "compativel": ("Compatível" if (has_expected and _matches_expected({"agua": 0.0, "et": 0.0, "met": 100.0}, agua_exp, et_exp, met_exp, tol=2.5)) else ("Incompatível" if has_expected else "")),
+            "compativel": ("Compatible" if (has_expected and _matches_expected({"agua": 0.0, "et": 0.0, "met": 100.0}, agua_exp, et_exp, met_exp, tol=2.5)) else ("Incompatible" if has_expected else "")),
             "prob_ternario": 0.0,
             "prob_bin_etoh": 0.0,
             "prob_bin_meoh": 0.0,
             "prob_trace": 0.0,
-            "conclusao": "Compatível com substância pura Metanol ou teor elevado (> 98%)",
+            "conclusao": "Compatible with pure Methanol or high content (> 98%)",
             "seletividade": "alta",
             "criterio_aplicado": "met_est_frac >= 0.98",
             "melhores_condicoes": "",
@@ -1318,10 +1318,10 @@ def _avaliar_amostra(row: Dict[str, object], df_linhas: List[Dict[str, object]],
             conclusao = "Provável mistura (etanol + metanol)"
             classe_final = "ternario"
         elif pE >= p_cutoff:
-            conclusao = "Compatível com binário água–etanol"
+            conclusao = "Compatible with water-ethanol binary"
             classe_final = "bin_etoh"
         elif pM >= p_cutoff:
-            conclusao = "Compatível com binário água–metanol"
+            conclusao = "Compatible with water-methanol binary"
             classe_final = "bin_meoh"
         elif pTrace >= p_cutoff:
             conclusao = "Possível traço (baixa seletividade)"
@@ -1345,10 +1345,10 @@ def _avaliar_amostra(row: Dict[str, object], df_linhas: List[Dict[str, object]],
                 conclusao = "Ternário provável"
                 classe_final = "ternario"
             elif pE >= p_cutoff:
-                conclusao = "Compatível com binário água–etanol"
+                conclusao = "Compatible with water-ethanol binary"
                 classe_final = "bin_etoh"
             elif pM >= p_cutoff:
-                conclusao = "Compatível com binário água–metanol"
+                conclusao = "Compatible with water-methanol binary"
                 classe_final = "bin_meoh"
             else:
                 conclusao = "Inconclusivo"
@@ -1558,7 +1558,7 @@ def _avaliar_amostra(row: Dict[str, object], df_linhas: List[Dict[str, object]],
     compativel = ""
     if has_expected:
         ok = any(_matches_expected(comp, agua_exp, et_exp, met_exp, tol=2.5) for _, comp, _ in candidates)
-        compativel = "Compatível" if ok else "Incompatível"
+        compativel = "Compatible" if ok else "Incompatible"
 
 
     return {

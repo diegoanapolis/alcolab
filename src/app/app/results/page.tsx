@@ -7,8 +7,9 @@ import { DatabaseService, ExperimentRun, RunInputs, RunOutputs, RunTags } from "
 import AnalysisListPage from "@/components/AnalysisListPage"
 import { Download, FileText, ArrowLeft, Info } from "lucide-react"
 import InfoTooltip from "@/components/ui/InfoTooltip"
+import { useT } from "@/lib/i18n"
 import MethodologyModal, { MethodologyButton } from "@/components/ui/MethodologyModal"
-import { MethodologyRelatorio, TooltipComposicoesEquivalentes, TooltipMonteCarlo } from "@/lib/methodologyContent"
+import { MethodologyRelatorioI18n as MethodologyRelatorio, useTooltipEquivalentes, useTooltipMonteCarlo } from "@/lib/methodologyContent.i18n"
 
 type ResultShape = {
   conditions?: {
@@ -63,9 +64,9 @@ type TernariaOut = {
   compativel?: string
 }
 
-export default function ResultadosPage() {
+export default function ResultsPage() {
   const [result, setResult] = useState<ResultShape | null>(null)
-  const [activeTab, setActiveTab] = useState<"Resultados" | "Dados experimentais">("Resultados")
+  const [activeTab, setActiveTab] = useState<"Results" | "Experimental data">("Results")
   const [waterReplicates, setWaterReplicates] = useState<Array<{ previewUrl: string; fileName?: string; fileCreatedAt?: string; marks: Record<14|15|16|17|18, number|undefined> }>>([])
   const [sampleReplicates, setSampleReplicates] = useState<Array<{ previewUrl: string; fileName?: string; fileCreatedAt?: string; marks: Record<14|15|16|17|18, number|undefined> }>>([])
   const [tempRef, setTempRef] = useState<{ temperatura: number[]; viscosidade: number[] } | null>(null)
@@ -75,13 +76,16 @@ export default function ResultadosPage() {
   const [showMethodology, setShowMethodology] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false) // Estado para controlar loading durante processamento
   const router = useRouter()
+  const t = useT()
+  const TooltipComposicoesEquivalentes = useTooltipEquivalentes()
+  const TooltipMonteCarlo = useTooltipMonteCarlo()
 
   // Função para converter experimento do banco em formato de resultado
   const convertExperimentToResult = (experiment: ExperimentRun) => {
     const inputs = experiment.inputs
     const outputs = experiment.outputs
     
-    // Composição esperada já vem calculada nos outputs do banco (pelo Python)
+    // Expected composition já vem calculada nos outputs do banco (pelo Python)
     // Não recalcular aqui para evitar inconsistências
     
     const converted: ResultShape = {
@@ -201,7 +205,7 @@ export default function ResultadosPage() {
         erroMuMalhaPct: resultData.erroMuMalhaPct ?? undefined,
         wAlcoolInicial: resultData.wAlcoolInicial,
         wAlcoolBest: resultData.wAlcoolBest,
-        // Composição esperada
+        // Expected composition
         w_agua_est: resultData.expectedComposition?.agua,
         w_et_est: resultData.expectedComposition?.et,
         w_met_est: resultData.expectedComposition?.met,
@@ -220,7 +224,7 @@ export default function ResultadosPage() {
     }
   }
 
-  // Verificar se deve mostrar lista de análises ou ir direto para relatório
+  // Check if should show list de analyses ou ir direto para relatório
   useEffect(() => {
     const checkNavigationMode = async () => {
       try {
@@ -242,11 +246,11 @@ export default function ResultadosPage() {
           return
         }
 
-        // 2. Verificar se há dados do wizard recém-calculados (acabou de fazer análise)
+        // 2. Verificar se há dados do wizard recém-calculados (acabou de fazer analysis)
         const pendingExport = localStorage.getItem("frontend_export_rows")
         if (pendingExport) {
           console.log('📊 Dados pendentes do wizard encontrados, processando...')
-          // Limpar cache de resultados antigos antes de processar novo
+          // Limpar cache de resultados antigos antes de processar new
           localStorage.removeItem('lastResult')
           localStorage.removeItem('lastOutputs')
           setShowAnalysisList(false)
@@ -255,18 +259,18 @@ export default function ResultadosPage() {
           return
         }
 
-        // 3. FLUXO PADRÃO: Clicar em "Resultados" na tela inicial
-        // SEMPRE ir para lista de análises, nunca para relatório direto
-        console.log('📊 Nenhum dado pendente, mostrando lista de análises')
+        // 3. FLUXO PADRÃO: Clicar em "Results" na tela inicial
+        // SEMPRE ir para lista de analyses, nunca para relatório direto
+        console.log('📊 No pending data, mostrando lista de analyses')
         
-        // Limpar qualquer resultado anterior em cache
+        // Limpar qualquer resultado previous em cache
         localStorage.removeItem('lastResult')
         localStorage.removeItem('lastOutputs')
         localStorage.removeItem('selectedExperiment')
         
         // Sempre mostrar a lista (mesmo vazia)
         setShowAnalysisList(true)
-        setResult(null) // Limpar qualquer resultado anterior
+        setResult(null) // Limpar qualquer resultado previous
         
       } catch (error) {
         console.error('Erro ao verificar modo de navegação:', error)
@@ -277,7 +281,7 @@ export default function ResultadosPage() {
     checkNavigationMode()
   }, [])
 
-  // Processar novo resultado do wizard
+  // Processar new resultado do wizard
   useEffect(() => {
     if (showingFromDatabase) return
     if (showAnalysisList === true) return // Não processar se estamos mostrando a lista
@@ -287,7 +291,7 @@ export default function ResultadosPage() {
       try {
         const pending = localStorage.getItem("frontend_export_rows")
         if (!pending) {
-          console.log('📊 Nenhum dado pendente para processar')
+          console.log('📊 No pending data para processar')
           return
         }
         
@@ -355,7 +359,7 @@ export default function ResultadosPage() {
               waterTimes: typeof rawRow?.waterTimes === 'string' ? rawRow.waterTimes.split(';').map(Number).filter((n: number) => !isNaN(n)) : [],
               sampleTimes: typeof rawRow?.sampleTimes === 'string' ? rawRow.sampleTimes.split(';').map(Number).filter((n: number) => !isNaN(n)) : [],
             },
-            expectedComposition: null, // Python não retornou, sem composição esperada
+            expectedComposition: null, // Python não retornou, sem expected composition
             conclusao: processingError ? `Erro no processamento: ${processingError}` : 'Processamento incompleto',
           }
           
@@ -387,7 +391,7 @@ export default function ResultadosPage() {
         }
         const manualTimesWater = loadNumArray("manualTimesWater")
         const manualTimesSample = loadNumArray("manualTimesSample")
-        // Tempos mesclados (vídeo + manual) vindos do wizard (usar dados ANTES de normalizar)
+        // Times mesclados (vídeo + manual) vindos do wizard (usar dados ANTES de normalizar)
         const rawInputRow = rowsRaw[0] as Record<string, any>
         const mergedWaterTimes = typeof rawInputRow?.waterTimes === 'string' && rawInputRow.waterTimes.trim()
           ? rawInputRow.waterTimes.split(';').map(Number).filter((n: number) => !isNaN(n))
@@ -522,7 +526,7 @@ export default function ResultadosPage() {
     return () => { alive = false }
   }, [])
 
-  // Função para voltar à lista de análises
+  // Function to go back to list de analyses
   const goBackToList = () => {
     localStorage.removeItem('selectedExperiment')
     setShowAnalysisList(true)
@@ -530,18 +534,18 @@ export default function ResultadosPage() {
     setSelectedExperiment(null)
   }
 
-  // Função para exportar PDF
+  // Função para export PDF
   const exportToPDF = () => {
-    alert('Exportação PDF em desenvolvimento!')
+    alert('PDF export under development!')
   }
 
-  // Função para exportar CSV
+  // Função para export CSV
   const exportToCSV = () => {
     if (!result) return
     
     const csvData = {
       headers: [
-        'data_analise', 'nome_amostra', 'tipo_bebida', 'fabricante', 'lote',
+        'analysis_date', 'sample_name', 'beverage_type', 'manufacturer', 'batch',
         'teor_rotulo', 'unidade_rotulo', 'tipo_agua', 'temp_agua', 'temp_amostra',
         'metodo_densidade', 'massa_agua', 'massa_amostra', 'valor_medido', 'unidade_medida',
         'tempos_agua', 'tempos_amostra', 'viscosidade_rel', 'visc_abs_agua', 'visc_abs_amostra',
@@ -583,7 +587,7 @@ export default function ResultadosPage() {
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
     const link = document.createElement('a')
     link.href = URL.createObjectURL(blob)
-    link.download = `alcolab_analise_${result.conditions?.sampleName || 'amostra'}_${new Date().toISOString().split('T')[0]}.csv`
+    link.download = `alcolab_analysis_${result.conditions?.sampleName || 'sample'}_${new Date().toISOString().split('T')[0]}.csv`
     link.click()
     URL.revokeObjectURL(link.href)
   }
@@ -604,7 +608,7 @@ export default function ResultadosPage() {
     return y0 + tRel * (y1 - y0)
   }
 
-  // Calcula composição esperada baseado nos dados do perfil quando não vem do Python
+  // Calcula expected composition baseado nos dados do perfil quando não vem do Python
   const computeExpectedFromProfile = (conditions: ResultShape['conditions'] | undefined): { agua: number; et: number; met: number } | null => {
     if (!conditions) return null
     const bt = conditions.beverageType
@@ -615,9 +619,9 @@ export default function ResultadosPage() {
     
     const clamp01 = (v: number) => Math.max(0, Math.min(1, v))
     
-    // Metanol comercial
-    if (bt === "Metanol comercial") {
-      if (labelUnit === "INPM ou % m/m" && typeof labelAbv === "number") {
+    // Commercial methanol
+    if (bt === "Commercial methanol") {
+      if (labelUnit === "INPM or % w/w" && typeof labelAbv === "number") {
         const met = labelAbv / 100
         return { et: 0, met: clamp01(met), agua: clamp01(1 - met) }
       }
@@ -629,7 +633,7 @@ export default function ResultadosPage() {
     }
     
     // Outra hidroalcoólica
-    if (bt === "Outra hidroalcoólica") {
+    if (bt === "Other hydroalcoholic") {
       const et = typeof etMassPct === "number" ? etMassPct / 100 : 0
       const met = typeof metMassPct === "number" ? metMassPct / 100 : 0
       return { et: clamp01(et), met: clamp01(met), agua: clamp01(1 - (et + met)) }
@@ -637,12 +641,12 @@ export default function ResultadosPage() {
     
     // Outros tipos (bebidas normais, etanol comercial, etc)
     if (typeof labelAbv === "number") {
-      if (labelUnit === "INPM ou % m/m") {
+      if (labelUnit === "INPM or % w/w") {
         // % m/m: labelAbv já é a fração mássica de etanol
         const et = labelAbv / 100
         return { et: clamp01(et), met: 0, agua: clamp01(1 - et) }
       } else {
-        // % v/v ou °GL: converter para % m/m usando fórmula aproximada
+        // % v/v or °GL: converter para % m/m usando fórmula aproximada
         const rhoE = 0.789
         const rhoW = 0.998
         const v = labelAbv / 100
@@ -658,13 +662,13 @@ export default function ResultadosPage() {
     const s = String(line || "").toLowerCase()
     
     // Função robusta para extrair valores - aceita múltiplos formatos
-    const grab = (name: "água" | "etanol" | "metanol") => {
+    const grab = (name: "water" | "ethanol" | "methanol") => {
       // Tentar vários padrões de regex
       const patterns = [
-        new RegExp(name + "\\s+(\\d+(?:[\\.,]\\d+)?)\\s*%"),  // "água 27.5%"
-        new RegExp(name + "\\s*:\\s*(\\d+(?:[\\.,]\\d+)?)\\s*%"),  // "água: 27.5%"
-        new RegExp(name + "\\s*=\\s*(\\d+(?:[\\.,]\\d+)?)\\s*%"),  // "água = 27.5%"
-        new RegExp("(\\d+(?:[\\.,]\\d+)?)\\s*%\\s*" + name),  // "27.5% água"
+        new RegExp(name + "\\s+(\\d+(?:[\\.,]\\d+)?)\\s*%"),  // "water 27.5%"
+        new RegExp(name + "\\s*:\\s*(\\d+(?:[\\.,]\\d+)?)\\s*%"),  // "water: 27.5%"
+        new RegExp(name + "\\s*=\\s*(\\d+(?:[\\.,]\\d+)?)\\s*%"),  // "water = 27.5%"
+        new RegExp("(\\d+(?:[\\.,]\\d+)?)\\s*%\\s*" + name),  // "27.5% water"
       ]
       
       for (const re of patterns) {
@@ -676,9 +680,9 @@ export default function ResultadosPage() {
       }
       return 0
     }
-    const agua = grab("água")
-    const et = grab("etanol")
-    const met = grab("metanol")
+    const agua = grab("water")
+    const et = grab("ethanol")
+    const met = grab("methanol")
     if (agua === 0 && et === 0 && met === 0) return null
     return { agua, et, met }
   }
@@ -705,7 +709,7 @@ export default function ResultadosPage() {
     const expectedHasEt = exp.et > 0.005
     const expectedHasMet = exp.met > 0.005
     
-    // 1ª passagem: buscar composições com EXATAMENTE os mesmos constituintes
+    // 1ª passagem: buscar compositions com EXATAMENTE os mesmos constituintes
     let best: { line: string; score: number } | null = null
     for (const line of lines) {
       const comp = parseCompositionLine(line)
@@ -731,7 +735,7 @@ export default function ResultadosPage() {
     // Se encontrou composição com mesmos constituintes, retornar
     if (best) return best.line
     
-    // 2ª passagem: aceitar composições com constituintes extras (fallback)
+    // 2ª passagem: aceitar compositions com constituintes extras (fallback)
     for (const line of lines) {
       const comp = parseCompositionLine(line)
       if (!comp) continue
@@ -846,7 +850,7 @@ export default function ResultadosPage() {
 
     const ternaria: TernariaOut | undefined = result ? ((result as unknown as { ternaria?: TernariaOut }).ternaria) : undefined
     
-    // Primeiro verificar se há alguma composição equivalente compatível com o rótulo
+    // Primeiro verificar se há alguma equivalent composition compatible com o rótulo
     const equivalentes = String((result as any)?.ternaria?.equivalentes ?? result?.equivalentes ?? "")
     
     // Usar expectedComposition do Python, ou calcular baseado no perfil se não disponível
@@ -858,28 +862,28 @@ export default function ResultadosPage() {
     if (equivalentes && expectedComp) {
       const compatLine = pickCompatibleLine(equivalentes, expectedComp, 3)
       if (compatLine) {
-        return "Compatível"
+        return "Compatible"
       }
     }
     
-    // Se não encontrou composição compatível, usar valor do backend ou "Incompatível"
+    // Se não encontrou composição compatible, usar valor do backend ou "Incompatible"
     const c = String((result?.compativel ?? ternaria?.compativel ?? "") || "").trim()
     if (c) return c
     
-    // Se não há valor do backend mas há equivalentes, é incompatível
-    if (equivalentes) return "Incompatível"
+    // Se não há valor do backend mas há equivalentes, é incompatible
+    if (equivalentes) return "Incompatible"
     
     return "Indeterminado"
   }, [result, sampleReplicates])
 
   const semaforo = useMemo(() => {
     const bt = result?.conditions?.beverageType
-    const tipoMetanolComercial = bt === "Metanol comercial"
-    const tipoEtanolCombustivel = bt === "Etanol combustível"
-    const tipoBebida = bt && !tipoMetanolComercial && !tipoEtanolCombustivel
+    const isCommercialMethanol = bt === "Commercial methanol"
+    const isFuelEthanol = bt === "Fuel ethanol"
+    const beverageTypeFlag = bt && !isCommercialMethanol && !isFuelEthanol
     
     // Verificar se há metanol alto nas equivalentes
-    const eqHasMetanolAlto = (() => {
+    const eqHasHighMethanol = (() => {
       const f = (result as any)?.flags
       if (typeof f?.methanolAbove5InEquivalents === "boolean") return f.methanolAbove5InEquivalents
       const ternEq = String((result as any)?.ternaria?.equivalentes ?? result?.equivalentes ?? "").toLowerCase()
@@ -890,7 +894,7 @@ export default function ResultadosPage() {
     })()
     
     // Critérios para aprovação experimental - SIMPLIFICADO
-    // Para ser consistente com a lista de análises
+    // Para ser consistente com a lista de analyses
     const manualSampleTimes = result?.rawTimes?.sampleTimes as Array<number | null> | undefined
     const manualWaterTimes = result?.rawTimes?.waterTimes as Array<number | null> | undefined
     const sampleRepCount = (manualSampleTimes?.filter(t => t != null).length) ?? sampleReplicates.length
@@ -915,42 +919,42 @@ export default function ResultadosPage() {
     }
     
     // Experimento aprovado: reps + CV + R² (sem verificar viscosidade da água)
-    const experimentoAprovado = repsOk && cvOk && r2Ok
+    const experimentApproved = repsOk && cvOk && r2Ok
     
-    // Lógica do semáforo otimizada
-    if (tipoMetanolComercial || tipoEtanolCombustivel) {
-      // Para metanol comercial e etanol combustível
-      if (compatStatus === "Compatível" && experimentoAprovado) {
-        return { cor: "green", texto: "Compatibilidade entre rótulo e experimento" }
+    // Semaphore logic otimizada
+    if (isCommercialMethanol || isFuelEthanol) {
+      // Para Commercial methanol e etanol combustível
+      if (compatStatus === "Compatible" && experimentApproved) {
+        return { cor: "green", texto: "Compatibility between label and experiment" }
       }
-      if (compatStatus === "Incompatível" && experimentoAprovado) {
-        return { cor: "red", texto: "Incompatível com o rótulo" }
+      if (compatStatus === "Incompatible" && experimentApproved) {
+        return { cor: "red", texto: "Incompatible with the label" }
       }
-      return { cor: "yellow", texto: "Necessários mais dados experimentais" }
+      return { cor: "yellow", texto: "More experimental data needed" }
     }
     
-    if (tipoBebida) {
+    if (beverageTypeFlag) {
       // Para bebidas alcoólicas
-      // Verificar se é "Outra hidroalcoólica" com metanol informado > 0%
-      const isOutraHidroComMetanol = bt === "Outra hidroalcoólica" && 
+      // Verificar se é "Other hydroalcoholic" com metanol informado > 0%
+      const isOtherHydroWithMethanol = bt === "Other hydroalcoholic" && 
         (result?.conditions?.methanolMassPercent != null && result.conditions.methanolMassPercent > 0)
       
-      // Se é "Outra hidroalcoólica" com metanol informado, não alertar sobre metanol
+      // Se é "Other hydroalcoholic" com metanol informado, não alertar sobre metanol
       // (usuário já sabe que tem metanol)
-      if (!isOutraHidroComMetanol && compatStatus === "Incompatível" && eqHasMetanolAlto && experimentoAprovado) {
-        return { cor: "red", texto: "Possível presença de metanol" }
+      if (!isOtherHydroWithMethanol && compatStatus === "Incompatible" && eqHasHighMethanol && experimentApproved) {
+        return { cor: "red", texto: "Possible methanol presence" }
       }
-      if (compatStatus === "Compatível" && experimentoAprovado) {
-        return { cor: "green", texto: "Compatibilidade entre rótulo e experimento" }
+      if (compatStatus === "Compatible" && experimentApproved) {
+        return { cor: "green", texto: "Compatibility between label and experiment" }
       }
-      if (compatStatus === "Incompatível" && experimentoAprovado) {
-        return { cor: "red", texto: "Incompatível com o rótulo" }
+      if (compatStatus === "Incompatible" && experimentApproved) {
+        return { cor: "red", texto: "Incompatible with the label" }
       }
-      return { cor: "yellow", texto: "Necessários mais dados experimentais" }
+      return { cor: "yellow", texto: "More experimental data needed" }
     }
     
-    // Caso padrão
-    return { cor: "yellow", texto: "Necessários mais dados experimentais" }
+    // Default
+    return { cor: "yellow", texto: "More experimental data needed" }
   }, [result, compatStatus, sampleReplicates, waterReplicates, sampleCvTimes, waterCvTimes, interpWaterViscRef, cvOf])
 
   // Função para selecionar experimento da lista
@@ -979,14 +983,14 @@ export default function ResultadosPage() {
       <div className="md:max-w-md md:mx-auto p-4 flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#002060] mx-auto mb-4"></div>
-          <p className="text-[#002060] font-medium">Processando análise...</p>
-          <p className="text-gray-500 text-sm mt-2">Aguarde enquanto calculamos os resultados.</p>
+          <p className="text-[#002060] font-medium">{t("Processing analysis...")}</p>
+          <p className="text-gray-500 text-sm mt-2">Please wait while calculating results.</p>
         </div>
       </div>
     )
   }
 
-  // Se deve mostrar lista de análises, renderizar AnalysisListPage
+  // Se deve mostrar lista de analyses, renderizar AnalysisListPage
   if (showAnalysisList) {
     return <AnalysisListPage onSelectExperiment={handleSelectExperiment} />
   }
@@ -999,12 +1003,12 @@ export default function ResultadosPage() {
           <button
             onClick={goBackToList}
             className="p-2 hover:bg-gray-100 rounded-lg"
-            aria-label="Voltar para lista"
+            aria-label="Back to list"
           >
             <ArrowLeft className="w-5 h-5 text-gray-600" />
           </button>
         )}
-        <h1 className="text-xl font-bold text-[#002060] flex-1">Relatório | Exame de Triagem</h1>
+        <h1 className="text-xl font-bold text-[#002060] flex-1">Report | Screening Test</h1>
       </div>
 
       <header className="p-3 border rounded-lg">
@@ -1018,60 +1022,60 @@ export default function ResultadosPage() {
         <div className="flex items-center gap-2 border-b">
           <button 
             className={`py-2 px-4 font-medium text-sm ${
-              activeTab === "Resultados" 
+              activeTab === "Results" 
                 ? "border-b-2 border-[#002060] text-[#002060]" 
                 : "text-gray-600"
             }`} 
-            onClick={() => setActiveTab("Resultados")}
+            onClick={() => setActiveTab("Results")}
           >
-            Resultados
+            Results
           </button>
           <button 
             className={`py-2 px-4 font-medium text-sm ${
-              activeTab === "Dados experimentais" 
+              activeTab === "Experimental data" 
                 ? "border-b-2 border-[#002060] text-[#002060]" 
                 : "text-gray-600"
             }`} 
-            onClick={() => setActiveTab("Dados experimentais")}
+            onClick={() => setActiveTab("Experimental data")}
           >
-            Dados experimentais
+            Experimental data
           </button>
         </div>
 
-        {activeTab === "Resultados" && (
+        {activeTab === "Results" && (
           <div className="space-y-2">
             <div className="border rounded-lg p-3">
-              <h2 className="font-medium">Amostra</h2>
+              <h2 className="font-medium">Sample</h2>
               {result ? (
                 <ul className="mt-1 space-y-1">
-                  <li>Nome da amostra: {String(result.conditions?.sampleName ?? "-")}</li>
-                  <li>Perfil: {String(result.conditions?.beverageType ?? "-")}</li>
-                  {result.conditions?.beverageType === "Outra hidroalcoólica" ? (
+                  <li>Sample name: {String(result.conditions?.sampleName ?? "-")}</li>
+                  <li>Profile: {String(result.conditions?.beverageType ?? "-")}</li>
+                  {result.conditions?.beverageType === "Other hydroalcoholic" ? (
                     <>
-                      <li>Teor de etanol: {result.conditions?.ethanolMassPercent != null ? `${result.conditions?.ethanolMassPercent}% m/m (informado)` : "-"}</li>
-                      <li>Teor de metanol: {result.conditions?.methanolMassPercent != null ? `${result.conditions?.methanolMassPercent}% m/m (informado)` : "-"}</li>
+                      <li>Ethanol content: {result.conditions?.ethanolMassPercent != null ? `${result.conditions?.ethanolMassPercent}% m/m (informado)` : "-"}</li>
+                      <li>Methanol content: {result.conditions?.methanolMassPercent != null ? `${result.conditions?.methanolMassPercent}% m/m (informado)` : "-"}</li>
                     </>
                   ) : (
-                    <li>Teor de rótulo: {result.conditions?.labelAbv != null ? `${result.conditions?.labelAbv} ${result.conditions?.labelUnit ?? ""}` : "-"}</li>
+                    <li>Label content: {result.conditions?.labelAbv != null ? `${result.conditions?.labelAbv} ${result.conditions?.labelUnit ?? ""}` : "-"}</li>
                   )}
-                  <li>Composição % m/m esperada: {(() => {
+                  <li>Expected % w/w composition: {(() => {
                     const exp = result?.expectedComposition
                     if (!exp || (exp.agua === 0 && exp.et === 0 && exp.met === 0)) return "-"
                     const parts: string[] = []
-                    if (exp.agua > 0) parts.push(`${(exp.agua * 100).toFixed(1)}% água`)
-                    if (exp.et > 0) parts.push(`${(exp.et * 100).toFixed(1)}% etanol`)
-                    if (exp.met > 0) parts.push(`${(exp.met * 100).toFixed(1)}% metanol`)
+                    if (exp.agua > 0) parts.push(`${(exp.agua * 100).toFixed(1)}% water`)
+                    if (exp.et > 0) parts.push(`${(exp.et * 100).toFixed(1)}% ethanol`)
+                    if (exp.met > 0) parts.push(`${(exp.met * 100).toFixed(1)}% methanol`)
                     return parts.length > 0 ? parts.join("; ") + "." : "-"
                   })()}</li>
                 </ul>
               ) : (
-                <p>Perfil e teor de rótulo</p>
+                <p>Profile and label content</p>
               )}
             </div>
 
             <div className="border rounded-lg p-3">
               <h2 className="font-medium flex items-center gap-1">
-                Composições estatisticamente equivalentes
+                Statistically equivalent compositions
                 <InfoTooltip text={TooltipComposicoesEquivalentes} />
               </h2>
               <div className="mt-1 text-sm whitespace-pre-line">{(() => {
@@ -1087,24 +1091,24 @@ export default function ResultadosPage() {
                   const e = Number(((exp.et ?? 0)*100).toFixed(1))
                   const m = Number(((exp.met ?? 0)*100).toFixed(1))
                   const parts: string[] = []
-                  if (a > 0) parts.push(`Água ${a}%;`)
-                  if (e > 0) parts.push(`etanol ${e}%;`)
-                  if (m > 0) parts.push(`metanol ${m}%;`)
+                  if (a > 0) parts.push(`Water ${a}%;`)
+                  if (e > 0) parts.push(`ethanol ${e}%;`)
+                  if (m > 0) parts.push(`methanol ${m}%;`)
                   if (parts.length === 2) return parts[0] + " " + parts[1].replace(";", ".")
                   if (parts.length === 1) return parts[0].replace(";", ".")
                   return `${parts[0]} ${parts[1]} e ${parts[2].replace(";", "")}.`
                 }
                 return "-"
               })()}</div>
-              <p className="mt-2 text-xs text-neutral-500 italic">Teores inferiores a 5% têm relevância reduzida (limite de detecção da metodologia).</p>
+              <p className="mt-2 text-xs text-neutral-500 italic">Contents below 5% have reduced relevance (methodology detection limit).</p>
             </div>
 
             <div className="border rounded-lg p-3">
-              <h2 className="font-medium">Síntese analítica dos resultados</h2>
+              <h2 className="font-medium">Analytical summary of results</h2>
               <ul className="mt-1 space-y-1">
-                <li>Rótulo e resultados (±3%): {compatStatus}</li>
-                <li>Composição equivalente compatível com rótulo: {(() => {
-                  if (compatStatus !== "Compatível") return "nenhuma localizada"
+                <li>Label and results (±3%): {compatStatus}</li>
+                <li>Equivalent composition compatible with label: {(() => {
+                  if (compatStatus !== "Compatible") return "none found"
                   const eq = String((result as any)?.ternaria?.equivalentes ?? result?.equivalentes ?? "")
                   let exp = result?.expectedComposition ?? null
                   if (!exp || (exp.agua === undefined && exp.et === undefined && exp.met === undefined)) {
@@ -1112,7 +1116,7 @@ export default function ResultadosPage() {
                   }
                   return pickCompatibleLine(eq, exp) ?? "-"
                 })()}</li>
-                <li className="flex items-center gap-1 flex-wrap">Composição mais provável <InfoTooltip text={TooltipMonteCarlo} />: {(() => {
+                <li className="flex items-center gap-1 flex-wrap">Most probable composition <InfoTooltip text={TooltipMonteCarlo} />: {(() => {
                   const ternaria: TernariaOut | undefined = result ? ((result as unknown as { ternaria?: TernariaOut }).ternaria) : undefined
                   const mostLikely = result?.mostLikely ?? ternaria?.classe_final
                   
@@ -1131,14 +1135,14 @@ export default function ResultadosPage() {
                   
                   return '-'
                 })()}</li>
-                <li>Viscosidade da amostra (20ºC): {(() => {
+                <li>Sample viscosity (20ºC): {(() => {
                   const v = result?.viscosity?.muAbsSample
                   return v != null ? Number(v).toFixed(4) : '-'
                 })()}</li>
                 {(() => {
                   const muW = result?.viscosity?.muAbsWater
                   if (muW != null) {
-                    return <li>Viscosidade da água (20ºC): {Number(muW).toFixed(4)}</li>
+                    return <li>Water viscosity (20ºC): {Number(muW).toFixed(4)}</li>
                   }
                   return null
                 })()}
@@ -1146,77 +1150,77 @@ export default function ResultadosPage() {
                   const w = result?.wAlcoolInicial
                   return w != null ? `${(w * 100).toFixed(2)}%` : '-'
                 })()}</li>
-                <li>Range de busca (±0.025): {(() => {
+                <li>Search range (±0.025): {(() => {
                   const w = result?.wAlcoolInicial
                   if (w == null) return '-'
                   const min = Math.max(0, w - 0.025)
                   const max = Math.min(1, w + 0.025)
                   return `${(min * 100).toFixed(2)}% – ${(max * 100).toFixed(2)}%`
                 })()}</li>
-                <li>Erro de viscosidade (malha): {(() => {
+                <li>Viscosity error (mesh): {(() => {
                   const err = result?.erroMuMalhaAbs
                   return err != null ? `${err.toFixed(4)} mPa·s` : '-'
                 })()}</li>
               </ul>
-              <p className="mt-2 text-xs text-neutral-500 italic">Este é um exame de triagem estimativo; não substitui análises laboratoriais oficiais.</p>
+              <p className="mt-2 text-xs text-neutral-500 italic">This is an estimative screening test; it does not replace official laboratory analyses.</p>
             </div>
           </div>
         )}
 
-        {activeTab === "Dados experimentais" && (
+        {activeTab === "Experimental data" && (
           <div className="space-y-2">
             <div className="border rounded-lg p-3">
-              <h2 className="font-medium">Amostra e água de referência</h2>
+              <h2 className="font-medium">Sample and reference water</h2>
               {result ? (
                 <ul className="mt-1 space-y-1">
-                  <li>Nome da amostra: {String(result.conditions?.sampleName ?? "-")}</li>
-                  <li>Perfil: {String(result.conditions?.beverageType ?? "-")}</li>
-                  {result.conditions?.beverageType === "Outra hidroalcoólica" ? (
+                  <li>Sample name: {String(result.conditions?.sampleName ?? "-")}</li>
+                  <li>Profile: {String(result.conditions?.beverageType ?? "-")}</li>
+                  {result.conditions?.beverageType === "Other hydroalcoholic" ? (
                     <>
-                      <li>Teor de etanol: {result.conditions?.ethanolMassPercent != null ? `${result.conditions?.ethanolMassPercent}% m/m (informado)` : "-"}</li>
-                      <li>Teor de metanol: {result.conditions?.methanolMassPercent != null ? `${result.conditions?.methanolMassPercent}% m/m (informado)` : "-"}</li>
+                      <li>Ethanol content: {result.conditions?.ethanolMassPercent != null ? `${result.conditions?.ethanolMassPercent}% m/m (informado)` : "-"}</li>
+                      <li>Methanol content: {result.conditions?.methanolMassPercent != null ? `${result.conditions?.methanolMassPercent}% m/m (informado)` : "-"}</li>
                     </>
                   ) : (
-                    <li>Rótulo: {result.conditions?.labelAbv != null ? `${result.conditions?.labelAbv} ${result.conditions?.labelUnit ?? ""}` : "-"}</li>
+                    <li>Label: {result.conditions?.labelAbv != null ? `${result.conditions?.labelAbv} ${result.conditions?.labelUnit ?? ""}` : "-"}</li>
                   )}
-                  <li>Fabricante e/ou marca: {result.conditions?.brand ?? "-"}</li>
-                  <li>Temperatura da amostra (ºC): {result.conditions?.sampleTemperature ?? "-"}</li>
-                  <li>Tipo de água: {String(result.conditions?.waterType ?? "-")}</li>
-                  <li>Temperatura da água (ºC): {result.conditions?.temperature ?? "-"}</li>
+                  <li>Manufacturer and/or brand: {result.conditions?.brand ?? "-"}</li>
+                  <li>Sample temperature (ºC): {result.conditions?.sampleTemperature ?? "-"}</li>
+                  <li>Water type: {String(result.conditions?.waterType ?? "-")}</li>
+                  <li>Water temperature (ºC): {result.conditions?.temperature ?? "-"}</li>
                 </ul>
               ) : (
-                <p>Condições detalhadas do ensaio</p>
+                <p>Detailed test conditions</p>
               )}
             </div>
 
             <div className="border rounded-lg p-3">
-              <h2 className="font-medium">Dados de massa e densidade</h2>
+              <h2 className="font-medium">Mass and density data</h2>
               <ul className="mt-1 space-y-1">
-                <li>Método: {result?.density?.method ?? "-"}</li>
-                <li>Massa água (g): {result?.density?.waterMass != null ? parseFloat(Number(result.density.waterMass).toFixed(3)) : "-"}</li>
-                <li>Massa amostra (g): {result?.density?.sampleMass != null ? parseFloat(Number(result.density.sampleMass).toFixed(3)) : "-"}</li>
-                <li>Valor medido: {result?.density?.measuredValue != null ? result.density.measuredValue : "-"}</li>
-                <li>Unidade: {result?.density?.measuredUnit ?? "-"}</li>
+                <li>Method: {result?.density?.method ?? "-"}</li>
+                <li>Water mass (g): {result?.density?.waterMass != null ? parseFloat(Number(result.density.waterMass).toFixed(3)) : "-"}</li>
+                <li>Sample mass (g): {result?.density?.sampleMass != null ? parseFloat(Number(result.density.sampleMass).toFixed(3)) : "-"}</li>
+                <li>Measured value: {result?.density?.measuredValue != null ? result.density.measuredValue : "-"}</li>
+                <li>Unit: {result?.density?.measuredUnit ?? "-"}</li>
               </ul>
             </div>
 
             <div className="border rounded-lg p-3">
-              <h2 className="font-medium">Composição esperada (m/m)</h2>
+              <h2 className="font-medium">Expected composition (w/w)</h2>
               <ul className="mt-1 space-y-1">
-                <li>{result?.expectedComposition ? `${((result.expectedComposition.agua ?? 0)*100).toFixed(1)}% água; ${((result.expectedComposition.et ?? 0)*100).toFixed(1)}% etanol${(result.expectedComposition.met ?? 0) > 0 ? `; ${((result.expectedComposition.met ?? 0)*100).toFixed(1)}% metanol` : ""}.` : "-"}</li>
+                <li>{result?.expectedComposition ? `${((result.expectedComposition.agua ?? 0)*100).toFixed(1)}% water; ${((result.expectedComposition.et ?? 0)*100).toFixed(1)}% ethanol${(result.expectedComposition.met ?? 0) > 0 ? `; ${((result.expectedComposition.met ?? 0)*100).toFixed(1)}% methanol` : ""}.` : "-"}</li>
               </ul>
             </div>
 
             <div className="border rounded-lg p-3">
-              <h2 className="font-medium">Escoamento - Amostra</h2>
+              <h2 className="font-medium">Flow - Sample</h2>
               <ul className="mt-1 space-y-1">
-                <li>Range de volume considerado (mL): 18–14</li>
-                <li>Vídeo(s) amostra: {sampleReplicates.length ? sampleReplicates.map(r => r.fileName ?? "-").join("; ") : "-"}</li>
-                <li>Instantes de escoamento: {sampleReplicates.length ? sampleReplicates.map(r => ([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")).join("; ") : "-"}</li>
-                <li>Ajuste(s) linear do escoamento (R²): {sampleReplicates.length ? sampleReplicates.map(r => { const v = computeR2(r.marks); return v != null ? v.toFixed(3) : "-" }).join("; ") : "-"}</li>
-                <li>Tempo estimado escoamento (s): {sampleReplicates.length ? sampleReplicates.map(r => { const v = estimateDeltaTime(r.marks); return v != null ? v.toFixed(2) : "-" }).join("; ") : "-"}</li>
-                <li>Tempos inseridos manualmente (s): {result?.rawTimes?.sampleTimes && result.rawTimes.sampleTimes.length ? result.rawTimes.sampleTimes.map((t) => t?.toFixed?.(2)).join(", ") : "-"}</li>
-                <li>Variação dos tempos (%): {(() => {
+                <li>Volume range considered (mL): 18–14</li>
+                <li>Sample video(s): {sampleReplicates.length ? sampleReplicates.map(r => r.fileName ?? "-").join("; ") : "-"}</li>
+                <li>Flow time instants: {sampleReplicates.length ? sampleReplicates.map(r => ([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")).join("; ") : "-"}</li>
+                <li>Linear fit of flow (R²): {sampleReplicates.length ? sampleReplicates.map(r => { const v = computeR2(r.marks); return v != null ? v.toFixed(3) : "-" }).join("; ") : "-"}</li>
+                <li>Estimated flow time (s): {sampleReplicates.length ? sampleReplicates.map(r => { const v = estimateDeltaTime(r.marks); return v != null ? v.toFixed(2) : "-" }).join("; ") : "-"}</li>
+                <li>Manually entered times (s): {result?.rawTimes?.sampleTimes && result.rawTimes.sampleTimes.length ? result.rawTimes.sampleTimes.map((t) => t?.toFixed?.(2)).join(", ") : "-"}</li>
+                <li>Time variation (%): {(() => {
                   const manual = result?.rawTimes?.sampleTimes ?? []
                   const vids = sampleReplicates.map(r => estimateDeltaTime(r.marks)).filter((v): v is number => typeof v === 'number' && !isNaN(v))
                   const merged = [...vids, ...manual.filter((v): v is number => typeof v === 'number' && !isNaN(v))]
@@ -1231,15 +1235,15 @@ export default function ResultadosPage() {
             </div>
 
             <div className="border rounded-lg p-3">
-              <h2 className="font-medium">Escoamento - Água</h2>
+              <h2 className="font-medium">Flow - Water</h2>
               <ul className="mt-1 space-y-1">
-                <li>Range de volume considerado (mL): 18–14</li>
-                <li>Vídeo(s) água: {waterReplicates.length ? waterReplicates.map(r => r.fileName ?? "-").join("; ") : "-"}</li>
-                <li>Instantes de escoamento: {waterReplicates.length ? waterReplicates.map(r => ([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")).join("; ") : "-"}</li>
-                <li>Ajuste(s) linear do escoamento (R²): {waterReplicates.length ? waterReplicates.map(r => { const v = computeR2(r.marks); return v != null ? v.toFixed(3) : "-" }).join("; ") : "-"}</li>
-                <li>Tempo estimado escoamento (s): {waterReplicates.length ? waterReplicates.map(r => { const v = estimateDeltaTime(r.marks); return v != null ? v.toFixed(2) : "-" }).join("; ") : "-"}</li>
-                <li>Tempos inseridos manualmente (s): {result?.rawTimes?.waterTimes && result.rawTimes.waterTimes.length ? result.rawTimes.waterTimes.map((t) => t?.toFixed?.(2)).join(", ") : "-"}</li>
-                <li>Variação dos tempos (%): {(() => {
+                <li>Volume range considered (mL): 18–14</li>
+                <li>Water video(s): {waterReplicates.length ? waterReplicates.map(r => r.fileName ?? "-").join("; ") : "-"}</li>
+                <li>Flow time instants: {waterReplicates.length ? waterReplicates.map(r => ([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")).join("; ") : "-"}</li>
+                <li>Linear fit of flow (R²): {waterReplicates.length ? waterReplicates.map(r => { const v = computeR2(r.marks); return v != null ? v.toFixed(3) : "-" }).join("; ") : "-"}</li>
+                <li>Estimated flow time (s): {waterReplicates.length ? waterReplicates.map(r => { const v = estimateDeltaTime(r.marks); return v != null ? v.toFixed(2) : "-" }).join("; ") : "-"}</li>
+                <li>Manually entered times (s): {result?.rawTimes?.waterTimes && result.rawTimes.waterTimes.length ? result.rawTimes.waterTimes.map((t) => t?.toFixed?.(2)).join(", ") : "-"}</li>
+                <li>Time variation (%): {(() => {
                   const manual = result?.rawTimes?.waterTimes ?? []
                   const vids = waterReplicates.map(r => estimateDeltaTime(r.marks)).filter((v): v is number => typeof v === 'number' && !isNaN(v))
                   const merged = [...vids, ...manual.filter((v): v is number => typeof v === 'number' && !isNaN(v))]
@@ -1288,7 +1292,7 @@ export default function ResultadosPage() {
           onClick={() => router.push("/medir")} 
           className="bg-[#002060] text-white rounded-lg py-2 text-sm font-medium border-2 border-[#002060] hover:bg-[#001040]"
         >
-          Nova análise
+          New analysis
         </button>
       </div>
       
@@ -1296,7 +1300,7 @@ export default function ResultadosPage() {
       <MethodologyModal
         isOpen={showMethodology}
         onClose={() => setShowMethodology(false)}
-        title="Interpretação do Relatório"
+        title="Report Interpretation"
       >
         <MethodologyRelatorio />
       </MethodologyModal>

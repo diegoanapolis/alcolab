@@ -1,4 +1,4 @@
-// AlcoLab — Homepage / Landing Page
+// AlcoLab — Homepage / Landing Page (English)
 // Copyright (c) 2024-2026 Diego Mendes de Souza, Pedro Augusto de Oliveira Morais, Nayara Ferreira Santos
 // SPDX-License-Identifier: AGPL-3.0-only
 
@@ -28,43 +28,43 @@ import {
   FlaskConical,
 } from "lucide-react";
 
-/* ─── Constantes ─── */
+/* ─── Constants ─── */
 const GITHUB_REPO = "https://github.com/diegoanapolis/alcolab";
-const BUYME_COFFEE_URL = "https://buymeacoffee.com/alcolab"; // TODO: substituir pelo link real
-const FORM_SUGESTAO_URL = "https://forms.gle/PLACEHOLDER"; // TODO: substituir pelo link real
+const BUYME_COFFEE_URL = "https://buymeacoffee.com/alcolab"; // TODO: replace with actual link
+const FORM_SUGESTAO_URL = "https://forms.gle/PLACEHOLDER"; // TODO: replace with actual link
 const PIX_KEY = "alcolabapp@gmail.com";
 
-/* ─── Dados ─── */
-const equipe = [
+/* ─── Date ─── */
+const team = [
   {
-    iniciais: "DM",
-    nome: "Diego Mendes de Souza",
-    papel: "Desenvolvimento, experimentos e estatística",
-    credenciais:
-      "Dr. em Quimiometria · Químico Industrial · Perito Criminal Oficial · Professor de Química",
+    initials: "DM",
+    name: "Diego Mendes de Souza",
+    role: "Development, experiments & statistics",
+    credentials:
+      "PhD in Chemometrics · Industrial Chemist · Official Forensic Expert · Chemistry Professor",
   },
   {
-    iniciais: "PA",
-    nome: "Pedro Augusto de Oliveira Morais",
-    papel: "Revisão científica, experimentos e estatística",
-    credenciais:
-      "PhD em Quimiometria · Químico Industrial · Professor de Química — UFMA",
+    initials: "PA",
+    name: "Pedro Augusto de Oliveira Morais",
+    role: "Scientific review, experiments & statistics",
+    credentials:
+      "PhD in Chemometrics · Industrial Chemist · Chemistry Professor — UFMA",
   },
   {
-    iniciais: "NF",
-    nome: "Nayara Ferreira Santos",
-    papel: "Auditoria UX, cotitular e gestão administrativa",
-    credenciais: "Administradora · Sócio-fundadora da Científica Concursos",
+    initials: "NF",
+    name: "Nayara Ferreira Santos",
+    role: "UX audit, co-holder & administrative management",
+    credentials: "Business Administrator · Co-founder of Científica Concursos",
   },
   {
-    iniciais: "RR",
-    nome: "Romério Rodrigues dos Santos Silva",
-    papel: "Colaborador · Revisor UX · Experimentos",
-    credenciais: "Dr. em Bioquímica · Biólogo",
+    initials: "RR",
+    name: "Romério Rodrigues dos Santos Silva",
+    role: "Collaborator · UX Reviewer · Experiments",
+    credentials: "PhD in Biochemistry · Biologist",
   },
 ];
 
-/* ─── Componente: Moldura de celular ─── */
+/* ─── Component: Phone Mockup ─── */
 function PhoneMockup({
   src,
   alt,
@@ -78,7 +78,6 @@ function PhoneMockup({
     <div
       className={`relative bg-neutral-900 rounded-[2rem] p-2 shadow-2xl ${className}`}
     >
-      {/* Notch */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-neutral-900 rounded-b-2xl z-10" />
       <div className="rounded-[1.5rem] overflow-hidden bg-white">
         <Image
@@ -95,55 +94,54 @@ function PhoneMockup({
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   HOMEPAGE
+   ENGLISH HOMEPAGE
    ═══════════════════════════════════════════════════════════════════ */
-export default function HomePage() {
+export default function HomePageEN() {
   return (
     <main className="min-h-dvh">
-      {/* ─── SEÇÃO 1: HERO ─── */}
+      {/* ─── SECTION 1: HERO ─── */}
       <section className="relative bg-white px-6 pt-16 pb-12 lg:px-16 lg:pt-24 lg:pb-20">
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-          {/* Texto */}
+          {/* Text */}
           <div className="flex-1 text-center lg:text-left space-y-6">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#002060] leading-tight">
               AlcoLab
             </h1>
             <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#002060]/70">
-              Triagem de metanol acessível a todos
+              Accessible methanol screening for everyone
             </p>
             <p className="text-base sm:text-lg text-neutral-600 max-w-xl mx-auto lg:mx-0">
-              Ferramenta gratuita e open-source que estima contaminação por
-              metanol em bebidas e soluções — sem laboratório.
+              Free, open-source tool that estimates methanol contamination in
+              alcoholic beverages and hydroalcoholic solutions — no lab required.
             </p>
 
-            {/* Botões */}
+            {/* Buttons */}
             <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
               <Link
                 href="/app/measure"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#002060] text-white font-semibold hover:bg-[#001040] transition-colors text-sm"
               >
                 <Beaker className="w-4 h-4" />
-                Iniciar triagem
+                Start screening
               </Link>
               <Link
                 href="/app"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-[#002060] text-[#002060] font-semibold hover:bg-blue-50 transition-colors text-sm"
               >
                 <FlaskConical className="w-4 h-4" />
-                Teste com dados reais
+                Try with real date
               </Link>
               <a
-                href="#como-funciona"
+                href="#how-it-works"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-[#002060] text-[#002060] font-semibold hover:bg-blue-50 transition-colors text-sm"
               >
-                Como funciona?
+                How it works
                 <ChevronDown className="w-4 h-4" />
               </a>
             </div>
 
             <p className="text-xs text-neutral-400 italic">
-              Screening tool — não substitui análise laboratorial
-              confirmatória.
+              Screening tool — does not replace confirmatory laboratory analysis.
             </p>
           </div>
 
@@ -151,22 +149,21 @@ export default function HomePage() {
           <div className="flex-shrink-0 w-48 sm:w-56 lg:w-64">
             <PhoneMockup
               src="/images/homepage/semaforo-vermelho.png"
-              alt="Tela do AlcoLab mostrando resultado com semáforo vermelho — amostra contaminada detectada"
+              alt="AlcoLab screen showing result with red traffic light — contaminated sample detected"
             />
           </div>
         </div>
       </section>
 
-      {/* ─── SEÇÃO 2: COMO FUNCIONA ─── */}
-      <section id="como-funciona" className="bg-neutral-100 px-6 py-16 lg:px-16 lg:py-20">
+      {/* ─── SECTION 2: HOW IT WORKS ─── */}
+      <section id="how-it-works" className="bg-neutral-100 px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-5xl mx-auto space-y-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#002060] text-center">
-            Como funciona
+            How it works
           </h2>
 
-          {/* Etapas */}
           <div className="space-y-10">
-            {/* Etapa 1 */}
+            {/* Step 1 */}
             <div className="flex flex-col md:flex-row gap-6 items-start">
               <div className="flex-1 space-y-3">
                 <div className="flex items-center gap-3">
@@ -174,24 +171,24 @@ export default function HomePage() {
                     1
                   </span>
                   <h3 className="text-lg font-semibold text-[#002060]">
-                    Experimento
+                    Experiment
                   </h3>
                 </div>
                 <p className="text-sm text-neutral-700 leading-relaxed">
-                  O app instrui o usuário a realizar duas medições para a amostra
-                  e para água (padrão de referência):
+                  The app guides the user through two measurements for both the
+                  sample and water (reference standard):
                 </p>
                 <ul className="text-sm text-neutral-700 space-y-2 pl-6 list-disc marker:text-[#002060]">
                   <li>
                     <span className="font-medium">Relative density</span> —
-                    razão entre a massa da amostra e a massa da água (mesmo
-                    volume, mesma temperatura), obtida por pesagem diferencial com
-                    seringa.
+                    ratio of the sample mass to the water mass (same volume, same
+                    temperature), obtained by differential weighing with a
+                    syringe.
                   </li>
                   <li>
                     <span className="font-medium">Relative viscosity</span> —
-                    razão entre os flow times da amostra e da água na
-                    mesma seringa (faixa de 18 a 14 mL).
+                    ratio of the flow times of the sample and water in the same
+                    syringe (range 18 to 14 mL).
                   </li>
                 </ul>
               </div>
@@ -199,7 +196,7 @@ export default function HomePage() {
                 <div className="w-40 sm:w-44 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/step-pesagem.png"
-                    alt="Tela de pesagem do AlcoLab"
+                    alt="AlcoLab weighing screen"
                     width={390}
                     height={844}
                     className="w-full h-auto"
@@ -208,7 +205,7 @@ export default function HomePage() {
                 <div className="w-40 sm:w-44 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/step-video-menisco.png"
-                    alt="Tela de marcação dos meniscos por vídeo no AlcoLab"
+                    alt="AlcoLab video meniscus marking screen"
                     width={390}
                     height={844}
                     className="w-full h-auto"
@@ -217,65 +214,65 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Etapa 2 */}
+            {/* Step 2 */}
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#002060] text-white text-sm font-bold shrink-0">
                   2
                 </span>
                 <h3 className="text-lg font-semibold text-[#002060]">
-                  Estimativa do teor alcoólico
+                  Alcohol content estimation
                 </h3>
               </div>
               <p className="text-sm text-neutral-700 leading-relaxed">
-                A partir da relative density e de tabelas de referência
-                (Gay-Lussac, OIML), o app estima o teor em massa de álcool total
-                — independentemente de ser etanol e/ou metanol, já que ambos
-                possuem densidades muito próximas. Conversões entre unidades (%
-                v/v, °GL, INPM, % m/m) são realizadas automaticamente.
+                From the relative density and reference tables (Gay-Lussac,
+                OIML), the app estimates the total alcohol mass fraction —
+                regardless of whether it is ethanol and/or methanol, since both
+                have very similar densities. Unit conversions (% v/v, °GL, INPM,
+                % w/w) are performed automatically.
               </p>
             </div>
 
-            {/* Etapa 3 */}
+            {/* Step 3 */}
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#002060] text-white text-sm font-bold shrink-0">
                   3
                 </span>
                 <h3 className="text-lg font-semibold text-[#002060]">
-                  Triagem da composição ternária
+                  Ternary composition screening
                 </h3>
               </div>
               <p className="text-sm text-neutral-700 leading-relaxed">
-                Combina relative density e relative viscosity (corrigida para
-                20 °C) em uma malha 3D de referência pré-calculada, localizando
-                as composições (substância pura, binárias e/ou ternárias) cuja
-                densidade e viscosidade mais se aproximam dos valores obtidos pelo
-                usuário.
+                Combines relative density and relative viscosity (corrected to
+                20 °C) in a pre-computed 3D reference mesh, locating the
+                compositions (pure substance, binary and/or ternary) whose
+                density and viscosity most closely match the user&apos;s measured
+                values.
               </p>
             </div>
 
-            {/* Etapa 4 */}
+            {/* Step 4 */}
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <span className="flex items-center justify-center w-8 h-8 rounded-full bg-[#002060] text-white text-sm font-bold shrink-0">
                   4
                 </span>
                 <h3 className="text-lg font-semibold text-[#002060]">
-                  Avaliação estatística
+                  Statistical evaluation
                 </h3>
               </div>
               <p className="text-sm text-neutral-700 leading-relaxed">
-                O app avalia a experimental uncertainty das medições, comparando a
-                composição identificada na etapa previous com composições de
-                resultados próximos por meio de teste Z de comparação de médias e
-                simulação probabilística de Monte Carlo. O objetivo é incluir
-                composições estatisticamente equivalentes e/ou
-                probabilisticamente prováveis.
+                The app evaluates the experimental uncertainty of the
+                measurements, comparing the composition identified in the
+                previous step with nearby compositions through a Z-test for mean
+                comparison and Monte Carlo probabilistic simulation. The goal is
+                to include statistically equivalent and/or probabilistically
+                likely compositions.
               </p>
             </div>
 
-            {/* Etapa 5 */}
+            {/* Step 5 */}
             <div className="flex flex-col md:flex-row gap-6 items-start">
               <div className="flex-1 space-y-3">
                 <div className="flex items-center gap-3">
@@ -283,22 +280,22 @@ export default function HomePage() {
                     5
                   </span>
                   <h3 className="text-lg font-semibold text-[#002060]">
-                    Relatório de resultados
+                    Results report
                   </h3>
                 </div>
                 <p className="text-sm text-neutral-700 leading-relaxed">
-                  As composições equivalentes e prováveis são comparadas com o
-                  rótulo declarado. O app organiza medidas experimentais e
-                  resultados em um relatório e exibe um indicador imediato de
-                  segurança em formato de semáforo (verde / amarelo / vermelho).
-                  Quando há probabilidade de presença de metanol, o semáforo
-                  assume cor vermelha.
+                  Equivalent and probable compositions are compared with the
+                  declared label. The app organizes experimental measurements and
+                  results into a report and displays an immediate safety
+                  indicator in traffic light format (green / yellow / red). When
+                  there is a probability of methanol presence, the traffic light
+                  turns red.
                 </p>
               </div>
               <div className="w-40 sm:w-44 shrink-0 mx-auto md:mx-0 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                 <Image
                   src="/images/homepage/semaforo-vermelho.png"
-                  alt="Resultado com semáforo vermelho"
+                  alt="Result with red traffic light"
                   width={390}
                   height={844}
                   className="w-full h-auto"
@@ -313,101 +310,98 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 text-sm font-medium text-[#002060] hover:underline"
             >
               <BookOpen className="w-4 h-4" />
-              Leia a metodologia completa →
+              Read the full methodology →
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ─── SEÇÃO 3: POR QUE IMPORTA ─── */}
+      {/* ─── SECTION 3: WHY IT MATTERS ─── */}
       <section className="bg-[#002060] text-white px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-5xl mx-auto space-y-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-center text-white">
-            Por que o AlcoLab existe
+            Why AlcoLab exists
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {/* Stat 1 */}
             <div className="text-center space-y-2 p-6 rounded-xl bg-white/10">
               <p className="text-4xl sm:text-5xl font-extrabold">200+</p>
               <p className="text-sm text-blue-100 leading-snug">
-                casos suspeitos de envenenamento por metanol no Brasil em um
-                único surto (OPAS/OMS, 2025)
+                suspected methanol poisoning cases in Brazil in a single
+                outbreak (PAHO/WHO, 2025)
               </p>
             </div>
-            {/* Stat 2 */}
             <div className="text-center space-y-2 p-6 rounded-xl bg-white/10">
               <p className="text-4xl sm:text-5xl font-extrabold">28</p>
               <p className="text-sm text-blue-100 leading-snug">
-                países com alerta ativo de risco de metanol em bebidas (UK
+                countries with active methanol risk alerts for beverages (UK
                 Foreign Office, 2025)
               </p>
             </div>
-            {/* Stat 3 */}
             <div className="text-center space-y-2 p-6 rounded-xl bg-white/10">
-              <p className="text-4xl sm:text-5xl font-extrabold">R$ 0</p>
+              <p className="text-4xl sm:text-5xl font-extrabold">$0</p>
               <p className="text-sm text-blue-100 leading-snug">
-                Custo por análise no AlcoLab — contra R$ 50.000+ de um cromatógrafo
-                gasoso e centenas de reais por análise
+                Cost per analysis with AlcoLab — versus $10,000+ for a gas
+                chromatograph and hundreds of dollars per lab test
               </p>
             </div>
           </div>
 
           <p className="text-sm text-blue-100 text-center max-w-3xl mx-auto leading-relaxed">
-            Apesar da magnitude do problema, a detecção prática permanece
-            restrita ao ambiente laboratorial. Técnicas seletivas como
-            cromatografia gasosa (GC-FID, GC-MS) exigem instrumentação
-            dispendiosa, indisponível para a maioria dos agentes de campo.
-            Alternativas portáteis como espectroscopia Raman custam dezenas ou
-            centenas de milhares de dólares. O AlcoLab oferece uma abordagem
-            radicalmente acessível.
+            Despite the magnitude of the problem, practical detection remains
+            largely restricted to laboratory settings. Selective techniques such
+            as gas chromatography (GC-FID, GC-MS) require expensive
+            instrumentation, unavailable to most field agents. Portable
+            alternatives like Raman spectroscopy cost tens or hundreds of
+            thousands of dollars. AlcoLab offers a radically accessible
+            approach.
           </p>
         </div>
       </section>
 
-      {/* ─── SEÇÃO 4: PARA QUEM ─── */}
+      {/* ─── SECTION 4: WHO IS IT FOR ─── */}
       <section className="bg-white px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-5xl mx-auto space-y-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#002060] text-center">
-            Para quem
+            Who is it for
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               {
                 Icon: Shield,
-                perfil: "Vigilância sanitária",
-                desc: "Triagem rápida em campo durante fiscalizações e apreensões, auxiliando no encaminhamento mais assertivo de amostras aos laboratórios oficiais, cuja capacidade analítica é limitada",
+                profile: "Health inspectors",
+                desc: "Rapid field screening during inspections and seizures, supporting more targeted referral of samples to official laboratories with limited analytical capacity",
               },
               {
                 Icon: Stethoscope,
-                perfil: "Profissionais de saúde",
-                desc: "Triagem preliminar da bebida suspeita em contextos de atendimento a pacientes com sintomas compatíveis com intoxicação por metanol, quando houver acesso à amostra, subsidiando decisões clínicas tempestivas enquanto resultados confirmatórios não estão disponíveis",
+                profile: "Healthcare professionals",
+                desc: "Preliminary screening of suspected beverages when attending patients with symptoms compatible with methanol poisoning, supporting timely clinical decisions while confirmatory results are unavailable",
               },
               {
                 Icon: Search,
-                perfil: "Investigadores e peritos",
-                desc: "Evidência preliminar em apreensões e investigações",
+                profile: "Investigators & forensic experts",
+                desc: "Preliminary evidence in seizures and investigations",
               },
               {
                 Icon: Truck,
-                perfil: "Distribuidores e varejistas",
-                desc: "Verificação de triagem em lotes ou unidades suspeitas",
+                profile: "Distributors & retailers",
+                desc: "Screening verification of suspicious batches or units",
               },
               {
                 Icon: Users,
-                perfil: "Consumidores",
-                desc: "Qualquer pessoa, em qualquer país, com acesso aos materiais básicos, desde que siga rigorosamente a metodologia indicada no próprio app",
+                profile: "Consumers",
+                desc: "Anyone, in any country, with access to the basic materials, provided they strictly follow the methodology indicated in the app",
               },
-            ].map(({ Icon, perfil, desc }) => (
+            ].map(({ Icon, profile, desc }) => (
               <div
-                key={perfil}
+                key={profile}
                 className="border border-neutral-200 rounded-xl p-5 space-y-2 hover:border-[#002060]/30 transition-colors"
               >
                 <div className="flex items-center gap-2">
                   <Icon className="w-5 h-5 text-[#002060] shrink-0" />
                   <h3 className="text-sm font-semibold text-[#002060]">
-                    {perfil}
+                    {profile}
                   </h3>
                 </div>
                 <p className="text-xs text-neutral-600 leading-relaxed">
@@ -419,48 +413,47 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── SEÇÃO 5: EXPERIMENTE AGORA ─── */}
+      {/* ─── SECTION 5: TRY IT NOW ─── */}
       <section className="bg-neutral-100 px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-4xl mx-auto">
           <div className="border-2 border-[#002060]/20 rounded-2xl p-8 sm:p-10 bg-white space-y-6">
             <h2 className="text-xl sm:text-2xl font-bold text-[#002060] text-center">
-              Experimente antes de usar
+              Try it before you use it
             </h2>
             <p className="text-sm text-neutral-700 text-center max-w-2xl mx-auto leading-relaxed">
-              Os autores disponibilizaram três cenários de demonstração com dados
-              reais — incluindo amostras contaminadas e legítimas — para que você
-              conheça o fluxo analítico completo antes de realizar sua própria
-              triagem.
+              The authors have provided three demonstration scenarios with real
+              date — including contaminated and legitimate samples — so you can
+              explore the full analytical workflow before performing your own
+              screening.
             </p>
 
-            {/* Screenshots lado a lado */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 py-4">
               <div className="text-center space-y-2">
                 <div className="w-44 sm:w-52 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/semaforo-verde.png"
-                    alt="Resultado com semáforo verde — amostra legítima"
+                    alt="Result with green traffic light — legitimate sample"
                     width={390}
                     height={844}
                     className="w-full h-auto"
                   />
                 </div>
                 <p className="text-xs text-green-700 font-medium">
-                  ✅ Amostra legítima
+                  ✅ Legitimate sample
                 </p>
               </div>
               <div className="text-center space-y-2">
                 <div className="w-44 sm:w-52 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/semaforo-vermelho.png"
-                    alt="Resultado com semáforo vermelho — amostra contaminada"
+                    alt="Result with red traffic light — contaminated sample"
                     width={390}
                     height={844}
                     className="w-full h-auto"
                   />
                 </div>
                 <p className="text-xs text-red-700 font-medium">
-                  🚨 Contaminação detectada
+                  🚨 Contamination detected
                 </p>
               </div>
             </div>
@@ -471,34 +464,33 @@ export default function HomePage() {
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#002060] text-white font-semibold hover:bg-[#001040] transition-colors text-sm"
               >
                 <FlaskConical className="w-4 h-4" />
-                Testar com dados reais
+                Try with real date
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─── SEÇÃO 6: BASE CIENTÍFICA ─── */}
+      {/* ─── SECTION 6: SCIENTIFIC BASIS ─── */}
       <section className="bg-white px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-3xl mx-auto space-y-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#002060] text-center">
-            Base científica
+            Scientific basis
           </h2>
           <p className="text-sm text-neutral-700 leading-relaxed text-justify">
-            O AlcoLab combina duas propriedades físicas — relative density e
-            relative viscosity — para estimar a composição ternária de soluções
-            de água, etanol e metanol. As medições são comparadas com uma malha
-            de referência pré-calculada, e a composição mais provável é
-            identificada por meio de análise estatística (teste Z e simulação de
-            Monte Carlo) que avalia a experimental uncertainty.
+            AlcoLab combines two physical properties — relative density and
+            relative viscosity — to estimate the ternary composition of
+            water/ethanol/methanol solutions. Measurements are compared against a
+            pre-computed reference mesh, and the most likely composition is
+            identified through statistical analysis (Z-test and Monte Carlo
+            simulation) that evaluates experimental uncertainty.
           </p>
           <p className="text-sm text-neutral-700 leading-relaxed text-justify">
-            Todo o processamento científico ocorre localmente no navegador,
-            utilizando Python (NumPy, SciPy) executado via Pyodide
-            (WebAssembly). No date é enviado a servidores externos. Versões
-            futuras só o farão mediante consentimento explícito do usuário, para
-            viabilizar funcionalidades como mapeamento de risco epidemiológico e
-            integração com sistemas de vigilância em saúde.
+            All scientific processing occurs locally in the browser, using Python
+            (NumPy, SciPy) executed via Pyodide (WebAssembly). No date is sent
+            to external servers. Future versions will only do so with explicit
+            user consent, to enable features such as epidemiological risk mapping
+            and integration with health surveillance systems.
           </p>
           <div className="text-center">
             <Link
@@ -506,35 +498,34 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 text-sm font-medium text-[#002060] hover:underline"
             >
               <BookOpen className="w-4 h-4" />
-              Ver metodologia completa →
+              View full methodology →
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ─── SEÇÃO 7: EQUIPE ─── */}
+      {/* ─── SECTION 7: TEAM ─── */}
       <section className="bg-neutral-100 px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-5xl mx-auto space-y-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#002060] text-center">
-            Equipe
+            Team
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {equipe.map((m) => (
+            {team.map((m) => (
               <div
-                key={m.nome}
+                key={m.name}
                 className="flex items-start gap-4 bg-white rounded-xl p-5 border border-neutral-200"
               >
-                {/* Iniciais */}
                 <div className="w-12 h-12 rounded-full bg-[#002060] text-white flex items-center justify-center text-sm font-bold shrink-0">
-                  {m.iniciais}
+                  {m.initials}
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm font-semibold text-neutral-800">
-                    {m.nome}
+                    {m.name}
                   </p>
-                  <p className="text-xs text-neutral-600">{m.papel}</p>
-                  <p className="text-xs text-neutral-400">{m.credenciais}</p>
+                  <p className="text-xs text-neutral-600">{m.role}</p>
+                  <p className="text-xs text-neutral-400">{m.credentials}</p>
                 </div>
               </div>
             ))}
@@ -542,54 +533,53 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── SEÇÃO 8: APOIE O PROJETO ─── */}
+      {/* ─── SECTION 8: SUPPORT THE PROJECT ─── */}
       <section className="bg-white px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-5xl mx-auto space-y-10">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#002060] text-center flex items-center justify-center gap-2">
             <Heart className="w-6 h-6" />
-            Apoie o projeto
+            Support the project
           </h2>
 
           <p className="text-sm text-neutral-700 text-center max-w-2xl mx-auto leading-relaxed">
-            O AlcoLab é mantido de forma voluntária e sem fins lucrativos. Para
-            garantir sua continuidade e evolução — incluindo recalibrações,
-            validações externas, construção de base de dados colaborativa para
-            mapeamento de adulterações e manutenção de infraestrutura — o
-            projeto está aberto a apoios de diferentes naturezas.
+            AlcoLab is maintained on a voluntary, nonprofit basis. To ensure its
+            continuity and evolution — including recalibrations, external
+            validations, building a collaborative database for adulteration
+            mapping, and infrastructure maintenance — the project is open to
+            support of different kinds.
           </p>
 
-          {/* 4 cards de tipo de apoio */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               {
                 Icon: Building2,
-                titulo: "Financiamento público",
-                desc: "Editais de inovação, saúde pública e ciência aberta",
+                title: "Public funding",
+                desc: "Innovation, public health, and open science grants",
               },
               {
                 Icon: Handshake,
-                titulo: "Parcerias institucionais",
-                desc: "Organizações de saúde, universidades e laboratórios de referência",
+                title: "Institutional partnerships",
+                desc: "Health organizations, universities, and reference laboratories",
               },
               {
                 Icon: Building,
-                titulo: "Patrocínio corporativo",
-                desc: "Empresas do setor de bebidas, segurança alimentar e saúde",
+                title: "Corporate sponsorship",
+                desc: "Companies in the beverage, food safety, and health sectors",
               },
               {
                 Icon: Heart,
-                titulo: "Doações individuais",
-                desc: "Contribuições de qualquer valor",
+                title: "Individual donations",
+                desc: "Contributions of any amount",
               },
-            ].map(({ Icon, titulo, desc }) => (
+            ].map(({ Icon, title, desc }) => (
               <div
-                key={titulo}
+                key={title}
                 className="flex items-start gap-3 border border-neutral-200 rounded-xl p-5"
               >
                 <Icon className="w-5 h-5 text-[#002060] shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-semibold text-[#002060]">
-                    {titulo}
+                    {title}
                   </p>
                   <p className="text-xs text-neutral-600 mt-0.5">{desc}</p>
                 </div>
@@ -597,21 +587,18 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Canais de doação */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Pix */}
             <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-5 space-y-2">
               <p className="text-sm font-medium text-neutral-700">
-                🇧🇷 Brasil — Pix
+                🇧🇷 Brazil — Pix
               </p>
               <code className="block text-sm bg-white border border-neutral-200 rounded px-3 py-2 text-neutral-700">
                 {PIX_KEY}
               </code>
             </div>
-            {/* Internacional */}
             <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-5 space-y-2">
               <p className="text-sm font-medium text-neutral-700">
-                🌍 Internacional
+                🌍 International
               </p>
               <a
                 href={BUYME_COFFEE_URL}
@@ -626,16 +613,15 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Apoie com ideias */}
           <div className="border border-neutral-200 rounded-xl p-6 space-y-3">
             <h3 className="text-base font-semibold text-[#002060] flex items-center gap-2">
               <Lightbulb className="w-4 h-4" />
-              Apoie também com ideias
+              Support with ideas
             </h3>
             <p className="text-sm text-neutral-700 leading-relaxed">
-              Sugestões de melhorias, novas funcionalidades ou ajustes são sempre
-              bem-vindas. Todas as propostas são avaliadas pela equipe e
-              acompanhadas publicamente quanto à sua viabilidade e implementação.
+              Suggestions for improvements, new features, or adjustments are
+              always welcome. All proposals are evaluated by the team and
+              publicly tracked regarding their feasibility and implementation.
             </p>
             <a
               href={FORM_SUGESTAO_URL}
@@ -643,14 +629,13 @@ export default function HomePage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg border-2 border-[#002060] text-[#002060] hover:bg-blue-50 transition-colors"
             >
-              Enviar sugestão
+              Submit a suggestion
               <ExternalLink className="w-3.5 h-3.5 opacity-60" />
             </a>
           </div>
 
           <p className="text-sm text-neutral-600 text-center">
-            Para propostas de parceria ou financiamento, entre em contato pelo
-            e-mail{" "}
+            For partnership or funding proposals, please contact us at{" "}
             <a
               href={`mailto:${PIX_KEY}`}
               className="text-[#002060] font-medium underline"
@@ -661,12 +646,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── SEÇÃO 9: CONTATO ─── */}
+      {/* ─── SECTION 9: CONTACT ─── */}
       <section className="bg-neutral-100 px-6 py-16 lg:px-16 lg:py-20">
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#002060] flex items-center justify-center gap-2">
             <Mail className="w-6 h-6" />
-            Contato e parcerias
+            Contact & partnerships
           </h2>
           <a
             href={`mailto:${PIX_KEY}`}
@@ -675,17 +660,16 @@ export default function HomePage() {
             alcolabapp@gmail.com
           </a>
           <p className="text-sm text-neutral-700 max-w-xl mx-auto leading-relaxed">
-            Instituições, organizações e empresas interessadas em apoio, parceria
-            ou integração do AlcoLab em seus programas são bem-vindas a entrar em
-            contato.
+            Institutions, organizations, and companies interested in supporting,
+            partnering, or integrating AlcoLab into their programs are welcome to
+            get in touch.
           </p>
         </div>
       </section>
 
-      {/* ─── SEÇÃO 10: FOOTER ─── */}
+      {/* ─── SECTION 10: FOOTER ─── */}
       <footer className="bg-[#002060] text-white px-6 py-10 lg:px-16">
         <div className="max-w-5xl mx-auto space-y-6">
-          {/* Links */}
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
             <a
               href={GITHUB_REPO}
@@ -700,29 +684,28 @@ export default function HomePage() {
               href="/app/methodology"
               className="text-blue-200 hover:text-white transition-colors"
             >
-              Metodologia
+              Methodology
             </Link>
             <Link
               href="/app/about"
               className="text-blue-200 hover:text-white transition-colors"
             >
-              Sobre
+              About
             </Link>
             <a
               href={`mailto:${PIX_KEY}`}
               className="text-blue-200 hover:text-white transition-colors"
             >
-              Contato
+              Contact
             </a>
             <Link
-              href="/en"
+              href="/pt"
               className="text-blue-200 hover:text-white transition-colors"
             >
-              🇬🇧 English
+              🇧🇷 Português
             </Link>
           </div>
 
-          {/* Badges */}
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-blue-200">
             <span>Open Source</span>
             <span>·</span>
@@ -731,15 +714,13 @@ export default function HomePage() {
             <span>Made in Brazil 🇧🇷</span>
           </div>
 
-          {/* Legal */}
           <div className="text-center text-xs text-blue-300 space-y-1">
             <p>
               © 2024–2026 Diego Mendes de Souza, Pedro Augusto de Oliveira
               Morais, Nayara Ferreira Santos
             </p>
             <p className="italic">
-              Screening tool — não substitui análise laboratorial
-              confirmatória.
+              Screening tool — does not replace confirmatory laboratory analysis.
             </p>
           </div>
         </div>

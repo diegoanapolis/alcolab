@@ -5,12 +5,13 @@ import TopBar from "@/components/ui/TopBar";
 import TermsGate from "@/components/ui/TermsGate";
 import WorkerPreload from "@/components/ui/WorkerPreload";
 import SplashScreen from "@/components/ui/SplashScreen";
+import { LanguageProvider } from "@/lib/i18n";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [splashDone, setSplashDone] = useState(false);
 
   return (
-    <>
+    <LanguageProvider>
       {!splashDone && (
         <SplashScreen onComplete={() => setSplashDone(true)} />
       )}
@@ -22,6 +23,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           <BottomTabs />
         </TermsGate>
       )}
-    </>
+    </LanguageProvider>
   );
 }

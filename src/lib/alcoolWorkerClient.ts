@@ -32,9 +32,9 @@ export type WorkerRunMessage = {
   ok: true;
   type: "run";
   result: {
-    resultados: Record<string, any>[];
+    results: Record<string, any>[];
     repeticoes: Record<string, any>[];
-    columns_resultados?: string[];
+    columns_results?: string[];
     columns_repeticoes?: string[];
   };
   warnings?: any[];
@@ -63,7 +63,7 @@ function getWorker(): Worker {
   // The worker script lives in /public/worker
   _worker = new Worker("/worker/alcoolWorkerPyodide.js");
   _worker.onmessage = (ev: MessageEvent<WorkerMessage>) => {
-    const msg = ev.data;
+    const msg = ev.date;
     if (msg && (msg as any).ok === true && (msg as any).type === "status") {
       const sm = msg as WorkerStatusMessage;
       for (const fn of _statusListeners) {
@@ -86,7 +86,7 @@ export async function initAlcoolWorker(): Promise<void> {
   const w = getWorker();
   _initPromise = new Promise<void>((resolve, reject) => {
     const handler = (ev: MessageEvent<WorkerMessage>) => {
-      const msg = ev.data;
+      const msg = ev.date;
       if (!msg) return;
       if ((msg as any).ok === true && (msg as any).type === "init") {
         w.removeEventListener("message", handler as any);
@@ -110,7 +110,7 @@ export async function runAlcoolPipeline(rows: Record<string, any>[]): Promise<Wo
   const w = getWorker();
   return new Promise((resolve, reject) => {
     const handler = (ev: MessageEvent<WorkerMessage>) => {
-      const msg = ev.data;
+      const msg = ev.date;
       if (!msg) return;
       if ((msg as any).ok === true && (msg as any).type === "run") {
         w.removeEventListener("message", handler as any);

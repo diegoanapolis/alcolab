@@ -20,7 +20,7 @@ export default function MedirPage() {
   const [showDemoModal, setShowDemoModal] = useState(false)
   const router = useRouter()
 
-  // Inicialização no mount
+  // Initialization on mount
   useEffect(() => {
     try {
       const demoId = getDemoId()
@@ -58,8 +58,8 @@ export default function MedirPage() {
       }
       // Normal mode
       setDemoMode(null)
-      const rawData = localStorage.getItem("wizardData")
-      if (rawData) setData(JSON.parse(rawData))
+      const rawDate = localStorage.getItem("wizardData")
+      if (rawDate) setData(JSON.parse(rawDate))
       setStep(1)
       localStorage.setItem("wizardStep", "1")
     } catch {}
@@ -68,7 +68,7 @@ export default function MedirPage() {
   // Detectar quando demoMode foi limpo externamente (ex: usuário foi pra Home que limpa demoScenario)
   // Checa via interval curto - cobre soft navigation via BottomTabs onde useEffect[] não re-roda
   useEffect(() => {
-    if (!demoMode) return // Só monitorar quando estamos em modo demo
+    if (!demoMode) return // Only monitor in demo mode
     const interval = setInterval(() => {
       const currentDemoId = getDemoId()
       if (!currentDemoId) {
@@ -100,7 +100,7 @@ export default function MedirPage() {
   }
 
   const handleDemoSelect = (id: DemoScenarioId) => {
-    // Limpar estado anterior antes de iniciar novo demo
+    // Limpar estado previous antes de iniciar new demo
     try {
       localStorage.removeItem("wizardData")
       localStorage.removeItem("wizardStep")
@@ -120,7 +120,7 @@ export default function MedirPage() {
   const loadConv = async (): Promise<ConvTable> => {
     if (convCache) return convCache
     const res = await fetch("/data/conversao_vv_para_wE_20C.json", { cache: "force-cache" })
-    if (!res.ok) throw new Error("falha ao carregar tabela de conversão")
+    if (!res.ok) throw new Error("failed to load conversion table")
     convCache = await res.json()
     return convCache as ConvTable
   }
@@ -153,8 +153,8 @@ export default function MedirPage() {
     const rhoW = 0.998
     const clamp01 = (x: number) => Math.max(0, Math.min(1, x))
     if (!profile) return null
-    if (profile.beverageType === "Metanol comercial") {
-      if (profile.labelUnit === "INPM ou % m/m" && typeof profile.labelAbv === "number") {
+    if (profile.beverageType === "Commercial methanol") {
+      if (profile.labelUnit === "INPM or % w/w" && typeof profile.labelAbv === "number") {
         const met = profile.labelAbv/100
         return { et: 0, met: clamp01(met), agua: clamp01(1 - met) }
       }
@@ -164,14 +164,14 @@ export default function MedirPage() {
       }
       return null
     }
-    if (profile.beverageType === "Outra hidroalcoólica") {
+    if (profile.beverageType === "Other hydroalcoholic") {
       const et = typeof profile.ethanolMassPercent === "number" ? profile.ethanolMassPercent/100 : 0
       const met = typeof profile.methanolMassPercent === "number" ? profile.methanolMassPercent/100 : 0
       return { et: clamp01(et), met: clamp01(met), agua: clamp01(1 - (et + met)) }
     }
     if (typeof profile.labelAbv === "number") {
       const v = profile.labelAbv/100
-      if (profile.labelUnit === "INPM ou % m/m") {
+      if (profile.labelUnit === "INPM or % w/w") {
         const et = v
         return { et: clamp01(et), met: 0, agua: clamp01(1 - et) }
       }
@@ -179,7 +179,7 @@ export default function MedirPage() {
       const et = typeof mm === "number" && isFinite(mm) ? mm/100 : (rhoE*v)/((rhoE*v) + (rhoW*(1-v)))
       return { et: clamp01(et), met: 0, agua: clamp01(1 - et) }
     }
-    if (density && density.measuredUnit === "% v/v ou °GL" && typeof density.measuredValue === "number") {
+    if (density && density.measuredUnit === "% v/v or °GL" && typeof density.measuredValue === "number") {
       const mm = await convertVvToMmPercent(density.measuredValue)
       const et = typeof mm === "number" && isFinite(mm) ? mm/100 : (() => {
         const v = density.measuredValue/100
@@ -187,7 +187,7 @@ export default function MedirPage() {
       })()
       return { et: clamp01(et), met: 0, agua: clamp01(1 - et) }
     }
-    if (density && density.measuredUnit === "% m/m ou INPM" && typeof density.measuredValue === "number") {
+    if (density && density.measuredUnit === "% w/w or INPM" && typeof density.measuredValue === "number") {
       const et = density.measuredValue/100
       return { et: clamp01(et), met: 0, agua: clamp01(1 - et) }
     }
@@ -308,9 +308,9 @@ export default function MedirPage() {
           const e = Number((comp.et*100).toFixed(1))
           const m = Number((comp.met*100).toFixed(1))
           const parts: string[] = []
-          if (a > 0) parts.push(`Água ${a}%;`)
-          if (e > 0) parts.push(`etanol ${e}%;`)
-          if (m > 0) parts.push(`metanol ${m}%;`)
+          if (a > 0) parts.push(`Water ${a}%;`)
+          if (e > 0) parts.push(`ethanol ${e}%;`)
+          if (m > 0) parts.push(`methanol ${m}%;`)
           if (parts.length === 2) return parts[0] + " " + parts[1].replace(";", ".")
           if (parts.length === 1) return parts[0].replace(";", ".")
           return `${parts[0]} ${parts[1]} e ${parts[2].replace(";", "")}.`
@@ -377,8 +377,8 @@ export default function MedirPage() {
             labelUnit: data.profile?.labelUnit ?? null,
             brand: data.profile?.brand ?? null,
             sampleName: data.profile?.sampleName ?? null,
-            ethanolMassPercent: data.profile?.beverageType === "Outra hidroalcoólica" && typeof data.profile?.ethanolMassPercent === 'number' ? data.profile.ethanolMassPercent : null,
-            methanolMassPercent: data.profile?.beverageType === "Outra hidroalcoólica" && typeof data.profile?.methanolMassPercent === 'number' ? data.profile.methanolMassPercent : null,
+            ethanolMassPercent: data.profile?.beverageType === "Other hydroalcoholic" && typeof data.profile?.ethanolMassPercent === 'number' ? data.profile.ethanolMassPercent : null,
+            methanolMassPercent: data.profile?.beverageType === "Other hydroalcoholic" && typeof data.profile?.methanolMassPercent === 'number' ? data.profile.methanolMassPercent : null,
           },
           expectedComposition: null,
           composition: { mm: null, vv: null },
@@ -469,8 +469,8 @@ export default function MedirPage() {
             labelUnit: data.profile?.labelUnit ?? null,
             brand: data.profile?.brand ?? null,
             sampleName: data.profile?.sampleName ?? null,
-            ethanolMassPercent: data.profile?.beverageType === "Outra hidroalcoólica" && typeof data.profile?.ethanolMassPercent === 'number' ? data.profile.ethanolMassPercent : null,
-            methanolMassPercent: data.profile?.beverageType === "Outra hidroalcoólica" && typeof data.profile?.methanolMassPercent === 'number' ? data.profile.methanolMassPercent : null,
+            ethanolMassPercent: data.profile?.beverageType === "Other hydroalcoholic" && typeof data.profile?.ethanolMassPercent === 'number' ? data.profile.ethanolMassPercent : null,
+            methanolMassPercent: data.profile?.beverageType === "Other hydroalcoholic" && typeof data.profile?.methanolMassPercent === 'number' ? data.profile.methanolMassPercent : null,
           },
           expectedComposition: null,
           composition: { mm: null, vv: null },
@@ -486,9 +486,9 @@ export default function MedirPage() {
             const e = Number((comp.et*100).toFixed(1))
             const m = Number((comp.met*100).toFixed(1))
             const parts: string[] = []
-            if (a > 0) parts.push(`Água ${a}%;`)
-            if (e > 0) parts.push(`etanol ${e}%;`)
-            if (m > 0) parts.push(`metanol ${m}%;`)
+            if (a > 0) parts.push(`Water ${a}%;`)
+            if (e > 0) parts.push(`ethanol ${e}%;`)
+            if (m > 0) parts.push(`methanol ${m}%;`)
             if (parts.length === 2) return parts[0] + " " + parts[1].replace(";", ".")
             if (parts.length === 1) return parts[0].replace(";", ".")
             return `${parts[0]} ${parts[1]} e ${parts[2].replace(";", "")}.`
@@ -530,8 +530,8 @@ export default function MedirPage() {
           labelUnit: data.profile?.labelUnit ?? null,
           brand: data.profile?.brand ?? null,
           sampleName: data.profile?.sampleName ?? null,
-          ethanolMassPercent: data.profile?.beverageType === "Outra hidroalcoólica" && typeof data.profile?.ethanolMassPercent === 'number' ? data.profile.ethanolMassPercent : null,
-          methanolMassPercent: data.profile?.beverageType === "Outra hidroalcoólica" && typeof data.profile?.methanolMassPercent === 'number' ? data.profile.methanolMassPercent : null,
+          ethanolMassPercent: data.profile?.beverageType === "Other hydroalcoholic" && typeof data.profile?.ethanolMassPercent === 'number' ? data.profile.ethanolMassPercent : null,
+          methanolMassPercent: data.profile?.beverageType === "Other hydroalcoholic" && typeof data.profile?.methanolMassPercent === 'number' ? data.profile.methanolMassPercent : null,
         },
         expectedComposition: null,
         composition: { mm: null, vv: null },
@@ -547,9 +547,9 @@ export default function MedirPage() {
           const e = Number((comp.et*100).toFixed(1))
           const m = Number((comp.met*100).toFixed(1))
           const parts: string[] = []
-          if (a > 0) parts.push(`Água ${a}%;`)
-          if (e > 0) parts.push(`etanol ${e}%;`)
-          if (m > 0) parts.push(`metanol ${m}%;`)
+          if (a > 0) parts.push(`Water ${a}%;`)
+          if (e > 0) parts.push(`ethanol ${e}%;`)
+          if (m > 0) parts.push(`methanol ${m}%;`)
           if (parts.length === 2) return parts[0] + " " + parts[1].replace(";", ".")
           if (parts.length === 1) return parts[0].replace(";", ".")
           return `${parts[0]} ${parts[1]} e ${parts[2].replace(";", "")}.`
@@ -576,7 +576,7 @@ export default function MedirPage() {
                   className="text-xs text-[#002060] underline hover:text-blue-700 transition-colors inline-flex items-center gap-1"
                 >
                   <FlaskConical className="w-3.5 h-3.5" />
-                  Teste com dados de exemplos reais
+                  Try with real example data
                 </button>
               </div>
             }

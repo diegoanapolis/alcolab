@@ -1,5 +1,5 @@
 /**
- * Worker para calcular regressão linear dos instantes de escoamento
+ * Worker to calculate linear regression of flow time instants
  * e estimar o tempo total de escoamento de 18 mL a 14 mL (4 mL)
  */
 
@@ -63,10 +63,10 @@ self.onmessage = function(e) {
     // Ordenar por volume (decrescente, 18 -> 14)
     points.sort((a, b) => b.x - a.x);
     
-    // Regressão linear: tempo = slope * volume + intercept
+    // Linear regression: tempo = slope * volume + intercept
     const reg = linearRegression(points);
     if (!reg) {
-      self.postMessage({ ok: false, error: "Falha na regressão" });
+      self.postMessage({ ok: false, error: "Regression failed" });
       return;
     }
     

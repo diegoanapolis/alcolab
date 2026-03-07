@@ -1118,14 +1118,14 @@ def _avaliar_amostra(row: Dict[str, object], df_linhas: List[Dict[str, object]],
     met_exp = _safe_float(row.get("w_met_est", None))
 
     # Regra especial (alinhada ao frontend otimizado):
-    # Para "Outra hidroalcoólica" quando o usuário informou o teor em "% m/m ou INPM",
+    # Para "Other hydroalcoholic" quando o usuário informou o teor em "% m/m ou INPM",
     # a compatibilidade deve ser avaliada contra esse teor.
     # - Se o usuário informou etanol E metanol, divide o teor total proporcionalmente entre eles.
     # - Se informou apenas um álcool, assume o total como sendo daquele álcool (metanol esperado 0).
     bt = str(row.get("beverageType", "") or "").strip()
     mu_unit = str(row.get("measuredUnit", "") or "").lower()
     mv = _safe_float(row.get("measuredValue", None))
-    if bt == "Outra hidroalcoólica" and mv is not None and ("inpm" in mu_unit or "% m/m" in mu_unit):
+    if bt == "Other hydroalcoholic" and mv is not None and ("inpm" in mu_unit or "% m/m" in mu_unit):
         # teor total de álcool em % (pode vir em fração 0-1 ou % 0-100)
         total_pct = float(mv * 100.0) if mv <= 1.5 else float(mv)
         total_pct = float(np.clip(total_pct, 0.0, 100.0))

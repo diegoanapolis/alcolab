@@ -1,6 +1,6 @@
 "use client"
 import React from "react"
-import { MethodologyComplete } from "@/lib/methodologyContent"
+import { MethodologyCompleteI18n as MethodologyComplete } from "@/lib/methodologyContent.i18n"
 
 export default function MetodologiaPage() {
   return (

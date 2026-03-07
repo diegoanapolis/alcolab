@@ -6,11 +6,12 @@ import { profileSchema, ProfileData } from "@/lib/schemas"
 import NavigationButtons from "./NavigationButtons"
 import useSwipe from "@/hooks/useSwipe"
 import InfoTooltip, { InlineTooltip } from "@/components/ui/InfoTooltip"
+import { useT } from "@/lib/i18n"
 import MethodologyModal, { MethodologyButton } from "@/components/ui/MethodologyModal"
-import { MethodologyDadosAmostra } from "@/lib/methodologyContent"
+import { MethodologyDadosAmostraI18n as MethodologyDadosAmostra } from "@/lib/methodologyContent.i18n"
 
 interface StepSampleDataProps {
-  onNext: (data: ProfileData) => void
+  onNext: (date: ProfileData) => void
   onBack: () => void
   initialData?: ProfileData
   demoMode?: string | null
@@ -20,6 +21,7 @@ import DemoBanner from "@/components/ui/DemoBanner"
 import { getDemoScenario } from "@/lib/demoScenarios"
 
 export default function StepSampleData({ onNext, onBack, initialData, demoMode }: StepSampleDataProps) {
+  const t = useT()
   const [showMethodology, setShowMethodology] = useState(false)
   
   const { register, handleSubmit, formState: { errors }, watch } = useForm<ProfileData>({ 
@@ -54,7 +56,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
 
   // Validar se campos obrigatórios estão preenchidos
   const isNextDisabled = () => {
-    if (beverageType !== "Outra hidroalcoólica") {
+    if (beverageType !== "Other hydroalcoholic") {
       return !labelAbv || labelAbv <= 0 || labelAbv > 100
     } else {
       return (ethanolMm == null || ethanolMm < 0 || ethanolMm > 100) || 
@@ -73,7 +75,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
       <form className="space-y-4 p-4" onSubmit={handleSubmit(onNext)}>
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold text-[#002060]">
-            Informe dados da amostra
+            Enter sample date
           </h1>
           <MethodologyButton onClick={() => setShowMethodology(true)} compact />
         </div>
@@ -86,18 +88,18 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
 
         {/* Camada 1: Texto auxiliar */}
         <p className="text-sm text-neutral-600">
-          Essas informações auxiliam na interpretação e organização dos resultados.
+          This information helps with interpretation and organization of results.
         </p>
 
         {/* Campos obrigatórios por tipo */}
-        {beverageType !== "Outra hidroalcoólica" ? (
+        {beverageType !== "Other hydroalcoholic" ? (
           <div className="space-y-4">
             <div>
               <label className="flex items-center gap-1 text-sm font-medium text-[#002060] mb-2">
-                <InfoTooltip text="Valor declarado pelo fabricante ou teor esperado pelo preparo.">
-                  <span>Teor de rótulo</span>
+                <InfoTooltip text="Value declared by the manufacturer or expected content from preparation.">
+                  <span>{t("Label content")}</span>
                 </InfoTooltip>
-                <span>(0.0 a 100.0) *</span>
+                <span>(0.0 to 100.0) *</span>
               </label>
               <input 
                 type="text" 
@@ -120,8 +122,8 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
             
             <div>
               <label className="flex items-center gap-1 text-sm font-medium text-[#002060] mb-2">
-                <span>Unidade do teor de rótulo</span>
-                <InfoTooltip text="% v/v - Bebidas: unidade oficial para bebidas destiladas no Brasil." />
+                <span>Label content unit</span>
+                <InfoTooltip text="% v/v - Beverages: official unit for distilled beverages in Brazil." />
               </label>
               <select 
                 {...register("labelUnit", { 
@@ -132,10 +134,10 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
                 })} 
                 className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent"
               >
-                <option value="">Selecione...</option>
-                <option value="% v/v - Bebidas">% v/v - Bebidas</option>
+                <option value="">{t("Select...")}</option>
+                <option value="% v/v - Beverages">% v/v - Beverages</option>
                 <option value="º GL - Gay-Lussac">º GL - Gay-Lussac</option>
-                <option value="INPM ou % m/m">INPM ou % m/m</option>
+                <option value="INPM or % w/w">INPM or % w/w</option>
               </select>
             </div>
           </div>
@@ -143,7 +145,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
           <div className="space-y-3">
             <div>
               <label className="block text-sm font-medium text-[#002060] mb-2">
-                Teor de etanol % m/m *
+                Ethanol content % w/w *
               </label>
               <input 
                 type="text" 
@@ -166,7 +168,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
             
             <div>
               <label className="block text-sm font-medium text-[#002060] mb-2">
-                Teor de metanol % m/m *
+                Methanol content % w/w *
               </label>
               <input 
                 type="text" 
@@ -189,7 +191,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
             
             <div>
               <label className="block text-sm font-medium text-[#002060] mb-2">
-                Teor de água % m/m
+                Water content % w/w
               </label>
               <input 
                 type="text" 
@@ -204,12 +206,12 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
         {/* Campos opcionais */}
         <div>
           <label className="block text-sm font-medium text-[#002060] mb-2">
-            Nome da amostra
+            Sample name
           </label>
           <input 
             type="text" 
             maxLength={60} 
-            placeholder="Definido pelo usuário" 
+            placeholder="User-defined" 
             {...register("sampleName")} 
             className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent" 
           />
@@ -217,14 +219,14 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
         
         <div>
           <label className="flex items-center gap-1 text-sm font-medium text-[#002060] mb-2">
-            <InfoTooltip text="Campo opcional para rastreabilidade e facilitar localização posterior dos resultados.">
-              <span>Fabricante e/ou marca</span>
+            <InfoTooltip text="Optional field for traceability and to facilitate later retrieval of results.">
+              <span>Manufacturer and/or brand</span>
             </InfoTooltip>
           </label>
           <input 
             type="text" 
             maxLength={60} 
-            placeholder="Opcional" 
+            placeholder="Optional" 
             {...register("brand")} 
             className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent" 
           />
@@ -232,14 +234,14 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
         
         <div>
           <label className="flex items-center gap-1 text-sm font-medium text-[#002060] mb-2">
-            <InfoTooltip text="Campo opcional para rastreabilidade e facilitar localização posterior dos resultados.">
-              <span>Lote</span>
+            <InfoTooltip text="Optional field for traceability and to facilitate later retrieval of results.">
+              <span>{t("Batch")}</span>
             </InfoTooltip>
           </label>
           <input 
             type="text" 
             maxLength={60} 
-            placeholder="Opcional" 
+            placeholder="Optional" 
             {...register("lot")} 
             className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent" 
           />
@@ -256,7 +258,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
       <MethodologyModal
         isOpen={showMethodology}
         onClose={() => setShowMethodology(false)}
-        title="Metodologia: Dados da Amostra"
+        title="Methodology: Sample Data"
       >
         <MethodologyDadosAmostra />
       </MethodologyModal>

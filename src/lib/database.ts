@@ -50,7 +50,7 @@ export interface RunInputs {
     useLabelAsInitial?: boolean
   }
   
-  // Tempos de escoamento
+  // Flow times
   waterTimes: number[]
   sampleTimes: number[]
   
@@ -71,7 +71,7 @@ export interface RunInputs {
   }>
 }
 
-// Interface para os resultados/outputs
+// Interface para os results/outputs
 export interface RunOutputs {
   // Viscosidades
   waterMeanTime?: number
@@ -171,7 +171,7 @@ class ExperimentDatabase extends Dexie {
     this.version(2).stores({
       experiments: '++id, createdAt, updatedAt, tags.sampleName, tags.brand, tags.lot, tags.year, tags.month, appVersion, calibrationVersion, schemaVersion, lastProcessedVersion'
     }).upgrade(tx => {
-      // Migração: adicionar campos novos aos registros existentes
+      // Migração: adicionar campos news aos registros existentes
       return tx.table('experiments').toCollection().modify(exp => {
         if (!exp.lastProcessedVersion) {
           exp.lastProcessedVersion = exp.appVersion
@@ -207,7 +207,7 @@ export const db = {
 
 // Funções utilitárias para o banco de dados
 export class DatabaseService {
-  // Salvar um novo experimento
+  // Salvar um new experimento
   static async saveExperiment(
     inputs: RunInputs,
     outputs: RunOutputs,
@@ -247,25 +247,25 @@ export class DatabaseService {
   ): Promise<void> {
     const existing = await db.experiments.get(id)
     if (!existing) {
-      throw new Error(`Experimento ${id} não encontrado`)
+      throw new Error(`Experiment ${id} not found`)
     }
     
     const now = new Date().toISOString()
-    const updateData: Partial<ExperimentRun> = {
+    const updateDate: Partial<ExperimentRun> = {
       updatedAt: now,
       lastProcessedVersion: APP_VERSION
     }
     
     if (updates.outputs) {
-      updateData.outputs = { ...existing.outputs, ...updates.outputs }
+      updateDate.outputs = { ...existing.outputs, ...updates.outputs }
     }
     
     if (updates.inputs) {
-      updateData.inputs = { ...existing.inputs, ...updates.inputs }
+      updateDate.inputs = { ...existing.inputs, ...updates.inputs }
     }
     
     if (updates.tags) {
-      updateData.tags = { ...existing.tags, ...updates.tags }
+      updateDate.tags = { ...existing.tags, ...updates.tags }
     }
     
     // Adicionar ao histórico de reprocessamento
@@ -277,13 +277,13 @@ export class DatabaseService {
         toVersion: APP_VERSION,
         changesApplied: reprocessingInfo.changesApplied
       })
-      updateData.reprocessingHistory = history
+      updateDate.reprocessingHistory = history
     }
     
-    await db.experiments.update(id, updateData)
+    await db.experiments.update(id, updateDate)
   }
   
-  // Buscar todos os experimentos ordenados por data (mais recentes primeiro)
+  // Buscar todos os experimentos ordenados por date (mais recentes primeiro)
   static async getAllExperiments(): Promise<ExperimentRun[]> {
     return await db.experiments.orderBy('createdAt').reverse().toArray()
   }
@@ -293,7 +293,7 @@ export class DatabaseService {
     return await db.experiments.get(id)
   }
   
-  // Filtrar experimentos por período
+  // Filter experimentos por período
   static async getExperimentsByDateRange(
     startDate: string, 
     endDate: string
@@ -305,7 +305,7 @@ export class DatabaseService {
       .toArray()
   }
   
-  // Filtrar por tags
+  // Filter por tags
   static async getExperimentsByTag(
     tagName: 'sampleName' | 'brand' | 'lot',
     tagValue: string
@@ -371,7 +371,7 @@ export class DatabaseService {
     })
   }
   
-  // Exportar todos os dados para JSON
+  // Export todos os dados para JSON
   static async exportToJSON(): Promise<string> {
     const experiments = await this.getAllExperiments()
     return JSON.stringify({
@@ -384,15 +384,15 @@ export class DatabaseService {
     }, null, 2)
   }
   
-  // Importar dados de JSON
-  static async importFromJSON(jsonData: string): Promise<{
+  // Import dados de JSON
+  static async importFromJSON(jsonDate: string): Promise<{
     imported: number
     skipped: number
     errors: string[]
   }> {
     try {
-      const data = JSON.parse(jsonData)
-      const experiments = data.experiments || []
+      const date = JSON.parse(jsonDate)
+      const experiments = date.experiments || []
       
       let imported = 0
       let skipped = 0
@@ -411,18 +411,18 @@ export class DatabaseService {
             continue
           }
           
-          // Remover o ID para forçar criação de novo
+          // Remover o ID para forçar criação de new
           const newExp = { ...exp }
           delete newExp.id
           
-          // Garantir campos novos
+          // Garantir campos news
           if (!newExp.updatedAt) newExp.updatedAt = newExp.createdAt
           if (!newExp.lastProcessedVersion) newExp.lastProcessedVersion = newExp.appVersion
           
           await db.experiments.add(newExp)
           imported++
         } catch (err) {
-          errors.push(`Erro ao importar experimento ${exp.id}: ${err}`)
+          errors.push(`Error importing experiment ${exp.id}: ${err}`)
         }
       }
       

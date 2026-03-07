@@ -7,21 +7,23 @@ import { profileSchema, ProfileData } from "@/lib/schemas"
 import NavigationButtons from "./NavigationButtons"
 import useSwipe from "@/hooks/useSwipe"
 import InfoTooltip, { InlineTooltip } from "@/components/ui/InfoTooltip"
+import { useT } from "@/lib/i18n"
 import MethodologyModal, { MethodologyButton } from "@/components/ui/MethodologyModal"
-import { MethodologyTipoSolucao } from "@/lib/methodologyContent"
+import { MethodologyTipoSolucaoI18n as MethodologyTipoSolucao } from "@/lib/methodologyContent.i18n"
 
 // Lista de casos não aplicáveis
-const NAO_SE_APLICA = [
-  "Licores e bebidas adoçadas",
-  "Cremes alcoólicos",
-  "Bebidas fermentadas (vinho, cerveja, sidra, hidromel)",
-  "Destilados saborizados",
-  "Bebidas mistas e prontas (ex.: caipirinhas prontas)",
-  "Bebidas turvas, com polpas, emulsões, óleos ou corantes densos",
-  "Misturas caseiras não homogêneas (coquetéis)"
+const NOT_APPLICABLE = [
+  "Liqueurs and sweetened beverages",
+  "Alcoholic creams",
+  "Fermented beverages (wine, beer, cider, mead)",
+  "Flavored spirits",
+  "Mixed and ready-to-drink beverages (e.g., pre-made cocktails)",
+  "Turbid beverages with pulps, emulsions, oils or dense colorants",
+  "Non-homogeneous homemade mixtures (cocktails)"
 ]
 
-export default function StepProfile({ onNext, initialData, renderAfterTitle }: { onNext: (data: ProfileData) => void; initialData?: ProfileData; renderAfterTitle?: React.ReactNode }) {
+export default function StepProfile({ onNext, initialData, renderAfterTitle }: { onNext: (date: ProfileData) => void; initialData?: ProfileData; renderAfterTitle?: React.ReactNode }) {
+  const t = useT()
   const [showMethodology, setShowMethodology] = useState(false)
   const [showNaoAplica, setShowNaoAplica] = useState(false)
   
@@ -104,10 +106,10 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
       <form className="space-y-4 p-4" onSubmit={handleSubmit(onNext)}>
         {/* Título */}
         <h1 className="text-xl font-bold text-[#002060]">
-          Selecione{" "}
+          Select{" "}
           <InlineTooltip 
-            term="solução hidroalcoólica" 
-            tooltip="Mistura composta predominantemente por água, etanol e/ou metanol."
+            term="hydroalcoholic solution" 
+            tooltip="Mixture composed predominantly of water, ethanol and/or methanol."
           />
         </h1>
 
@@ -115,13 +117,13 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
 
         {/* Ações superiores: Limpar, Não se aplica, Metodologia */}
         <div className="flex items-center justify-between">
-          <InfoTooltip text="Limpa apenas os dados das janelas analíticas do fluxo medir para início de uma nova análise. Em caso de reaproveitamento de escoamentos, você pode seguir sem limpar e substituir apenas os novos valores experimentais.">
+          <InfoTooltip text="Clears only the analytical data from the measurement flow to start a new analysis. If reusing flow data, you can proceed without clearing and replace only the new experimental values.">
             <button 
               type="button" 
               className="text-xs underline text-[#002060]" 
               onClick={handleClearAll}
             >
-              Limpar - Nova análise
+              Clear - New analysis
             </button>
           </InfoTooltip>
           
@@ -130,7 +132,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
             className="text-xs underline text-red-600" 
             onClick={() => setShowNaoAplica(true)}
           >
-            Não se aplica?
+            Not applicable?
           </button>
           
           <MethodologyButton onClick={() => setShowMethodology(true)} compact />
@@ -149,7 +151,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
                   : "bg-gray-50 text-gray-700 border-gray-200 hover:border-[#002060]"
               }`}
             >
-              <span className={type === "Etanol comercial*" ? "font-bold" : undefined}>
+              <span className={type === "Commercial ethanol*" ? "font-bold" : undefined}>
                 {type}
               </span>
             </button>
@@ -159,10 +161,10 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
         {/* Camada 1: Texto sobre etanol comercial - fonte reduzida */}
         <p className="text-xs text-neutral-600 text-justify">
           *{" "}
-          <InfoTooltip text="Busque marcas conhecidas e de qualidade reconhecida para obter melhores resultados de referência.">
-            <span className="font-medium">Etanol comercial</span>
+          <InfoTooltip text="Look for well-known and quality-recognized brands for better reference results.">
+            <span className="font-medium">Commercial ethanol</span>
           </InfoTooltip>{" "}
-          lacrado pode ser utilizado como check para verificação se os resultados obtidos com seus instrumentos estão coerentes.
+          sealed can be used as a check to verify whether the results obtained with your instruments are consistent.
         </p>
 
         {/* Botões de navegação */}
@@ -177,7 +179,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
       <MethodologyModal
         isOpen={showMethodology}
         onClose={() => setShowMethodology(false)}
-        title="Metodologia: Tipo de Solução"
+        title="Methodology: Solution Type"
       >
         <MethodologyTipoSolucao />
       </MethodologyModal>
@@ -187,11 +189,11 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg max-w-md w-full max-h-[80vh] overflow-y-auto">
             <div className="p-4 border-b bg-red-50">
-              <h3 className="font-bold text-red-700">🚫 Esta metodologia NÃO se aplica a:</h3>
+              <h3 className="font-bold text-red-700">🚫 {t("This methodology does NOT apply to:")}</h3>
             </div>
             <div className="p-4">
               <ul className="list-disc pl-5 space-y-2 text-sm text-red-700">
-                {NAO_SE_APLICA.map((item, idx) => (
+                {NOT_APPLICABLE.map((item, idx) => (
                   <li key={idx}>{item}</li>
                 ))}
               </ul>
@@ -201,7 +203,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
                 onClick={() => setShowNaoAplica(false)}
                 className="bg-[#002060] text-white px-4 py-2 rounded-lg text-sm font-medium"
               >
-                Entendi
+                Understood
               </button>
             </div>
           </div>

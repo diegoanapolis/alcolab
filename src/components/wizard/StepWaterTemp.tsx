@@ -8,14 +8,16 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import NavigationButtons from "./NavigationButtons"
 import useSwipe from "@/hooks/useSwipe"
 import InfoTooltip, { InlineTooltip } from "@/components/ui/InfoTooltip"
+import { useT } from "@/lib/i18n"
 import MethodologyModal, { MethodologyButton } from "@/components/ui/MethodologyModal"
-import { MethodologyTemperatura } from "@/lib/methodologyContent"
+import { MethodologyTemperaturaI18n as MethodologyTemperatura } from "@/lib/methodologyContent.i18n"
 import DemoBanner from "@/components/ui/DemoBanner"
 import { getDemoScenario } from "@/lib/demoScenarios"
 
-export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }: { onNext: (data: WaterTempData) => void; onBack: () => void; initialData?: WaterTempData; demoMode?: string | null }) {
+export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }: { onNext: (date: WaterTempData) => void; onBack: () => void; initialData?: WaterTempData; demoMode?: string | null }) {
   const [thermometerMode, setThermometerMode] = useState<"with" | "without">("with")
   const [sameTemperature, setSameTemperature] = useState<boolean | null>(null)
+  const t = useT()
   const [showMethodology, setShowMethodology] = useState(false)
 
   const lastWaterTemp = useMemo<WaterTempData | undefined>(() => {
@@ -36,7 +38,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
     defaultValues: initialData ?? lastWaterTemp ?? { 
       waterTemperature: 25, 
       sampleTemperature: 25, 
-      waterType: "Mineral sem gás (recomendável)" 
+      waterType: "Still mineral (recommended)" 
     },
   })
 
@@ -45,12 +47,12 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
   const selectedType = watch("waterType")
 
   useEffect(() => {
-    if (selectedType !== "Mineral sem gás (recomendável)") {
+    if (selectedType !== "Still mineral (recommended)") {
       setValue("conductivity", undefined, { shouldValidate: false })
     }
-    if (selectedType === "Mineral sem gás (recomendável)") {
+    if (selectedType === "Still mineral (recommended)") {
       setValue("estimatedConductivity", 114, { shouldValidate: false })
-    } else if (selectedType === "Potável/torneira") {
+    } else if (selectedType === "Tap/potable") {
       setValue("estimatedConductivity", 150, { shouldValidate: false })
     } else {
       setValue("estimatedConductivity", 0, { shouldValidate: false })
@@ -64,16 +66,16 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
     return false
   }
 
-  const handleFormSubmit = (data: WaterTempData) => {
+  const handleFormSubmit = (date: WaterTempData) => {
     if (thermometerMode === "without" && sameTemperature === true) {
-      // Sem termômetro: usa temperatura padrão de 25°C (equilíbrio térmico assumido)
+      // Sem termômetro: usa temperatura padrão de 25°C (thermal equilibrium assumido)
       onNext({
         ...data,
         waterTemperature: 25,
         sampleTemperature: 25
       })
     } else {
-      onNext(data)
+      onNext(date)
     }
   }
   
@@ -87,7 +89,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
     <>
       <form className="space-y-4 p-4" onSubmit={handleSubmit(handleFormSubmit)}>
         <div>
-          <h1 className="text-xl font-bold text-[#002060]">Meça as temperaturas</h1>
+          <h1 className="text-xl font-bold text-[#002060]">{t("Measure the temperatures")}</h1>
           <MethodologyButton onClick={() => setShowMethodology(true)} />
         </div>
 
@@ -96,11 +98,11 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
           return s ? <DemoBanner text={s.banners.waterTemp} /> : null
         })()}
 
-        {/* Tipo de água */}
+        {/* Water type */}
         <div>
-          <label className="block text-sm font-medium text-[#002060] mb-2">Tipo de água</label>
+          <label className="block text-sm font-medium text-[#002060] mb-2">{t("Water type")}</label>
           <div className="grid grid-cols-1 gap-2">
-            {["Mineral sem gás (recomendável)", "Potável/torneira", "Deionizada/Destilada (quando disponível)"].map((w) => (
+            {["Still mineral (recommended)", "Tap/potable", "Deionized/Distilled (when available)"].map((w) => (
               <label key={w} className="border rounded-lg p-3 text-sm cursor-pointer hover:border-[#002060] transition-colors">
                 <input type="radio" value={w} {...register("waterType")} className="mr-2" />
                 {w}
@@ -124,7 +126,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
                 : "text-gray-600"
             }`}
           >
-            Possuo termômetro
+            I have a thermometer
           </button>
           <button 
             type="button" 
@@ -138,7 +140,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
                 : "text-gray-600"
             }`}
           >
-            Não possuo termômetro
+            No thermometer
           </button>
         </div>
 
@@ -146,27 +148,27 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
           <>
             {/* Camada 1: Instruções com termômetro */}
             <p className="text-sm text-neutral-700 text-justify">
-              Com termômetro, meça a temperatura imediatamente antes ou após o escoamento. 
-              Diferenças de até 3 °C entre água e amostra são aceitáveis; o aplicativo realiza{" "}
+              With a thermometer, measure the temperature immediately before or after the flow. 
+              Differences of up to 3 °C between water and sample are acceptable; the app performs{" "}
               <InlineTooltip 
-                term="correção de viscosidade" 
-                tooltip="Ajuste da viscosidade da água conforme a temperatura."
+                term="viscosity correction" 
+                tooltip="Adjustment of water viscosity according to temperature."
               />.
             </p>
 
             <div className="space-y-2">
-              <div className="font-medium text-center text-[#002060]">Temperatura (°C)</div>
+              <div className="font-medium text-center text-[#002060]">Temperature (°C)</div>
             </div>
             
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-center text-[#002060]">Água</label>
+                <label className="block text-sm font-medium text-center text-[#002060]">{t("Water")}</label>
                 <div className="flex items-center justify-center gap-4 mt-2">
-                  <button type="button" aria-label="Diminuir temperatura" className="border rounded-full p-2 hover:bg-gray-100" onClick={() => setValue("waterTemperature", Math.max(20, (waterT ?? 20) - 1))}>
+                  <button type="button" aria-label="Decrease temperature" className="border rounded-full p-2 hover:bg-gray-100" onClick={() => setValue("waterTemperature", Math.max(20, (waterT ?? 20) - 1))}>
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <span className="text-center font-semibold text-[2rem] w-24">{waterT}°C</span>
-                  <button type="button" aria-label="Aumentar temperatura" className="border rounded-full p-2 hover:bg-gray-100" onClick={() => setValue("waterTemperature", Math.min(30, (waterT ?? 20) + 1))}>
+                  <button type="button" aria-label="Increase temperature" className="border rounded-full p-2 hover:bg-gray-100" onClick={() => setValue("waterTemperature", Math.min(30, (waterT ?? 20) + 1))}>
                     <ChevronRight className="w-5 h-5" />
                   </button>
                 </div>
@@ -174,19 +176,19 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
                   <Slider.Track className="bg-neutral-200 relative grow rounded-full h-1">
                     <Slider.Range className="absolute bg-[#002060] h-1 rounded-full" />
                   </Slider.Track>
-                  <Slider.Thumb className="block w-5 h-5 bg-[#002060] rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#002060]" aria-label="Temperatura" />
+                  <Slider.Thumb className="block w-5 h-5 bg-[#002060] rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#002060]" aria-label="Temperature" />
                 </Slider.Root>
                 {errors.waterTemperature && <p className="text-red-600 text-xs mt-1">{String(errors.waterTemperature.message)}</p>}
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-center text-[#002060]">Amostra</label>
+                <label className="block text-sm font-medium text-center text-[#002060]">{t("Sample")}</label>
                 <div className="flex items-center justify-center gap-4 mt-2">
-                  <button type="button" aria-label="Diminuir temperatura" className="border rounded-full p-2 hover:bg-gray-100" onClick={() => setValue("sampleTemperature", Math.max(20, (sampleT ?? 20) - 1))}>
+                  <button type="button" aria-label="Decrease temperature" className="border rounded-full p-2 hover:bg-gray-100" onClick={() => setValue("sampleTemperature", Math.max(20, (sampleT ?? 20) - 1))}>
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <span className="text-center font-semibold text-[2rem] w-24">{sampleT}°C</span>
-                  <button type="button" aria-label="Aumentar temperatura" className="border rounded-full p-2 hover:bg-gray-100" onClick={() => setValue("sampleTemperature", Math.min(30, (sampleT ?? 20) + 1))}>
+                  <button type="button" aria-label="Increase temperature" className="border rounded-full p-2 hover:bg-gray-100" onClick={() => setValue("sampleTemperature", Math.min(30, (sampleT ?? 20) + 1))}>
                     <ChevronRight className="w-5 h-5" />
                   </button>
                 </div>
@@ -194,7 +196,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
                   <Slider.Track className="bg-neutral-200 relative grow rounded-full h-1">
                     <Slider.Range className="absolute bg-[#002060] h-1 rounded-full" />
                   </Slider.Track>
-                  <Slider.Thumb className="block w-5 h-5 bg-[#002060] rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#002060]" aria-label="Temperatura" />
+                  <Slider.Thumb className="block w-5 h-5 bg-[#002060] rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#002060]" aria-label="Temperature" />
                 </Slider.Root>
               </div>
             </div>
@@ -206,18 +208,18 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
           <>
             {/* Camada 1: Sem termômetro */}
             <p className="text-sm text-neutral-700 text-justify">
-              Água, amostra e ambiente devem estar em{" "}
+              Water, sample and environment must be in{" "}
               <InlineTooltip 
-                term="equilíbrio térmico" 
-                tooltip="Água, amostra e ambiente na mesma temperatura."
+                term="thermal equilibrium" 
+                tooltip="Water, sample and environment at the same temperature."
               />. 
-              Deixe os líquidos por pelo menos 1 hora no ambiente do ensaio e assegure que ele esteja entre 20 e 30°C.
+              Leave the liquids for at least 1 hour in the test environment and ensure it is between 20 and 30°C.
             </p>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-[#002060] mb-3">
-                  Dois líquidos com temperaturas iguais (entre 20 e 28ºC)?
+                  Both liquids at equal temperatures (between 20 and 28°C)?
                 </label>
                 <div className="space-y-2">
                   <label className="flex items-center gap-3 border rounded-lg p-3 cursor-pointer hover:border-[#002060] transition-colors">
@@ -229,7 +231,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
                       checked={sameTemperature === true}
                       className="text-[#002060]" 
                     />
-                    <span className="text-sm">Sim</span>
+                    <span className="text-sm">{t("Yes")}</span>
                   </label>
                   <label className="flex items-center gap-3 border rounded-lg p-3 cursor-pointer hover:border-[#002060] transition-colors">
                     <input 
@@ -240,7 +242,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
                       checked={sameTemperature === false}
                       className="text-[#002060]" 
                     />
-                    <span className="text-sm">Não</span>
+                    <span className="text-sm">{t("No")}</span>
                   </label>
                 </div>
               </div>
@@ -248,9 +250,9 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
               {sameTemperature === false && (
                 <div className="bg-yellow-50 border-l-4 border-yellow-500 rounded-r-lg p-4">
                   <p className="text-sm text-yellow-800">
-                    <span className="font-semibold">⚠️ Aguarde a estabilização!</span><br />
-                    É recomendado aguardar pelo menos 1 hora com os recipientes em contato, 
-                    em um ambiente que sabidamente está entre 20 e 28ºC.
+                    <span className="font-semibold">⚠️ Wait for stabilization!</span><br />
+                    It is recommended to wait at least 1 hour with the containers in contact, 
+                    in an environment known to be between 20 and 28°C.
                   </p>
                 </div>
               )}
@@ -269,7 +271,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
       <MethodologyModal
         isOpen={showMethodology}
         onClose={() => setShowMethodology(false)}
-        title="Metodologia: Temperatura"
+        title="Methodology: Temperature"
       >
         <MethodologyTemperatura />
       </MethodologyModal>

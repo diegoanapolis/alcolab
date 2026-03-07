@@ -10,22 +10,22 @@ Implements:
 1) labelUnit + labelAbv: if labelUnit indicates % v/v or °GL, convert labelAbv to % m/m using conversao_vv_para_wE_20C.csv (20°C mesh).
 
 2) Initial w_alcool determination:
-2.1) method = "Balança" -> dens_rel = sampleMass / waterMass -> w_et (H2O-EtOH mesh at sampleTemperature) and w_met (H2O-MeOH mesh at sampleTemperature) -> w_alcool = mean(w_et, w_met)
+2.1) method = "Scale" -> dens_rel = sampleMass / waterMass -> w_et (H2O-EtOH mesh at sampleTemperature) and w_met (H2O-MeOH mesh at sampleTemperature) -> w_alcool = mean(w_et, w_met)
 
-2.2) method = "Densímetro ou alcôometro" and measuredUnit = "g/mL" or "g/cm³"
+2.2) method = "Hydrometer or alcoholmeter" and measuredUnit = "g/mL" or "g/cm³"
      dens_rel = measuredValue / rho_water(sampleTemperature) -> same as 2.1
 
-2.3.1) method = "Densímetro ou alcôometro" and measuredUnit = "% v/v - rótulo"
+2.3.1) method = "Hydrometer or alcoholmeter" and measuredUnit = "% v/v - label"
        w_alcool = convert_vv_to_mm(measuredValue) using conversao_vv_para_wE_20C.csv (20°C mesh)
 
-2.3.2) method = "Densímetro ou alcôometro" and measuredUnit = "% v/v" or "°GL"
+2.3.2) method = "Hydrometer or alcoholmeter" and measuredUnit = "% v/v" or "°GL"
        Use temp2 = sampleTemperature2 (user provided)
        - get rho_abs_20 = density from densidade_alcool_gl20a30.csv at temp=20°C for the given °GL (1 by 1; linear interpolation supported)
        - dens_rel = rho_abs_20 / rho_water(temp2)
        - use dens_rel_bin_H2O_EtOH.csv at temp2 to invert and obtain w_etanol
        - w_alcool = w_etanol
 
-2.4) method = "Densímetro ou alcôometro" and measuredUnit = "% m/m" or "INPM"
+2.4) method = "Hydrometer or alcoholmeter" and measuredUnit = "% m/m" or "INPM"
      w_alcool = measuredValue/100
 
 Also outputs:
@@ -294,7 +294,7 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
 
     if lu in {"inpm", "% m/m", "%m/m"}:
         label_note = "label already in % m/m (INPM)."
-    elif lu in {"% v/v - bebidas", "º gl - gay-lussac", "°gl", "ºgl", "% v/v"}:
+    elif lu in {"% v/v - Beverages", "º gl - gay-lussac", "°gl", "ºgl", "% v/v"}:
         if _not_na(label_abv):
             mm, _w = convert_vv_to_mm_percent(float(label_abv), conv)
             label_mm = mm
@@ -342,13 +342,13 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
         "Cachaça branca",
         "Whisky",
         "Aguardente",
-        "Rum branco",
-        "Gin seco",
+        "White rum",
+        "Dry gin",
         "Tequila blanca",
         "Pisco",
         "Tiquira",
-        "Etanol comercial*",
-        "Etanol combustível",
+        "Commercial ethanol*",
+        "Fuel ethanol",
     }
 
     if beverage_type in bev_set_ethanol and label_abv_present:
@@ -358,14 +358,14 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
             w_met_est = 0.0
             w_agua_est = 1.0 - w_et_est
 
-    elif beverage_type == "Metanol comercial" and label_abv_present:
+    elif beverage_type == "Commercial methanol" and label_abv_present:
         # 3.2
         if _not_na(label_mm):
             w_met_est = float(label_mm) / 100.0
             w_et_est = 0.0
             w_agua_est = 1.0 - w_met_est
 
-    elif beverage_type == "Outra hidroalcoólica" and _not_na(label_et_f) and _not_na(label_met_f):
+    elif beverage_type == "Other hydroalcoholic" and _not_na(label_et_f) and _not_na(label_met_f):
         # 3.3
         w_et_est = float(label_et_f) / 100.0
         w_met_est = float(label_met_f) / 100.0
@@ -410,16 +410,16 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
     src = ""
 
     # ---- (2) w_alcool determination
-    if _norm(method) == "balança":
+    if _norm(method) == "Scale":
         water_mass = row.get("waterMass", np.nan)
         sample_mass = row.get("sampleMass", np.nan)
         if _not_na(water_mass) and _not_na(sample_mass) and float(water_mass) != 0:
             dens_rel = float(sample_mass) / float(water_mass)
             src = "density_rel from masses (sampleMass/waterMass)"
         else:
-            src = "missing waterMass/sampleMass for Balança"
+            src = "missing waterMass/sampleMass for Scale"
 
-    elif _norm(method) in {"densímetro ou alcôometro", "densimetro ou alcoometro"}:
+    elif _norm(method) in {"Hydrometer or alcoholmeter", "densimetro ou alcoometro"}:
         measured_unit = str(row.get("measuredUnit", "") or "").strip()
         measured_value = row.get("measuredValue", np.nan)
         mu = _norm(measured_unit)
@@ -432,9 +432,9 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
             else:
                 src = "missing measuredValue or sampleTemperature for density unit"
 
-        elif mu in {"% v/v - rótulo", "% v/v - rotulo", "% v/v - bebidas"}:
+        elif mu in {"% v/v - label", "% v/v - label", "% v/v - Beverages"}:
             # 2.3.1: label-type measured value, always at 20°C table
-            # Inclui "% v/v - bebidas" que é equivalente a "% v/v - rótulo"
+            # Inclui "% v/v - Beverages" que é equivalente a "% v/v - label"
             if _not_na(measured_value):
                 _mm, w = convert_vv_to_mm_percent(float(measured_value), conv)
                 w_alcool = float(w)
@@ -477,9 +477,9 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
         src = f"method '{method}' not recognized"
 
     # If we have dens_rel but not w_alcool, use meshes (EtOH/MeOH mean).
-    # For "Balança" (mass/mass), do NOT depend on the input temperature (use a fixed 20°C reference).
+    # For "Scale" (mass/mass), do NOT depend on the input temperature (use a fixed 20°C reference).
     if _not_na(dens_rel) and _is_na(w_alcool):
-        if _norm(method) == "balança":
+        if _norm(method) == "Scale":
             t_use = 20.0
             t_src = "20°C (fixed)"
         else:
@@ -535,15 +535,15 @@ def main():
         "Cachaça branca",
         "Whisky",
         "Aguardente",
-        "Rum branco",
-        "Gin seco",
+        "White rum",
+        "Dry gin",
         "Tequila blanca",
         "Pisco",
         "Tiquira",
-        "Etanol comercial*",
-        "Etanol combustível",
-        "Metanol comercial",
-        "Outra hidroalcoólica",
+        "Commercial ethanol*",
+        "Fuel ethanol",
+        "Commercial methanol",
+        "Other hydroalcoholic",
     }
 
     bt_series = inp["beverageType"].astype(str).str.strip()

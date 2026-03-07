@@ -14,13 +14,13 @@ export default function MultiSelectDropdown({
   options,
   selected,
   onChange,
-  placeholder = 'Selecione...',
+  placeholder = 'Select...',
   label
 }: MultiSelectDropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Fechar dropdown ao clicar fora
+  // Close dropdown ao clicar fora
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -90,7 +90,7 @@ export default function MultiSelectDropdown({
             <button
               onClick={clearAll}
               className="text-gray-400 hover:text-gray-600 p-1"
-              title="Limpar seleção"
+              title="Clear selection"
             >
               <X className="w-4 h-4" />
             </button>

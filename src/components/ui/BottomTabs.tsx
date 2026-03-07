@@ -3,15 +3,17 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import clsx from "clsx"
 import { Beaker, LineChart, BookOpen, Info, Home } from "lucide-react"
+import { useT } from "@/lib/i18n"
 
 export default function BottomTabs() {
   const pathname = usePathname()
+  const t = useT()
   const tabs = [
-    { href: "/app", label: "Home", icon: Home },
-    { href: "/app/measure", label: "Medição", icon: Beaker },
-    { href: "/app/results", label: "Resultados", icon: LineChart },
-    { href: "/app/methodology", label: "Metodologia", icon: BookOpen },
-    { href: "/app/about", label: "Sobre", icon: Info },
+    { href: "/app", label: t("Home"), icon: Home },
+    { href: "/app/measure", label: t("Measure"), icon: Beaker },
+    { href: "/app/results", label: t("Results"), icon: LineChart },
+    { href: "/app/methodology", label: t("Methodology"), icon: BookOpen },
+    { href: "/app/about", label: t("About"), icon: Info },
   ]
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-neutral-200 md:max-w-md md:mx-auto">
