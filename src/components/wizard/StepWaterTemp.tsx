@@ -75,7 +75,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
         sampleTemperature: 25
       })
     } else {
-      onNext(date)
+      onNext(data)
     }
   }
   

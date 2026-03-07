@@ -344,8 +344,8 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
     try {
       setLoading(true)
       const data = await DatabaseService.getAllExperiments()
-      setExperiments(date)
-      setFilteredExperiments(date)
+      setExperiments(data)
+      setFilteredExperiments(data)
     } catch (error) {
       console.error('Error loading experiments:', error)
     } finally {
@@ -645,14 +645,14 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
     const reader = new FileReader()
     reader.onload = async (e) => {
       try {
-        const jsonDate = e.target?.result as string
-        const result = await DatabaseService.importFromJSON(jsonDate)
+        const jsonData = e.target?.result as string
+        const result = await DatabaseService.importFromJSON(jsonData)
         
         alert(`Import completed!\nImported: ${result.imported}\nSkipped: ${result.skipped}${result.errors.length > 0 ? `\nErrors: ${result.errors.length}` : ''}`)
         
         await loadExperiments()
       } catch (error) {
-        alert('Erro ao import dados: ' + error)
+        alert('Error importing data: ' + error)
       }
     }
     reader.readAsText(file)

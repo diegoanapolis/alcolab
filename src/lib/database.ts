@@ -385,14 +385,14 @@ export class DatabaseService {
   }
   
   // Import dados de JSON
-  static async importFromJSON(jsonDate: string): Promise<{
+  static async importFromJSON(jsonData: string): Promise<{
     imported: number
     skipped: number
     errors: string[]
   }> {
     try {
-      const date = JSON.parse(jsonDate)
-      const experiments = date.experiments || []
+      const data = JSON.parse(jsonData)
+      const experiments = data.experiments || []
       
       let imported = 0
       let skipped = 0
