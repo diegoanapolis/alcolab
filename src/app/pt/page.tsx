@@ -31,7 +31,7 @@ import {
 /* ─── Constantes ─── */
 const GITHUB_REPO = "https://github.com/diegoanapolis/alcolab";
 const BUYME_COFFEE_URL = "https://buymeacoffee.com/alcolab"; // TODO: substituir pelo link real
-const FORM_SUGESTAO_URL = "https://forms.gle/PLACEHOLDER"; // TODO: substituir pelo link real
+const FORM_SUGESTAO_URL = "mailto:alcolabapp@gmail.com?subject=Sugest%C3%A3o%20AlcoLab";
 const PIX_KEY = "alcolabapp@gmail.com";
 
 /* ─── Dados ─── */
@@ -86,6 +86,7 @@ function PhoneMockup({
           alt={alt}
           width={390}
           height={844}
+          quality={100}
           className="w-full h-auto"
           priority
         />
@@ -183,14 +184,14 @@ export default function HomePage() {
                 </p>
                 <ul className="text-sm text-neutral-700 space-y-2 pl-6 list-disc marker:text-[#002060]">
                   <li>
-                    <span className="font-medium">Relative density</span> —
+                    <span className="font-medium">Densidade relativa</span> —
                     razão entre a massa da amostra e a massa da água (mesmo
                     volume, mesma temperatura), obtida por pesagem diferencial com
                     seringa.
                   </li>
                   <li>
-                    <span className="font-medium">Relative viscosity</span> —
-                    razão entre os flow times da amostra e da água na
+                    <span className="font-medium">Viscosidade relativa</span> —
+                    razão entre os tempos de escoamento da amostra e da água na
                     mesma seringa (faixa de 18 a 14 mL).
                   </li>
                 </ul>
@@ -202,6 +203,7 @@ export default function HomePage() {
                     alt="Tela de pesagem do AlcoLab"
                     width={390}
                     height={844}
+                    quality={100}
                     className="w-full h-auto"
                   />
                 </div>
@@ -211,6 +213,7 @@ export default function HomePage() {
                     alt="Tela de marcação dos meniscos por vídeo no AlcoLab"
                     width={390}
                     height={844}
+                    quality={100}
                     className="w-full h-auto"
                   />
                 </div>
@@ -266,11 +269,11 @@ export default function HomePage() {
                 </h3>
               </div>
               <p className="text-sm text-neutral-700 leading-relaxed">
-                O app avalia a experimental uncertainty das medições, comparando a
-                composição identificada na etapa previous com composições de
+                O app avalia a incerteza experimental das medições, comparando a
+                composição identificada na etapa anterior com composições de
                 resultados próximos por meio de teste Z de comparação de médias e
                 simulação probabilística de Monte Carlo. O objetivo é incluir
-                composições estatisticamente equivalentes e/ou
+                composições próximas, estatisticamente equivalentes e/ou
                 probabilisticamente prováveis.
               </p>
             </div>
@@ -287,11 +290,11 @@ export default function HomePage() {
                   </h3>
                 </div>
                 <p className="text-sm text-neutral-700 leading-relaxed">
-                  As composições equivalentes e prováveis são comparadas com o
+                  As composições equivalentes e/ou mais prováveis são comparadas com o
                   rótulo declarado. O app organiza medidas experimentais e
                   resultados em um relatório e exibe um indicador imediato de
                   segurança em formato de semáforo (verde / amarelo / vermelho).
-                  Quando há probabilidade de presença de metanol, o semáforo
+                  Por exemplo, quando há probabilidade considerável para presença de metanol e incompatibilidade com o rótulo, o semáforo
                   assume cor vermelha.
                 </p>
               </div>
@@ -301,6 +304,7 @@ export default function HomePage() {
                   alt="Resultado com semáforo vermelho"
                   width={390}
                   height={844}
+                  quality={100}
                   className="w-full h-auto"
                 />
               </div>
@@ -442,6 +446,7 @@ export default function HomePage() {
                     alt="Resultado com semáforo verde — amostra legítima"
                     width={390}
                     height={844}
+                    quality={100}
                     className="w-full h-auto"
                   />
                 </div>
@@ -456,6 +461,7 @@ export default function HomePage() {
                     alt="Resultado com semáforo vermelho — amostra contaminada"
                     width={390}
                     height={844}
+                    quality={100}
                     className="w-full h-auto"
                   />
                 </div>
@@ -485,17 +491,22 @@ export default function HomePage() {
             Base científica
           </h2>
           <p className="text-sm text-neutral-700 leading-relaxed text-justify">
-            O AlcoLab combina duas propriedades físicas — relative density e
-            relative viscosity — para estimar a composição ternária de soluções
+            O AlcoLab combina duas propriedades físicas — densidade relativa e
+            viscosidade relativa — para estimar a composição ternária de soluções
             de água, etanol e metanol. As medições são comparadas com uma malha
-            de referência pré-calculada, e a composição mais provável é
-            identificada por meio de análise estatística (teste Z e simulação de
-            Monte Carlo) que avalia a experimental uncertainty.
+            de referência pré-calculada para obter a composição mais exata com os
+            dados experimentais. Essa composição é confrontada com outras
+            composições próximas para testar equivalências e probabilidades de
+            ocorrência (teste Z e simulação de Monte Carlo), considerando a
+            incerteza do experimento. Essa sistemática garante que não fique de
+            fora dos resultados reportados, quando existente para os dados
+            obtidos, outra composição ternária (água-etanol-metanol) equivalente,
+            possível e provável, além da mais exata obtida pela busca na malha.
           </p>
           <p className="text-sm text-neutral-700 leading-relaxed text-justify">
             Todo o processamento científico ocorre localmente no navegador,
             utilizando Python (NumPy, SciPy) executado via Pyodide
-            (WebAssembly). No date é enviado a servidores externos. Versões
+            (WebAssembly). Nenhum dado é enviado a servidores externos. Versões
             futuras só o farão mediante consentimento explícito do usuário, para
             viabilizar funcionalidades como mapeamento de risco epidemiológico e
             integração com sistemas de vigilância em saúde.
@@ -611,7 +622,7 @@ export default function HomePage() {
             {/* Internacional */}
             <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-5 space-y-2">
               <p className="text-sm font-medium text-neutral-700">
-                🌍 Internacional
+                🌍 Outros países
               </p>
               <a
                 href={BUYME_COFFEE_URL}

@@ -31,7 +31,7 @@ import {
 /* ─── Constants ─── */
 const GITHUB_REPO = "https://github.com/diegoanapolis/alcolab";
 const BUYME_COFFEE_URL = "https://buymeacoffee.com/alcolab"; // TODO: replace with actual link
-const FORM_SUGESTAO_URL = "https://forms.gle/PLACEHOLDER"; // TODO: replace with actual link
+const FORM_SUGESTAO_URL = "mailto:alcolabapp@gmail.com?subject=AlcoLab%20Suggestion";
 const PIX_KEY = "alcolabapp@gmail.com";
 
 /* ─── Date ─── */
@@ -85,6 +85,7 @@ function PhoneMockup({
           alt={alt}
           width={390}
           height={844}
+          quality={100}
           className="w-full h-auto"
           priority
         />
@@ -148,7 +149,7 @@ export default function HomePageEN() {
           {/* Mockup */}
           <div className="flex-shrink-0 w-48 sm:w-56 lg:w-64">
             <PhoneMockup
-              src="/images/homepage/semaforo-vermelho.png"
+              src="/images/homepage/semaforo-vermelho-en.png"
               alt="AlcoLab screen showing result with red traffic light — contaminated sample detected"
             />
           </div>
@@ -195,19 +196,21 @@ export default function HomePageEN() {
               <div className="flex gap-3 justify-center md:justify-end shrink-0">
                 <div className="w-40 sm:w-44 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
-                    src="/images/homepage/step-pesagem.png"
+                    src="/images/homepage/step-pesagem-en.png"
                     alt="AlcoLab weighing screen"
                     width={390}
                     height={844}
+                    quality={100}
                     className="w-full h-auto"
                   />
                 </div>
                 <div className="w-40 sm:w-44 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
-                    src="/images/homepage/step-video-menisco.png"
+                    src="/images/homepage/step-video-menisco-en.png"
                     alt="AlcoLab video meniscus marking screen"
                     width={390}
                     height={844}
+                    quality={100}
                     className="w-full h-auto"
                   />
                 </div>
@@ -267,7 +270,7 @@ export default function HomePageEN() {
                 measurements, comparing the composition identified in the
                 previous step with nearby compositions through a Z-test for mean
                 comparison and Monte Carlo probabilistic simulation. The goal is
-                to include statistically equivalent and/or probabilistically
+                to include nearby, statistically equivalent and/or probabilistically
                 likely compositions.
               </p>
             </div>
@@ -284,20 +287,21 @@ export default function HomePageEN() {
                   </h3>
                 </div>
                 <p className="text-sm text-neutral-700 leading-relaxed">
-                  Equivalent and probable compositions are compared with the
+                  Equivalent and/or most likely compositions are compared with the
                   declared label. The app organizes experimental measurements and
                   results into a report and displays an immediate safety
-                  indicator in traffic light format (green / yellow / red). When
-                  there is a probability of methanol presence, the traffic light
+                  indicator in traffic light format (green / yellow / red).
+                  For example, when there is considerable probability of methanol presence and incompatibility with the label, the traffic light
                   turns red.
                 </p>
               </div>
               <div className="w-40 sm:w-44 shrink-0 mx-auto md:mx-0 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                 <Image
-                  src="/images/homepage/semaforo-vermelho.png"
+                  src="/images/homepage/semaforo-vermelho-en.png"
                   alt="Result with red traffic light"
                   width={390}
                   height={844}
+                  quality={100}
                   className="w-full h-auto"
                 />
               </div>
@@ -431,10 +435,11 @@ export default function HomePageEN() {
               <div className="text-center space-y-2">
                 <div className="w-44 sm:w-52 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
-                    src="/images/homepage/semaforo-verde.png"
+                    src="/images/homepage/semaforo-verde-en.png"
                     alt="Result with green traffic light — legitimate sample"
                     width={390}
                     height={844}
+                    quality={100}
                     className="w-full h-auto"
                   />
                 </div>
@@ -445,10 +450,11 @@ export default function HomePageEN() {
               <div className="text-center space-y-2">
                 <div className="w-44 sm:w-52 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
-                    src="/images/homepage/semaforo-vermelho.png"
+                    src="/images/homepage/semaforo-vermelho-en.png"
                     alt="Result with red traffic light — contaminated sample"
                     width={390}
                     height={844}
+                    quality={100}
                     className="w-full h-auto"
                   />
                 </div>
@@ -481,13 +487,19 @@ export default function HomePageEN() {
             AlcoLab combines two physical properties — relative density and
             relative viscosity — to estimate the ternary composition of
             water/ethanol/methanol solutions. Measurements are compared against a
-            pre-computed reference mesh, and the most likely composition is
-            identified through statistical analysis (Z-test and Monte Carlo
-            simulation) that evaluates experimental uncertainty.
+            pre-computed reference mesh to obtain the most accurate composition
+            from the experimental data. This composition is then tested against
+            nearby compositions to evaluate equivalences and occurrence
+            probabilities (Z-test and Monte Carlo simulation), considering the
+            experimental uncertainty. This approach ensures that no other
+            equivalent, possible and likely ternary composition
+            (water-ethanol-methanol) is left out of the reported results, when
+            one exists for the obtained data, beyond the most accurate one found
+            in the mesh search.
           </p>
           <p className="text-sm text-neutral-700 leading-relaxed text-justify">
             All scientific processing occurs locally in the browser, using Python
-            (NumPy, SciPy) executed via Pyodide (WebAssembly). No date is sent
+            (NumPy, SciPy) executed via Pyodide (WebAssembly). No data is sent
             to external servers. Future versions will only do so with explicit
             user consent, to enable features such as epidemiological risk mapping
             and integration with health surveillance systems.
@@ -598,7 +610,7 @@ export default function HomePageEN() {
             </div>
             <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-5 space-y-2">
               <p className="text-sm font-medium text-neutral-700">
-                🌍 International
+                🌍 Other countries
               </p>
               <a
                 href={BUYME_COFFEE_URL}
