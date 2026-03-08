@@ -106,10 +106,10 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
       <form className="space-y-4 p-4" onSubmit={handleSubmit(onNext)}>
         {/* Título */}
         <h1 className="text-xl font-bold text-[#002060]">
-          Select{" "}
+          {t("Select")}{" "}
           <InlineTooltip 
-            term="hydroalcoholic solution" 
-            tooltip="Mixture composed predominantly of water, ethanol and/or methanol."
+            term={t("hydroalcoholic solution")} 
+            tooltip={t("Mixture composed predominantly of water, ethanol and/or methanol.")}
           />
         </h1>
 

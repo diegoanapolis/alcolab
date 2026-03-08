@@ -430,8 +430,8 @@ For greater reliability, it is recommended to use a scale with at least one deci
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold text-[#002060]">{t("Measure mass or")}{" "}
             <InlineTooltip 
-              term="density" 
-              tooltip="Ratio between mass and volume of the liquid."
+              term={t("density")} 
+              tooltip={t("Ratio between mass and volume of the liquid.")}
             />
           </h1>
           <MethodologyButton onClick={() => setShowMethodology(true)} compact />
@@ -445,12 +445,12 @@ For greater reliability, it is recommended to use a scale with at least one deci
 
         {/* Camada 1: Instruções concisas */}
         <p className="text-sm text-neutral-700 text-justify">
-          To estimate{" "}
+          {t("To estimate")}{" "}
           <InlineTooltip 
-            term="density" 
-            tooltip="Ratio between mass and volume of the liquid."
+            term={t("density")} 
+            tooltip={t("Ratio between mass and volume of the liquid.")}
           />{" "}
-          by mass, select <span className="font-medium">{t("Scale")}</span>. Otherwise, use the{" "}
+          {t("by mass, select")} <span className="font-medium">{t("Scale")}</span>. {t("Otherwise, use the")}{" "}
           <span className="font-medium">{t("Hydrometer, alcoholmeter or label")}</span>.
         </p>
 
@@ -485,19 +485,19 @@ For greater reliability, it is recommended to use a scale with at least one deci
             {/* Camada 1: Instruções da aba Balança */}
             <div className="text-sm text-neutral-700 text-justify space-y-2">
               <p>
-                For weighing, aspirate 20 mL of water and, separately, 20 mL of the sample, 
-                using the same syringe and positioning the plunger at the same mark in both cases.
+                {t("For weighing, aspirate 20 mL of water and, separately, 20 mL of the sample")}{t(", ")}
+                {t("using the same syringe and positioning the plunger at the same mark in both cases.")}
               </p>
               <p>
-                One weighing for each is sufficient for the{" "}
+                {t("One weighing for each is sufficient for the")}{" "}
                 <InlineTooltip 
-                  term="initial estimate" 
-                  tooltip="Used only to find the approximate alcohol content range of the sample."
+                  term={t("initial estimate")} 
+                  tooltip={t("Used only to find the approximate alcohol content range of the sample.")}
                 />{" "}
-                of density. A scale with at least 1 decimal place is recommended.
+                {t("of density. A scale with at least 1 decimal place is recommended.")}
               </p>
               <p>
-                It is also recommended to measure the mass of the syringe with plunger and needle assembly.
+                {t("It is also recommended to measure the mass of the syringe with plunger and needle assembly.")}
               </p>
             </div>
             
@@ -560,10 +560,10 @@ For greater reliability, it is recommended to use a scale with at least one deci
                 <div className="text-sm font-medium text-[#002060] mb-2">{t("Calculated liquid masses:")}</div>
                 <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
                   <div>
-                    Water: {liquidWaterMass > 0 ? `${liquidWaterMass.toFixed(2)} g` : "-"}
+                    {t("Water:")}{" "}{liquidWaterMass > 0 ? `${liquidWaterMass.toFixed(2)} g` : "-"}
                   </div>
                   <div>
-                    Sample: {liquidSampleMass > 0 ? `${liquidSampleMass.toFixed(2)} g` : "-"}
+                    {t("Sample:")}{" "}{liquidSampleMass > 0 ? `${liquidSampleMass.toFixed(2)} g` : "-"}
                   </div>
                 </div>
               </div>
@@ -635,10 +635,10 @@ For greater reliability, it is recommended to use a scale with at least one deci
             {/* Camada 1: Instruções da aba Densímetro */}
             <div className="text-sm text-neutral-700 text-justify space-y-2">
               <p>
-                Use a cylindrical container, allowing the instrument to float without touching the walls or bottom.
+                {t("Use a cylindrical container, allowing the instrument to float without touching the walls or bottom.")}
               </p>
               <p>
-                Wait for instrument stabilization before reading.
+                {t("Wait for instrument stabilization before reading.")}
               </p>
             </div>
             

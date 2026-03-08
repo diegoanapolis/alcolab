@@ -70,18 +70,18 @@ export default function Home() {
       {/* Camada 1: Texto mínimo obrigatório */}
       <div className="space-y-2 text-sm text-neutral-700 text-justify">
         <p>
-          Dedicated to the{" "}
+          {t("Dedicated to the")}{" "}
           <InlineTooltip 
-            term="screening" 
-            tooltip="Preventive and estimative analysis, not confirmatory."
+            term={t("screening")} 
+            tooltip={t("Preventive and estimative analysis, not confirmatory.")}
           />{" "}
-          of pure distilled beverages (\u201cdry\u201d); fuel ethanol; reagent methanol and{" "}
+          {t("of pure distilled beverages; fuel ethanol; reagent methanol and")}{" "}
           <InlineTooltip 
-            term="hydroalcoholic solutions" 
-            tooltip="Mixtures composed predominantly of water, ethanol and/or methanol."
+            term={t("hydroalcoholic solutions")} 
+            tooltip={t("Mixtures composed predominantly of water, ethanol and/or methanol.")}
           />{" "}
-          made of water, ethanol and methanol, as per options listed in{" "}
-          <button onClick={handleMedir} className="underline text-[#002060] font-medium">Measure</button>.{" "}
+          {t("made of water, ethanol and methanol, as per options listed in")}{" "}
+          <button onClick={handleMedir} className="underline text-[#002060] font-medium">{t("Measure")}</button>.{" "}
           <span className="font-bold">{t("Does not replace confirmatory analysis.")}</span>
         </p>
         <p>
@@ -146,10 +146,10 @@ export default function Home() {
         </p>
         <p className="text-red-700 text-sm">
           {t("Seek medical help immediately.")}<br />
-          In Brazil, call Disque-Intoxicação: <span className="font-bold">0800 722 6001</span>.
+          {t("In Brazil, call Disque-Intoxicação:")} <span className="font-bold">0800 722 6001</span>.
         </p>
         <p className="text-red-600 text-xs mt-3 italic">
-          In suspicious cases, report to: local health surveillance, Civil Police (197), PROCON and, when applicable, MAPA (Brazil).
+          {t("In suspicious cases, report to: local health surveillance, Civil Police (197), PROCON and, when applicable, MAPA (Brazil).")}
         </p>
       </div>
     </div>

@@ -452,10 +452,10 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
     <>
       <form className="space-y-4 p-4" onSubmit={submitHandler}>
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-[#002060]">Registre o{" "}
+          <h1 className="text-xl font-bold text-[#002060]">{t("Record the flow")}{" "}
             <InlineTooltip 
-              term="flow" 
-              tooltip="Time para atravessar um intervalo fixo de volume."
+              term={t("flow")} 
+              tooltip={t("Time to traverse a fixed volume interval.")}
             />
           </h1>
           <MethodologyButton onClick={() => setShowMethodology(true)} compact />
@@ -469,30 +469,28 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
         {/* Camada 1: Instruções mínimas */}
         <div className="text-sm text-neutral-700 text-justify space-y-2">
           <p>
-            <span className="font-bold">Most sensitive step of the methodology.</span> The flow time estimation 
-            (always from 18 mL to 14 mL, using{" "}
+            <span className="font-bold">{t("Most sensitive step of the methodology.")}</span> {t("The flow time estimation (always from 18 mL to 14 mL, using")}{" "}
             <InlineTooltip 
-              term="meniscus" 
-              tooltip="Bottom of the curved liquid surface."
+              term={t("meniscus")} 
+              tooltip={t("Bottom of the curved liquid surface.")}
             />{" "}
-            as reference) by video is more{" "}
+            {t("as reference) by video is more")}{" "}
             <InlineTooltip 
-              term="robust" 
-              tooltip="Ability to provide reliable results even with small variations in test conditions."
+              term={t("robust")} 
+              tooltip={t("Ability to provide reliable results even with small variations in test conditions.")}
             />{" "}
-            and recommended.
+            {t("and recommended.")}
           </p>
           <p>
-            At least two{" "}
+            {t("At least two")}{" "}
             <InlineTooltip 
-              term="replicates" 
-              tooltip="Increase analysis reliability."
+              term={t("replicates")} 
+              tooltip={t("Increase analysis reliability.")}
             />{" "}
-            for each (water and sample) are recommended.
+            {t("for each (water and sample) are recommended.")}
           </p>
           <p>
-            It is possible to mix video replicates and manual time entry. 
-            If you choose to time the total flow, prefer the stopwatch in this screen.
+            {t("It is possible to mix video replicates and manual time entry. If you choose to time the total flow, prefer the stopwatch in this screen.")}
           </p>
         </div>
 
@@ -507,27 +505,27 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
         <div className="grid grid-cols-2 gap-4">
           {/* ÁGUA */}
           <div>
-            <div className="font-medium text-sm text-[#002060] mb-2">Water - video(s)</div>
+            <div className="font-medium text-sm text-[#002060] mb-2">{t("Water")} - {t("video(s)")}</div>
             {/* Inputs hidden para água */}
             <input ref={cameraInputWaterRef} id="camera-water" type="file" accept="video/*" capture="environment" className="hidden" onChange={(e) => handleFilePickedWithModal(e.target.files?.[0] || null, "water")} />
             <input ref={galleryInputWaterRef} id="gallery-water" type="file" accept="video/*" className="hidden" onChange={(e) => handleFilePickedWithModal(e.target.files?.[0] || null, "water")} />
             <div className="flex flex-col gap-2">
               <label htmlFor="camera-water" className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors cursor-pointer">
                 <Camera className="w-4 h-4 text-[#002060]" aria-hidden="true" />
-                <span className="text-[#002060]">Record video</span>
+                <span className="text-[#002060]">{t("Record video")}</span>
               </label>
               <label htmlFor="gallery-water" className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors cursor-pointer">
                 <ImageIcon className="w-4 h-4 text-[#002060]" aria-hidden="true" />
-                <span className="text-[#002060]">Select from gallery</span>
+                <span className="text-[#002060]">{t("Select from gallery")}</span>
               </label>
-              {waterReplicates.length > 0 && <div className="mt-2 text-sm font-medium text-[#002060]">Tests performed</div>}
+              {waterReplicates.length > 0 && <div className="mt-2 text-sm font-medium text-[#002060]">{t("Tests performed")}</div>}
               {waterReplicates.map((r, idx) => (
                 <div key={idx} className="space-y-2 bg-gray-50 p-2 rounded-lg">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium">Replicate {idx + 1}</span>
+                    <span className="text-xs font-medium">{t("Replicate")} {idx + 1}</span>
                     <div className="flex items-center gap-3">
-                      <button type="button" className="text-xs underline text-[#002060]" onClick={() => { setEditing({ target: "water", index: idx }); setVideoTarget("water"); setVideoUrl(r.previewUrl); setMarks(r.marks); setShowVideoModal(true) }}>Edit</button>
-                      <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("water", idx)}>Delete</button>
+                      <button type="button" className="text-xs underline text-[#002060]" onClick={() => { setEditing({ target: "water", index: idx }); setVideoTarget("water"); setVideoUrl(r.previewUrl); setMarks(r.marks); setShowVideoModal(true) }}>{t("Edit")}</button>
+                      <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("water", idx)}>{t("Delete")}</button>
                     </div>
                   </div>
                   <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
@@ -561,27 +559,27 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
 
           {/* AMOSTRA */}
           <div>
-            <div className="font-medium text-sm text-[#002060] mb-2">Sample - video(s)</div>
+            <div className="font-medium text-sm text-[#002060] mb-2">{t("Sample")} - {t("video(s)")}</div>
             {/* Inputs hidden para amostra */}
             <input ref={cameraInputSampleRef} id="camera-sample" type="file" accept="video/*" capture="environment" className="hidden" onChange={(e) => handleFilePickedWithModal(e.target.files?.[0] || null, "sample")} />
             <input ref={galleryInputSampleRef} id="gallery-sample" type="file" accept="video/*" className="hidden" onChange={(e) => handleFilePickedWithModal(e.target.files?.[0] || null, "sample")} />
             <div className="flex flex-col gap-2">
               <label htmlFor="camera-sample" className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors cursor-pointer">
                 <Camera className="w-4 h-4 text-[#002060]" aria-hidden="true" />
-                <span className="text-[#002060]">Gravar video</span>
+                <span className="text-[#002060]">{t("Record video")}</span>
               </label>
               <label htmlFor="gallery-sample" className="border border-[#002060] rounded-lg px-3 py-2.5 text-sm inline-flex items-center gap-2 hover:bg-blue-50 transition-colors cursor-pointer">
                 <ImageIcon className="w-4 h-4 text-[#002060]" aria-hidden="true" />
-                <span className="text-[#002060]">Selecionar galeria</span>
+                <span className="text-[#002060]">{t("Select from gallery")}</span>
               </label>
-              {sampleReplicates.length > 0 && <div className="mt-2 text-sm font-medium text-[#002060]">Ensaios realizados</div>}
+              {sampleReplicates.length > 0 && <div className="mt-2 text-sm font-medium text-[#002060]">{t("Tests performed")}</div>}
               {sampleReplicates.map((r, idx) => (
                 <div key={idx} className="space-y-2 bg-gray-50 p-2 rounded-lg">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium">Replicate {idx + 1}</span>
+                    <span className="text-xs font-medium">{t("Replicate")} {idx + 1}</span>
                     <div className="flex items-center gap-3">
-                      <button type="button" className="text-xs underline text-[#002060]" onClick={() => { setEditing({ target: "sample", index: idx }); setVideoTarget("sample"); setVideoUrl(r.previewUrl); setMarks(r.marks); setShowVideoModal(true) }}>Edit</button>
-                      <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("sample", idx)}>Delete</button>
+                      <button type="button" className="text-xs underline text-[#002060]" onClick={() => { setEditing({ target: "sample", index: idx }); setVideoTarget("sample"); setVideoUrl(r.previewUrl); setMarks(r.marks); setShowVideoModal(true) }}>{t("Edit")}</button>
+                      <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("sample", idx)}>{t("Delete")}</button>
                     </div>
                   </div>
                   <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>

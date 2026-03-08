@@ -148,11 +148,11 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
           <>
             {/* Camada 1: Instruções com termômetro */}
             <p className="text-sm text-neutral-700 text-justify">
-              With a thermometer, measure the temperature immediately before or after the flow. 
-              Differences of up to 3 °C between water and sample are acceptable; the app performs{" "}
+              {t("With a thermometer, measure the temperature immediately before or after the flow.")}{" "}
+              {t("Differences of up to 3 °C between water and sample are acceptable; the app performs")}{" "}
               <InlineTooltip 
-                term="viscosity correction" 
-                tooltip="Adjustment of water viscosity according to temperature."
+                term={t("viscosity correction")} 
+                tooltip={t("Adjustment of water viscosity according to temperature.")}
               />.
             </p>
 
@@ -208,12 +208,11 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
           <>
             {/* Camada 1: Sem termômetro */}
             <p className="text-sm text-neutral-700 text-justify">
-              Water, sample and environment must be in{" "}
+              {t("Water, sample and environment must be in")}{" "}
               <InlineTooltip 
-                term="thermal equilibrium" 
-                tooltip="Water, sample and environment at the same temperature."
-              />. 
-              Leave the liquids for at least 1 hour in the test environment and ensure it is between 20 and 30°C.
+                term={t("thermal equilibrium")} 
+                tooltip={t("Water, sample and environment at the same temperature.")}
+              />{t(". Leave the liquids for at least 1 hour in the test environment and ensure it is between 20 and 30°C.")}
             </p>
 
             <div className="space-y-4">

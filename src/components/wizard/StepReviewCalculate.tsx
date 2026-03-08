@@ -38,7 +38,7 @@ export default function StepReviewCalculate({ data, onBack, onCalculate }: {
         
         {/* Camada 1: Texto mínimo */}
         <p className="text-sm text-neutral-700 text-justify">
-          If necessary, go back to previous steps and correct the information and values.
+          {t("If necessary, go back to previous steps and correct the information and values.")}
         </p>
         
         <div className="space-y-3">
@@ -46,20 +46,20 @@ export default function StepReviewCalculate({ data, onBack, onCalculate }: {
           <div className="border rounded-lg p-3">
             <h2 className="font-bold text-[#002060] text-sm mb-2">{t("Sample Profile")}</h2>
             <div className="space-y-1 text-sm text-gray-700">
-              <p><span className="text-gray-500">Type:</span> {data.profile?.beverageType}</p>
-              {data.profile?.sampleName && <p><span className="text-gray-500">Name:</span> {data.profile?.sampleName}</p>}
+              <p><span className="text-gray-500">{t("Type:")}</span> {t(data.profile?.beverageType ?? '')}</p>
+              {data.profile?.sampleName && <p><span className="text-gray-500">{t("Name:")}</span> {data.profile?.sampleName}</p>}
               {data.profile?.beverageType !== "Other hydroalcoholic" ? (
                 <>
-                  {typeof data.profile?.labelAbv === 'number' && <p><span className="text-gray-500">Label content:</span> {data.profile.labelAbv} {data.profile?.labelUnit ?? ''}</p>}
+                  {typeof data.profile?.labelAbv === 'number' && <p><span className="text-gray-500">{t("Label content:")}</span> {data.profile.labelAbv} {data.profile?.labelUnit ? t(data.profile.labelUnit) : ''}</p>}
                 </>
               ) : (
                 <>
-                  {typeof data.profile?.ethanolMassPercent === 'number' && <p><span className="text-gray-500">Ethanol:</span> {data.profile.ethanolMassPercent}% m/m</p>}
-                  {typeof data.profile?.methanolMassPercent === 'number' && <p><span className="text-gray-500">Methanol:</span> {data.profile.methanolMassPercent}% m/m</p>}
-                  <p><span className="text-gray-500">Water:</span> {((100 - ((data.profile?.ethanolMassPercent ?? 0) + (data.profile?.methanolMassPercent ?? 0))).toFixed(1))}% m/m</p>
+                  {typeof data.profile?.ethanolMassPercent === 'number' && <p><span className="text-gray-500">{t("Ethanol:")}</span> {data.profile.ethanolMassPercent}% m/m</p>}
+                  {typeof data.profile?.methanolMassPercent === 'number' && <p><span className="text-gray-500">{t("Methanol:")}</span> {data.profile.methanolMassPercent}% m/m</p>}
+                  <p><span className="text-gray-500">{t("Water:")} </span> {((100 - ((data.profile?.ethanolMassPercent ?? 0) + (data.profile?.methanolMassPercent ?? 0))).toFixed(1))}% m/m</p>
                 </>
               )}
-              {data.profile?.brand && <p><span className="text-gray-500">Manufacturer/Brand:</span> {data.profile.brand}</p>}
+              {data.profile?.brand && <p><span className="text-gray-500">{t("Manufacturer/Brand:")}</span> {data.profile.brand}</p>}
             </div>
           </div>
           
@@ -67,9 +67,9 @@ export default function StepReviewCalculate({ data, onBack, onCalculate }: {
           <div className="border rounded-lg p-3">
             <h2 className="font-bold text-[#002060] text-sm mb-2">{t("Water and Temperature")}</h2>
             <div className="space-y-1 text-sm text-gray-700">
-              <p><span className="text-gray-500">Water type:</span> {data.waterTemp?.waterType}</p>
-              <p><span className="text-gray-500">T water:</span> {data.waterTemp?.waterTemperature ?? 'Not measured'} {data.waterTemp?.waterTemperature ? '°C' : ''}</p>
-              <p><span className="text-gray-500">T sample:</span> {data.waterTemp?.sampleTemperature ?? 'Not measured'} {data.waterTemp?.sampleTemperature ? '°C' : ''}</p>
+              <p><span className="text-gray-500">{t("Water type:")}</span> {data.waterTemp?.waterType ? t(data.waterTemp.waterType) : '-'}</p>
+              <p><span className="text-gray-500">{t("T water:")}</span> {data.waterTemp?.waterTemperature ?? t('Not measured')} {data.waterTemp?.waterTemperature ? '°C' : ''}</p>
+              <p><span className="text-gray-500">{t("T sample:")}</span> {data.waterTemp?.sampleTemperature ?? t('Not measured')} {data.waterTemp?.sampleTemperature ? '°C' : ''}</p>
             </div>
           </div>
           
@@ -77,16 +77,16 @@ export default function StepReviewCalculate({ data, onBack, onCalculate }: {
           <div className="border rounded-lg p-3">
             <h2 className="font-bold text-[#002060] text-sm mb-2">{t("Mass / Density")}</h2>
             <div className="space-y-1 text-sm text-gray-700">
-              <p><span className="text-gray-500">Method:</span> {data.density?.method ?? '-'}</p>
+              <p><span className="text-gray-500">{t("Method:")}</span> {data.density?.method ? t(data.density.method) : '-'}</p>
               {data.density?.method === 'Scale' && (
                 <>
-                  <p><span className="text-gray-500">Water mass:</span> {typeof data.density?.waterMass === 'number' ? `${parseFloat(data.density.waterMass.toFixed(3))} g` : '-'}</p>
-                  <p><span className="text-gray-500">Sample mass:</span> {typeof data.density?.sampleMass === 'number' ? `${parseFloat(data.density.sampleMass.toFixed(3))} g` : '-'}</p>
+                  <p><span className="text-gray-500">{t("Water mass:")}</span> {typeof data.density?.waterMass === 'number' ? `${parseFloat(data.density.waterMass.toFixed(3))} g` : '-'}</p>
+                  <p><span className="text-gray-500">{t("Sample mass:")}</span> {typeof data.density?.sampleMass === 'number' ? `${parseFloat(data.density.sampleMass.toFixed(3))} g` : '-'}</p>
                 </>
               )}
               {data.density?.method === 'Hydrometer or alcoholmeter' && (
                 <>
-                  <p><span className="text-gray-500">Measured value:</span> {typeof data.density?.measuredValue === 'number' ? data.density?.measuredValue : '-'} {data.density?.measuredUnit ?? ''}</p>
+                  <p><span className="text-gray-500">{t("Measured value:")}</span> {typeof data.density?.measuredValue === 'number' ? data.density?.measuredValue : '-'} {data.density?.measuredUnit ?? ''}</p>
                 </>
               )}
             </div>
@@ -97,17 +97,17 @@ export default function StepReviewCalculate({ data, onBack, onCalculate }: {
             <h2 className="font-bold text-[#002060] text-sm mb-2">{t("Flows")}</h2>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-xs font-medium text-gray-500 mb-1">Water</p>
+                <p className="text-xs font-medium text-gray-500 mb-1">{t("Water")}</p>
                 <Replicas kind="water" />
                 <p className="mt-1 text-xs text-gray-600">
-                  Manual: {data.times?.waterTimes && data.times.waterTimes.length ? data.times.waterTimes.map((t) => t.toFixed(2)).join(', ') + ' s' : '-'}
+                  {t("Manual:")} {data.times?.waterTimes && data.times.waterTimes.length ? data.times.waterTimes.map((t) => t.toFixed(2)).join(', ') + ' s' : '-'}
                 </p>
               </div>
               <div>
-                <p className="text-xs font-medium text-gray-500 mb-1">Sample</p>
+                <p className="text-xs font-medium text-gray-500 mb-1">{t("Sample")}</p>
                 <Replicas kind="sample" />
                 <p className="mt-1 text-xs text-gray-600">
-                  Manual: {data.times?.sampleTimes && data.times.sampleTimes.length ? data.times.sampleTimes.map((t) => t.toFixed(2)).join(', ') + ' s' : '-'}
+                  {t("Manual:")} {data.times?.sampleTimes && data.times.sampleTimes.length ? data.times.sampleTimes.map((t) => t.toFixed(2)).join(', ') + ' s' : '-'}
                 </p>
               </div>
             </div>
@@ -134,6 +134,7 @@ export default function StepReviewCalculate({ data, onBack, onCalculate }: {
 }
 
 function Replicas({ kind }: { kind: "water" | "sample" }) {
+  const t = useT()
   let list: Array<{ previewUrl: string; fileName?: string; fileCreatedAt?: string; marks: Record<14|15|16|17|18, number|undefined> }> = []
   if (typeof window !== 'undefined') {
     try {
@@ -141,7 +142,7 @@ function Replicas({ kind }: { kind: "water" | "sample" }) {
       if (raw) list = JSON.parse(raw)
     } catch {}
   }
-  if (!list.length) return <p className="text-xs text-gray-600">No video</p>
+  if (!list.length) return <p className="text-xs text-gray-600">{t("No video")}</p>
   return (
     <div className="space-y-1">
       {list.map((r, idx) => (
