@@ -452,7 +452,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
     <>
       <form className="space-y-4 p-4" onSubmit={submitHandler}>
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-[#002060]">{t("Record the flow")}{" "}
+          <h1 className="text-xl font-bold text-[#002060]">{t("Record the")}{" "}
             <InlineTooltip 
               term={t("flow")} 
               tooltip={t("Time to traverse a fixed volume interval.")}
@@ -537,12 +537,12 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
               
               {/* Inserção manual */}
               <div className="mt-3 pt-3 border-t">
-                <div className="font-medium text-xs text-[#002060] mb-2">Manual time entry (s)</div>
+                <div className="font-medium text-xs text-[#002060] mb-2">{t("Manual time entry (s)")}</div>
                 <div className="flex gap-1">
                   <input type="text" inputMode="decimal" placeholder="Ex.: 99.1" value={manualWaterInput} onChange={(e) => setManualWaterInput(e.target.value)} className="border rounded-lg p-2 min-w-0 flex-1 text-sm text-center" />
                   <button type="button" onClick={() => addManualTime("water")} className="border border-[#002060] rounded-lg w-10 flex-shrink-0 text-sm text-[#002060] font-medium">+</button>
                 </div>
-                <button type="button" onClick={() => openTimer("water")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">⏱️ Stopwatch</button>
+                <button type="button" onClick={() => openTimer("water")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">{t("Stopwatch")}</button>
                 {waterTimes.length > 0 && (
                   <div className="mt-2 space-y-1">
                     {waterTimes.map((t, i) => (
@@ -591,12 +591,12 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
               
               {/* Inserção manual */}
               <div className="mt-3 pt-3 border-t">
-                <div className="font-medium text-xs text-[#002060] mb-2">Manual time entry (s)</div>
+                <div className="font-medium text-xs text-[#002060] mb-2">{t("Manual time entry (s)")}</div>
                 <div className="flex gap-1">
                   <input type="text" inputMode="decimal" placeholder="Ex.: 253.5" value={manualSampleInput} onChange={(e) => setManualSampleInput(e.target.value)} className="border rounded-lg p-2 min-w-0 flex-1 text-sm text-center" />
                   <button type="button" onClick={() => addManualTime("sample")} className="border border-[#002060] rounded-lg w-10 flex-shrink-0 text-sm text-[#002060] font-medium">+</button>
                 </div>
-                <button type="button" onClick={() => openTimer("sample")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">⏱️ Stopwatch</button>
+                <button type="button" onClick={() => openTimer("sample")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">{t("Stopwatch")}</button>
                 {sampleTimes.length > 0 && (
                   <div className="mt-2 space-y-1">
                     {sampleTimes.map((t, i) => (

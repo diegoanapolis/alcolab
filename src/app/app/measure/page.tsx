@@ -10,9 +10,11 @@ import CalculatingOverlay from "@/components/ui/CalculatingOverlay"
 import DemoModal from "@/components/ui/DemoModal"
 import { getDemoScenario, getDemoId, clearDemoMode, DemoScenarioId } from "@/lib/demoScenarios"
 import { FlaskConical } from "lucide-react"
+import { useT } from "@/lib/i18n"
 import { useRouter, usePathname } from "next/navigation"
 
 export default function MedirPage() {
+  const tr = useT()
   const [step, setStep] = useState(1)
   const [data, setData] = useState<WizardData>({})
   const [calculating, setCalculating] = useState(false)
@@ -576,7 +578,7 @@ export default function MedirPage() {
                   className="text-xs text-[#002060] underline hover:text-blue-700 transition-colors inline-flex items-center gap-1"
                 >
                   <FlaskConical className="w-3.5 h-3.5" />
-                  Try with real example data
+                  {tr("Try with real example data")}
                 </button>
               </div>
             }

@@ -61,7 +61,12 @@ export const ptTranslations: Record<string, string> = {
   "Suspected beverage 3": "Bebida suspeita 3",
   "Not provided": "Não fornecido",
   "Label indicated 40% v/v alcohol content, with manufacturer and batch markings illegible. Pre-filled data below.": "Rótulo indicava teor alcoólico 40% v/v, com indicações de fabricante e lote ilegíveis. Dados pré-preenchidos abaixo.",
+  "The following masses were measured: syringe+needle 10.6 g; syringe+needle+water 30.3 g; syringe+needle+sample 29.3 g. Pre-filled data below.": "As seguintes massas foram medidas: seringa+agulha 10.6 g; seringa+agulha+água 30.3 g; seringa+agulha+amostra 29.3 g. Dados pré-preenchidos abaixo.",
+  "The following masses were measured: syringe+needle 10.6 g; syringe+needle+water 30.5 g; syringe+needle+sample 29.5 g. Pre-filled data below.": "As seguintes massas foram medidas: seringa+agulha 10.6 g; seringa+agulha+água 30.5 g; seringa+agulha+amostra 29.5 g. Dados pré-preenchidos abaixo.",
+  "The following masses were measured: syringe+needle 10.6 g; syringe+needle+water 30.4 g; syringe+needle+sample 29.4 g. Pre-filled data below.": "As seguintes massas foram medidas: seringa+agulha 10.6 g; seringa+agulha+água 30.4 g; seringa+agulha+amostra 29.4 g. Dados pré-preenchidos abaixo.",
   "Experiment conducted at 25 °C, using still mineral water as reference.": "Experimento realizado a 25 °C, utilizando como padrão água mineral sem gás.",
+  "Flow videos provided and pre-selected below. For a better understanding of the time marking (critical step), we recommend clicking \"Edit\" on each video and using visual cues to perform the markings. For a quicker test, simply advance or remove the 4 videos via \"Delete\" and manually enter the flow times (18 to 14 mL) provided below. After typing each time, click \"+\".": "Vídeos de escoamento fornecidos e pré-selecionados abaixo. Para melhor compreensão da marcação dos tempos (etapa crítica), recomendamos clicar em \"Editar\" em cada vídeo e usar referências visuais para realizar as marcações. Para um teste mais rápido, simplesmente avance ou remova os 4 vídeos via \"Excluir\" e insira manualmente os tempos de escoamento (18 a 14 mL) fornecidos abaixo. Após digitar cada tempo, clique em \"+\".",
+  "and": "e",
 
   // ─── StepProfile ───
   "Select": "Selecione",
@@ -179,6 +184,7 @@ export const ptTranslations: Record<string, string> = {
 
   // ─── StepTimes ───
   "Record the flow": "Registre o escoamento",
+  "Record the": "Registre o",
   "Most sensitive step of the methodology.": "Etapa mais sensível da metodologia.",
   "The flow time estimation (always from 18 mL to 14 mL, using": "A estimativa do tempo de escoamento (sempre de 18 mL a 14 mL, usando",
   "meniscus": "menisco",
