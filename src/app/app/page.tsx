@@ -5,23 +5,31 @@
 
 "use client"
 import Link from "next/link"
-import React, { useState } from "react"
-import { useRouter } from "next/navigation"
+import React, { useState, Suspense } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Beaker, LineChart, BookOpen, Info, FlaskConical } from "lucide-react"
 import { InlineTooltip } from "@/components/ui/InfoTooltip"
 import { useT } from "@/lib/i18n"
 import DemoModal from "@/components/ui/DemoModal"
 import { getDemoScenario, DemoScenarioId, clearDemoMode } from "@/lib/demoScenarios"
 
-export default function Home() {
+function HomeContent() {
   const [showDemoModal, setShowDemoModal] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
   const t = useT()
 
   // Clear demo mode when arriving at Home (user left demo flow)
   React.useEffect(() => {
     clearDemoMode()
   }, [])
+
+  // Auto-open demo modal if ?demo=1 in URL
+  React.useEffect(() => {
+    if (searchParams.get('demo') === '1') {
+      setShowDemoModal(true)
+    }
+  }, [searchParams])
 
   const handleDemoSelect = (id: DemoScenarioId) => {
     const scenario = getDemoScenario(id)
@@ -146,12 +154,20 @@ export default function Home() {
         </p>
         <p className="text-red-700 text-sm">
           {t("Seek medical help immediately.")}<br />
-          {t("In Brazil, call Disque-Intoxicação:")} <span className="font-bold">0800 722 6001</span>.
+          {t("Contact your country's poison control center.")}
         </p>
         <p className="text-red-600 text-xs mt-3 italic">
-          {t("In suspicious cases, report to: local health surveillance, Civil Police (197), PROCON and, when applicable, MAPA (Brazil).")}
+          {t("In suspicious cases, report to health surveillance authorities, police and consumer protection agencies.")}
         </p>
       </div>
     </div>
+  )
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={null}>
+      <HomeContent />
+    </Suspense>
   )
 }

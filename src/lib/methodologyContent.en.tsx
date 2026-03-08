@@ -370,7 +370,7 @@ export const MethodologyComplete_EN = () => (
       <p className="font-semibold text-red-800">🚨 Suspected methanol contamination</p>
       <p className="text-red-800 mt-1">
         Seek medical help immediately.<br />
-        In Brazil, call Disque-Intoxicação: <strong>0800 722 6001</strong>.
+        Contact your country's poison control center. In Brazil: Disque-Intoxicação <strong>0800 722 6001</strong>.
       </p>
     </div>
 
@@ -383,8 +383,7 @@ export const MethodologyComplete_EN = () => (
       <li>Be suspicious of prices well below market average</li>
     </ul>
     <p className="text-gray-600 italic mt-2 text-xs">
-      In suspicious cases, report to: local health surveillance, Civil Police (197), PROCON and, 
-      when applicable, MAPA (Brazil).
+      In suspicious cases, report to health surveillance authorities, police and consumer protection agencies.
     </p>
 
     <hr className="my-6 border-gray-300" />

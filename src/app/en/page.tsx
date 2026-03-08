@@ -118,18 +118,18 @@ export default function HomePageEN() {
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
               <Link
-                href="/app/measure"
+                href="/app"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#002060] text-white font-semibold hover:bg-[#001040] transition-colors text-sm"
               >
                 <Beaker className="w-4 h-4" />
                 Start screening
               </Link>
               <Link
-                href="/app"
+                href="/app?demo=1"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-[#002060] text-[#002060] font-semibold hover:bg-blue-50 transition-colors text-sm"
               >
                 <FlaskConical className="w-4 h-4" />
-                Try with real date
+                Try with real data
               </Link>
               <a
                 href="#how-it-works"
@@ -460,11 +460,11 @@ export default function HomePageEN() {
 
             <div className="text-center">
               <Link
-                href="/app"
+                href="/app?demo=1"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#002060] text-white font-semibold hover:bg-[#001040] transition-colors text-sm"
               >
                 <FlaskConical className="w-4 h-4" />
-                Try with real date
+                Try with real data
               </Link>
             </div>
           </div>

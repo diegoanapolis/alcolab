@@ -39,16 +39,16 @@ export default function TermsGate({ children }: { children: React.ReactNode }) {
           </div>
           <div className="space-y-2 text-sm text-white text-justify">
             <p>
-              This tool is intended exclusively for preventive screening purposes, supporting public health protection. It does not replace official laboratory analyses. Results are estimates and may vary depending on the precision of measurements performed by the user. The reliability of results depends entirely on the user’s care in following the methodology described in the application.
+              {t("This tool is intended exclusively for preventive screening purposes, supporting public health protection. It does not replace official laboratory analyses. Results are estimates and may vary depending on the precision of measurements performed by the user. The reliability of results depends entirely on the user\u2019s care in following the methodology described in the application.")}
             </p>
             <p>
-              The developers assume no responsibility for any misinterpretations, consumption decisions, or consequences arising from incorrect, incomplete, or improper use of the tool. If adulteration or methanol presence is suspected, do not consume the beverage and contact local health authorities and law enforcement.
+              {t("The developers assume no responsibility for any misinterpretations, consumption decisions, or consequences arising from incorrect, incomplete, or improper use of the tool. If adulteration or methanol presence is suspected, do not consume the beverage and contact local health authorities and law enforcement.")}
             </p>
             <p>
-              If methanol contamination is suspected, seek medical help immediately. In Brazil, call Disque-Intoxicação: 0800 722 6001.
+              {t("If methanol contamination is suspected, seek medical help immediately. Contact your country's poison control center.")}
             </p>
             <p>
-              By clicking "I have read and agree", you declare that you have read, understood, and accepted the Terms of Use and Privacy Policy available in the application.
+              {t("By clicking \"I have read and agree\", you declare that you have read, understood, and accepted the Terms of Use and Privacy Policy available in the application.")}
             </p>
           </div>
           <div className="flex gap-3 pt-2">
@@ -56,18 +56,17 @@ export default function TermsGate({ children }: { children: React.ReactNode }) {
               onClick={handleAccept} 
               className="flex-1 bg-white hover:bg-gray-100 text-[#002060] font-semibold rounded-lg py-2"
             >
-              I have read and agree
+              {t("I have read and agree")}
             </button>
             <button 
-              onClick={() => alert("Using the application requires agreement with the Terms.")} 
+              onClick={() => alert(t("Using the application requires agreement with the Terms."))} 
               className="flex-1 bg-gray-500 hover:bg-gray-600 text-white rounded-lg py-2"
             >
-              I do not agree
+              {t("I do not agree")}
             </button>
           </div>
           <div className="text-xs text-white text-center">
-            Read the <Link href="/app/methodology" className="underline text-blue-300">Methodology</Link> and 
-            the information in <Link href="/app/about" className="underline text-blue-300">About</Link>.
+            {t("Read the")} <Link href="/app/methodology" className="underline text-blue-300">{t("Methodology")}</Link> {t("and the information in")} <Link href="/app/about" className="underline text-blue-300">{t("About")}</Link>.
           </div>
         </div>
       </div>

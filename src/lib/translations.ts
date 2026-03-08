@@ -24,8 +24,8 @@ export const ptTranslations: Record<string, string> = {
   "Try with real example data": "Teste com dados de exemplos reais",
   "Suspected methanol contamination": "Suspeita de contaminação por metanol",
   "Seek medical help immediately.": "Procure serviço de saúde imediatamente.",
-  "In Brazil, call Disque-Intoxicação:": "Ligue para o Disque-Intoxicação:",
-  "In suspicious cases, report to: local health surveillance, Civil Police (197), PROCON and, when applicable, MAPA (Brazil).": "Em casos suspeitos, denuncie: Vigilância Sanitária local, Polícia Civil (197), PROCON e, quando aplicável, MAPA.",
+  "Contact your country's poison control center.": "Ligue para o Disque-Intoxicação do seu país. Brasil: 0800 722 6001.",
+  "In suspicious cases, report to health surveillance authorities, police and consumer protection agencies.": "Em casos suspeitos, denuncie à Vigilância Sanitária, à Polícia e à Entidade de Proteção ao Consumidor.",
   "Dedicated to the": "Dedicada à",
   "of pure distilled beverages; fuel ethanol; reagent methanol and": "de bebidas destiladas puras (\"secas\"); etanol combustível; metanol reagente e",
   "made of water, ethanol and methanol, as per options listed in": "compostas por água, etanol e metanol, conforme opções listadas em",
@@ -34,7 +34,7 @@ export const ptTranslations: Record<string, string> = {
   "Terms of Use and Liability": "Termo de Uso e Responsabilidade",
   "This tool is intended exclusively for preventive screening purposes, supporting public health protection. It does not replace official laboratory analyses. Results are estimates and may vary depending on the precision of measurements performed by the user. The reliability of results depends entirely on the user\u2019s care in following the methodology described in the application.": "Esta ferramenta possui finalidade exclusivamente preventiva e de triagem, auxiliando na proteção da saúde pública. Não substitui exames laboratoriais oficiais. Os resultados são estimativos e podem variar conforme a precisão das medições realizadas pelo próprio usuário. A confiabilidade dos resultados depende inteiramente do cuidado do usuário ao seguir a metodologia descrita no aplicativo.",
   "The developers assume no responsibility for any misinterpretations, consumption decisions, or consequences arising from incorrect, incomplete, or improper use of the tool. If adulteration or methanol presence is suspected, do not consume the beverage and contact local health authorities and law enforcement.": "Os desenvolvedores não se responsabilizam por quaisquer interpretações equivocadas, decisões de consumo ou consequências decorrentes do uso incorreto, incompleto ou indevido da ferramenta. Em caso de suspeita de adulteração ou presença de metanol, recomenda-se não consumir a bebida e acionar Vigilância Sanitária local, Polícia Civil (197), PROCON e, quando couber, o MAPA.",
-  "If methanol contamination is suspected, seek medical help immediately. In Brazil, call Disque-Intoxicação: 0800 722 6001.": "Em caso de suspeita de contaminação por metanol, busque serviço de saúde imediatamente e ligue para o Disque-Intoxicação 0800 722 6001.",
+  "If methanol contamination is suspected, seek medical help immediately. Contact your country's poison control center.": "Em caso de suspeita de contaminação por metanol, busque serviço de saúde imediatamente. Ligue para o Disque-Intoxicação do seu país. Brasil: 0800 722 6001.",
   "By clicking \"I have read and agree\", you declare that you have read, understood, and accepted the Terms of Use and Privacy Policy available in the application.": "Ao clicar em \"Li e concordo\", você declara ter lido, entendido e aceitado os Termos de Uso e a Política de Privacidade disponíveis no aplicativo.",
   "I have read and agree": "Li e Concordo",
   "I do not agree": "Não Concordo",
@@ -402,4 +402,13 @@ export const ptTranslations: Record<string, string> = {
   "Methodology: Review": "Metodologia: Revisão",
   "Ethanol content:": "Teor de etanol:",
   "Methanol content:": "Teor de metanol:",
+
+  // ─── About page extra ───
+  "AlcoLab is an open-source scientific project": "O AlcoLab é um projeto científico de código aberto",
+  ", available online as a public tool aimed at health protection and maintained by a small independent team.": ", disponível online como ferramenta pública voltada à proteção da saúde e mantido por uma pequena equipe independente.",
+  "Other countries": "Outros países",
+
+  // ─── TermsGate extra ───
+  "Read the": "Leia a",
+  "and the information in": "e as informações em",
 }

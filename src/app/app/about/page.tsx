@@ -55,7 +55,6 @@ export default function AboutPage() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback para navegadores sem suporte a clipboard API
       const el = document.createElement("textarea");
       el.value = PIX_KEY;
       document.body.appendChild(el);
@@ -75,47 +74,41 @@ export default function AboutPage() {
       {/* Missão */}
       <div className="space-y-2 text-sm text-neutral-700 text-justify">
         <p>
-          Methanol can kill. Detection is time-consuming and requires a lab.{" "}
-          <span className="font-semibold text-[#002060]">AlcoLab</span> makes
-          this screening accessible to everyone, using only a syringe, a scale
-          and a phone.
+          {t("Methanol can kill. Detection is time-consuming and requires a lab.")}{" "}
+          <span className="font-semibold text-[#002060]">AlcoLab</span>{" "}
+          {t("makes this screening accessible to everyone, using only a syringe, a scale and a phone.")}
         </p>
       </div>
 
       {/* Disclaimer */}
       <p className="text-xs text-neutral-400 italic">
-        Screening tool — does not replace confirmatory laboratory analysis.
+        {t("Screening tool — does not replace confirmatory laboratory analysis.")}
       </p>
 
       {/* ── Apoie o projeto ── */}
       <section className="space-y-3">
         <h2 className="text-base font-semibold text-[#002060] flex items-center gap-1.5">
           <Heart className="w-4 h-4" />
-          Support the project
+          {t("Support the project")}
         </h2>
 
         <div className="text-sm text-neutral-700 space-y-2 text-justify">
           <p>
-            The{" "}
-            <span className="font-semibold text-[#002060]">AlcoLab</span> is an
-            open-source scientific project (
-            <a
+            {t("AlcoLab is an open-source scientific project")}{" "}
+            (<a
               href={GITHUB_REPO}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#002060] underline"
             >
               AGPL-3.0
-            </a>
-            ), available online as a public tool aimed at health protection
-            and maintained by a small independent team.
+            </a>){t(", available online as a public tool aimed at health protection and maintained by a small independent team.")}
           </p>
           <p className="italic font-medium text-neutral-600">
-            If the idea resonates with you, consider supporting the project.
+            {t("If the idea resonates with you, consider supporting the project.")}
           </p>
           <p>
-            Support helps fund development, experiments,
-            infrastructure and documentation.
+            {t("Support helps fund development, experiments, infrastructure and documentation.")}
           </p>
         </div>
 
@@ -135,17 +128,17 @@ export default function AboutPage() {
               <button
                 onClick={handleCopyPix}
                 className="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded border border-[#002060] text-[#002060] hover:bg-blue-50 transition-colors shrink-0"
-                aria-label="Copy Pix key"
+                aria-label={t("Copy Pix key")}
               >
                 {copied ? (
                   <>
                     <Check className="w-3.5 h-3.5" />
-                    Copied
+                    {t("Copied")}
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    Copy
+                    {t("Copy")}
                   </>
                 )}
               </button>
@@ -155,7 +148,7 @@ export default function AboutPage() {
           {/* Internacional - Buy Me a Coffee */}
           <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-3 space-y-2">
             <p className="text-sm font-medium text-neutral-700">
-              🌍 Internacional
+              🌍 {t("Other countries")}
             </p>
             <a
               href={BUYME_COFFEE_URL}
@@ -175,17 +168,15 @@ export default function AboutPage() {
       <section className="space-y-3">
         <h2 className="text-base font-semibold text-[#002060] flex items-center gap-1.5">
           <Lightbulb className="w-4 h-4" />
-          Support with ideas too
+          {t("Support with ideas too")}
         </h2>
 
         <div className="text-sm text-neutral-700 space-y-2 text-justify">
           <p>
-            Suggestions for improvements, new features or adjustments are always
-            welcome.
+            {t("Suggestions for improvements, new features or adjustments are always welcome.")}
           </p>
           <p>
-            All proposals are evaluated by the team and publicly tracked
-            regarding their feasibility and implementation.
+            {t("All proposals are evaluated by the team and publicly tracked regarding their feasibility and implementation.")}
           </p>
         </div>
 
@@ -195,7 +186,7 @@ export default function AboutPage() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg border-2 border-[#002060] text-[#002060] hover:bg-blue-50 transition-colors"
         >
-          Submit a suggestion
+          {t("Submit a suggestion")}
           <ExternalLink className="w-3.5 h-3.5 opacity-60" />
         </a>
       </section>
@@ -209,10 +200,10 @@ export default function AboutPage() {
               <p className="text-sm text-neutral-800">
                 <span className="font-semibold">{m.name}</span>
                 <span className="text-neutral-500"> — </span>
-                {m.role}
+                {t(m.role)}
               </p>
               <p className="text-xs text-neutral-400 mt-0.5">
-                {m.credentials}
+                {t(m.credentials)}
               </p>
             </li>
           ))}
@@ -223,7 +214,7 @@ export default function AboutPage() {
       <section className="space-y-2">
         <h2 className="text-base font-semibold text-[#002060] flex items-center gap-1.5">
           <Mail className="w-4 h-4" />
-          Contact & partnerships
+          {t("Contact & partnerships")}
         </h2>
 
         <a
@@ -234,16 +225,14 @@ export default function AboutPage() {
         </a>
 
         <p className="text-sm text-neutral-700 text-justify">
-          Institutions, organizations and companies interested in supporting,
-          partnering or integrating AlcoLab into their programs are welcome to
-          get in touch.
+          {t("Institutions, organizations and companies interested in supporting, partnering or integrating AlcoLab into their programs are welcome to get in touch.")}
         </p>
       </section>
 
       {/* ── Licença (rodapé) ── */}
       <footer className="pt-2 border-t border-neutral-100">
         <p className="text-xs text-neutral-400">
-          Open source under{" "}
+          {t("Open source under")}{" "}
           <a
             href={GITHUB_REPO}
             target="_blank"

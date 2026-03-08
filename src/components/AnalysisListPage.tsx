@@ -1043,7 +1043,7 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
             href="/medir"
             className="block w-full bg-[#002060] text-white text-center py-3 rounded-lg font-medium"
           >
-            Nova Analysis
+            {t("New analysis")}
           </Link>
         </div>
       )}
