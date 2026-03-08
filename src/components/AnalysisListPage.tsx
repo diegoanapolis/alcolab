@@ -625,8 +625,8 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
     if (typeof window === 'undefined') return
     
     try {
-      const jsonDate = await DatabaseService.exportToJSON()
-      const blob = new Blob([jsonDate], { type: 'application/json' })
+      const jsonData = await DatabaseService.exportToJSON()
+      const blob = new Blob([jsonData], { type: 'application/json' })
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url

@@ -55,7 +55,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
   const [customError, setCustomError] = useState<string | null>(null)
   const [showSingleRepWarning, setShowSingleRepWarning] = useState(false)
   const [singleRepWarningMsg, setSingleRepWarningMsg] = useState("")
-  const pendingFormDateRef = useRef<TimesData | null>(null)
+  const pendingFormDataRef = useRef<TimesData | null>(null)
   const [zoom, setZoom] = useState<number>(2)
   const [interactionMode, setInteractionMode] = useState<'video'|'scroll'|null>(null)
   const repeatRef = useRef<number | null>(null)
@@ -420,7 +420,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
     if (sampleCount === 1) warnings.push("Sample (only 1 value)")
     if (warnings.length > 0) {
       setSingleRepWarningMsg(`Only one value was entered for ${warnings.join(" and ")}. At least two values (duplicate) are recommended for greater reliability. Do you wish to proceed anyway?`)
-      pendingFormDateRef.current = formData
+      pendingFormDataRef.current = formData
       setShowSingleRepWarning(true)
       return
     }
@@ -429,9 +429,9 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
 
   const confirmSingleRep = () => {
     setShowSingleRepWarning(false)
-    if (pendingFormDateRef.current) {
-      onNext(pendingFormDateRef.current)
-      pendingFormDateRef.current = null
+    if (pendingFormDataRef.current) {
+      onNext(pendingFormDataRef.current)
+      pendingFormDataRef.current = null
     }
   }
   
