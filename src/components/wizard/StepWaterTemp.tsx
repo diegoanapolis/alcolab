@@ -105,7 +105,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
             {["Still mineral (recommended)", "Tap/potable", "Deionized/Distilled (when available)"].map((w) => (
               <label key={w} className="border rounded-lg p-3 text-sm cursor-pointer hover:border-[#002060] transition-colors">
                 <input type="radio" value={w} {...register("waterType")} className="mr-2" />
-                {w}
+                {t(w)}
               </label>
             ))}
           </div>
@@ -126,7 +126,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
                 : "text-gray-600"
             }`}
           >
-            I have a thermometer
+            {t("I have a thermometer")}
           </button>
           <button 
             type="button" 
@@ -140,7 +140,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
                 : "text-gray-600"
             }`}
           >
-            No thermometer
+            {t("No thermometer")}
           </button>
         </div>
 
@@ -219,7 +219,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-[#002060] mb-3">
-                  Both liquids at equal temperatures (between 20 and 28°C)?
+                  {t("Both liquids at equal temperatures (between 20 and 28°C)?")}
                 </label>
                 <div className="space-y-2">
                   <label className="flex items-center gap-3 border rounded-lg p-3 cursor-pointer hover:border-[#002060] transition-colors">
@@ -271,7 +271,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
       <MethodologyModal
         isOpen={showMethodology}
         onClose={() => setShowMethodology(false)}
-        title="Methodology: Temperature"
+        title={t("Methodology: Temperature")}
       >
         <MethodologyTemperatura />
       </MethodologyModal>

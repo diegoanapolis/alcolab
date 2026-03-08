@@ -624,7 +624,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
       <MethodologyModal
         isOpen={showMethodology}
         onClose={() => setShowMethodology(false)}
-        title="Methodology: Flow"
+        title={t("Methodology: Flow")}
       >
         <MethodologyEscoamento />
       </MethodologyModal>

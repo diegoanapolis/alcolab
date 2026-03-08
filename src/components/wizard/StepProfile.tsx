@@ -123,7 +123,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
               className="text-xs underline text-[#002060]" 
               onClick={handleClearAll}
             >
-              Clear - New analysis
+              {t("Clear - New analysis")}
             </button>
           </InfoTooltip>
           
@@ -132,7 +132,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
             className="text-xs underline text-red-600" 
             onClick={() => setShowNaoAplica(true)}
           >
-            Not applicable?
+            {t("Not applicable?")}
           </button>
           
           <MethodologyButton onClick={() => setShowMethodology(true)} compact />
@@ -152,7 +152,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
               }`}
             >
               <span className={type === "Commercial ethanol*" ? "font-bold" : undefined}>
-                {type}
+                {t(type)}
               </span>
             </button>
           ))}
@@ -162,9 +162,9 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
         <p className="text-xs text-neutral-600 text-justify">
           *{" "}
           <InfoTooltip text="Look for well-known and quality-recognized brands for better reference results.">
-            <span className="font-medium">Commercial ethanol</span>
+            <span className="font-medium">{t("Commercial ethanol")}</span>
           </InfoTooltip>{" "}
-          sealed can be used as a check to verify whether the results obtained with your instruments are consistent.
+          {t("sealed can be used as a check to verify if the results obtained with your instruments are consistent.")}
         </p>
 
         {/* Botões de navegação */}
@@ -179,7 +179,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
       <MethodologyModal
         isOpen={showMethodology}
         onClose={() => setShowMethodology(false)}
-        title="Methodology: Solution Type"
+        title={t("Methodology: Solution Type")}
       >
         <MethodologyTipoSolucao />
       </MethodologyModal>
@@ -194,7 +194,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
             <div className="p-4">
               <ul className="list-disc pl-5 space-y-2 text-sm text-red-700">
                 {NOT_APPLICABLE.map((item, idx) => (
-                  <li key={idx}>{item}</li>
+                  <li key={idx}>{t(item)}</li>
                 ))}
               </ul>
             </div>
@@ -203,7 +203,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
                 onClick={() => setShowNaoAplica(false)}
                 className="bg-[#002060] text-white px-4 py-2 rounded-lg text-sm font-medium"
               >
-                Understood
+                {t("Understood")}
               </button>
             </div>
           </div>

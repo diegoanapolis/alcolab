@@ -75,7 +75,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
       <form className="space-y-4 p-4" onSubmit={handleSubmit(onNext)}>
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold text-[#002060]">
-            Enter sample date
+            {t("Enter sample data")}
           </h1>
           <MethodologyButton onClick={() => setShowMethodology(true)} compact />
         </div>
@@ -88,7 +88,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
 
         {/* Camada 1: Texto auxiliar */}
         <p className="text-sm text-neutral-600">
-          This information helps with interpretation and organization of results.
+          {t("This information helps with interpretation and organization of results.")}
         </p>
 
         {/* Campos obrigatórios por tipo */}
@@ -99,7 +99,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
                 <InfoTooltip text="Value declared by the manufacturer or expected content from preparation.">
                   <span>{t("Label content")}</span>
                 </InfoTooltip>
-                <span>(0.0 to 100.0) *</span>
+                <span>{t("(0.0 to 100.0) *")}</span>
               </label>
               <input 
                 type="text" 
@@ -122,7 +122,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
             
             <div>
               <label className="flex items-center gap-1 text-sm font-medium text-[#002060] mb-2">
-                <span>Label content unit</span>
+                <span>{t("Label content unit")}</span>
                 <InfoTooltip text="% v/v - Beverages: official unit for distilled beverages in Brazil." />
               </label>
               <select 
@@ -135,9 +135,9 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
                 className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent"
               >
                 <option value="">{t("Select...")}</option>
-                <option value="% v/v - Beverages">% v/v - Beverages</option>
-                <option value="º GL - Gay-Lussac">º GL - Gay-Lussac</option>
-                <option value="INPM or % w/w">INPM or % w/w</option>
+                <option value="% v/v - Beverages">{t("% v/v - Beverages")}</option>
+                <option value="º GL - Gay-Lussac">{t("°GL - Gay-Lussac")}</option>
+                <option value="INPM or % w/w">{t("INPM or % w/w")}</option>
               </select>
             </div>
           </div>
@@ -145,7 +145,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
           <div className="space-y-3">
             <div>
               <label className="block text-sm font-medium text-[#002060] mb-2">
-                Ethanol content % w/w *
+                {t("Ethanol content % w/w *")}
               </label>
               <input 
                 type="text" 
@@ -168,7 +168,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
             
             <div>
               <label className="block text-sm font-medium text-[#002060] mb-2">
-                Methanol content % w/w *
+                {t("Methanol content % w/w *")}
               </label>
               <input 
                 type="text" 
@@ -191,7 +191,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
             
             <div>
               <label className="block text-sm font-medium text-[#002060] mb-2">
-                Water content % w/w
+                {t("Water content % w/w")}
               </label>
               <input 
                 type="text" 
@@ -206,12 +206,12 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
         {/* Campos opcionais */}
         <div>
           <label className="block text-sm font-medium text-[#002060] mb-2">
-            Sample name
+            {t("Sample name")}
           </label>
           <input 
             type="text" 
             maxLength={60} 
-            placeholder="User-defined" 
+            placeholder={t("User-defined")} 
             {...register("sampleName")} 
             className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent" 
           />
@@ -220,14 +220,14 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
         <div>
           <label className="flex items-center gap-1 text-sm font-medium text-[#002060] mb-2">
             <InfoTooltip text="Optional field for traceability and to facilitate later retrieval of results.">
-              <span>Manufacturer and/or brand</span>
+              <span>{t("Manufacturer and/or brand")}</span>
             </InfoTooltip>
           </label>
           <input 
             type="text" 
             maxLength={60} 
-            placeholder="Optional" 
-            {...register("brand")} 
+            placeholder={t("Optional")}
+            {...register("brand")}
             className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent" 
           />
         </div>
@@ -241,8 +241,8 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
           <input 
             type="text" 
             maxLength={60} 
-            placeholder="Optional" 
-            {...register("lot")} 
+            placeholder={t("Optional")}
+            {...register("lot")}
             className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent" 
           />
         </div>
@@ -258,7 +258,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
       <MethodologyModal
         isOpen={showMethodology}
         onClose={() => setShowMethodology(false)}
-        title="Methodology: Sample Data"
+        title={t("Methodology: Sample Data")}
       >
         <MethodologyDadosAmostra />
       </MethodologyModal>

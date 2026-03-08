@@ -125,7 +125,7 @@ export default function StepReviewCalculate({ data, onBack, onCalculate }: {
       <MethodologyModal
         isOpen={showMethodology}
         onClose={() => setShowMethodology(false)}
-        title="Methodology: Review"
+        title={t("Methodology: Review")}
       >
         <MethodologyRevisao />
       </MethodologyModal>

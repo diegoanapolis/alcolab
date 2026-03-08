@@ -465,7 +465,7 @@ For greater reliability, it is recommended to use a scale with at least one deci
                 : "text-gray-600"
             }`}
           >
-            Scale
+            {t("Scale")}
           </button>
           <button 
             type="button" 
@@ -476,7 +476,7 @@ For greater reliability, it is recommended to use a scale with at least one deci
                 : "text-gray-600"
             }`}
           >
-            Hydrometer, alcoholmeter or label
+            {t("Hydrometer, alcoholmeter or label")}
           </button>
         </div>
 
@@ -503,7 +503,7 @@ For greater reliability, it is recommended to use a scale with at least one deci
             
             {/* Campo massa do conjunto */}
             <div>
-              <div className="font-medium text-sm text-[#002060] mb-2">Assembly mass (syringe, plunger, needle) (g)</div>
+              <div className="font-medium text-sm text-[#002060] mb-2">{t("Assembly mass (syringe, plunger, needle) (g)")}</div>
               <input
                 type="text"
                 inputMode="decimal"
@@ -516,7 +516,7 @@ For greater reliability, it is recommended to use a scale with at least one deci
                 } })}
               />
               <p className="text-xs text-neutral-500 mt-1">
-                Enter 0.0 if entering liquid mass in the fields below
+                {t("Enter 0.0 if entering liquid mass in the fields below")}
               </p>
             </div>
           
@@ -557,7 +557,7 @@ For greater reliability, it is recommended to use a scale with at least one deci
             {/* Mostrar massas líquidas calculadas se houver massa do conjunto */}
             {containerMass > 0 && (rawWaterMass > 0 || rawSampleMass > 0) && (
               <div className="bg-blue-50 p-3 rounded-lg">
-                <div className="text-sm font-medium text-[#002060] mb-2">Calculated liquid masses:</div>
+                <div className="text-sm font-medium text-[#002060] mb-2">{t("Calculated liquid masses:")}</div>
                 <div className="grid grid-cols-2 gap-4 text-sm text-gray-700">
                   <div>
                     Water: {liquidWaterMass > 0 ? `${liquidWaterMass.toFixed(2)} g` : "-"}
@@ -573,7 +573,7 @@ For greater reliability, it is recommended to use a scale with at least one deci
             {shouldAskDecimalQuestion && (
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 space-y-3">
                 <p className="text-sm font-medium text-amber-800">
-                  Does the scale have at least one decimal place?
+                  {t("Does the scale have at least one decimal place?")}
                 </p>
                 <div className="flex gap-3">
                   <button
@@ -588,7 +588,7 @@ For greater reliability, it is recommended to use a scale with at least one deci
                         : "bg-white border border-gray-300 text-gray-700 hover:border-[#002060]"
                     }`}
                   >
-                    Yes
+                    {t("Yes")}
                   </button>
                   <button
                     type="button"
@@ -599,14 +599,14 @@ For greater reliability, it is recommended to use a scale with at least one deci
                         : "bg-white border border-gray-300 text-gray-700 hover:border-[#002060]"
                     }`}
                   >
-                    No
+                    {t("No")}
                   </button>
                 </div>
                 
                 {/* Indicador de carregamento */}
                 {checkingPrecision && (
                   <div className="flex items-center gap-2 text-sm text-amber-700">
-                    <span>Please wait while checking values</span>
+                    <span>{t("Please wait while checking values")}</span>
                     <span className="inline-flex">
                       <span className="animate-[pulse_1s_ease-in-out_infinite]">.</span>
                       <span className="animate-[pulse_1s_ease-in-out_0.2s_infinite]">.</span>
@@ -644,7 +644,7 @@ For greater reliability, it is recommended to use a scale with at least one deci
             
             <div>
               <div className="font-medium text-sm text-[#002060] mb-2">
-                Density or alcohol content
+                {t("Density or alcohol content")}
               </div>
               <input
                 type="text"
@@ -662,7 +662,7 @@ For greater reliability, it is recommended to use a scale with at least one deci
             
             <div>
               <div className="font-medium text-sm text-[#002060] mb-2">
-                Unit
+                {t("Unit")}
               </div>
               <select 
                 {...register("measuredUnit", { setValueAs: (v) => {
@@ -672,10 +672,10 @@ For greater reliability, it is recommended to use a scale with at least one deci
                 className="w-full border border-[#002060] rounded-lg p-2.5 focus:ring-2 focus:ring-[#002060] focus:border-transparent"
               >
                 <option value="">{t("Select...")}</option>
-                <option value="g/mL or g/cm³">g/mL or g/cm³</option>
-                <option value="% v/v or °GL">% v/v or °GL</option>
-                <option value="% m/m or INPM">% m/m or INPM</option>
-                <option value="% v/v - label">% v/v - label</option>
+                <option value="g/mL or g/cm³">{t("g/mL or g/cm³")}</option>
+                <option value="% v/v or °GL">{t("% v/v or °GL")}</option>
+                <option value="% m/m or INPM">{t("% w/w or INPM")}</option>
+                <option value="% v/v - label">{t("% v/v - label")}</option>
               </select>
               {errors.measuredUnit && <p className="text-red-600 text-xs mt-1">{String(errors.measuredUnit.message)}</p>}
             </div>
@@ -701,7 +701,7 @@ For greater reliability, it is recommended to use a scale with at least one deci
       <MethodologyModal
         isOpen={showMethodology}
         onClose={() => setShowMethodology(false)}
-        title="Methodology: Mass or Density"
+        title={t("Methodology: Mass or Density")}
       >
         <MethodologyMassaDensidade />
       </MethodologyModal>

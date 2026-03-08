@@ -12,20 +12,20 @@ Implements:
 2) Initial w_alcool determination:
 2.1) method = "Scale" -> dens_rel = sampleMass / waterMass -> w_et (H2O-EtOH mesh at sampleTemperature) and w_met (H2O-MeOH mesh at sampleTemperature) -> w_alcool = mean(w_et, w_met)
 
-2.2) method = "Hydrometer or alcoholmeter" and measuredUnit = "g/mL" or "g/cm³"
+2.2) method = "hydrometer or alcoholmeter" and measuredUnit = "g/mL" or "g/cm³"
      dens_rel = measuredValue / rho_water(sampleTemperature) -> same as 2.1
 
-2.3.1) method = "Hydrometer or alcoholmeter" and measuredUnit = "% v/v - label"
+2.3.1) method = "hydrometer or alcoholmeter" and measuredUnit = "% v/v - label"
        w_alcool = convert_vv_to_mm(measuredValue) using conversao_vv_para_wE_20C.csv (20°C mesh)
 
-2.3.2) method = "Hydrometer or alcoholmeter" and measuredUnit = "% v/v" or "°GL"
+2.3.2) method = "hydrometer or alcoholmeter" and measuredUnit = "% v/v" or "°GL"
        Use temp2 = sampleTemperature2 (user provided)
        - get rho_abs_20 = density from densidade_alcool_gl20a30.csv at temp=20°C for the given °GL (1 by 1; linear interpolation supported)
        - dens_rel = rho_abs_20 / rho_water(temp2)
        - use dens_rel_bin_H2O_EtOH.csv at temp2 to invert and obtain w_etanol
        - w_alcool = w_etanol
 
-2.4) method = "Hydrometer or alcoholmeter" and measuredUnit = "% m/m" or "INPM"
+2.4) method = "hydrometer or alcoholmeter" and measuredUnit = "% m/m" or "INPM"
      w_alcool = measuredValue/100
 
 Also outputs:
@@ -292,9 +292,9 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
     label_note = ""
     lu = _norm(label_unit)
 
-    if lu in {"inpm", "% m/m", "%m/m"}:
+    if lu in {"inpm", "% m/m", "%m/m", "inpm or % w/w", "% w/w", "inpm ou % m/m"}:
         label_note = "label already in % m/m (INPM)."
-    elif lu in {"% v/v - Beverages", "º gl - gay-lussac", "°gl", "ºgl", "% v/v"}:
+    elif lu in {"% v/v - beverages", "º gl - gay-lussac", "°gl", "ºgl", "% v/v"}:
         if _not_na(label_abv):
             mm, _w = convert_vv_to_mm_percent(float(label_abv), conv)
             label_mm = mm
@@ -410,7 +410,7 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
     src = ""
 
     # ---- (2) w_alcool determination
-    if _norm(method) == "Scale":
+    if _norm(method) == "scale":
         water_mass = row.get("waterMass", np.nan)
         sample_mass = row.get("sampleMass", np.nan)
         if _not_na(water_mass) and _not_na(sample_mass) and float(water_mass) != 0:
@@ -419,7 +419,7 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
         else:
             src = "missing waterMass/sampleMass for Scale"
 
-    elif _norm(method) in {"Hydrometer or alcoholmeter", "densimetro ou alcoometro"}:
+    elif _norm(method) in {"hydrometer or alcoholmeter", "densimetro ou alcoometro"}:
         measured_unit = str(row.get("measuredUnit", "") or "").strip()
         measured_value = row.get("measuredValue", np.nan)
         mu = _norm(measured_unit)
@@ -432,9 +432,9 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
             else:
                 src = "missing measuredValue or sampleTemperature for density unit"
 
-        elif mu in {"% v/v - label", "% v/v - label", "% v/v - Beverages"}:
+        elif mu in {"% v/v - label", "% v/v - label", "% v/v - beverages"}:
             # 2.3.1: label-type measured value, always at 20°C table
-            # Inclui "% v/v - Beverages" que é equivalente a "% v/v - label"
+            # Inclui "% v/v - beverages" que é equivalente a "% v/v - label"
             if _not_na(measured_value):
                 _mm, w = convert_vv_to_mm_percent(float(measured_value), conv)
                 w_alcool = float(w)
@@ -442,7 +442,7 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
             else:
                 src = "missing measuredValue for % v/v - rótulo"
 
-        elif (("% v/v" in mu) or ("gl" in mu)) and ("rótulo" not in mu) and ("rotulo" not in mu) and ("bebidas" not in mu):
+        elif (("% v/v" in mu) or ("gl" in mu)) and ("rótulo" not in mu) and ("rotulo" not in mu) and ("bebidas" not in mu) and ("label" not in mu) and ("beverages" not in mu):
             # 2.3.2: álcool (%v/v ou °GL) medido em uma temperatura informada.
             # A UI atual não coleta sampleTemperature2; então usamos sampleTemperature como padrão.
             t_meas = sample_temp2 if _not_na(sample_temp2) else sample_temp
@@ -463,7 +463,7 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
                 w_et = w_etanol
                 w_alcool = w_etanol
                 src = "w_alcool from °GL/%v/v using: rho_abs(GL,temp)/rho_water(temp) then invert dens_rel_bin_H2O_EtOH at temp"
-        elif mu in {"% m/m", "%m/m", "inpm", "% m/m ou inpm", "%m/m ou inpm"}:
+        elif mu in {"% m/m", "%m/m", "inpm", "% m/m ou inpm", "%m/m ou inpm", "% w/w or inpm", "% w/w", "%w/w"}:
             # 2.4
             if _not_na(measured_value):
                 w_alcool = float(measured_value) / 100.0
@@ -479,7 +479,7 @@ def process_row(row: dict, conv: dict, dens_et: dict, dens_met: dict, dens_gl: d
     # If we have dens_rel but not w_alcool, use meshes (EtOH/MeOH mean).
     # For "Scale" (mass/mass), do NOT depend on the input temperature (use a fixed 20°C reference).
     if _not_na(dens_rel) and _is_na(w_alcool):
-        if _norm(method) == "Scale":
+        if _norm(method) == "scale":
             t_use = 20.0
             t_src = "20°C (fixed)"
         else:
