@@ -96,7 +96,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
           <div className="space-y-4">
             <div>
               <label className="flex items-center gap-1 text-sm font-medium text-[#002060] mb-2">
-                <InfoTooltip text="Value declared by the manufacturer or expected content from preparation.">
+                <InfoTooltip text={t("Value declared by the manufacturer or expected content from preparation.")}>
                   <span>{t("Label content")}</span>
                 </InfoTooltip>
                 <span>{t("(0.0 to 100.0) *")}</span>
@@ -123,7 +123,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
             <div>
               <label className="flex items-center gap-1 text-sm font-medium text-[#002060] mb-2">
                 <span>{t("Label content unit")}</span>
-                <InfoTooltip text="% v/v - Beverages: official unit for distilled beverages in Brazil." />
+                <InfoTooltip text={t("% v/v - Beverages: official unit for distilled beverages in Brazil.")} />
               </label>
               <select 
                 {...register("labelUnit", { 
@@ -219,7 +219,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
         
         <div>
           <label className="flex items-center gap-1 text-sm font-medium text-[#002060] mb-2">
-            <InfoTooltip text="Optional field for traceability and to facilitate later retrieval of results.">
+            <InfoTooltip text={t("Optional field for traceability and to facilitate later retrieval of results.")}>
               <span>{t("Manufacturer and/or brand")}</span>
             </InfoTooltip>
           </label>
@@ -234,7 +234,7 @@ export default function StepSampleData({ onNext, onBack, initialData, demoMode }
         
         <div>
           <label className="flex items-center gap-1 text-sm font-medium text-[#002060] mb-2">
-            <InfoTooltip text="Optional field for traceability and to facilitate later retrieval of results.">
+            <InfoTooltip text={t("Optional field for traceability and to facilitate later retrieval of results.")}>
               <span>{t("Batch")}</span>
             </InfoTooltip>
           </label>

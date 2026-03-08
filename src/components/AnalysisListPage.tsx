@@ -385,7 +385,7 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
       return {
         backgroundColor: 'bg-gray-100',
         textColor: 'text-gray-800',
-        text: 'Blocked: scale inconsistency',
+        text: t('Blocked: scale inconsistency'),
         status: 'Bloqueado'
       }
     }
@@ -419,7 +419,7 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
         return { 
           backgroundColor: 'bg-green-100', 
           textColor: 'text-green-800',
-          text: 'Compatibility between label and experiment',
+          text: t('Compatibility between label and experiment'),
           status: compativel
         }
       }
@@ -427,14 +427,14 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
         return { 
           backgroundColor: 'bg-red-100', 
           textColor: 'text-red-800',
-          text: 'Incompatible with label',
+          text: t('Incompatible with label'),
           status: compativel
         }
       }
       return { 
         backgroundColor: 'bg-yellow-100', 
         textColor: 'text-yellow-800',
-        text: 'More experimental data needed',
+        text: t('More experimental data needed'),
         status: 'Indeterminado'
       }
     }
@@ -447,7 +447,7 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
         return { 
           backgroundColor: 'bg-red-100', 
           textColor: 'text-red-800',
-          text: 'Possible methanol presence',
+          text: t('Possible methanol presence'),
           status: compativel
         }
       }
@@ -455,7 +455,7 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
         return { 
           backgroundColor: 'bg-green-100', 
           textColor: 'text-green-800',
-          text: 'Compatibility between label and experiment',
+          text: t('Compatibility between label and experiment'),
           status: compativel
         }
       }
@@ -463,14 +463,14 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
         return { 
           backgroundColor: 'bg-red-100', 
           textColor: 'text-red-800',
-          text: 'Incompatible with label',
+          text: t('Incompatible with label'),
           status: compativel
         }
       }
       return { 
         backgroundColor: 'bg-yellow-100', 
         textColor: 'text-yellow-800',
-        text: 'More experimental data needed',
+        text: t('More experimental data needed'),
         status: 'Indeterminado'
       }
     }
@@ -478,7 +478,7 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
     return { 
       backgroundColor: 'bg-yellow-100', 
       textColor: 'text-yellow-800',
-      text: 'More experimental data needed',
+      text: t('More experimental data needed'),
       status: 'Indeterminado'
     }
   }
@@ -960,13 +960,13 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
                   
                   <div className="text-xs text-gray-600 space-y-1">
                     <div className="flex items-center gap-4">
-                      <span>Type: {exp.inputs.beverageType}</span>
+                      <span>{t("Type:")} {t(exp.inputs.beverageType || '')}</span>
                     </div>
                     
                     {/* Mostrar mensagem de bloqueio se aplicável */}
                     {isBlocked ? (
                       <div className="text-xs bg-gray-100 p-2 rounded border border-gray-200">
-                        <span className="font-medium text-gray-700">⚠️ Analysis blocked:</span>
+                        <span className="font-medium text-gray-700">{t("Analysis blocked:")}</span>
                         <p className="mt-1 text-gray-600">
                           {exp.outputs.processamentoMensagem?.substring(0, 150) || 'Inconsistência entre densidade e label content com balança de baixa precisão.'}
                           {(exp.outputs.processamentoMensagem?.length ?? 0) > 150 && '...'}
@@ -974,7 +974,7 @@ export default function AnalysisListPage({ onSelectExperiment }: AnalysisListPag
                       </div>
                     ) : (
                       <div className="text-xs">
-                        <span className="font-medium">Statistically equivalent compositions:</span>
+                        <span className="font-medium">{t("Statistically equivalent compositions:")}</span>
                         <div className="mt-1 text-gray-700 text-xs leading-relaxed">
                           {(() => {
                             const eq = exp.outputs.equivalentes

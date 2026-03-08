@@ -31,7 +31,7 @@ export default function MedirPage() {
         if (scenario) {
           setDemoMode(demoId)
           const demoData: WizardData = {
-            profile: scenario.profile as any,
+            profile: { ...scenario.profile, sampleName: tr(scenario.profile.sampleName), brand: tr(scenario.profile.brand) } as any,
             density: scenario.density as any,
             waterTemp: scenario.waterTemp as any,
           }

@@ -97,16 +97,16 @@ export default function StepReviewCalculate({ data, onBack, onCalculate }: {
             <h2 className="font-bold text-[#002060] text-sm mb-2">{t("Flows")}</h2>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-xs font-medium text-gray-500 mb-1">{t("Water")}</p>
+                <p className="text-sm font-medium text-gray-500 mb-1">{t("Water")}</p>
                 <Replicas kind="water" />
-                <p className="mt-1 text-xs text-gray-600">
+                <p className="mt-1 text-sm text-gray-600">
                   {t("Manual:")} {data.times?.waterTimes && data.times.waterTimes.length ? data.times.waterTimes.map((t) => t.toFixed(2)).join(', ') + ' s' : '-'}
                 </p>
               </div>
               <div>
-                <p className="text-xs font-medium text-gray-500 mb-1">{t("Sample")}</p>
+                <p className="text-sm font-medium text-gray-500 mb-1">{t("Sample")}</p>
                 <Replicas kind="sample" />
-                <p className="mt-1 text-xs text-gray-600">
+                <p className="mt-1 text-sm text-gray-600">
                   {t("Manual:")} {data.times?.sampleTimes && data.times.sampleTimes.length ? data.times.sampleTimes.map((t) => t.toFixed(2)).join(', ') + ' s' : '-'}
                 </p>
               </div>

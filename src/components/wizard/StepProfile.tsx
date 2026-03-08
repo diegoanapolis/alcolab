@@ -117,7 +117,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
 
         {/* Ações superiores: Limpar, Não se aplica, Metodologia */}
         <div className="flex items-center justify-between">
-          <InfoTooltip text="Clears only the analytical data from the measurement flow to start a new analysis. If reusing flow data, you can proceed without clearing and replace only the new experimental values.">
+          <InfoTooltip text={t("Clears only the analytical window data from the measurement flow to start a new analysis. If reusing flow data, you can proceed without clearing and only replace the new experimental values.")}>
             <button 
               type="button" 
               className="text-xs underline text-[#002060]" 
@@ -161,7 +161,7 @@ export default function StepProfile({ onNext, initialData, renderAfterTitle }: {
         {/* Camada 1: Texto sobre etanol comercial - fonte reduzida */}
         <p className="text-xs text-neutral-600 text-justify">
           *{" "}
-          <InfoTooltip text="Look for well-known and quality-recognized brands for better reference results.">
+          <InfoTooltip text={t("Look for well-known and quality-recognized brands for better reference results.")}>
             <span className="font-medium">{t("Commercial ethanol")}</span>
           </InfoTooltip>{" "}
           {t("sealed can be used as a check to verify if the results obtained with your instruments are consistent.")}

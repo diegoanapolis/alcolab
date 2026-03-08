@@ -542,7 +542,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                   <input type="text" inputMode="decimal" placeholder="Ex.: 99.1" value={manualWaterInput} onChange={(e) => setManualWaterInput(e.target.value)} className="border rounded-lg p-2 min-w-0 flex-1 text-sm text-center" />
                   <button type="button" onClick={() => addManualTime("water")} className="border border-[#002060] rounded-lg w-10 flex-shrink-0 text-sm text-[#002060] font-medium">+</button>
                 </div>
-                <button type="button" onClick={() => openTimer("water")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">{t("Stopwatch")}</button>
+                <button type="button" onClick={() => openTimer("water")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">⏱️ {t("Stopwatch")}</button>
                 {waterTimes.length > 0 && (
                   <div className="mt-2 space-y-1">
                     {waterTimes.map((t, i) => (
@@ -596,7 +596,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                   <input type="text" inputMode="decimal" placeholder="Ex.: 253.5" value={manualSampleInput} onChange={(e) => setManualSampleInput(e.target.value)} className="border rounded-lg p-2 min-w-0 flex-1 text-sm text-center" />
                   <button type="button" onClick={() => addManualTime("sample")} className="border border-[#002060] rounded-lg w-10 flex-shrink-0 text-sm text-[#002060] font-medium">+</button>
                 </div>
-                <button type="button" onClick={() => openTimer("sample")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">{t("Stopwatch")}</button>
+                <button type="button" onClick={() => openTimer("sample")} className="border border-[#002060] rounded-lg px-3 py-2 text-xs text-[#002060] mt-2 w-full">⏱️ {t("Stopwatch")}</button>
                 {sampleTimes.length > 0 && (
                   <div className="mt-2 space-y-1">
                     {sampleTimes.map((t, i) => (
