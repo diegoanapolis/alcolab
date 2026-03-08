@@ -14,7 +14,7 @@ import { MethodologyTemperaturaI18n as MethodologyTemperatura } from "@/lib/meth
 import DemoBanner from "@/components/ui/DemoBanner"
 import { getDemoScenario } from "@/lib/demoScenarios"
 
-export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }: { onNext: (date: WaterTempData) => void; onBack: () => void; initialData?: WaterTempData; demoMode?: string | null }) {
+export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }: { onNext: (data: WaterTempData) => void; onBack: () => void; initialData?: WaterTempData; demoMode?: string | null }) {
   const [thermometerMode, setThermometerMode] = useState<"with" | "without">("with")
   const [sameTemperature, setSameTemperature] = useState<boolean | null>(null)
   const t = useT()
@@ -66,7 +66,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
     return false
   }
 
-  const handleFormSubmit = (date: WaterTempData) => {
+  const handleFormSubmit = (data: WaterTempData) => {
     if (thermometerMode === "without" && sameTemperature === true) {
       // Sem termômetro: usa temperatura padrão de 25°C (thermal equilibrium assumido)
       onNext({

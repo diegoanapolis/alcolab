@@ -11,7 +11,7 @@ import MethodologyModal, { MethodologyButton } from "@/components/ui/Methodology
 import { MethodologyDadosAmostraI18n as MethodologyDadosAmostra } from "@/lib/methodologyContent.i18n"
 
 interface StepSampleDataProps {
-  onNext: (date: ProfileData) => void
+  onNext: (data: ProfileData) => void
   onBack: () => void
   initialData?: ProfileData
   demoMode?: string | null

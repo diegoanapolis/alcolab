@@ -16,7 +16,7 @@ import { getDemoScenario } from "@/lib/demoScenarios"
 
 type Replicate = { previewUrl: string; duration: number; fileName?: string; fileCreatedAt?: string; marks: Record<14|15|16|17|18, number|undefined>; volumesMarked: Array<14|15|16|17|18>; derived?: { points: Array<{x:number;y:number}>; slope: number; intercept: number; r2: number; estimatedTime: number } }
 
-export default function StepTimes({ onNext, onBack, initialData, demoMode }: { onNext: (date: TimesData) => void; onBack: () => void; initialData?: TimesData; demoMode?: string | null }) {
+export default function StepTimes({ onNext, onBack, initialData, demoMode }: { onNext: (data: TimesData) => void; onBack: () => void; initialData?: TimesData; demoMode?: string | null }) {
   const t = useT()
   const [showMethodology, setShowMethodology] = useState(false)
   

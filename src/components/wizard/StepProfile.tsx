@@ -22,7 +22,7 @@ const NOT_APPLICABLE = [
   "Non-homogeneous homemade mixtures (cocktails)"
 ]
 
-export default function StepProfile({ onNext, initialData, renderAfterTitle }: { onNext: (date: ProfileData) => void; initialData?: ProfileData; renderAfterTitle?: React.ReactNode }) {
+export default function StepProfile({ onNext, initialData, renderAfterTitle }: { onNext: (data: ProfileData) => void; initialData?: ProfileData; renderAfterTitle?: React.ReactNode }) {
   const t = useT()
   const [showMethodology, setShowMethodology] = useState(false)
   const [showNaoAplica, setShowNaoAplica] = useState(false)

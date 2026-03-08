@@ -53,7 +53,7 @@ interface LowPrecisionCheckResult {
 }
 
 interface StepDensityProps {
-  onNext: (date: DensityData) => void
+  onNext: (data: DensityData) => void
   onBack: () => void
   initialData?: DensityData
   demoMode?: string | null
@@ -359,7 +359,7 @@ For greater reliability, it is recommended to use a scale with at least one deci
   }
   
   // Função de submissão que calcula massas líquidas
-  const onSubmit = (date: DensityData) => {
+  const onSubmit = (data: DensityData) => {
     // Verificar se pode prosseguir
     if (!canProceed) return
     
