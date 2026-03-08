@@ -23,7 +23,7 @@ export default function DemoModal({ isOpen, onClose, onSelect }: DemoModalProps)
         <div className="bg-[#002060] text-white px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <FlaskConical className="w-5 h-5" />
-            <h2 className="font-semibold text-sm">{t("Select an example")}</h2>
+            <h2 className="font-semibold text-sm text-white">{t("Select an example")}</h2>
           </div>
           <button onClick={onClose} className="p-1 hover:bg-white/20 rounded-full">
             <X className="w-4 h-4" />

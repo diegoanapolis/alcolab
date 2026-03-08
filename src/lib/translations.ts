@@ -400,17 +400,6 @@ export const ptTranslations: Record<string, string> = {
   "Methodology: Temperature": "Metodologia: Temperatura",
   "Methodology: Flow": "Metodologia: Escoamento",
   "Methodology: Review": "Metodologia: Revisão",
-
-  // ─── Additional results/report ───
-  "Compatible": "Compatível",
-  "Incompatible": "Incompatível",
-  "Compatibility between label and experiment": "Compatibilidade entre rótulo e experimento",
   "Ethanol content:": "Teor de etanol:",
   "Methanol content:": "Teor de metanol:",
-
-  // ─── Tooltip translations ───
-  "Value declared by the manufacturer or expected content from preparation.": "Valor declarado pelo fabricante ou teor esperado pelo preparo.",
-  "% v/v - Beverages: official unit for distilled beverages in Brazil.": "% v/v - Bebidas: unidade oficial para bebidas destiladas no Brasil.",
-  "Optional field for traceability and to facilitate later retrieval of results.": "Campo opcional para rastreabilidade e facilitar localização posterior dos resultados.",
-  "Clears only the analytical window data from the measurement flow to start a new analysis. If reusing flow data, you can proceed without clearing and only replace the new experimental values.": "Limpa apenas os dados das janelas analíticas do fluxo medir para início de uma nova análise. Em caso de reaproveitamento de escoamentos, você pode seguir sem limpar e substituir apenas os novos valores experimentais.",
 }
