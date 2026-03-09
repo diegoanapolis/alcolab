@@ -84,8 +84,8 @@ function PhoneMockup({
         <Image
           src={src}
           alt={alt}
-          width={390}
-          height={844}
+          width={1170}
+          height={2652}
           quality={100}
           className="w-full h-auto"
           priority
@@ -197,22 +197,22 @@ export default function HomePage() {
                 </ul>
               </div>
               <div className="flex gap-3 justify-center md:justify-end shrink-0">
-                <div className="w-40 sm:w-44 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                <div className="w-48 sm:w-56 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/step-pesagem.png"
                     alt="Tela de pesagem do AlcoLab"
-                    width={390}
-                    height={844}
+                    width={1170}
+                    height={2652}
                     quality={100}
                     className="w-full h-auto"
                   />
                 </div>
-                <div className="w-40 sm:w-44 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                <div className="w-48 sm:w-56 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/step-video-menisco.png"
                     alt="Tela de marcação dos meniscos por vídeo no AlcoLab"
-                    width={390}
-                    height={844}
+                    width={1170}
+                    height={2652}
                     quality={100}
                     className="w-full h-auto"
                   />
@@ -298,12 +298,12 @@ export default function HomePage() {
                   assume cor vermelha.
                 </p>
               </div>
-              <div className="w-40 sm:w-44 shrink-0 mx-auto md:mx-0 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+              <div className="w-48 sm:w-56 shrink-0 mx-auto md:mx-0 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                 <Image
                   src="/images/homepage/semaforo-vermelho.png"
                   alt="Resultado com semáforo vermelho"
-                  width={390}
-                  height={844}
+                  width={1170}
+                  height={2652}
                   quality={100}
                   className="w-full h-auto"
                 />
@@ -440,12 +440,12 @@ export default function HomePage() {
             {/* Screenshots lado a lado */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 py-4">
               <div className="text-center space-y-2">
-                <div className="w-44 sm:w-52 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                <div className="w-52 sm:w-60 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/semaforo-verde.png"
                     alt="Resultado com semáforo verde — amostra legítima"
-                    width={390}
-                    height={844}
+                    width={1170}
+                    height={2652}
                     quality={100}
                     className="w-full h-auto"
                   />
@@ -455,12 +455,12 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="text-center space-y-2">
-                <div className="w-44 sm:w-52 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                <div className="w-52 sm:w-60 mx-auto rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/semaforo-vermelho.png"
                     alt="Resultado com semáforo vermelho — amostra contaminada"
-                    width={390}
-                    height={844}
+                    width={1170}
+                    height={2652}
                     quality={100}
                     className="w-full h-auto"
                   />
