@@ -193,7 +193,7 @@ export default function HomePageEN() {
                   </li>
                 </ul>
               </div>
-              <div className="flex flex-col items-center sm:flex-row gap-3 justify-center md:justify-end shrink-0">
+              <div className="flex flex-col items-center sm:flex-row gap-3 justify-center md:justify-end shrink-0 w-full md:w-auto">
                 <div className="w-48 sm:w-56 rounded-xl overflow-hidden shadow-lg border border-neutral-200">
                   <Image
                     src="/images/homepage/step-pesagem-en.png"
