@@ -19,7 +19,7 @@ import {
 
 const PIX_KEY = "alcolabapp@gmail.com";
 const GITHUB_REPO = "https://github.com/diegoanapolis/alcolab";
-const BUYME_COFFEE_URL = "https://buymeacoffee.com/alcolab"; // TODO: substituir pelo link real
+const BUYME_COFFEE_URL = "https://buymeacoffee.com/alcolab";
 const FORM_SUGESTAO_URL = "https://forms.gle/PLACEHOLDER"; // TODO: substituir pelo link real do Google Forms
 
 const team = [

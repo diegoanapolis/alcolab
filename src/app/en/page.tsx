@@ -30,7 +30,7 @@ import {
 
 /* ─── Constants ─── */
 const GITHUB_REPO = "https://github.com/diegoanapolis/alcolab";
-const BUYME_COFFEE_URL = "https://buymeacoffee.com/alcolab"; // TODO: replace with actual link
+const BUYME_COFFEE_URL = "https://buymeacoffee.com/alcolab";
 const FORM_SUGESTAO_URL = "mailto:alcolabapp@gmail.com?subject=AlcoLab%20Suggestion";
 const PIX_KEY = "alcolabapp@gmail.com";
 
