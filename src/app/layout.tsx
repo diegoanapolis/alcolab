@@ -8,6 +8,15 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://alcolab.org"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180" },
+    ],
+  },
   title: {
     default: "AlcoLab — Methanol Screening | Triagem de Metanol",
     template: "%s | AlcoLab",
