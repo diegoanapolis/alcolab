@@ -39,3 +39,6 @@ next-env.d.ts
 
 # Misc
 *.log
+
+# Private site project (separate repo)
+alcolab-site/

@@ -708,6 +708,12 @@ export default function HomePage() {
               GitHub
             </a>
             <Link
+              href="/blog/pt"
+              className="text-blue-200 hover:text-white transition-colors"
+            >
+              Blog
+            </Link>
+            <Link
               href="/app/methodology"
               className="text-blue-200 hover:text-white transition-colors"
             >
