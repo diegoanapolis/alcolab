@@ -21,6 +21,8 @@ O metanol (álcool metílico) é uma substância altamente tóxica encontrada em
 
 Em outubro de 2025, a Organização Pan-Americana da Saúde (OPAS/OMS) reportou casos de envenenamento por metanol em pelo menos cinco países das Américas, incluindo um surto no Brasil com mais de 200 casos suspeitos.
 
+&lt;div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:1rem 0"&gt;&lt;iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:0.5rem" src="https://www.youtube.com/embed/I1H3HA8-mqM" allowfullscreen=""&gt;&lt;/iframe&gt;&lt;/div&gt;
+
 ## O problema: detecção acessível
 
 Até recentemente, detectar metanol em bebidas exigia equipamentos laboratoriais caros — cromatógrafos gasosos que custam dezenas de milhares de reais e estão disponíveis apenas em laboratórios especializados. Isso deixava fiscais de campo, profissionais de saúde e consumidores sem nenhuma ferramenta prática de verificação.
@@ -38,12 +40,15 @@ O AlcoLab é um aplicativo web gratuito e de código aberto que permite realizar
 O método combina duas propriedades físicas para estimar a composição da bebida:
 
 ### 1. Densidade relativa
+
 Você pesa a mesma quantidade de água e da amostra usando a seringa. A razão entre as massas revela o teor alcoólico total.
 
 ### 2. Viscosidade relativa
+
 Você filma o escoamento da água e da amostra pela mesma seringa. O tempo de escoamento revela a diferença entre etanol e metanol — pois embora tenham densidades quase idênticas, suas viscosidades são significativamente diferentes.
 
 ### 3. Análise estatística
+
 O aplicativo compara suas medições com uma malha de referência pré-calculada e usa teste Z e simulação de Monte Carlo para identificar as composições mais prováveis, incluindo a presença de metanol.
 
 ## Resultado imediato
