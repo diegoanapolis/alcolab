@@ -456,7 +456,7 @@ export default function RichEditor({
     content: initialContent.current,
     onUpdate: ({ editor: ed }) => {
       if (suppressUpdate.current) return;
-      const md = ed.storage.markdown.getMarkdown() as string;
+      const md = (ed.storage as any).markdown.getMarkdown() as string;
       onChange(md);
     },
     editorProps: {
