@@ -27,7 +27,7 @@ export const MethodologyTipoSolucao_EN = () => (
     <h4 className="font-semibold text-[#002060] mt-4">Supported applications</h4>
     <p>The following are compatible with this methodology:</p>
     <ul className="list-disc pl-5 space-y-1">
-      <li>Pure distilled beverages ("dry") listed in the application</li>
+      <li>Pure distilled beverages (&quot;dry&quot;) listed in the application</li>
       <li>Fuel ethanol</li>
       <li>Commercial ethanol</li>
       <li>Methanol</li>
@@ -77,11 +77,11 @@ export const MethodologyDadosAmostra_EN = () => (
       </li>
       <li>
         For distilled beverages marketed in Brazil, in the absence of explicit indication, 
-        consider "% v/v – Beverages" as the default unit, following regulatory practice.
+        consider &quot;% v/v – Beverages&quot; as the default unit, following regulatory practice.
       </li>
       <li>
         Information such as manufacturer, brand and batch is optional, but facilitates 
-        location, filtering and comparison of analyses in the application's history.
+        location, filtering and comparison of analyses in the application&apos;s history.
       </li>
     </ul>
   </>
@@ -109,7 +109,7 @@ export const MethodologyMassaDensidade_EN = () => (
 
     <p className="font-medium mt-3">Important notes:</p>
     <ul className="list-disc pl-5 space-y-1">
-      <li>It is not necessary for the syringe graduation to be absolutely exact, as the methodology works in relative terms to water, which is the system's reference.</li>
+      <li>It is not necessary for the syringe graduation to be absolutely exact, as the methodology works in relative terms to water, which is the system&apos;s reference.</li>
       <li>If the syringe mass is subtracted externally, you can enter syringe mass = 0 in the application.</li>
       <li>It is recommended to weigh the empty, dry and complete syringe (syringe + plunger + needle), as domestic scales may lose their tare automatically.</li>
     </ul>
@@ -239,7 +239,7 @@ export const MethodologyEscoamento_EN = () => (
     <ul className="list-disc pl-5 space-y-1">
       <li>Position your eyes aligned (at the height) of the initial 18 mL mark when triggering the stopwatch, and aligned with the 14 mL mark when stopping the time count</li>
       <li>Start and stop the stopwatch exactly at the moments the meniscus contacts the marks</li>
-      <li>Preferably use the application's own stopwatch, which already measures in elapsed seconds</li>
+      <li>Preferably use the application&apos;s own stopwatch, which already measures in elapsed seconds</li>
     </ul>
 
     <p className="font-bold text-[#002060] mt-3">
@@ -260,7 +260,7 @@ export const MethodologyRevisao_EN = () => (
     </p>
     
     <p>
-      If any inconsistency is identified, use the application's back arrow for correction.
+      If any inconsistency is identified, use the application&apos;s back arrow for correction.
     </p>
     
     <p>After confirmation, the calculation will be performed.</p>
@@ -343,7 +343,7 @@ export const MethodologyComplete_EN = () => (
       <p className="font-semibold text-yellow-800">⚠️ Important — Read before proceeding</p>
       <div className="text-yellow-800 mt-2 space-y-2">
         <p>
-          This tool applies exclusively to screening of pure distilled beverages ("dry"), 
+          This tool applies exclusively to screening of pure distilled beverages (&quot;dry&quot;), 
           fuel ethanol, reagent methanol or solutions composed solely of water, ethanol and methanol, 
           as per options listed in the Measure step.
         </p>
@@ -370,7 +370,7 @@ export const MethodologyComplete_EN = () => (
       <p className="font-semibold text-red-800">🚨 Suspected methanol contamination</p>
       <p className="text-red-800 mt-1">
         Seek medical help immediately.<br />
-        Contact your country's poison control center. In Brazil: Disque-Intoxicação <strong>0800 722 6001</strong>.
+        Contact your country&apos;s poison control center. In Brazil: Disque-Intoxicação <strong>0800 722 6001</strong>.
       </p>
     </div>
 

@@ -27,7 +27,7 @@ export const MethodologyTipoSolucao = () => (
     <h4 className="font-semibold text-[#002060] mt-4">Aplicações contempladas</h4>
     <p>São compatíveis com esta metodologia:</p>
     <ul className="list-disc pl-5 space-y-1">
-      <li>Bebidas destiladas puras ("secas") listadas no aplicativo</li>
+      <li>Bebidas destiladas puras (&quot;secas&quot;) listadas no aplicativo</li>
       <li>Etanol combustível</li>
       <li>Etanol comercial</li>
       <li>Metanol</li>
@@ -77,7 +77,7 @@ export const MethodologyDadosAmostra = () => (
       </li>
       <li>
         Para bebidas destiladas comercializadas no Brasil, na ausência de indicação explícita, 
-        considere como padrão a unidade "% v/v – Bebidas", conforme prática regulatória.
+        considere como padrão a unidade &quot;% v/v – Bebidas&quot;, conforme prática regulatória.
       </li>
       <li>
         Informações como fabricante, marca e lote são opcionais, mas facilitam a localização, 
@@ -343,7 +343,7 @@ export const MethodologyComplete = () => (
       <p className="font-semibold text-yellow-800">⚠️ Importante — Leia antes de prosseguir</p>
       <div className="text-yellow-800 mt-2 space-y-2">
         <p>
-          Esta ferramenta aplica-se exclusivamente à triagem de bebidas destiladas puras ("secas"), 
+          Esta ferramenta aplica-se exclusivamente à triagem de bebidas destiladas puras (&quot;secas&quot;), 
           etanol combustível, metanol reagente ou solução composta somente por água, etanol e metanol, 
           conforme opções listadas na etapa Medir.
         </p>

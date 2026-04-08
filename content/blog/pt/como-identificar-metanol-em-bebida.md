@@ -1,81 +1,131 @@
 ---
-title: "Como identificar metanol em bebida alcoólica: guia prático de triagem"
-description: "Aprenda a realizar triagem de metanol em bebidas usando apenas uma seringa, uma balança e um celular. Guia completo com o aplicativo gratuito AlcoLab."
+title: "Como identificar metanol em bebida alcoólica: guia prático"
+description: "Saiba como identificar metanol em bebida alcoólica com triagem rápida usando seringa, balança e celular. Guia completo e gratuito com o AlcoLab."
 date: 2026-03-10
 author: "Diego Mendes de Souza"
-image: "/images/homepage/semaforo-vermelho.png"
-imageAlt: "Tela do AlcoLab mostrando resultado de triagem com semáforo vermelho indicando possível presença de metanol em bebida"
+image: "/images/blog/como-identificar-metanol-bebida.png"
+imageAlt: "Tela do AlcoLab mostrando resultado de triagem com semáforo indicando possível presença de metanol em bebida alcoólica"
 tags:
-  - metanol
-  - bebida adulterada
-  - triagem
-  - saúde pública
   - como identificar metanol
+  - metanol em bebida
+  - triagem
+  - bebida adulterada
+  - saúde pública
+  - AlcoLab
 locale: "pt-BR"
 published: true
+status: "publicado"
 ---
 
-## O que é metanol e por que é perigoso?
+## Por que identificar metanol em bebidas é tão urgente?
 
-O metanol (álcool metílico) é uma substância altamente tóxica encontrada em bebidas alcoólicas adulteradas. A ingestão de apenas 30 mL pode ser fatal, e quantidades menores podem causar cegueira irreversível. Diferentemente do etanol (o álcool "seguro" das bebidas), o metanol não tem sabor nem cheiro que o diferencie — tornando a adulteração imperceptível ao consumidor.
+Saber como identificar metanol em bebida alcoólica tornou-se uma questão de saúde pública no Brasil e no mundo. O metanol (álcool metílico, CH₃OH) é uma substância altamente tóxica, incolor e com sabor praticamente idêntico ao do etanol — o que torna a adulteração imperceptível ao consumidor.
 
-Em outubro de 2025, a Organização Pan-Americana da Saúde (OPAS/OMS) reportou casos de envenenamento por metanol em pelo menos cinco países das Américas, incluindo um surto no Brasil com mais de 200 casos suspeitos.
+A ingestão de apenas 10 mL de metanol puro pode causar cegueira irreversível. Doses entre 20 e 30 mL podem ser fatais. Em outubro de 2025, a Organização Pan-Americana da Saúde (OPAS/OMS) emitiu um alerta epidemiológico sobre envenenamento por metanol em pelo menos cinco países das Américas, incluindo o Brasil.
 
-| asasa | asas |  |
-| --- | --- | --- |
-|  | asasas |  |
-|  |  |  |
+## A crise do metanol no Brasil em 2025
 
-&lt;svg viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg"&gt;&lt;text x="300" y="22" text-anchor="middle" fill="#002060" font-size="14" font-weight="700"&gt;Título do gráfico&lt;/text&gt;&lt;line x1="60" y1="260" x2="580" y2="260" stroke="#e5e7eb" stroke-dasharray="3"&gt;&lt;/line&gt;&lt;text x="52" y="264" text-anchor="end" fill="#9ca3af" font-size="10"&gt;0&lt;/text&gt;&lt;line x1="60" y1="205" x2="580" y2="205" stroke="#e5e7eb" stroke-dasharray="3"&gt;&lt;/line&gt;&lt;text x="52" y="209" text-anchor="end" fill="#9ca3af" font-size="10"&gt;18&lt;/text&gt;&lt;line x1="60" y1="150" x2="580" y2="150" stroke="#e5e7eb" stroke-dasharray="3"&gt;&lt;/line&gt;&lt;text x="52" y="154" text-anchor="end" fill="#9ca3af" font-size="10"&gt;36&lt;/text&gt;&lt;line x1="60" y1="95" x2="580" y2="95" stroke="#e5e7eb" stroke-dasharray="3"&gt;&lt;/line&gt;&lt;text x="52" y="99" text-anchor="end" fill="#9ca3af" font-size="10"&gt;54&lt;/text&gt;&lt;line x1="60" y1="40" x2="580" y2="40" stroke="#e5e7eb" stroke-dasharray="3"&gt;&lt;/line&gt;&lt;text x="52" y="44" text-anchor="end" fill="#9ca3af" font-size="10"&gt;72&lt;/text&gt;&lt;rect x="95" y="122.5" width="50" height="137.5" fill="#002060" rx="3"&gt;&lt;/rect&gt;&lt;text x="120" y="116.5" text-anchor="middle" fill="#374151" font-size="11" font-weight="600"&gt;45&lt;/text&gt;&lt;text x="120" y="276" text-anchor="middle" fill="#6b7280" font-size="10"&gt;Item A&lt;/text&gt;&lt;rect x="215" y="40" width="50" height="220" fill="#3b82f6" rx="3"&gt;&lt;/rect&gt;&lt;text x="240" y="34" text-anchor="middle" fill="#374151" font-size="11" font-weight="600"&gt;72&lt;/text&gt;&lt;text x="240" y="276" text-anchor="middle" fill="#6b7280" font-size="10"&gt;Item B&lt;/text&gt;&lt;rect x="335" y="159.16666666666669" width="50" height="100.83333333333333" fill="#60a5fa" rx="3"&gt;&lt;/rect&gt;&lt;text x="360" y="153.16666666666669" text-anchor="middle" fill="#374151" font-size="11" font-weight="600"&gt;33&lt;/text&gt;&lt;text x="360" y="276" text-anchor="middle" fill="#6b7280" font-size="10"&gt;Item C&lt;/text&gt;&lt;rect x="455" y="82.77777777777777" width="50" height="177.22222222222223" fill="#93c5fd" rx="3"&gt;&lt;/rect&gt;&lt;text x="480" y="76.77777777777777" text-anchor="middle" fill="#374151" font-size="11" font-weight="600"&gt;58&lt;/text&gt;&lt;text x="480" y="276" text-anchor="middle" fill="#6b7280" font-size="10"&gt;Item D&lt;/text&gt;&lt;/svg&gt;
+Entre setembro e dezembro de 2025, o Brasil enfrentou uma das piores crises de intoxicação por metanol de sua história. Foram registrados **97 casos confirmados e 62 mortes**, concentrados principalmente no estado de São Paulo.
 
-&lt;div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:1rem 0"&gt;&lt;iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:0.5rem" src="https://www.youtube.com/embed/I1H3HA8-mqM" allowfullscreen=""&gt;&lt;/iframe&gt;&lt;/div&gt;
+O termo "metanol" foi o **2º assunto mais buscado no Google Brasil em 2025**, superado apenas pelas tarifas de Trump. Além disso, boatos sobre metanol em Coca-Cola, café e água viralizaram nas redes sociais — embora todos os casos confirmados envolvessem exclusivamente **bebidas destiladas adulteradas**.
 
-<div data-youtube-video="">
-<iframe class="rounded-lg" width="640" height="360" allowfullscreen="true" autoplay="false" disablekbcontrols="false" enableiframeapi="false" endtime="0" ivloadpolicy="0" loop="false" modestbranding="false" origin="" playlist="" rel="1" src="https://www.youtube.com/embed/YKUn7ChXtDc?rel=1" start="0"></iframe>
-</div>
+Diante dessa crise, a pergunta que milhões de brasileiros fizeram ao Google foi justamente: como identificar metanol em bebida? Até então, a resposta era desanimadora.
 
-## O problema: detecção acessível
+## O problema: detectar metanol sem laboratório era impossível
 
-![](https://raw.githubusercontent.com/diegoanapolis/alcolab/main/public/images/blog/Fundo_artigo_CNU_-_ATPS__1_.jpg)Até recentemente, detectar metanol em bebidas exigia equipamentos laboratoriais caros — cromatógrafos gasosos que custam dezenas de milhares de reais e estão disponíveis apenas em laboratórios especializados. Isso deixava fiscais de campo, profissionais de saúde e consumidores sem nenhuma ferramenta prática de verificação.
+Antes do [AlcoLab](https://alcolab.org), identificar metanol em bebida alcoólica exigia equipamentos laboratoriais caros e inacessíveis para a maioria da população e até para muitos órgãos de fiscalização.
 
-## A solução: AlcoLab
+O método de referência é a **cromatografia gasosa** (GC-FID ou GC-MS), uma técnica de alta precisão cujo equipamento custa a partir de R$ 30.000. Apenas laboratórios especializados, como os da Fiocruz e da Unicamp, possuem essa infraestrutura.
 
-O AlcoLab é um aplicativo web gratuito e de código aberto que permite realizar triagem de metanol usando apenas:
+Outras alternativas, como a **espectroscopia Raman** e a **espectroscopia no infravermelho próximo (NIR)**, custam entre R$ 180.000 e R$ 300.000. Para a vigilância sanitária de municípios pequenos — que muitas vezes não dispõem sequer de viatura própria — esses valores são proibitivos.
 
-- **Uma seringa comercial de 20 mL** (com agulha 22G)
-- **Uma balança de cozinha** (com resolução de 0,1 g)
-- **Um smartphone** (com câmera e navegador web)
+Dessa forma, fiscais de campo, profissionais de saúde e consumidores ficavam completamente sem ferramentas práticas de verificação.
 
-## Como funciona?
+## A solução: AlcoLab — triagem gratuita com seringa e celular
 
-O método combina duas propriedades físicas para estimar a composição da bebida:
+O [AlcoLab](https://alcolab.org) é um aplicativo web gratuito e de código aberto criado por pesquisadores brasileiros que permite a qualquer pessoa realizar a triagem de metanol em bebidas destiladas. Todo o processamento acontece localmente no celular do usuário — nenhum dado é transmitido a servidores externos.
 
-### 1. Densidade relativa
+Para realizar a triagem completa, você precisa de apenas três itens:
 
-Você pesa a mesma quantidade de água e da amostra usando a seringa. A razão entre as massas revela o teor alcoólico total.
+- **Seringa de 20 mL com agulha 22G** — a mais comum vendida em farmácias (~R$ 5)
+- **Balança de cozinha** com resolução de 0,1 g
+- **Smartphone** com câmera e navegador web
 
-### 2. Viscosidade relativa
+O custo total do material é inferior a R$ 10, e o processo leva entre 15 e 25 minutos.
 
-Você filma o escoamento da água e da amostra pela mesma seringa. O tempo de escoamento revela a diferença entre etanol e metanol — pois embora tenham densidades quase idênticas, suas viscosidades são significativamente diferentes.
+## Como funciona o método de identificação
 
-### 3. Análise estatística
+O AlcoLab utiliza a combinação de duas propriedades físicas para estimar a composição da amostra e identificar metanol em bebida alcoólica de forma confiável.
 
-O aplicativo compara suas medições com uma malha de referência pré-calculada e usa teste Z e simulação de Monte Carlo para identificar as composições mais prováveis, incluindo a presença de metanol.
+### Densidade relativa — quanto álcool tem na amostra
 
-## Resultado imediato
+Você pesa 20 mL de água e 20 mL da amostra usando a mesma seringa na balança. A razão entre as massas fornece a **densidade relativa**, que indica o teor alcoólico total — seja etanol, metanol ou uma mistura dos dois.
 
-Após o processamento, o AlcoLab exibe um semáforo:
+Porém, a densidade sozinha não é suficiente. O etanol tem densidade de 0,789 g/mL e o metanol, 0,791 g/mL a 20 °C — valores tão próximos que qualquer densímetro comercial confundiria os dois.
 
-- 🟢 **Verde** — Compatível com o rótulo
-- 🟡 **Amarelo** — Necessários mais dados experimentais
-- 🔴 **Vermelho** — Incompatível com o rótulo e/ou possível presença de metanol
+### Viscosidade relativa — quanto é etanol e quanto é metanol
+
+Aqui está a inovação do AlcoLab. A viscosidade dos três componentes é significativamente diferente:
+
+| Substância | Viscosidade (mPa·s a 20 °C) |
+|---|---|
+| Água | 1,002 |
+| Etanol | 1,200 |
+| **Metanol** | **0,544** |
+
+O metanol é quase **duas vezes menos viscoso** que a água e muito menos viscoso que o etanol. Essa diferença é mensurável com uma seringa: o líquido com metanol escoa mais rápido.
+
+Você filma o escoamento da água e da amostra pela seringa com agulha, e o app analisa os tempos automaticamente. Dessa forma, a combinação de densidade (quanto álcool total) com viscosidade (quanto é etanol vs. metanol) permite identificar adulterações.
+
+### Análise estatística avançada
+
+O aplicativo compara suas medições com uma **malha de referência tridimensional** pré-calculada com milhares de composições possíveis de água, etanol e metanol. Em seguida, aplica dois testes estatísticos:
+
+- **Teste Z** — para verificar se a composição medida é estatisticamente diferente das composições vizinhas
+- **Simulação de Monte Carlo** (N=3.000) — para gerar variações aleatórias em torno dos valores medidos e identificar as composições mais prováveis
+
+## Resultado imediato: sistema de semáforo
+
+Após o processamento, que leva poucos segundos, o AlcoLab exibe um resultado visual intuitivo:
+
+- 🟢 **Verde** — Amostra compatível com o rótulo. Sem indícios de adulteração.
+- 🟡 **Amarelo** — Dados insuficientes ou resultado na faixa de menor sensibilidade. Recomenda-se repetir a medição.
+- 🔴 **Vermelho** — Amostra incompatível com o rótulo e/ou com possível presença de metanol. **Não consuma a bebida.**
+
+A confiança do resultado é especialmente alta quando o teor de metanol está acima de 10% do volume total. Em todos os casos relatados de intoxicação no Brasil e no mundo, os teores de metanol nas bebidas adulteradas eram da ordem de 20% ou mais — faixa na qual o AlcoLab apresenta **assertividade próxima de 100%**.
 
 ## Limitações importantes
 
-O AlcoLab é uma ferramenta de **triagem**, não de confirmação. Ele não substitui análises laboratoriais oficiais. O limite de detecção é de aproximadamente 5% em massa de metanol. Em caso de suspeita de contaminação, **não consuma a bebida** e procure as autoridades sanitárias. asasa
+É fundamental compreender que o AlcoLab é uma **ferramenta de triagem**, não um exame confirmatório. Ele não substitui a cromatografia gasosa nem outros métodos laboratoriais oficiais.
+
+O limite de detecção prático é de aproximadamente **5% em massa de metanol**. Contudo, teores abaixo de 5% dificilmente causariam intoxicação grave, pois a presença simultânea de etanol compete pelo metabolismo, reduzindo a toxicidade do metanol.
+
+Além disso, o app funciona apenas com **bebidas destiladas puras**: vodca, cachaça branca, whisky, rum branco, gin seco, tequila e aguardentes. Não é compatível com fermentados (cerveja, vinho), licores ou bebidas com corantes e açúcares adicionados.
+
+## Quem pode usar e para quê
+
+O AlcoLab foi projetado para ser útil em diversas situações:
+
+**Consumidores** podem fazer a triagem antes de consumir uma bebida de procedência duvidosa. Basta seguir a metodologia indicada no próprio app.
+
+**Fiscais de vigilância sanitária** podem realizar triagens em campo, priorizando quais amostras realmente precisam ser enviadas ao laboratório — otimizando tempo e recursos limitados.
+
+**Pequenos produtores e cachaçarias artesanais** podem usar a ferramenta como controle de qualidade, verificando se o processo de destilação separou adequadamente a fração de cabeça (onde o metanol se concentra).
+
+**Distribuidores de bebidas** podem conferir a qualidade dos lotes recebidos antes de repassá-los ao comércio.
+
+## Sobre os criadores
+
+O AlcoLab foi desenvolvido por **Diego Mendes de Souza** (Doutor em Quimiometria e Perito Criminal) e **Pedro Augusto de Oliveira Morais** (PhD em Quimiometria e professor de Química na UFMA), com gestão de **Nayara Ferreira Santos** (Administradora).
+
+O projeto é 100% open source sob licença AGPL-3.0 e foi publicado na plataforma científica Zenodo. O código-fonte está disponível no [GitHub](https://github.com/diegoanapolis/alcolab). O registro no INPI está em andamento.
+
+Os pesquisadores optaram por disponibilizar a ferramenta gratuitamente, custeando a infraestrutura do próprio bolso, em vez de buscar uma patente — processo que levaria de 1,5 a 7 anos. Como afirmam: *"Vidas não podem esperar."*
 
 ## Experimente agora
 
-O AlcoLab está disponível gratuitamente em [alcolab.org](https://alcolab.org). O aplicativo funciona offline após o primeiro carregamento e não transmite nenhum dado a servidores externos.
+O [AlcoLab](https://alcolab.org) está disponível gratuitamente e funciona offline após o primeiro carregamento. O app inclui **três cenários de demonstração** com dados reais de amostras contaminadas e legítimas para que você possa entender o funcionamento antes de realizar seu próprio teste.
 
-Você pode testar imediatamente com os cenários de demonstração incluídos no app, que utilizam dados reais de amostras contaminadas e legítimas.
+Para um passo a passo detalhado da metodologia, confira nosso [guia completo de uso do AlcoLab](/blog/pt/como-usar-alcolab-passo-a-passo-triagem-metanol). E se quiser entender mais sobre os riscos do metanol, leia [o que é metanol e por que ele é tão perigoso](/blog/pt/o-que-e-metanol-por-que-perigoso-bebidas).
+
+> ⚠️ **Importante:** Em caso de suspeita de contaminação por metanol, **não consuma a bebida** e procure imediatamente as autoridades sanitárias ou o serviço de emergência.
