@@ -303,66 +303,7 @@ export default function BlogAdminPage() {
     };
   }, [posts]);
 
-  // Show loading while checking session
-  if (authenticated === null) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <Loader className="w-8 h-8 animate-spin text-blue-600" />
-      </div>
-    );
-  }
-
-  // Show login if not authenticated
-  if (!authenticated) {
-    return <LoginScreen onSuccess={() => setAuthenticated(true)} />;
-  }
-
-  // Handle status change
-  const handleStatusChange = async (
-    post: BlogPost,
-    newStatus: string
-  ) => {
-    try {
-      setUpdating(post.slug);
-      setError(null);
-
-      const response = await fetch('/api/admin/blog', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          locale: post.locale,
-          slug: post.slug,
-          status: newStatus,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update post status');
-      }
-
-      // Update local state
-      setPosts((prevPosts) =>
-        prevPosts.map((p) =>
-          p.slug === post.slug ? { ...p, status: newStatus as typeof post.status } : p
-        )
-      );
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-    } finally {
-      setUpdating(null);
-    }
-  };
-
-  const handleSortClick = (newSortBy: typeof sortBy) => {
-    if (sortBy === newSortBy) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortBy(newSortBy);
-      setSortOrder('asc');
-    }
-  };
+  // --- All useCallback hooks must be before conditional returns (rules of hooks) ---
 
   const openEditor = useCallback(async (post: BlogPost) => {
     setEditorLoading(true);
@@ -481,6 +422,69 @@ export default function BlogAdminPage() {
       setEditorSaving(false);
     }
   }, [editorPost]);
+
+  // --- End of useCallback hooks ---
+
+  // Show loading while checking session
+  if (authenticated === null) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Loader className="w-8 h-8 animate-spin text-blue-600" />
+      </div>
+    );
+  }
+
+  // Show login if not authenticated
+  if (!authenticated) {
+    return <LoginScreen onSuccess={() => setAuthenticated(true)} />;
+  }
+
+  // Handle status change
+  const handleStatusChange = async (
+    post: BlogPost,
+    newStatus: string
+  ) => {
+    try {
+      setUpdating(post.slug);
+      setError(null);
+
+      const response = await fetch('/api/admin/blog', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          locale: post.locale,
+          slug: post.slug,
+          status: newStatus,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update post status');
+      }
+
+      // Update local state
+      setPosts((prevPosts) =>
+        prevPosts.map((p) =>
+          p.slug === post.slug ? { ...p, status: newStatus as typeof post.status } : p
+        )
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setUpdating(null);
+    }
+  };
+
+  const handleSortClick = (newSortBy: typeof sortBy) => {
+    if (sortBy === newSortBy) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortBy(newSortBy);
+      setSortOrder('asc');
+    }
+  };
 
   const handleEditorStatusChange = async (newStatus: string) => {
     if (!editorPost) return;
