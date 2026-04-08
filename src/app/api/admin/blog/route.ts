@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllPosts, getPost, updatePostStatus } from "@/lib/blog";
+import { getAllPosts, getPost, updatePostStatus, updatePost } from "@/lib/blog";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 
 export const dynamic = "force-dynamic";
@@ -147,6 +147,61 @@ export async function PATCH(request: NextRequest) {
     console.error("Error updating post:", error);
     return NextResponse.json(
       { error: "Failed to update post" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  if (!isAdminAuthenticated()) return UNAUTHORIZED;
+  try {
+    const body = await request.json();
+    const { locale, slug, title, description, author, image, imageAlt, tags, status, content } = body;
+
+    if (!locale || !slug) {
+      return NextResponse.json(
+        { error: "Missing required fields: locale, slug" },
+        { status: 400 }
+      );
+    }
+
+    const normalizedLocale = locale.startsWith("pt") ? "pt" : locale === "en" ? "en" : null;
+    if (!normalizedLocale) {
+      return NextResponse.json({ error: "Invalid locale" }, { status: 400 });
+    }
+
+    const updatedPost = updatePost(normalizedLocale, slug, {
+      title,
+      description,
+      author,
+      image,
+      imageAlt,
+      tags,
+      status,
+      content,
+    });
+
+    if (!updatedPost) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({
+      slug: updatedPost.slug,
+      title: updatedPost.title,
+      author: updatedPost.author,
+      date: updatedPost.date,
+      status: updatedPost.status,
+      published: updatedPost.published,
+      locale: updatedPost.locale,
+      tags: updatedPost.tags,
+      description: updatedPost.description,
+      image: updatedPost.image,
+      imageAlt: updatedPost.imageAlt,
+    });
+  } catch (error) {
+    console.error("Error saving post:", error);
+    return NextResponse.json(
+      { error: "Failed to save post" },
       { status: 500 }
     );
   }

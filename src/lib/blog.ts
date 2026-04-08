@@ -172,11 +172,79 @@ export function updatePostStatus(
     author: data.author || "",
     image: data.image || "",
     imageAlt: data.imageAlt || "",
-    tags: Array.isArray(data.tags) ? data.tags : typeof data.tags === "string" ? data.tags.split(",").map((t: string) => t.trim()) : [],
+    tags: Array.isArray(data.tags)
+      ? data.tags
+      : typeof data.tags === "string"
+        ? data.tags.split(",").map((t: string) => t.trim())
+        : [],
     locale: data.locale || locale,
-    published: data.published,
-    status: data.status,
+    published: data.published !== false,
+    status: data.status || "rascunho",
     content,
     html: marked(content) as string,
+  };
+}
+
+/**
+ * Update a post's content and metadata (for the admin editor)
+ */
+export function updatePost(
+  locale: "pt" | "en",
+  slug: string,
+  updates: {
+    title?: string;
+    description?: string;
+    author?: string;
+    image?: string;
+    imageAlt?: string;
+    tags?: string[];
+    status?: "rascunho" | "em_revisao" | "aprovado" | "publicado";
+    content?: string;
+  }
+): BlogPost | null {
+  const filePath = path.join(CONTENT_DIR, locale, `${slug}.md`);
+
+  if (!fs.existsSync(filePath)) return null;
+
+  const raw = fs.readFileSync(filePath, "utf-8");
+  const { data, content: existingContent } = matter(raw);
+
+  // Update metadata fields if provided
+  if (updates.title !== undefined) data.title = updates.title;
+  if (updates.description !== undefined) data.description = updates.description;
+  if (updates.author !== undefined) data.author = updates.author;
+  if (updates.image !== undefined) data.image = updates.image;
+  if (updates.imageAlt !== undefined) data.imageAlt = updates.imageAlt;
+  if (updates.tags !== undefined) data.tags = updates.tags;
+  if (updates.status !== undefined) {
+    data.status = updates.status;
+    data.published = updates.status === "publicado";
+  }
+
+  // Use updated content or keep existing
+  const finalContent = updates.content !== undefined ? updates.content : existingContent;
+
+  // Write back
+  const updatedFile = matter.stringify(finalContent, data);
+  fs.writeFileSync(filePath, updatedFile, "utf-8");
+
+  return {
+    slug,
+    title: data.title || "",
+    description: data.description || "",
+    date: data.date ? String(data.date).slice(0, 10) : "",
+    author: data.author || "",
+    image: data.image || "",
+    imageAlt: data.imageAlt || "",
+    tags: Array.isArray(data.tags)
+      ? data.tags
+      : typeof data.tags === "string"
+        ? data.tags.split(",").map((t: string) => t.trim())
+        : [],
+    locale: data.locale || locale,
+    published: data.published !== false,
+    status: data.status || "rascunho",
+    content: finalContent,
+    html: marked(finalContent) as string,
   };
 }

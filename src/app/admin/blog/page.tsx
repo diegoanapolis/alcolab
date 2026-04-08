@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useMemo, FormEvent } from 'react';
-import { ChevronDown, Search, Loader, CheckCircle, AlertCircle, LogOut, Lock, Eye, X, FileText } from 'lucide-react';
+import { useState, useEffect, useMemo, FormEvent, useCallback } from 'react';
+import { ChevronDown, Search, Loader, CheckCircle, AlertCircle, LogOut, Lock, Eye, X, FileText, ArrowLeft, Save } from 'lucide-react';
 
 interface BlogPost {
   slug: string;
@@ -19,6 +19,20 @@ interface FilterState {
   author: string;
   status: string;
   search: string;
+}
+
+interface EditorState {
+  slug: string;
+  locale: string;
+  title: string;
+  description: string;
+  author: string;
+  image: string;
+  imageAlt: string;
+  tags: string;
+  content: string;
+  status: 'rascunho' | 'em_revisao' | 'aprovado' | 'publicado';
+  date: string;
 }
 
 const AUTHORS = [
@@ -176,6 +190,14 @@ export default function BlogAdminPage() {
   const [previewPost, setPreviewPost] = useState<BlogPost | null>(null);
   const [previewHtml, setPreviewHtml] = useState<string>('');
   const [previewLoading, setPreviewLoading] = useState(false);
+
+  // Full-screen editor state
+  const [editorPost, setEditorPost] = useState<EditorState | null>(null);
+  const [editorTab, setEditorTab] = useState<'edit' | 'preview'>('edit');
+  const [editorLoading, setEditorLoading] = useState(false);
+  const [editorSaving, setEditorSaving] = useState(false);
+  const [editorPreviewHtml, setEditorPreviewHtml] = useState<string>('');
+  const [editorSuccess, setEditorSuccess] = useState(false);
 
   // Check session on mount
   useEffect(() => {
@@ -339,6 +361,164 @@ export default function BlogAdminPage() {
     } else {
       setSortBy(newSortBy);
       setSortOrder('asc');
+    }
+  };
+
+  const openEditor = useCallback(async (post: BlogPost) => {
+    setEditorLoading(true);
+    setEditorSuccess(false);
+    setEditorTab('edit');
+    try {
+      const locale = post.locale.startsWith('pt') ? 'pt' : 'en';
+      const response = await fetch(
+        `/api/admin/blog?slug=${encodeURIComponent(post.slug)}&locale=${locale}`
+      );
+      if (!response.ok) throw new Error('Failed to load post');
+      const data = await response.json();
+      setEditorPost({
+        slug: post.slug,
+        locale: post.locale,
+        title: data.title || post.title,
+        description: data.description || post.description,
+        author: data.author || post.author,
+        image: data.image || '',
+        imageAlt: data.imageAlt || '',
+        tags: Array.isArray(data.tags) ? data.tags.join(', ') : (data.tags || ''),
+        content: data.content || '',
+        status: data.status || post.status,
+        date: post.date,
+      });
+    } catch {
+      setError('Erro ao carregar post para edição.');
+      setEditorLoading(false);
+    } finally {
+      setEditorLoading(false);
+    }
+  }, []);
+
+  const closeEditor = useCallback(() => {
+    setEditorPost(null);
+    setEditorTab('edit');
+    setEditorPreviewHtml('');
+    setEditorSuccess(false);
+  }, []);
+
+  const handleEditorPreview = useCallback(async () => {
+    if (!editorPost) return;
+    setEditorLoading(true);
+    try {
+      const response = await fetch(
+        `/api/admin/blog?slug=${encodeURIComponent(editorPost.slug)}&locale=${editorPost.locale}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: editorPost.content }),
+        }
+      );
+      if (!response.ok) throw new Error('Failed to render preview');
+      const data = await response.json();
+      setEditorPreviewHtml(data.html || '');
+    } catch {
+      setEditorPreviewHtml('<p class="text-red-600">Erro ao renderizar pré-visualização.</p>');
+    } finally {
+      setEditorLoading(false);
+    }
+  }, [editorPost]);
+
+  const handleEditorSave = useCallback(async () => {
+    if (!editorPost) return;
+    try {
+      setEditorSaving(true);
+      setError(null);
+      const tagsArray = editorPost.tags
+        .split(',')
+        .map((t) => t.trim())
+        .filter((t) => t.length > 0);
+
+      const response = await fetch('/api/admin/blog', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          locale: editorPost.locale,
+          slug: editorPost.slug,
+          title: editorPost.title,
+          description: editorPost.description,
+          author: editorPost.author,
+          image: editorPost.image,
+          imageAlt: editorPost.imageAlt,
+          tags: tagsArray,
+          content: editorPost.content,
+          status: editorPost.status,
+        }),
+      });
+
+      if (!response.ok) throw new Error('Failed to save post');
+
+      setEditorSuccess(true);
+      setTimeout(() => setEditorSuccess(false), 3000);
+
+      // Update posts list
+      setPosts((prevPosts) =>
+        prevPosts.map((p) =>
+          p.slug === editorPost.slug
+            ? {
+                ...p,
+                title: editorPost.title,
+                description: editorPost.description,
+                author: editorPost.author,
+                status: editorPost.status,
+                tags: editorPost.tags
+                  .split(',')
+                  .map((t) => t.trim())
+                  .filter((t) => t.length > 0),
+              }
+            : p
+        )
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setEditorSaving(false);
+    }
+  }, [editorPost]);
+
+  const handleEditorStatusChange = async (newStatus: string) => {
+    if (!editorPost) return;
+    try {
+      setEditorSaving(true);
+      setError(null);
+
+      const response = await fetch('/api/admin/blog', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          locale: editorPost.locale,
+          slug: editorPost.slug,
+          status: newStatus,
+        }),
+      });
+
+      if (!response.ok) throw new Error('Failed to update post status');
+
+      setEditorPost({
+        ...editorPost,
+        status: newStatus as typeof editorPost.status,
+      });
+
+      setPosts((prevPosts) =>
+        prevPosts.map((p) =>
+          p.slug === editorPost.slug
+            ? { ...p, status: newStatus as typeof p.status }
+            : p
+        )
+      );
+
+      setEditorSuccess(true);
+      setTimeout(() => setEditorSuccess(false), 3000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setEditorSaving(false);
     }
   };
 
@@ -598,13 +778,22 @@ export default function BlogAdminPage() {
                               <p className="text-xs text-gray-500 dark:text-gray-400 font-normal mb-2">
                                 {post.description}
                               </p>
-                              <button
-                                onClick={() => handlePreview(post)}
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 dark:text-blue-300 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 rounded-lg transition"
-                              >
-                                <Eye className="w-3.5 h-3.5" />
-                                Ver conteúdo completo
-                              </button>
+                              <div className="flex gap-2">
+                                <button
+                                  onClick={() => handlePreview(post)}
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 dark:text-blue-300 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 rounded-lg transition"
+                                >
+                                  <Eye className="w-3.5 h-3.5" />
+                                  Ver conteúdo completo
+                                </button>
+                                <button
+                                  onClick={() => openEditor(post)}
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-green-700 bg-green-50 hover:bg-green-100 dark:text-green-300 dark:bg-green-900/30 dark:hover:bg-green-900/50 rounded-lg transition"
+                                >
+                                  <Save className="w-3.5 h-3.5" />
+                                  Editar
+                                </button>
+                              </div>
                             </div>
                           )}
                         </div>
@@ -795,6 +984,312 @@ export default function BlogAdminPage() {
                     Fechar
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Full-Screen Editor Modal */}
+      {editorPost && (
+        <div className="fixed inset-0 z-50 bg-white dark:bg-slate-900 flex flex-col overflow-hidden">
+          {/* Header */}
+          <div className="sticky top-0 z-20 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 px-6 py-4">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3 flex-1 min-w-0">
+                <button
+                  onClick={closeEditor}
+                  className="flex-shrink-0 p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-slate-700 transition"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white truncate">
+                    {editorPost.title || '(Sem título)'}
+                  </h2>
+                </div>
+                <span
+                  className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium flex-shrink-0 ${
+                    STATUS_COLORS[editorPost.status]
+                  }`}
+                >
+                  {STATUS_LABELS[editorPost.status]}
+                </span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <div className="flex flex-wrap gap-2">
+                {WORKFLOW[editorPost.status].map((nextStatus) => (
+                  <button
+                    key={nextStatus}
+                    onClick={() => handleEditorStatusChange(nextStatus)}
+                    disabled={editorSaving}
+                    className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition ${
+                      editorSaving
+                        ? 'bg-gray-200 dark:bg-slate-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                        : nextStatus === 'publicado'
+                          ? 'bg-green-600 hover:bg-green-700 text-white'
+                          : nextStatus === 'aprovado'
+                            ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                            : nextStatus === 'em_revisao'
+                              ? 'bg-amber-500 hover:bg-amber-600 text-white'
+                              : 'bg-gray-400 hover:bg-gray-500 text-white'
+                    }`}
+                  >
+                    {editorSaving ? (
+                      <Loader className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <CheckCircle className="w-4 h-4" />
+                    )}
+                    {WORKFLOW_LABELS[editorPost.status][nextStatus]}
+                  </button>
+                ))}
+              </div>
+              <button
+                onClick={handleEditorSave}
+                disabled={editorSaving}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+              >
+                {editorSaving ? (
+                  <Loader className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Save className="w-4 h-4" />
+                )}
+                Salvar alterações
+              </button>
+            </div>
+
+            {/* Success Message */}
+            {editorSuccess && (
+              <div className="mt-3 flex items-center gap-2 text-sm text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-3 py-2 rounded-lg">
+                <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                Alterações salvas com sucesso!
+              </div>
+            )}
+          </div>
+
+          {/* Main Content Area */}
+          <div className="flex-1 overflow-hidden flex">
+            {/* Left Sidebar - SEO Fields */}
+            <div className="w-80 border-r border-gray-200 dark:border-slate-700 overflow-y-auto bg-gray-50 dark:bg-slate-800">
+              <div className="p-6 space-y-6">
+                {/* Title */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-white mb-1">
+                    Título SEO{' '}
+                    <span className="text-xs text-gray-500">
+                      ({editorPost.title.length}/60)
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    value={editorPost.title}
+                    onChange={(e) =>
+                      setEditorPost({ ...editorPost, title: e.target.value })
+                    }
+                    placeholder="Digite o título..."
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    Recomendado: 50-60 caracteres
+                  </p>
+                </div>
+
+                {/* Description */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-white mb-1">
+                    Meta Description{' '}
+                    <span className="text-xs text-gray-500">
+                      ({editorPost.description.length}/160)
+                    </span>
+                  </label>
+                  <textarea
+                    value={editorPost.description}
+                    onChange={(e) =>
+                      setEditorPost({
+                        ...editorPost,
+                        description: e.target.value,
+                      })
+                    }
+                    placeholder="Digite a descrição para SEO..."
+                    rows={3}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  />
+                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    Recomendado: 120-160 caracteres
+                  </p>
+                </div>
+
+                {/* Author */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-white mb-1">
+                    Autor
+                  </label>
+                  <select
+                    value={editorPost.author}
+                    onChange={(e) =>
+                      setEditorPost({ ...editorPost, author: e.target.value })
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    {AUTHORS.map((author) => (
+                      <option key={author} value={author}>
+                        {author}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Image Path */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-white mb-1">
+                    Imagem de destaque
+                  </label>
+                  <input
+                    type="text"
+                    value={editorPost.image}
+                    onChange={(e) =>
+                      setEditorPost({ ...editorPost, image: e.target.value })
+                    }
+                    placeholder="/images/..."
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+
+                {/* Image Alt Text */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-white mb-1">
+                    Texto alternativo da imagem
+                  </label>
+                  <input
+                    type="text"
+                    value={editorPost.imageAlt}
+                    onChange={(e) =>
+                      setEditorPost({ ...editorPost, imageAlt: e.target.value })
+                    }
+                    placeholder="Descrição da imagem..."
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+
+                {/* Tags */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-white mb-1">
+                    Tags
+                  </label>
+                  <input
+                    type="text"
+                    value={editorPost.tags}
+                    onChange={(e) =>
+                      setEditorPost({ ...editorPost, tags: e.target.value })
+                    }
+                    placeholder="tag1, tag2, tag3..."
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    Separadas por vírgula
+                  </p>
+                </div>
+
+                {/* Divider */}
+                <div className="border-t border-gray-200 dark:border-slate-700 pt-4">
+                  {/* Slug - Read Only */}
+                  <div className="mb-4">
+                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+                      Slug (somente leitura)
+                    </label>
+                    <div className="px-3 py-2 bg-gray-100 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-lg text-sm text-gray-600 dark:text-gray-300 font-mono truncate">
+                      {editorPost.slug}
+                    </div>
+                  </div>
+
+                  {/* Locale - Read Only */}
+                  <div className="mb-4">
+                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+                      Locale (somente leitura)
+                    </label>
+                    <div className="px-3 py-2 bg-gray-100 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-lg text-sm text-gray-600 dark:text-gray-300 font-mono">
+                      {editorPost.locale}
+                    </div>
+                  </div>
+
+                  {/* Date - Read Only */}
+                  <div>
+                    <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+                      Data (somente leitura)
+                    </label>
+                    <div className="px-3 py-2 bg-gray-100 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-lg text-sm text-gray-600 dark:text-gray-300">
+                      {formatDate(editorPost.date)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Area - Editor/Preview */}
+            <div className="flex-1 flex flex-col overflow-hidden">
+              {/* Tab Switcher */}
+              <div className="flex border-b border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+                <button
+                  onClick={() => setEditorTab('edit')}
+                  className={`px-6 py-3 font-medium text-sm border-b-2 transition ${
+                    editorTab === 'edit'
+                      ? 'text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400'
+                      : 'text-gray-600 dark:text-gray-400 border-transparent hover:text-gray-900 dark:hover:text-gray-200'
+                  }`}
+                >
+                  Editar
+                </button>
+                <button
+                  onClick={async () => {
+                    setEditorTab('preview');
+                    await handleEditorPreview();
+                  }}
+                  className={`px-6 py-3 font-medium text-sm border-b-2 transition ${
+                    editorTab === 'preview'
+                      ? 'text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400'
+                      : 'text-gray-600 dark:text-gray-400 border-transparent hover:text-gray-900 dark:hover:text-gray-200'
+                  }`}
+                >
+                  Pré-visualizar
+                </button>
+              </div>
+
+              {/* Editor or Preview Content */}
+              <div className="flex-1 overflow-hidden">
+                {editorTab === 'edit' ? (
+                  <textarea
+                    value={editorPost.content}
+                    onChange={(e) =>
+                      setEditorPost({ ...editorPost, content: e.target.value })
+                    }
+                    placeholder="Escreva seu conteúdo em Markdown aqui..."
+                    className="w-full h-full px-6 py-6 bg-white dark:bg-slate-900 text-gray-900 dark:text-white font-mono text-sm border-none focus:ring-0 resize-none"
+                  />
+                ) : (
+                  <div className="w-full h-full overflow-y-auto px-6 py-6">
+                    {editorLoading ? (
+                      <div className="flex items-center justify-center h-full">
+                        <Loader className="w-8 h-8 text-blue-600 dark:text-blue-400 animate-spin" />
+                      </div>
+                    ) : (
+                      <article
+                        className="prose prose-sm sm:prose-base max-w-none
+                          prose-headings:text-gray-900 dark:prose-headings:text-white
+                          prose-p:text-gray-700 dark:prose-p:text-gray-300
+                          prose-a:text-blue-600 dark:prose-a:text-blue-400
+                          prose-strong:text-gray-900 dark:prose-strong:text-white
+                          prose-ul:text-gray-700 dark:prose-ul:text-gray-300
+                          prose-ol:text-gray-700 dark:prose-ol:text-gray-300
+                          prose-li:text-gray-700 dark:prose-li:text-gray-300
+                          prose-blockquote:border-blue-500 prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400"
+                        dangerouslySetInnerHTML={{ __html: editorPreviewHtml }}
+                      />
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
