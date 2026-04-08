@@ -65,7 +65,7 @@ Após o processamento, o AlcoLab exibe um semáforo:
 
 ## Limitações importantes
 
-O AlcoLab é uma ferramenta de **triagem**, não de confirmação. Ele não substitui análises laboratoriais oficiais. O limite de detecção é de aproximadamente 5% em massa de metanol. Em caso de suspeita de contaminação, **não consuma a bebida** e procure as autoridades sanitárias.
+O AlcoLab é uma ferramenta de **triagem**, não de confirmação. Ele não substitui análises laboratoriais oficiais. O limite de detecção é de aproximadamente 5% em massa de metanol. Em caso de suspeita de contaminação, **não consuma a bebida** e procure as autoridades sanitárias. asasa
 
 ## Experimente agora
 
