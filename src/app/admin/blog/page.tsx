@@ -212,21 +212,7 @@ export default function BlogAdminPage() {
     setAuthenticated(false);
   };
 
-  // Show loading while checking session
-  if (authenticated === null) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <Loader className="w-8 h-8 animate-spin text-blue-600" />
-      </div>
-    );
-  }
-
-  // Show login if not authenticated
-  if (!authenticated) {
-    return <LoginScreen onSuccess={() => setAuthenticated(true)} />;
-  }
-
-  // Apply filters and sorting
+  // Apply filters and sorting (must be before conditional returns to respect rules of hooks)
   const filteredAndSortedPosts = useMemo(() => {
     let filtered = posts.filter((post) => {
       const matchesAuthor =
@@ -265,6 +251,20 @@ export default function BlogAdminPage() {
       publicado: posts.filter((p) => p.status === 'publicado').length,
     };
   }, [posts]);
+
+  // Show loading while checking session
+  if (authenticated === null) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Loader className="w-8 h-8 animate-spin text-blue-600" />
+      </div>
+    );
+  }
+
+  // Show login if not authenticated
+  if (!authenticated) {
+    return <LoginScreen onSuccess={() => setAuthenticated(true)} />;
+  }
 
   // Handle status change
   const handleStatusChange = async (
