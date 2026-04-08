@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, FormEvent } from 'react';
-import { ChevronDown, Search, Loader, CheckCircle, AlertCircle, LogOut, Lock } from 'lucide-react';
+import { ChevronDown, Search, Loader, CheckCircle, AlertCircle, LogOut, Lock, Eye, X, FileText } from 'lucide-react';
 
 interface BlogPost {
   slug: string;
@@ -172,6 +172,11 @@ export default function BlogAdminPage() {
     search: '',
   });
 
+  // Content preview state
+  const [previewPost, setPreviewPost] = useState<BlogPost | null>(null);
+  const [previewHtml, setPreviewHtml] = useState<string>('');
+  const [previewLoading, setPreviewLoading] = useState(false);
+
   // Check session on mount
   useEffect(() => {
     fetch('/api/admin/session')
@@ -210,6 +215,30 @@ export default function BlogAdminPage() {
   const handleLogout = async () => {
     await fetch('/api/admin/login', { method: 'DELETE' });
     setAuthenticated(false);
+  };
+
+  const handlePreview = async (post: BlogPost) => {
+    setPreviewPost(post);
+    setPreviewLoading(true);
+    setPreviewHtml('');
+    try {
+      const locale = post.locale.startsWith('pt') ? 'pt' : 'en';
+      const response = await fetch(
+        `/api/admin/blog?slug=${encodeURIComponent(post.slug)}&locale=${locale}`
+      );
+      if (!response.ok) throw new Error('Failed to load content');
+      const data = await response.json();
+      setPreviewHtml(data.html || '');
+    } catch {
+      setPreviewHtml('<p class="text-red-600">Erro ao carregar conteúdo.</p>');
+    } finally {
+      setPreviewLoading(false);
+    }
+  };
+
+  const closePreview = () => {
+    setPreviewPost(null);
+    setPreviewHtml('');
   };
 
   // Apply filters and sorting (must be before conditional returns to respect rules of hooks)
@@ -546,28 +575,39 @@ export default function BlogAdminPage() {
 
                       {/* Title */}
                       <td className="px-6 py-4">
-                        <button
-                          onClick={() =>
-                            setExpandedPost(
-                              expandedPost === post.slug ? null : post.slug
-                            )
-                          }
-                          className="text-left text-sm text-gray-900 dark:text-white font-medium hover:text-blue-600 dark:hover:text-blue-400 transition"
-                        >
-                          <div className="flex items-center gap-2">
-                            {post.title}
-                            <ChevronDown
-                              className={`w-4 h-4 transition-transform flex-shrink-0 ${
-                                expandedPost === post.slug ? 'rotate-180' : ''
-                              }`}
-                            />
-                          </div>
+                        <div>
+                          <button
+                            onClick={() =>
+                              setExpandedPost(
+                                expandedPost === post.slug ? null : post.slug
+                              )
+                            }
+                            className="text-left text-sm text-gray-900 dark:text-white font-medium hover:text-blue-600 dark:hover:text-blue-400 transition"
+                          >
+                            <div className="flex items-center gap-2">
+                              {post.title}
+                              <ChevronDown
+                                className={`w-4 h-4 transition-transform flex-shrink-0 ${
+                                  expandedPost === post.slug ? 'rotate-180' : ''
+                                }`}
+                              />
+                            </div>
+                          </button>
                           {expandedPost === post.slug && (
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 font-normal">
-                              {post.description}
-                            </p>
+                            <div className="mt-2">
+                              <p className="text-xs text-gray-500 dark:text-gray-400 font-normal mb-2">
+                                {post.description}
+                              </p>
+                              <button
+                                onClick={() => handlePreview(post)}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 dark:text-blue-300 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 rounded-lg transition"
+                              >
+                                <Eye className="w-3.5 h-3.5" />
+                                Ver conteúdo completo
+                              </button>
+                            </div>
                           )}
-                        </button>
+                        </div>
                       </td>
 
                       {/* Author */}
@@ -637,6 +677,129 @@ export default function BlogAdminPage() {
           </div>
         )}
       </div>
+
+      {/* Content Preview Modal */}
+      {previewPost && (
+        <div className="fixed inset-0 z-50 overflow-hidden">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50 transition-opacity"
+            onClick={closePreview}
+          />
+
+          {/* Slide-over Panel */}
+          <div className="absolute inset-y-0 right-0 w-full max-w-3xl flex">
+            <div className="relative w-full bg-white dark:bg-slate-800 shadow-2xl flex flex-col">
+              {/* Panel Header */}
+              <div className="sticky top-0 z-10 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 px-6 py-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1 min-w-0 pr-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          STATUS_COLORS[previewPost.status]
+                        }`}
+                      >
+                        {STATUS_LABELS[previewPost.status]}
+                      </span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        {formatDate(previewPost.date)}
+                      </span>
+                    </div>
+                    <h2 className="text-lg font-bold text-gray-900 dark:text-white leading-tight">
+                      {previewPost.title}
+                    </h2>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Por {previewPost.author}
+                    </p>
+                  </div>
+                  <button
+                    onClick={closePreview}
+                    className="flex-shrink-0 p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-slate-700 transition"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Workflow Actions inside panel */}
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {WORKFLOW[previewPost.status].map((nextStatus) => (
+                    <button
+                      key={nextStatus}
+                      onClick={async () => {
+                        await handleStatusChange(previewPost, nextStatus);
+                        setPreviewPost({
+                          ...previewPost,
+                          status: nextStatus as typeof previewPost.status,
+                        });
+                      }}
+                      disabled={updating === previewPost.slug}
+                      className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition ${
+                        updating === previewPost.slug
+                          ? 'bg-gray-200 dark:bg-slate-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                          : nextStatus === 'publicado'
+                            ? 'bg-green-600 hover:bg-green-700 text-white'
+                            : nextStatus === 'aprovado'
+                              ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                              : nextStatus === 'em_revisao'
+                                ? 'bg-amber-500 hover:bg-amber-600 text-white'
+                                : 'bg-gray-400 hover:bg-gray-500 text-white'
+                      }`}
+                    >
+                      {updating === previewPost.slug ? (
+                        <Loader className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <CheckCircle className="w-4 h-4" />
+                      )}
+                      {WORKFLOW_LABELS[previewPost.status][nextStatus]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Panel Content */}
+              <div className="flex-1 overflow-y-auto px-6 py-6">
+                {previewLoading ? (
+                  <div className="flex items-center justify-center py-20">
+                    <Loader className="w-8 h-8 text-blue-600 animate-spin" />
+                  </div>
+                ) : (
+                  <article
+                    className="prose prose-sm sm:prose-base max-w-none
+                      prose-headings:text-gray-900 dark:prose-headings:text-white
+                      prose-p:text-gray-700 dark:prose-p:text-gray-300
+                      prose-a:text-blue-600 dark:prose-a:text-blue-400
+                      prose-strong:text-gray-900 dark:prose-strong:text-white
+                      prose-ul:text-gray-700 dark:prose-ul:text-gray-300
+                      prose-ol:text-gray-700 dark:prose-ol:text-gray-300
+                      prose-li:text-gray-700 dark:prose-li:text-gray-300
+                      prose-blockquote:border-blue-500 prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400"
+                    dangerouslySetInnerHTML={{ __html: previewHtml }}
+                  />
+                )}
+              </div>
+
+              {/* Panel Footer */}
+              <div className="sticky bottom-0 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700 px-6 py-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                    <FileText className="w-3.5 h-3.5" />
+                    <span>{previewPost.slug}</span>
+                    <span className="mx-1">·</span>
+                    <span>{previewPost.locale}</span>
+                  </div>
+                  <button
+                    onClick={closePreview}
+                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 dark:text-gray-300 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-lg transition"
+                  >
+                    Fechar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

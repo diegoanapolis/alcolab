@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllPosts, updatePostStatus } from "@/lib/blog";
+import { getAllPosts, getPost, updatePostStatus } from "@/lib/blog";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 
 export const dynamic = "force-dynamic";
@@ -9,14 +9,55 @@ const UNAUTHORIZED = NextResponse.json(
   { status: 401 }
 );
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   if (!isAdminAuthenticated()) return UNAUTHORIZED;
+
+  const { searchParams } = new URL(request.url);
+  const slug = searchParams.get("slug");
+  const locale = searchParams.get("locale");
+
+  // If slug and locale are provided, return a single post with full content
+  if (slug && locale) {
+    try {
+      const normalizedLocale = locale.startsWith("pt") ? "pt" : locale === "en" ? "en" : null;
+      if (!normalizedLocale) {
+        return NextResponse.json({ error: "Invalid locale" }, { status: 400 });
+      }
+
+      // Use getAllPosts to also get unpublished posts
+      const posts = getAllPosts(normalizedLocale);
+      const post = posts.find((p) => p.slug === slug);
+
+      if (!post) {
+        return NextResponse.json({ error: "Post not found" }, { status: 404 });
+      }
+
+      return NextResponse.json({
+        slug: post.slug,
+        title: post.title,
+        author: post.author,
+        date: post.date,
+        status: post.status,
+        published: post.published,
+        locale: post.locale,
+        tags: post.tags,
+        description: post.description,
+        content: post.content,
+        html: post.html,
+      });
+    } catch (error) {
+      console.error("Error fetching post:", error);
+      return NextResponse.json({ error: "Failed to fetch post" }, { status: 500 });
+    }
+  }
+
+  // Otherwise, return all posts (without content for performance)
   try {
     const locales = ["pt", "en"] as const;
     const allPosts = [];
 
-    for (const locale of locales) {
-      const posts = getAllPosts(locale);
+    for (const loc of locales) {
+      const posts = getAllPosts(loc);
       const postsWithoutContent = posts.map((post) => ({
         slug: post.slug,
         title: post.title,
