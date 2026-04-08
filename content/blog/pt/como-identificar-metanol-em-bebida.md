@@ -23,9 +23,13 @@ Em outubro de 2025, a Organização Pan-Americana da Saúde (OPAS/OMS) reportou 
 
 &lt;div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:1rem 0"&gt;&lt;iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:0.5rem" src="https://www.youtube.com/embed/I1H3HA8-mqM" allowfullscreen=""&gt;&lt;/iframe&gt;&lt;/div&gt;
 
+<div data-youtube-video="">
+<iframe class="rounded-lg" width="640" height="360" allowfullscreen="true" autoplay="false" disablekbcontrols="false" enableiframeapi="false" endtime="0" ivloadpolicy="0" loop="false" modestbranding="false" origin="" playlist="" rel="1" src="https://www.youtube.com/embed/YKUn7ChXtDc?rel=1" start="0"></iframe>
+</div>
+
 ## O problema: detecção acessível
 
-Até recentemente, detectar metanol em bebidas exigia equipamentos laboratoriais caros — cromatógrafos gasosos que custam dezenas de milhares de reais e estão disponíveis apenas em laboratórios especializados. Isso deixava fiscais de campo, profissionais de saúde e consumidores sem nenhuma ferramenta prática de verificação.
+![](https://raw.githubusercontent.com/diegoanapolis/alcolab/main/public/images/blog/Fundo_artigo_CNU_-_ATPS__1_.jpg)Até recentemente, detectar metanol em bebidas exigia equipamentos laboratoriais caros — cromatógrafos gasosos que custam dezenas de milhares de reais e estão disponíveis apenas em laboratórios especializados. Isso deixava fiscais de campo, profissionais de saúde e consumidores sem nenhuma ferramenta prática de verificação.
 
 ## A solução: AlcoLab
 
