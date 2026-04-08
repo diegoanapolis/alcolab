@@ -406,6 +406,58 @@ const handleEditorSave = useCallback(async () => {
     }
   }, [editorPost]);
 
+  const handleEditorStatusChange = useCallback(async (newStatus: string) => {
+    if (!editorPost) return;
+    try {
+      setEditorSaving(true);
+      setError(null);
+
+      const response = await fetch('/api/admin/blog', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          locale: editorPost.locale,
+          slug: editorPost.slug,
+          status: newStatus,
+        }),
+      });
+
+      if (!response.ok) throw new Error('Failed to update post status');
+
+      setEditorPost({
+        ...editorPost,
+        status: newStatus as typeof editorPost.status,
+      });
+
+      setPosts((prevPosts) =>
+        prevPosts.map((p) =>
+          p.slug === editorPost.slug
+            ? { ...p, status: newStatus as typeof p.status }
+            : p
+        )
+      );
+
+      setEditorSuccess(true);
+      setTimeout(() => setEditorSuccess(false), 3000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setEditorSaving(false);
+    }
+  }, [editorPost]);
+
+  const handleImageUpload = useCallback(async (file: File): Promise<string | null> => {
+    const form = new FormData();
+    form.append('file', file);
+    const res = await fetch('/api/admin/upload', { method: 'POST', body: form });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Upload failed');
+    }
+    const data = await res.json();
+    return data.url || null;
+  }, []);
+
   // --- End of useCallback hooks ---
 
   // Show loading while checking session
@@ -468,58 +520,6 @@ const handleEditorSave = useCallback(async () => {
       setSortOrder('asc');
     }
   };
-
-  const handleEditorStatusChange = async (newStatus: string) => {
-    if (!editorPost) return;
-    try {
-      setEditorSaving(true);
-      setError(null);
-
-      const response = await fetch('/api/admin/blog', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          locale: editorPost.locale,
-          slug: editorPost.slug,
-          status: newStatus,
-        }),
-      });
-
-      if (!response.ok) throw new Error('Failed to update post status');
-
-      setEditorPost({
-        ...editorPost,
-        status: newStatus as typeof editorPost.status,
-      });
-
-      setPosts((prevPosts) =>
-        prevPosts.map((p) =>
-          p.slug === editorPost.slug
-            ? { ...p, status: newStatus as typeof p.status }
-            : p
-        )
-      );
-
-      setEditorSuccess(true);
-      setTimeout(() => setEditorSuccess(false), 3000);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-    } finally {
-      setEditorSaving(false);
-    }
-  }, [editorPost]);
-
-  const handleImageUpload = useCallback(async (file: File): Promise<string | null> => {
-    const form = new FormData();
-    form.append('file', file);
-    const res = await fetch('/api/admin/upload', { method: 'POST', body: form });
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.error || 'Upload failed');
-    }
-    const data = await res.json();
-    return data.url || null;
-  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
