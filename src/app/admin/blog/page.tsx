@@ -2,6 +2,16 @@
 
 import { useState, useEffect, useMemo, FormEvent, useCallback } from 'react';
 import { ChevronDown, Search, Loader, CheckCircle, AlertCircle, LogOut, Lock, Eye, X, FileText, ArrowLeft, Save } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+const RichEditor = dynamic(() => import('@/components/RichEditor'), {
+  ssr: false,
+  loading: () => (
+    <div className="border rounded-lg p-8 text-center text-neutral-400 text-sm">
+      Carregando editor...
+    </div>
+  ),
+});
 
 interface BlogPost {
   slug: string;
@@ -193,10 +203,8 @@ export default function BlogAdminPage() {
 
   // Full-screen editor state
   const [editorPost, setEditorPost] = useState<EditorState | null>(null);
-  const [editorTab, setEditorTab] = useState<'edit' | 'preview'>('edit');
   const [editorLoading, setEditorLoading] = useState(false);
   const [editorSaving, setEditorSaving] = useState(false);
-  const [editorPreviewHtml, setEditorPreviewHtml] = useState<string>('');
   const [editorSuccess, setEditorSuccess] = useState(false);
 
   // Check session on mount
@@ -308,7 +316,6 @@ export default function BlogAdminPage() {
   const openEditor = useCallback(async (post: BlogPost) => {
     setEditorLoading(true);
     setEditorSuccess(false);
-    setEditorTab('edit');
     try {
       const locale = post.locale.startsWith('pt') ? 'pt' : 'en';
       const response = await fetch(
@@ -339,34 +346,10 @@ export default function BlogAdminPage() {
 
   const closeEditor = useCallback(() => {
     setEditorPost(null);
-    setEditorTab('edit');
-    setEditorPreviewHtml('');
     setEditorSuccess(false);
   }, []);
 
-  const handleEditorPreview = useCallback(async () => {
-    if (!editorPost) return;
-    setEditorLoading(true);
-    try {
-      const response = await fetch(
-        `/api/admin/blog?slug=${encodeURIComponent(editorPost.slug)}&locale=${editorPost.locale}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content: editorPost.content }),
-        }
-      );
-      if (!response.ok) throw new Error('Failed to render preview');
-      const data = await response.json();
-      setEditorPreviewHtml(data.html || '');
-    } catch {
-      setEditorPreviewHtml('<p class="text-red-600">Erro ao renderizar pré-visualização.</p>');
-    } finally {
-      setEditorLoading(false);
-    }
-  }, [editorPost]);
-
-  const handleEditorSave = useCallback(async () => {
+const handleEditorSave = useCallback(async () => {
     if (!editorPost) return;
     try {
       setEditorSaving(true);
@@ -524,7 +507,19 @@ export default function BlogAdminPage() {
     } finally {
       setEditorSaving(false);
     }
-  };
+  }, [editorPost]);
+
+  const handleImageUpload = useCallback(async (file: File): Promise<string | null> => {
+    const form = new FormData();
+    form.append('file', file);
+    const res = await fetch('/api/admin/upload', { method: 'POST', body: form });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || 'Upload failed');
+    }
+    const data = await res.json();
+    return data.url || null;
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
@@ -1232,69 +1227,13 @@ export default function BlogAdminPage() {
               </div>
             </div>
 
-            {/* Right Area - Editor/Preview */}
-            <div className="flex-1 flex flex-col overflow-hidden">
-              {/* Tab Switcher */}
-              <div className="flex border-b border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-                <button
-                  onClick={() => setEditorTab('edit')}
-                  className={`px-6 py-3 font-medium text-sm border-b-2 transition ${
-                    editorTab === 'edit'
-                      ? 'text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400'
-                      : 'text-gray-600 dark:text-gray-400 border-transparent hover:text-gray-900 dark:hover:text-gray-200'
-                  }`}
-                >
-                  Editar
-                </button>
-                <button
-                  onClick={async () => {
-                    setEditorTab('preview');
-                    await handleEditorPreview();
-                  }}
-                  className={`px-6 py-3 font-medium text-sm border-b-2 transition ${
-                    editorTab === 'preview'
-                      ? 'text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400'
-                      : 'text-gray-600 dark:text-gray-400 border-transparent hover:text-gray-900 dark:hover:text-gray-200'
-                  }`}
-                >
-                  Pré-visualizar
-                </button>
-              </div>
-
-              {/* Editor or Preview Content */}
-              <div className="flex-1 overflow-hidden">
-                {editorTab === 'edit' ? (
-                  <textarea
-                    value={editorPost.content}
-                    onChange={(e) =>
-                      setEditorPost({ ...editorPost, content: e.target.value })
-                    }
-                    placeholder="Escreva seu conteúdo em Markdown aqui..."
-                    className="w-full h-full px-6 py-6 bg-white dark:bg-slate-900 text-gray-900 dark:text-white font-mono text-sm border-none focus:ring-0 resize-none"
-                  />
-                ) : (
-                  <div className="w-full h-full overflow-y-auto px-6 py-6">
-                    {editorLoading ? (
-                      <div className="flex items-center justify-center h-full">
-                        <Loader className="w-8 h-8 text-blue-600 dark:text-blue-400 animate-spin" />
-                      </div>
-                    ) : (
-                      <article
-                        className="prose prose-sm sm:prose-base max-w-none
-                          prose-headings:text-gray-900 dark:prose-headings:text-white
-                          prose-p:text-gray-700 dark:prose-p:text-gray-300
-                          prose-a:text-blue-600 dark:prose-a:text-blue-400
-                          prose-strong:text-gray-900 dark:prose-strong:text-white
-                          prose-ul:text-gray-700 dark:prose-ul:text-gray-300
-                          prose-ol:text-gray-700 dark:prose-ol:text-gray-300
-                          prose-li:text-gray-700 dark:prose-li:text-gray-300
-                          prose-blockquote:border-blue-500 prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400"
-                        dangerouslySetInnerHTML={{ __html: editorPreviewHtml }}
-                      />
-                    )}
-                  </div>
-                )}
-              </div>
+            {/* Right Area - Editor */}
+            <div className="flex-1 overflow-hidden">
+              <RichEditor
+                content={editorPost.content}
+                onChange={(md) => setEditorPost({ ...editorPost, content: md })}
+                onUploadImage={handleImageUpload}
+              />
             </div>
           </div>
         </div>
