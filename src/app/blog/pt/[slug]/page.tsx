@@ -1,11 +1,34 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import fs from "fs";
+import path from "path";
 import { notFound } from "next/navigation";
 import { getPost, getAllSlugs } from "@/lib/blog";
 
 interface PageProps {
   params: { slug: string };
+}
+
+const DEFAULT_BLOG_IMAGE = "/images/blog/default.jpg";
+
+/**
+ * Resolve a blog post image path: if the referenced file does not exist
+ * in public/, fall back to the default blog image. External URLs are
+ * returned as-is.
+ */
+function resolveImage(src: string | undefined | null): string {
+  if (!src) return DEFAULT_BLOG_IMAGE;
+  // External URLs (http/https) are passed through
+  if (/^https?:\/\//i.test(src)) return src;
+  try {
+    const rel = src.startsWith("/") ? src.slice(1) : src;
+    const abs = path.join(process.cwd(), "public", rel);
+    if (fs.existsSync(abs)) return src;
+  } catch {
+    /* ignore */
+  }
+  return DEFAULT_BLOG_IMAGE;
 }
 
 export async function generateStaticParams() {
@@ -31,6 +54,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = getPost("pt", params.slug);
   if (!post) return { title: "Post não encontrado" };
 
+  const ogImage = resolveImage(post.image);
+
   return {
     title: post.title,
     description: post.description,
@@ -45,14 +70,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: "article",
       publishedTime: post.date,
       authors: [post.author],
-      images: post.image ? [{ url: post.image, alt: post.imageAlt }] : [],
+      images: [{ url: ogImage, alt: post.imageAlt || post.title }],
       locale: "pt_BR",
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: post.image ? [post.image] : [],
+      images: [ogImage],
     },
   };
 }
@@ -61,12 +86,14 @@ export default function BlogPostPT({ params }: PageProps) {
   const post = getPost("pt", params.slug);
   if (!post) notFound();
 
+  const heroImage = resolveImage(post.image);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.description,
-    image: post.image ? `https://alcolab.org${post.image}` : undefined,
+    image: `https://alcolab.org${heroImage}`,
     datePublished: post.date,
     author: {
       "@type": "Person",
@@ -106,20 +133,18 @@ export default function BlogPostPT({ params }: PageProps) {
         <header className="mb-10">
           <div className="flex flex-col md:flex-row md:items-start md:gap-8">
             {/* Imagem de destaque (esquerda) */}
-            {post.image && (
-              <div className="md:w-[45%] shrink-0 md:order-first">
-                <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-neutral-200">
-                  <Image
-                    src={post.image}
-                    alt={post.imageAlt || post.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 45vw"
-                    priority
-                  />
-                </div>
+            <div className="md:w-[45%] shrink-0 md:order-first">
+              <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                <Image
+                  src={heroImage}
+                  alt={post.imageAlt || post.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 45vw"
+                  priority
+                />
               </div>
-            )}
+            </div>
 
             {/* Texto (direita) */}
             <div className="flex-1 mt-6 md:mt-0">
