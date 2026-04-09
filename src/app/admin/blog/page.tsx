@@ -1186,15 +1186,15 @@ const handleEditorSave = useCallback(async () => {
                   </div>
                   {/* Thumbnail preview */}
                   {editorPost.image && (
-                    <div className="mt-2 relative border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-gray-50 dark:bg-slate-900">
+                    <div
+                      key={editorPost.image}
+                      className="mt-2 relative border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-gray-50 dark:bg-slate-900"
+                    >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={editorPost.image}
                         alt={editorPost.imageAlt || 'Imagem de destaque'}
-                        className="w-full h-32 object-cover"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                        }}
+                        className="block w-full h-32 object-cover"
                       />
                       <button
                         type="button"
@@ -1351,6 +1351,32 @@ const handleEditorSave = useCallback(async () => {
 
             {/* Right Area - Editor */}
             <div className="flex-1 min-h-0 flex flex-col">
+              {/* Featured Image banner (visible preview for authors) */}
+              {editorPost.image && (
+                <div
+                  key={`hero-${editorPost.image}`}
+                  className="relative mx-4 mt-4 mb-2 rounded-xl overflow-hidden border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-900"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={editorPost.image}
+                    alt={editorPost.imageAlt || 'Imagem de destaque'}
+                    className="block w-full max-h-64 object-cover"
+                  />
+                  <div className="absolute top-2 left-2 bg-black/60 text-white text-[10px] uppercase tracking-wider px-2 py-0.5 rounded">
+                    Imagem de destaque
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setFeaturedImageDialogOpen(true)}
+                    title="Trocar imagem de destaque"
+                    className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white text-xs px-2 py-1 rounded inline-flex items-center gap-1"
+                  >
+                    <ImagePlus className="w-3 h-3" />
+                    Trocar
+                  </button>
+                </div>
+              )}
               <RichEditor
                 content={editorPost.content}
                 onChange={(md) => setEditorPost({ ...editorPost, content: md })}
