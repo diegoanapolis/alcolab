@@ -12,6 +12,21 @@ export async function generateStaticParams() {
   return getAllSlugs("en").map((slug) => ({ slug }));
 }
 
+function formatDate(dateStr: string): string {
+  if (!dateStr) return "";
+  try {
+    const d = new Date(dateStr + "T12:00:00");
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  } catch {
+    return "";
+  }
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const post = getPost("en", params.slug);
   if (!post) return { title: "Post not found" };
@@ -74,7 +89,12 @@ export default function BlogPostEN({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <article className="max-w-3xl mx-auto">
+      {/* CTA banner */}
+      <a href="https://alcolab.org" className="cta-banner">
+        Discover the AlcoLab app — Free methanol screening in minutes
+      </a>
+
+      <article className="max-w-4xl mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="text-xs text-neutral-400 mb-4">
           <Link href="/blog/en" className="hover:text-[#002060]">
@@ -82,50 +102,55 @@ export default function BlogPostEN({ params }: PageProps) {
           </Link>
         </nav>
 
-        {/* Header */}
-        <header className="mb-6">
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#002060] leading-tight">
-            {post.title}
-          </h1>
-          <div className="flex items-center gap-3 mt-3 text-sm text-neutral-500">
-            <span>{post.author}</span>
-            <span>·</span>
-            <time dateTime={post.date}>
-              {new Date(post.date + "T12:00:00").toLocaleDateString("en-US", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-            </time>
-          </div>
-          {post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-3">
-              {post.tags.map((tag) => (
-                <span key={tag} className="text-xs bg-blue-50 text-[#002060] px-2.5 py-0.5 rounded-full">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </header>
+        {/* Hero: Image left + text right (desktop) */}
+        <header className="mb-10">
+          <div className="flex flex-col md:flex-row md:items-start md:gap-8">
+            {post.image && (
+              <div className="md:w-[45%] shrink-0 md:order-first">
+                <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                  <Image
+                    src={post.image}
+                    alt={post.imageAlt || post.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 45vw"
+                    priority
+                  />
+                </div>
+              </div>
+            )}
 
-        {/* Featured image */}
-        {post.image && (
-          <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-8">
-            <Image
-              src={post.image}
-              alt={post.imageAlt || post.title}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 768px) 100vw, 768px"
-            />
+            <div className="flex-1 mt-6 md:mt-0">
+              <p className="text-xs text-neutral-400 mb-2">
+                {formatDate(post.date)} {post.author && `· ${post.author}`}
+              </p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#002060] leading-tight">
+                {post.title}
+              </h1>
+              {post.description && (
+                <p className="text-neutral-500 mt-3 text-sm leading-relaxed text-justify">
+                  {post.description}
+                </p>
+              )}
+              {post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mt-4">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[10px] bg-blue-50 text-[#002060] px-2 py-0.5 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        )}
+        </header>
 
         {/* Body */}
         <div
-          className="prose prose-neutral prose-headings:text-[#002060] prose-a:text-[#002060] prose-img:rounded-xl max-w-none"
+          className="prose prose-neutral prose-headings:text-[#002060] prose-a:text-[#002060] max-w-none"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
 

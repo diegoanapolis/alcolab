@@ -15,11 +15,28 @@ export interface BlogPost {
   locale: string;
   published: boolean;
   status: "rascunho" | "em_revisao" | "aprovado" | "publicado";
+  focusKeyword: string;
   content: string; // raw markdown
   html: string; // rendered HTML
 }
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "blog");
+
+function normalizeDate(d: any): string {
+  if (!d) return "";
+  if (d instanceof Date) {
+    if (isNaN(d.getTime())) return "";
+    return d.toISOString().slice(0, 10);
+  }
+  const s = String(d);
+  // If it's an ISO string or yyyy-mm-dd, slice it
+  if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0, 10);
+  // Try parsing
+  const parsed = new Date(s);
+  if (!isNaN(parsed.getTime())) return parsed.toISOString().slice(0, 10);
+  return "";
+}
+
 
 /**
  * Get all published posts for a locale, sorted by date (newest first)
@@ -42,7 +59,7 @@ export function getPosts(locale: "pt" | "en"): BlogPost[] {
         slug,
         title: data.title || "",
         description: data.description || "",
-        date: data.date ? String(data.date).slice(0, 10) : "",
+        date: normalizeDate(data.date),
         author: data.author || "",
         image: data.image || "",
         imageAlt: data.imageAlt || "",
@@ -50,6 +67,7 @@ export function getPosts(locale: "pt" | "en"): BlogPost[] {
         locale: data.locale || locale,
         published: data.published !== false,
         status: data.status || "rascunho",
+        focusKeyword: data.focusKeyword || "",
         content,
         html: marked(content) as string,
       } satisfies BlogPost;
@@ -77,7 +95,7 @@ export function getPost(locale: "pt" | "en", slug: string): BlogPost | null {
     slug,
     title: data.title || "",
     description: data.description || "",
-    date: data.date ? String(data.date).slice(0, 10) : "",
+    date: normalizeDate(data.date),
     author: data.author || "",
     image: data.image || "",
     imageAlt: data.imageAlt || "",
@@ -85,6 +103,7 @@ export function getPost(locale: "pt" | "en", slug: string): BlogPost | null {
     locale: data.locale || locale,
     published: true,
     status: data.status || "rascunho",
+    focusKeyword: data.focusKeyword || "",
     content,
     html: marked(content) as string,
   };
@@ -123,7 +142,7 @@ export function getAllPosts(locale: "pt" | "en"): BlogPost[] {
         slug,
         title: data.title || "",
         description: data.description || "",
-        date: data.date ? String(data.date).slice(0, 10) : "",
+        date: normalizeDate(data.date),
         author: data.author || "",
         image: data.image || "",
         imageAlt: data.imageAlt || "",
@@ -131,6 +150,7 @@ export function getAllPosts(locale: "pt" | "en"): BlogPost[] {
         locale: data.locale || locale,
         published: data.published !== false,
         status: data.status || "rascunho",
+        focusKeyword: data.focusKeyword || "",
         content,
         html: marked(content) as string,
       } satisfies BlogPost;
@@ -168,7 +188,7 @@ export function updatePostStatus(
     slug,
     title: data.title || "",
     description: data.description || "",
-    date: data.date ? String(data.date).slice(0, 10) : "",
+    date: normalizeDate(data.date),
     author: data.author || "",
     image: data.image || "",
     imageAlt: data.imageAlt || "",
@@ -180,6 +200,7 @@ export function updatePostStatus(
     locale: data.locale || locale,
     published: data.published !== false,
     status: data.status || "rascunho",
+    focusKeyword: data.focusKeyword || "",
     content,
     html: marked(content) as string,
   };
@@ -200,6 +221,9 @@ export function updatePost(
     tags?: string[];
     status?: "rascunho" | "em_revisao" | "aprovado" | "publicado";
     content?: string;
+    date?: string;
+    focusKeyword?: string;
+    newSlug?: string;
   }
 ): BlogPost | null {
   const filePath = path.join(CONTENT_DIR, locale, `${slug}.md`);
@@ -211,6 +235,8 @@ export function updatePost(
 
   // Update metadata fields if provided
   if (updates.title !== undefined) data.title = updates.title;
+  if (updates.date !== undefined) data.date = updates.date;
+  if (updates.focusKeyword !== undefined) data.focusKeyword = updates.focusKeyword;
   if (updates.description !== undefined) data.description = updates.description;
   if (updates.author !== undefined) data.author = updates.author;
   if (updates.image !== undefined) data.image = updates.image;
@@ -224,15 +250,46 @@ export function updatePost(
   // Use updated content or keep existing
   const finalContent = updates.content !== undefined ? updates.content : existingContent;
 
-  // Write back
+  // Determine final slug (handle rename if newSlug is provided and different)
+  let finalSlug = slug;
+  let finalPath = filePath;
+  if (
+    updates.newSlug &&
+    updates.newSlug.trim().length > 0 &&
+    updates.newSlug !== slug
+  ) {
+    const normalizedNewSlug = updates.newSlug
+      .toLowerCase()
+      .replace(/[^a-z0-9-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    if (normalizedNewSlug.length > 0) {
+      const newFilePath = path.join(CONTENT_DIR, locale, `${normalizedNewSlug}.md`);
+      if (fs.existsSync(newFilePath)) {
+        throw new Error(`Slug ja em uso: ${normalizedNewSlug}`);
+      }
+      finalSlug = normalizedNewSlug;
+      finalPath = newFilePath;
+    }
+  }
+
+  // Write back (to new path if renamed, otherwise original)
   const updatedFile = matter.stringify(finalContent, data);
-  fs.writeFileSync(filePath, updatedFile, "utf-8");
+  fs.writeFileSync(finalPath, updatedFile, "utf-8");
+
+  // If renamed, remove the old file
+  if (finalPath !== filePath) {
+    try {
+      fs.unlinkSync(filePath);
+    } catch {
+      /* ignore */
+    }
+  }
 
   return {
-    slug,
+    slug: finalSlug,
     title: data.title || "",
     description: data.description || "",
-    date: data.date ? String(data.date).slice(0, 10) : "",
+    date: normalizeDate(data.date),
     author: data.author || "",
     image: data.image || "",
     imageAlt: data.imageAlt || "",
@@ -244,6 +301,7 @@ export function updatePost(
     locale: data.locale || locale,
     published: data.published !== false,
     status: data.status || "rascunho",
+    focusKeyword: data.focusKeyword || "",
     content: finalContent,
     html: marked(finalContent) as string,
   };

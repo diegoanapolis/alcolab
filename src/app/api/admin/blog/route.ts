@@ -42,6 +42,9 @@ export async function GET(request: NextRequest) {
         locale: post.locale,
         tags: post.tags,
         description: post.description,
+        image: post.image,
+        imageAlt: post.imageAlt,
+        focusKeyword: post.focusKeyword,
         content: post.content,
         html: post.html,
       });
@@ -156,7 +159,21 @@ export async function PUT(request: NextRequest) {
   if (!isAdminAuthenticated()) return UNAUTHORIZED;
   try {
     const body = await request.json();
-    const { locale, slug, title, description, author, image, imageAlt, tags, status, content } = body;
+    const {
+      locale,
+      slug,
+      newSlug,
+      title,
+      description,
+      author,
+      image,
+      imageAlt,
+      tags,
+      status,
+      content,
+      date,
+      focusKeyword,
+    } = body;
 
     if (!locale || !slug) {
       return NextResponse.json(
@@ -179,6 +196,9 @@ export async function PUT(request: NextRequest) {
       tags,
       status,
       content,
+      date,
+      focusKeyword,
+      newSlug,
     });
 
     if (!updatedPost) {
@@ -197,11 +217,13 @@ export async function PUT(request: NextRequest) {
       description: updatedPost.description,
       image: updatedPost.image,
       imageAlt: updatedPost.imageAlt,
+      focusKeyword: updatedPost.focusKeyword,
     });
   } catch (error) {
     console.error("Error saving post:", error);
+    const message = error instanceof Error ? error.message : "Failed to save post";
     return NextResponse.json(
-      { error: "Failed to save post" },
+      { error: message },
       { status: 500 }
     );
   }

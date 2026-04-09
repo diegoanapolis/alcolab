@@ -308,3 +308,231 @@ body { background: var(--background); color: var(--foreground); }
 h1, h2, h3 { color: var(--color-brand); }
 label { color: var(--color-label); }
 input, select, textarea { color: var(--color-brand); }
+
+/* ========================================================= */
+/* ================== BLOG / PROSE STYLES ================== */
+/* ========================================================= */
+
+/* ─── Blog: texto justificado e espaçamento compacto ─── */
+.prose p { text-align: justify; margin-top: 0.55em; margin-bottom: 0.55em; }
+.prose ul, .prose ol { margin-top: 0.25em; margin-bottom: 0.25em; padding-left: 1.4em; }
+.prose li { margin-top: 0.08em; margin-bottom: 0.08em; }
+.prose li > p { margin-top: 0; margin-bottom: 0; }
+.prose li::marker { color: #002060; }
+
+/* ─── Blog: espaçamento reduzido antes e depois de subtítulos ─── */
+.prose h2 { margin-top: 1.2em; margin-bottom: 0.35em; }
+.prose h3 { margin-top: 0.95em; margin-bottom: 0.28em; }
+.prose h4 { margin-top: 0.75em; margin-bottom: 0.22em; }
+.prose > :first-child { margin-top: 0; }
+
+/* ─── Blog: imagens centralizadas ─── */
+.prose img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border-radius: 0.5rem;
+}
+
+/* ─── Blog: iframes/vídeos centralizados e responsivos ─── */
+.prose iframe {
+  display: block;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 720px;
+  aspect-ratio: 16/9;
+  border: none;
+  border-radius: 0.5rem;
+}
+.prose [data-youtube-video] {
+  margin: 1rem auto;
+  text-align: center;
+  max-width: 720px;
+}
+.prose [data-youtube-video] iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+  border-radius: 0.5rem;
+  display: block;
+  margin: 0 auto;
+}
+.prose video {
+  display: block;
+  margin: 1rem auto;
+  max-width: 100%;
+  border-radius: 0.5rem;
+}
+
+/* ─── Blog: tabelas — proporcionais e com alinhamento especial ─── */
+.prose .table-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 1em 0;
+  overflow-x: auto;
+}
+.prose table {
+  width: auto;
+  max-width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  margin: 0 auto;
+  table-layout: auto;
+}
+.prose thead th {
+  background: #f1f5f9;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid #002060;
+  color: #002060;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+/* Primeira coluna do header: alinhamento à esquerda */
+.prose thead th:first-child { text-align: left; }
+/* Demais colunas do header: centralizadas */
+.prose thead th:not(:first-child) { text-align: center; }
+
+.prose tbody td {
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+/* Primeira coluna do body: alinhamento à esquerda */
+.prose tbody td:first-child { text-align: left; }
+/* Demais colunas do body: centralizadas */
+.prose tbody td:not(:first-child) { text-align: center; }
+
+.prose tbody tr:hover { background: #f8fafc; }
+.prose table caption {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: 0.5em;
+  caption-side: top;
+  text-align: center;
+}
+
+/* ─── Blog: SVG gráficos inline ─── */
+.prose svg {
+  max-width: 100%;
+  height: auto;
+  margin: 1em auto;
+  display: block;
+}
+.prose .chart-container {
+  margin: 1em 0;
+  text-align: center;
+}
+
+/* ─── CTA Banner (tarja clicável) ─── */
+.cta-banner {
+  display: block;
+  background: #facc15;
+  padding: 0.6rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #000000;
+  transition: background 0.2s;
+}
+.cta-banner:hover { background: #eab308; }
+
+/* ─── TipTap Editor ─── */
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
+}
+.tiptap { outline: none; }
+.tiptap img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1rem auto;
+  display: block;
+  cursor: pointer;
+  transition: outline 0.15s;
+}
+.tiptap img:hover { outline: 2px solid #002060; outline-offset: 2px; }
+.tiptap img.ProseMirror-selectednode { outline: 2px solid #002060; outline-offset: 2px; }
+.tiptap iframe {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  aspect-ratio: 16/9;
+  border-radius: 0.5rem;
+  margin: 1rem auto;
+  border: none;
+}
+.tiptap mark {
+  background-color: #fef08a;
+  padding: 0.1em 0.2em;
+  border-radius: 0.15em;
+}
+.tiptap a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.tiptap hr { border-color: #e5e7eb; margin: 1.5rem 0; }
+.tiptap code {
+  background-color: #f3f4f6;
+  padding: 0.15em 0.35em;
+  border-radius: 0.25em;
+  font-size: 0.875em;
+}
+.tiptap pre {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+.tiptap pre code { background: none; padding: 0; color: inherit; }
+.tiptap p {
+  text-align: justify;
+  margin-top: 0.55em;
+  margin-bottom: 0.55em;
+}
+.tiptap ul, .tiptap ol { margin-top: 0.25em; margin-bottom: 0.25em; }
+.tiptap li { margin-top: 0.08em; margin-bottom: 0.08em; }
+.tiptap h2 { margin-top: 1.2em; margin-bottom: 0.35em; }
+.tiptap h3 { margin-top: 0.95em; margin-bottom: 0.28em; }
+.tiptap h4 { margin-top: 0.75em; margin-bottom: 0.22em; }
+
+/* TipTap: tabelas no editor */
+.tiptap table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  font-size: 0.8125rem;
+  table-layout: auto;
+}
+.tiptap th {
+  background: #f1f5f9;
+  font-weight: 600;
+  color: #002060;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+.tiptap td {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  vertical-align: top;
+}
+.tiptap td.selectedCell, .tiptap th.selectedCell {
+  background: rgba(0, 32, 96, 0.08);
+}
+

@@ -609,9 +609,9 @@ export default function RichEditor({
         onInsert={addYoutube}
       />
 
-      <div className="border rounded-lg overflow-hidden bg-white">
+      <div className="border rounded-lg bg-white h-full min-h-0 flex flex-col">
         {/* Toolbar */}
-        <div className="flex flex-wrap items-center gap-0.5 px-2 py-1.5 border-b bg-neutral-50 sticky top-0 z-10">
+        <div className="flex-shrink-0 flex flex-wrap items-center gap-0.5 px-2 py-1.5 border-b bg-neutral-50 z-10">
           <Btn
             active={editor.isActive("bold")}
             onClick={() => editor.chain().focus().toggleBold().run()}
@@ -788,7 +788,9 @@ export default function RichEditor({
           </Btn>
         </div>
         {/* Editor content */}
-        <EditorContent editor={editor} />
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          <EditorContent editor={editor} />
+        </div>
       </div>
     </>
   );

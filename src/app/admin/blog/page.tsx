@@ -33,6 +33,7 @@ interface FilterState {
 
 interface EditorState {
   slug: string;
+  originalSlug: string;
   locale: string;
   title: string;
   description: string;
@@ -40,6 +41,7 @@ interface EditorState {
   image: string;
   imageAlt: string;
   tags: string;
+  focusKeyword: string;
   content: string;
   status: 'rascunho' | 'em_revisao' | 'aprovado' | 'publicado';
   date: string;
@@ -325,6 +327,7 @@ export default function BlogAdminPage() {
       const data = await response.json();
       setEditorPost({
         slug: post.slug,
+        originalSlug: post.slug,
         locale: post.locale,
         title: data.title || post.title,
         description: data.description || post.description,
@@ -332,9 +335,10 @@ export default function BlogAdminPage() {
         image: data.image || '',
         imageAlt: data.imageAlt || '',
         tags: Array.isArray(data.tags) ? data.tags.join(', ') : (data.tags || ''),
+        focusKeyword: data.focusKeyword || '',
         content: data.content || '',
         status: data.status || post.status,
-        date: post.date,
+        date: data.date || post.date || '',
       });
     } catch {
       setError('Erro ao carregar post para edição.');
@@ -359,18 +363,22 @@ const handleEditorSave = useCallback(async () => {
         .map((t) => t.trim())
         .filter((t) => t.length > 0);
 
+      const slugChanged = editorPost.slug !== editorPost.originalSlug;
       const response = await fetch('/api/admin/blog', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           locale: editorPost.locale,
-          slug: editorPost.slug,
+          slug: editorPost.originalSlug,
+          newSlug: slugChanged ? editorPost.slug : undefined,
           title: editorPost.title,
           description: editorPost.description,
           author: editorPost.author,
           image: editorPost.image,
           imageAlt: editorPost.imageAlt,
           tags: tagsArray,
+          focusKeyword: editorPost.focusKeyword,
+          date: editorPost.date,
           content: editorPost.content,
           status: editorPost.status,
         }),
@@ -384,13 +392,15 @@ const handleEditorSave = useCallback(async () => {
       // Update posts list
       setPosts((prevPosts) =>
         prevPosts.map((p) =>
-          p.slug === editorPost.slug
+          p.slug === editorPost.originalSlug
             ? {
                 ...p,
+                slug: editorPost.slug,
                 title: editorPost.title,
                 description: editorPost.description,
                 author: editorPost.author,
                 status: editorPost.status,
+                date: editorPost.date,
                 tags: editorPost.tags
                   .split(',')
                   .map((t) => t.trim())
@@ -399,6 +409,13 @@ const handleEditorSave = useCallback(async () => {
             : p
         )
       );
+
+      // Update originalSlug after successful save so future saves use the new slug
+      if (slugChanged) {
+        setEditorPost((prev) =>
+          prev ? { ...prev, originalSlug: editorPost.slug } : prev
+        );
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
@@ -1192,16 +1209,80 @@ const handleEditorSave = useCallback(async () => {
                   </p>
                 </div>
 
+                {/* Focus Keyword */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 dark:text-white mb-1">
+                    Palavra-chave ou expressão-chave
+                  </label>
+                  <input
+                    type="text"
+                    value={editorPost.focusKeyword}
+                    onChange={(e) =>
+                      setEditorPost({ ...editorPost, focusKeyword: e.target.value })
+                    }
+                    placeholder="ex.: metanol em bebidas"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  {(() => {
+                    const kw = editorPost.focusKeyword.trim().toLowerCase();
+                    if (!kw) {
+                      return (
+                        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                          Termo principal para SEO (usado em título, descrição e texto).
+                        </p>
+                      );
+                    }
+                    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const re = new RegExp(escaped, 'gi');
+                    const inTitle = re.test(editorPost.title);
+                    re.lastIndex = 0;
+                    const inDesc = re.test(editorPost.description);
+                    re.lastIndex = 0;
+                    const matches = editorPost.content.match(re);
+                    const count = matches ? matches.length : 0;
+                    const words = editorPost.content.trim().split(/\s+/).filter(Boolean).length;
+                    const density = words > 0 ? ((count * kw.split(/\s+/).length) / words) * 100 : 0;
+                    return (
+                      <div className="mt-2 space-y-1 text-xs">
+                        <div className={inTitle ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}>
+                          {inTitle ? '✓' : '✗'} No título SEO
+                        </div>
+                        <div className={inDesc ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}>
+                          {inDesc ? '✓' : '✗'} Na meta description
+                        </div>
+                        <div className={count > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}>
+                          {count > 0 ? '✓' : '✗'} No conteúdo ({count}x, densidade ~{density.toFixed(1)}%)
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </div>
+
                 {/* Divider */}
                 <div className="border-t border-gray-200 dark:border-slate-700 pt-4">
-                  {/* Slug - Read Only */}
+                  {/* Slug - Editable */}
                   <div className="mb-4">
                     <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
-                      Slug (somente leitura)
+                      Slug
                     </label>
-                    <div className="px-3 py-2 bg-gray-100 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-lg text-sm text-gray-600 dark:text-gray-300 font-mono truncate">
-                      {editorPost.slug}
-                    </div>
+                    <input
+                      type="text"
+                      value={editorPost.slug}
+                      onChange={(e) => {
+                        const normalized = e.target.value
+                          .toLowerCase()
+                          .replace(/[^a-z0-9-]+/g, '-')
+                          .replace(/^-+|-+$/g, '');
+                        setEditorPost({ ...editorPost, slug: normalized });
+                      }}
+                      placeholder="meu-post-sobre-metanol"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    {editorPost.slug !== editorPost.originalSlug && (
+                      <p className="mt-1 text-xs text-amber-600 dark:text-amber-400">
+                        Atenção: alterar o slug renomeará o arquivo e mudará a URL.
+                      </p>
+                    )}
                   </div>
 
                   {/* Locale - Read Only */}
@@ -1214,21 +1295,26 @@ const handleEditorSave = useCallback(async () => {
                     </div>
                   </div>
 
-                  {/* Date - Read Only */}
+                  {/* Date - Editable */}
                   <div>
                     <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
-                      Data (somente leitura)
+                      Data de publicação
                     </label>
-                    <div className="px-3 py-2 bg-gray-100 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-lg text-sm text-gray-600 dark:text-gray-300">
-                      {formatDate(editorPost.date)}
-                    </div>
+                    <input
+                      type="date"
+                      value={editorPost.date || ''}
+                      onChange={(e) =>
+                        setEditorPost({ ...editorPost, date: e.target.value })
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Right Area - Editor */}
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 min-h-0 flex flex-col">
               <RichEditor
                 content={editorPost.content}
                 onChange={(md) => setEditorPost({ ...editorPost, content: md })}
@@ -1238,6 +1324,4 @@ const handleEditorSave = useCallback(async () => {
           </div>
         </div>
       )}
-    </div>
-  );
-}
+    </
