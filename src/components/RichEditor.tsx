@@ -486,7 +486,7 @@ export default function RichEditor({
 
   useEffect(() => {
     if (!editor) return;
-    const currentMd = editor.storage.markdown?.getMarkdown() as string;
+    const currentMd = (editor.storage as any).markdown?.getMarkdown() as string;
     if (content !== currentMd) {
       suppressUpdate.current = true;
       editor.commands.setContent(content);
