@@ -115,12 +115,7 @@ export default function BlogPostEN({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* CTA banner */}
-      <a href="https://alcolab.org" className="cta-banner">
-        Discover the AlcoLab app — Free methanol screening in minutes
-      </a>
-
-      <article className="max-w-4xl mx-auto px-4 py-8">
+      <article>
         {/* Breadcrumb */}
         <nav className="text-xs text-neutral-400 mb-4">
           <Link href="/blog/en" className="hover:text-[#002060]">
@@ -128,23 +123,11 @@ export default function BlogPostEN({ params }: PageProps) {
           </Link>
         </nav>
 
-        {/* Hero: Image left + text right (desktop) */}
+        {/* Hero: Text left + image right (desktop) */}
         <header className="mb-10">
-          <div className="flex flex-col md:flex-row md:items-start md:gap-8">
-            <div className="md:w-[45%] shrink-0 md:order-first">
-            <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-neutral-200">
-              <Image
-                src={heroImage}
-                alt={post.imageAlt || post.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 45vw"
-                priority
-              />
-            </div>
-          </div>
-
-            <div className="flex-1 mt-6 md:mt-0">
+          <div className="flex flex-col md:flex-row md:items-center md:gap-8">
+            {/* Text (left) */}
+            <div className="flex-1 order-2 md:order-1 mt-6 md:mt-0">
               <p className="text-xs text-neutral-400 mb-2">
                 {formatDate(post.date)} {post.author && `· ${post.author}`}
               </p>
@@ -169,6 +152,20 @@ export default function BlogPostEN({ params }: PageProps) {
                 </div>
               )}
             </div>
+
+            {/* Featured image (right) */}
+            <div className="md:w-[45%] shrink-0 order-1 md:order-2">
+              <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                <Image
+                  src={heroImage}
+                  alt={post.imageAlt || post.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 45vw"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </header>
 
@@ -179,7 +176,7 @@ export default function BlogPostEN({ params }: PageProps) {
         />
 
         {/* CTA */}
-        <div className="mt-12 p-6 bg-blue-50 rounded-xl text-center">
+        <div className="blog-cta-box mt-12 p-6 bg-blue-50 border border-blue-200 rounded-xl text-center">
           <p className="text-sm text-neutral-700 mb-3">
             Want to test methanol screening now?
           </p>

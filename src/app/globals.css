@@ -302,6 +302,67 @@
 
   /* Seção Apoie: labels Pix/Internacional */
   .bg-neutral-50 .text-neutral-700 { color: var(--dm-text-muted) !important; }
+
+  /* ===== BLOG POST: conteudo (prose) legivel no modo escuro ===== */
+  .prose,
+  .prose p,
+  .prose li,
+  .prose td,
+  .prose th,
+  .prose blockquote,
+  .prose em,
+  .prose span,
+  .prose div {
+    color: var(--dm-text) !important;
+  }
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6,
+  .prose strong,
+  .prose b,
+  .prose a {
+    color: var(--dm-title) !important;
+  }
+  .prose li::marker { color: var(--dm-title) !important; }
+  .prose hr { border-color: var(--dm-border) !important; }
+  .prose code {
+    color: var(--dm-text) !important;
+    background-color: var(--dm-surface) !important;
+    border-color: var(--dm-border) !important;
+  }
+  .prose pre {
+    background-color: var(--dm-surface-alt) !important;
+    color: var(--dm-text) !important;
+  }
+  .prose pre code { background: none !important; color: inherit !important; }
+  .prose blockquote {
+    border-left-color: var(--color-brand) !important;
+  }
+  .prose thead th {
+    background: var(--dm-surface-alt) !important;
+    color: var(--dm-title) !important;
+    border-bottom-color: var(--color-brand) !important;
+  }
+  .prose tbody td {
+    border-bottom-color: var(--dm-border) !important;
+  }
+  .prose tbody tr:hover {
+    background: var(--dm-surface) !important;
+  }
+  .prose table caption { color: var(--dm-text-muted) !important; }
+
+  /* ===== BLOG CTA inferior: borda clara para destacar no modo escuro ===== */
+  .blog-cta-box {
+    border-color: #60a5fa !important;
+    border-width: 1px !important;
+  }
+  .blog-cta-box p,
+  .blog-cta-box .text-neutral-700 {
+    color: var(--dm-text) !important;
+  }
 }
 
 body { background: var(--background); color: var(--foreground); }

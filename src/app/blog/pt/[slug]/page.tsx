@@ -116,12 +116,7 @@ export default function BlogPostPT({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Tarja CTA */}
-      <a href="https://alcolab.org" className="cta-banner">
-        Conheça o app AlcoLab — Triagem gratuita de metanol em minutos
-      </a>
-
-      <article className="max-w-4xl mx-auto px-4 py-8">
+      <article>
         {/* Breadcrumb */}
         <nav className="text-xs text-neutral-400 mb-4">
           <Link href="/blog/pt" className="hover:text-[#002060]">
@@ -129,25 +124,11 @@ export default function BlogPostPT({ params }: PageProps) {
           </Link>
         </nav>
 
-        {/* Hero: Imagem à esquerda + texto à direita (desktop) */}
+        {/* Hero: Texto à esquerda + imagem à direita (desktop) */}
         <header className="mb-10">
-          <div className="flex flex-col md:flex-row md:items-start md:gap-8">
-            {/* Imagem de destaque (esquerda) */}
-            <div className="md:w-[45%] shrink-0 md:order-first">
-              <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-neutral-200">
-                <Image
-                  src={heroImage}
-                  alt={post.imageAlt || post.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 45vw"
-                  priority
-                />
-              </div>
-            </div>
-
-            {/* Texto (direita) */}
-            <div className="flex-1 mt-6 md:mt-0">
+          <div className="flex flex-col md:flex-row md:items-center md:gap-8">
+            {/* Texto (esquerda) */}
+            <div className="flex-1 order-2 md:order-1 mt-6 md:mt-0">
               <p className="text-xs text-neutral-400 mb-2">
                 {formatDate(post.date)} {post.author && `· ${post.author}`}
               </p>
@@ -172,6 +153,20 @@ export default function BlogPostPT({ params }: PageProps) {
                 </div>
               )}
             </div>
+
+            {/* Imagem de destaque (direita) */}
+            <div className="md:w-[45%] shrink-0 order-1 md:order-2">
+              <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg border border-neutral-200">
+                <Image
+                  src={heroImage}
+                  alt={post.imageAlt || post.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 45vw"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </header>
 
@@ -182,7 +177,7 @@ export default function BlogPostPT({ params }: PageProps) {
         />
 
         {/* CTA */}
-        <div className="mt-12 p-6 bg-blue-50 rounded-xl text-center">
+        <div className="blog-cta-box mt-12 p-6 bg-blue-50 border border-blue-200 rounded-xl text-center">
           <p className="text-sm text-neutral-700 mb-3">
             Quer testar a triagem de metanol agora?
           </p>
