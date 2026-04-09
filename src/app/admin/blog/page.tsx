@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect, useMemo, FormEvent, useCallback } from 'react';
-import { ChevronDown, Search, Loader, CheckCircle, AlertCircle, LogOut, Lock, Eye, X, FileText, ArrowLeft, Save } from 'lucide-react';
+import { ChevronDown, Search, Loader, CheckCircle, AlertCircle, LogOut, Lock, Eye, X, FileText, ArrowLeft, Save, ImagePlus } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import FeaturedImageDialog from '@/components/FeaturedImageDialog';
 
 const RichEditor = dynamic(() => import('@/components/RichEditor'), {
   ssr: false,
@@ -208,6 +209,7 @@ export default function BlogAdminPage() {
   const [editorLoading, setEditorLoading] = useState(false);
   const [editorSaving, setEditorSaving] = useState(false);
   const [editorSuccess, setEditorSuccess] = useState(false);
+  const [featuredImageDialogOpen, setFeaturedImageDialogOpen] = useState(false);
 
   // Check session on mount
   useEffect(() => {
@@ -1163,15 +1165,49 @@ const handleEditorSave = useCallback(async () => {
                   <label className="block text-sm font-medium text-gray-900 dark:text-white mb-1">
                     Imagem de destaque
                   </label>
-                  <input
-                    type="text"
-                    value={editorPost.image}
-                    onChange={(e) =>
-                      setEditorPost({ ...editorPost, image: e.target.value })
-                    }
-                    placeholder="/images/..."
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
+                  <div className="flex gap-1.5">
+                    <input
+                      type="text"
+                      value={editorPost.image}
+                      onChange={(e) =>
+                        setEditorPost({ ...editorPost, image: e.target.value })
+                      }
+                      placeholder="/images/..."
+                      className="flex-1 min-w-0 px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setFeaturedImageDialogOpen(true)}
+                      title="Upload ou selecionar da galeria"
+                      className="shrink-0 px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 text-sm hover:bg-gray-50 dark:hover:bg-slate-600 inline-flex items-center gap-1"
+                    >
+                      <ImagePlus className="w-4 h-4" />
+                    </button>
+                  </div>
+                  {/* Thumbnail preview */}
+                  {editorPost.image && (
+                    <div className="mt-2 relative border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-gray-50 dark:bg-slate-900">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={editorPost.image}
+                        alt={editorPost.imageAlt || 'Imagem de destaque'}
+                        className="w-full h-32 object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = 'none';
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setEditorPost({ ...editorPost, image: '' })
+                        }
+                        title="Remover imagem"
+                        className="absolute top-1 right-1 bg-black/60 hover:bg-black/80 text-white rounded-full p-1"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Image Alt Text */}
@@ -1322,6 +1358,17 @@ const handleEditorSave = useCallback(async () => {
               />
             </div>
           </div>
+
+          {/* Featured Image Picker Dialog */}
+          <FeaturedImageDialog
+            open={featuredImageDialogOpen}
+            onClose={() => setFeaturedImageDialogOpen(false)}
+            currentUrl={editorPost.image}
+            onSelect={(url) =>
+              setEditorPost({ ...editorPost, image: url })
+            }
+            onUpload={handleImageUpload}
+          />
         </div>
       )}
     </div>
