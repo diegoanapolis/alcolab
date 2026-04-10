@@ -30,6 +30,7 @@ interface FilterState {
   author: string;
   status: string;
   search: string;
+  locale: string;
 }
 
 interface EditorState {
@@ -197,6 +198,7 @@ export default function BlogAdminPage() {
     author: 'all',
     status: 'all',
     search: '',
+    locale: 'pt',
   });
 
   // Content preview state
@@ -287,7 +289,10 @@ export default function BlogAdminPage() {
       const matchesSearch = post.title
         .toLowerCase()
         .includes(filters.search.toLowerCase());
-      return matchesAuthor && matchesStatus && matchesSearch;
+      const postLocale = post.locale.startsWith('pt') ? 'pt' : 'en';
+      const matchesLocale =
+        filters.locale === 'all' || postLocale === filters.locale;
+      return matchesAuthor && matchesStatus && matchesSearch && matchesLocale;
     });
 
     const sorted = [...filtered].sort((a, b) => {
@@ -691,7 +696,25 @@ const handleEditorSave = useCallback(async () => {
 
         {/* Filters */}
         <div className="sticky top-0 z-10 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg p-4 mb-6 shadow-sm">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+            {/* Locale Filter */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Idioma
+              </label>
+              <select
+                value={filters.locale}
+                onChange={(e) =>
+                  setFilters({ ...filters, locale: e.target.value })
+                }
+                className="w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="pt">🇧🇷 Português</option>
+                <option value="en">🇺🇸 English</option>
+                <option value="all">Todos</option>
+              </select>
+            </div>
+
             {/* Author Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
