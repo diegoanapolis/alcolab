@@ -6,9 +6,10 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 author: "Romério Rodrigues dos Santos Silva"
-image: "/images/blog/diferenca-metanol-etanol.png"
-imageAlt: "Tabela comparativa das propriedades químicas e físicas do metanol versus etanol"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [metanol, etanol, diferença, química, toxicidade, álcool]
+focusKeyword: "diferença entre metanol e etanol"
 ---
 
 # Metanol e etanol: qual a diferença e por que um mata?

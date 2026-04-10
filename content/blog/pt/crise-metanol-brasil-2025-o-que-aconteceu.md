@@ -6,10 +6,10 @@ date: "2026-04-08"
 locale: "pt-BR"
 published: false
 status: "rascunho"
-keyword: "crise metanol Brasil 2025"
-image: "/images/blog/crise-metanol-brasil-2025.png"
-imageAlt: "Mapa do Brasil destacando os estados afetados pela crise de metanol em 2025 com dados de casos confirmados"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["crise metanol", "Brasil 2025", "São Paulo", "vigilância sanitária", "saúde pública", "surto"]
+focusKeyword: "crise do metanol Brasil 2025"
 ---
 
 # Crise do Metanol no Brasil em 2025: O Que Aconteceu e O Que Aprendemos

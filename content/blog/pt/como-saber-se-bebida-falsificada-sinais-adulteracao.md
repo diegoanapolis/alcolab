@@ -6,9 +6,10 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 author: "Romério Rodrigues dos Santos Silva"
-image: "/images/blog/sinais-bebida-falsificada.png"
-imageAlt: "Comparação entre garrafa de bebida original e falsificada mostrando sinais de adulteração no rótulo e lacre"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["bebida falsificada", "adulteração", "prevenção", "rótulo", "ANVISA", "segurança"]
+focusKeyword: "como saber se a bebida é falsificada"
 ---
 
 ## Como identificar bebidas falsificadas: proteção essencial contra o metanol

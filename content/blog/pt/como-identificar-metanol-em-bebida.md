@@ -3,8 +3,8 @@ title: "Como identificar metanol em bebida alcoólica: guia prático"
 description: "Saiba como identificar metanol em bebida alcoólica com triagem rápida usando seringa, balança e celular. Guia completo e gratuito com o AlcoLab."
 date: 2026-03-10
 author: "Diego Mendes de Souza"
-image: "/images/blog/como-identificar-metanol-bebida.png"
-imageAlt: "Tela do AlcoLab mostrando resultado de triagem com semáforo indicando possível presença de metanol em bebida alcoólica"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags:
   - como identificar metanol
   - metanol em bebida
@@ -13,8 +13,9 @@ tags:
   - saúde pública
   - AlcoLab
 locale: "pt-BR"
-published: true
-status: "publicado"
+published: false
+status: "rascunho"
+focusKeyword: "como identificar metanol em bebida"
 ---
 
 ## Por que identificar metanol em bebidas é tão urgente?

@@ -7,8 +7,9 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 tags: [vigilância sanitária, fiscalização, metanol, LACEN, saúde pública, Brasil]
-image: "/images/blog/vigilancia-sanitaria-fiscalizacao-metanol.png"
-imageAlt: "Agente de vigilância sanitária inspecionando bebidas alcoólicas em estabelecimento comercial no Brasil"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
+focusKeyword: "vigilância sanitária metanol"
 ---
 
 ## Vigilância sanitária e metanol: desafios da fiscalização no Brasil

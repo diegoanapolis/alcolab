@@ -16,6 +16,7 @@ export interface BlogPost {
   published: boolean;
   status: "rascunho" | "em_revisao" | "aprovado" | "publicado";
   focusKeyword: string;
+  translationSlug?: string; // slug of the sibling post in the other locale
   content: string; // raw markdown
   html: string; // rendered HTML
 }
@@ -68,6 +69,7 @@ export function getPosts(locale: "pt" | "en"): BlogPost[] {
         published: data.published !== false,
         status: data.status || "rascunho",
         focusKeyword: data.focusKeyword || "",
+        translationSlug: data.translationSlug || undefined,
         content,
         html: marked(content) as string,
       } satisfies BlogPost;
@@ -104,6 +106,7 @@ export function getPost(locale: "pt" | "en", slug: string): BlogPost | null {
     published: true,
     status: data.status || "rascunho",
     focusKeyword: data.focusKeyword || "",
+        translationSlug: data.translationSlug || undefined,
     content,
     html: marked(content) as string,
   };
@@ -151,6 +154,7 @@ export function getAllPosts(locale: "pt" | "en"): BlogPost[] {
         published: data.published !== false,
         status: data.status || "rascunho",
         focusKeyword: data.focusKeyword || "",
+        translationSlug: data.translationSlug || undefined,
         content,
         html: marked(content) as string,
       } satisfies BlogPost;
@@ -201,6 +205,7 @@ export function updatePostStatus(
     published: data.published !== false,
     status: data.status || "rascunho",
     focusKeyword: data.focusKeyword || "",
+        translationSlug: data.translationSlug || undefined,
     content,
     html: marked(content) as string,
   };
@@ -245,6 +250,54 @@ export function updatePost(
   if (updates.status !== undefined) {
     data.status = updates.status;
     data.published = updates.status === "publicado";
+  }
+
+  // PT <-> EN sync: mirror featured image (and alt) to the linked sibling post
+  // so when the user changes the cover in PT, the EN (and vice-versa) updates
+  // automatically. Uses `translationSlug` from the current frontmatter.
+  const siblingLocale: "pt" | "en" = locale === "pt" ? "en" : "pt";
+  const siblingSlug: string | undefined = data.translationSlug;
+  if (
+    siblingSlug &&
+    typeof siblingSlug === "string" &&
+    siblingSlug.trim().length > 0 &&
+    (updates.image !== undefined || updates.imageAlt !== undefined)
+  ) {
+    const siblingPath = path.join(
+      CONTENT_DIR,
+      siblingLocale,
+      `${siblingSlug}.md`
+    );
+    if (fs.existsSync(siblingPath)) {
+      try {
+        const siblingRaw = fs.readFileSync(siblingPath, "utf-8");
+        const { data: siblingData, content: siblingContent } = matter(siblingRaw);
+        let siblingChanged = false;
+        if (updates.image !== undefined && siblingData.image !== updates.image) {
+          siblingData.image = updates.image;
+          siblingChanged = true;
+        }
+        if (
+          updates.imageAlt !== undefined &&
+          siblingData.imageAlt !== updates.imageAlt
+        ) {
+          siblingData.imageAlt = updates.imageAlt;
+          siblingChanged = true;
+        }
+        if (siblingChanged) {
+          fs.writeFileSync(
+            siblingPath,
+            matter.stringify(siblingContent, siblingData),
+            "utf-8"
+          );
+        }
+      } catch (err) {
+        console.error(
+          `[updatePost] Failed to sync image to sibling ${siblingLocale}/${siblingSlug}:`,
+          err
+        );
+      }
+    }
   }
 
   // Use updated content or keep existing
@@ -302,7 +355,100 @@ export function updatePost(
     published: data.published !== false,
     status: data.status || "rascunho",
     focusKeyword: data.focusKeyword || "",
+    translationSlug: data.translationSlug || undefined,
     content: finalContent,
     html: marked(finalContent) as string,
+  };
+}
+
+/**
+ * Create or overwrite a translated post in the target locale and link it
+ * bidirectionally with its source sibling via `translationSlug`. Used by the
+ * "Atualizar versão EN" admin button.
+ */
+export function upsertTranslatedPost(
+  sourceLocale: "pt" | "en",
+  sourceSlug: string,
+  target: {
+    locale: "pt" | "en";
+    slug: string;
+    title: string;
+    description: string;
+    content: string;
+    imageAlt?: string;
+    focusKeyword?: string;
+    tags?: string[];
+  }
+): BlogPost | null {
+  const sourcePath = path.join(CONTENT_DIR, sourceLocale, `${sourceSlug}.md`);
+  if (!fs.existsSync(sourcePath)) return null;
+
+  const sourceRaw = fs.readFileSync(sourcePath, "utf-8");
+  const { data: sourceData, content: sourceContent } = matter(sourceRaw);
+
+  const normalizedTargetSlug = target.slug
+    .toLowerCase()
+    .replace(/[^a-z0-9-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  if (!normalizedTargetSlug) return null;
+
+  const targetDir = path.join(CONTENT_DIR, target.locale);
+  if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
+
+  const targetPath = path.join(targetDir, `${normalizedTargetSlug}.md`);
+
+  // Start from source frontmatter so everything (image, date, author, ...)
+  // is mirrored unless the caller overrides a specific field.
+  const targetData: Record<string, unknown> = {
+    ...sourceData,
+    title: target.title,
+    description: target.description,
+    locale: target.locale === "pt" ? "pt-BR" : "en",
+    translationSlug: sourceSlug,
+    // Always keep the target unpublished until the author reviews it
+    status: "em_revisao",
+    published: false,
+  };
+
+  if (target.imageAlt !== undefined) targetData.imageAlt = target.imageAlt;
+  if (target.focusKeyword !== undefined)
+    targetData.focusKeyword = target.focusKeyword;
+  if (target.tags !== undefined) targetData.tags = target.tags;
+
+  fs.writeFileSync(
+    targetPath,
+    matter.stringify(target.content, targetData),
+    "utf-8"
+  );
+
+  // Link back from the source so future image changes also sync.
+  if (sourceData.translationSlug !== normalizedTargetSlug) {
+    sourceData.translationSlug = normalizedTargetSlug;
+    fs.writeFileSync(
+      sourcePath,
+      matter.stringify(sourceContent, sourceData),
+      "utf-8"
+    );
+  }
+
+  return {
+    slug: normalizedTargetSlug,
+    title: target.title,
+    description: target.description,
+    date: normalizeDate(targetData.date),
+    author: (targetData.author as string) || "",
+    image: (targetData.image as string) || "",
+    imageAlt: (targetData.imageAlt as string) || "",
+    tags: Array.isArray(targetData.tags)
+      ? (targetData.tags as string[])
+      : [],
+    locale: (targetData.locale as string) || target.locale,
+    published: false,
+    status: "em_revisao",
+    focusKeyword: (targetData.focusKeyword as string) || "",
+    translationSlug: sourceSlug,
+    content: target.content,
+    html: marked(target.content) as string,
   };
 }

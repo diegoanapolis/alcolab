@@ -7,9 +7,10 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 author: "Pedro Augusto de Oliveira Morais"
-image: "/images/blog/alcool-falsificado-viagem-turismo.png"
-imageAlt: "Viajante verificando garrafa de destilado em bar no exterior como prevenção contra álcool falsificado com metanol"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [álcool falsificado, viagem, turismo, metanol, segurança, FCDO]
+focusKeyword: "álcool falsificado em viagem"
 ---
 
 # Álcool Falsificado em Viagem: Como Se Proteger em Destinos Turísticos

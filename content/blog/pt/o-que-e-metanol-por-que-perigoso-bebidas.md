@@ -6,10 +6,10 @@ date: "2026-04-08"
 published: false
 status: "rascunho"
 locale: "pt-BR"
-image: "/images/blog/o-que-e-metanol-perigo.png"
-imageAlt: "Estrutura molecular do metanol comparada ao etanol mostrando a diferença que torna o metanol perigoso"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["metanol", "álcool metílico", "toxicidade", "saúde pública", "bebida adulterada"]
-keyword: "o que é metanol"
+focusKeyword: "o que é metanol"
 ---
 
 ## O que é metanol: uma ameaça silenciosa nas bebidas

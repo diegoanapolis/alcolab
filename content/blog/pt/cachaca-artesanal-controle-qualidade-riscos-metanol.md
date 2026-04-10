@@ -6,10 +6,10 @@ date: 2026-04-08
 locale: "pt-BR"
 published: false
 status: "rascunho"
-keyword: "cachaça artesanal metanol controle qualidade"
-image: "/images/blog/cachaca-artesanal-destilacao-metanol.png"
-imageAlt: "Alambique artesanal de cachaça com destaque para o processo de destilação e separação de frações"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [cachaça artesanal, destilação, metanol, controle qualidade, MAPA, alambique]
+focusKeyword: "metanol em cachaça artesanal"
 ---
 
 # Cachaça Artesanal e Metanol: Riscos na Destilação e Como Garantir Qualidade

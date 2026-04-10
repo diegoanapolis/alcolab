@@ -6,10 +6,10 @@ date: "2026-04-08"
 locale: "pt-BR"
 published: false
 status: "rascunho"
-keyword: "metanol Coca-Cola fake news"
-image: "/images/blog/fake-news-metanol-desmentidas.png"
-imageAlt: "Selo de fake news sobre boatos de metanol em Coca-Cola, café e água que circularam nas redes sociais"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["fake news", "metanol", "desinformação", "Coca-Cola", "bebida adulterada", "fact-checking"]
+focusKeyword: "metanol Coca-Cola fake news"
 ---
 
 # Metanol na Coca-Cola, no Café e na Água? As Fake News Desmentidas

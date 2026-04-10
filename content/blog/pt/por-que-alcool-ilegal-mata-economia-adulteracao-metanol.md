@@ -7,8 +7,8 @@ date: 2026-04-08
 locale: "pt-BR"
 published: false
 status: "rascunho"
-image: "/images/blog/economia-alcool-ilegal-metanol.png"
-imageAlt: "Infográfico mostrando a cadeia econômica do álcool ilegal desde a produção de metanol até a venda ao consumidor"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags:
   - álcool ilegal
   - economia
@@ -16,6 +16,7 @@ tags:
   - mercado negro
   - impostos
   - adulteração
+focusKeyword: "álcool ilegal adulteração"
 ---
 
 # Por que o álcool ilegal mata: a economia por trás da adulteração

@@ -6,10 +6,10 @@ author: "Pedro Augusto de Oliveira Morais"
 locale: "pt-BR"
 published: false
 status: "rascunho"
-keyword: "surto metanol Irã 2020 COVID"
-image: "/images/blog/surto-metanol-ira-2020-covid.png"
-imageAlt: "Infográfico sobre o surto de metanol no Irã em 2020 causado por desinformação durante a pandemia de COVID-19"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [Irã, surto metanol, COVID-19, desinformação, fake news, 2020]
+focusKeyword: "surto de metanol Irã 2020"
 ---
 
 ## O Maior Surto de Metanol da História: Fake News Matou 800 no Irã

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, FormEvent, useCallback } from 'react';
-import { ChevronDown, Search, Loader, CheckCircle, AlertCircle, LogOut, Lock, Eye, X, FileText, ArrowLeft, Save, ImagePlus } from 'lucide-react';
+import { ChevronDown, Search, Loader, CheckCircle, AlertCircle, LogOut, Lock, Eye, X, FileText, ArrowLeft, Save, ImagePlus, Languages } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import FeaturedImageDialog from '@/components/FeaturedImageDialog';
 
@@ -210,6 +210,8 @@ export default function BlogAdminPage() {
   const [editorSaving, setEditorSaving] = useState(false);
   const [editorSuccess, setEditorSuccess] = useState(false);
   const [featuredImageDialogOpen, setFeaturedImageDialogOpen] = useState(false);
+  const [translating, setTranslating] = useState(false);
+  const [translateMessage, setTranslateMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   // Check session on mount
   useEffect(() => {
@@ -476,6 +478,85 @@ const handleEditorSave = useCallback(async () => {
     const data = await res.json();
     return data.url || null;
   }, []);
+
+  const handleTranslateToEn = useCallback(async () => {
+    if (!editorPost) return;
+    if (!editorPost.locale.startsWith('pt')) {
+      setTranslateMessage({ type: 'error', text: 'Tradução disponível apenas em posts PT.' });
+      return;
+    }
+
+    // Save current edits first so the translator sees the latest content
+    try {
+      setTranslating(true);
+      setTranslateMessage(null);
+
+      const tagsArray = editorPost.tags
+        .split(',')
+        .map((t) => t.trim())
+        .filter((t) => t.length > 0);
+
+      const saveRes = await fetch('/api/admin/blog', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          locale: editorPost.locale,
+          slug: editorPost.originalSlug,
+          title: editorPost.title,
+          description: editorPost.description,
+          author: editorPost.author,
+          image: editorPost.image,
+          imageAlt: editorPost.imageAlt,
+          tags: tagsArray,
+          focusKeyword: editorPost.focusKeyword,
+          date: editorPost.date,
+          content: editorPost.content,
+          status: editorPost.status,
+        }),
+      });
+      if (!saveRes.ok) {
+        const err = await saveRes.json().catch(() => ({}));
+        throw new Error(err.error || 'Falha ao salvar PT antes de traduzir.');
+      }
+
+      const res = await fetch('/api/admin/translate-post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          locale: editorPost.locale,
+          slug: editorPost.originalSlug,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Falha na tradução.');
+      }
+
+      setTranslateMessage({
+        type: 'success',
+        text: data.message || `Tradução EN salva como rascunho em ${data.targetSlug}.`,
+      });
+
+      // Refresh the posts list so the new EN entry shows up
+      try {
+        const listRes = await fetch('/api/admin/blog');
+        if (listRes.ok) {
+          const listData = await listRes.json();
+          setPosts(listData);
+        }
+      } catch {
+        /* non-fatal */
+      }
+    } catch (err) {
+      setTranslateMessage({
+        type: 'error',
+        text: err instanceof Error ? err.message : 'Erro desconhecido ao traduzir.',
+      });
+    } finally {
+      setTranslating(false);
+    }
+  }, [editorPost]);
 
   // --- End of useCallback hooks ---
 
@@ -1065,18 +1146,35 @@ const handleEditorSave = useCallback(async () => {
                   </button>
                 ))}
               </div>
-              <button
-                onClick={handleEditorSave}
-                disabled={editorSaving}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
-              >
-                {editorSaving ? (
-                  <Loader className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Save className="w-4 h-4" />
+              <div className="flex items-center gap-2">
+                {editorPost.locale.startsWith('pt') && (
+                  <button
+                    onClick={handleTranslateToEn}
+                    disabled={translating || editorSaving}
+                    title="Salva o PT e gera/atualiza a versão EN via Claude API"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                  >
+                    {translating ? (
+                      <Loader className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <Languages className="w-4 h-4" />
+                    )}
+                    {translating ? 'Traduzindo...' : 'Atualizar versão EN'}
+                  </button>
                 )}
-                Salvar alterações
-              </button>
+                <button
+                  onClick={handleEditorSave}
+                  disabled={editorSaving}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                >
+                  {editorSaving ? (
+                    <Loader className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Save className="w-4 h-4" />
+                  )}
+                  Salvar alterações
+                </button>
+              </div>
             </div>
 
             {/* Success Message */}
@@ -1084,6 +1182,31 @@ const handleEditorSave = useCallback(async () => {
               <div className="mt-3 flex items-center gap-2 text-sm text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-3 py-2 rounded-lg">
                 <CheckCircle className="w-4 h-4 flex-shrink-0" />
                 Alterações salvas com sucesso!
+              </div>
+            )}
+
+            {/* Translation Result Message */}
+            {translateMessage && (
+              <div
+                className={`mt-3 flex items-start gap-2 text-sm px-3 py-2 rounded-lg ${
+                  translateMessage.type === 'success'
+                    ? 'text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900/20'
+                    : 'text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-900/20'
+                }`}
+              >
+                {translateMessage.type === 'success' ? (
+                  <CheckCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                ) : (
+                  <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                )}
+                <span className="flex-1">{translateMessage.text}</span>
+                <button
+                  type="button"
+                  onClick={() => setTranslateMessage(null)}
+                  className="flex-shrink-0 opacity-70 hover:opacity-100"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
               </div>
             )}
           </div>

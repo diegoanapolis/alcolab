@@ -7,8 +7,8 @@ date: 2026-04-08
 locale: "pt-BR"
 published: false
 status: "rascunho"
-image: "/images/blog/metanol-russia-irkutsk-vodca.png"
-imageAlt: "Garrafas de vodca na Rússia com contexto da crise de metanol desde Irkutsk 2016 até a nova lei de rastreio"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags:
   - Rússia
   - metanol
@@ -16,6 +16,7 @@ tags:
   - vodca falsificada
   - lei rastreio
   - 2025
+focusKeyword: "metanol Rússia Irkutsk"
 ---
 
 # Metanol na Rússia: tragedias, lei rastreio e esperança

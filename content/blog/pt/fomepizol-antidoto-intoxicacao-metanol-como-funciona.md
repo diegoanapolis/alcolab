@@ -6,9 +6,10 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 author: "Pedro Augusto de Oliveira Morais"
-image: "/images/blog/fomepizol-antidoto-metanol.png"
-imageAlt: "Frasco de fomepizol, o antídoto preferencial usado em hospitais para tratar intoxicação por metanol"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["fomepizol", "antídoto", "metanol", "tratamento", "SUS", "hemodiálise"]
+focusKeyword: "fomepizol antídoto metanol"
 ---
 
 ## Fomepizol: o antídoto essencial contra intoxicação por metanol

@@ -7,9 +7,10 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 author: "Romério Rodrigues dos Santos Silva"
-image: "/images/blog/fcdo-alerta-metanol-29-paises.png"
-imageAlt: "Mapa mundial destacando os 29 países na lista de alerta de metanol do FCDO britânico atualizada em 2025"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [FCDO, alerta metanol, países risco, viagem, Reino Unido, segurança]
+focusKeyword: "alerta de metanol FCDO"
 ---
 
 # Alerta Britânico de Metanol: Os 29 Países na Lista de Risco do FCDO

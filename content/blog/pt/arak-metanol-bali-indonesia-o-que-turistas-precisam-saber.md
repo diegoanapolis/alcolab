@@ -6,10 +6,10 @@ author: "Romério Rodrigues dos Santos Silva"
 locale: "pt-BR"
 published: false
 status: "rascunho"
-keyword: "arak metanol Bali turistas"
-image: "/images/blog/arak-bali-metanol-turistas.png"
-imageAlt: "Coquetel servido em bar de praia em Bali com alerta sobre o risco de metanol no arak e destilados locais"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [arak, Bali, Indonésia, metanol, turismo, Sudeste Asiático]
+focusKeyword: "arak metanol Bali"
 ---
 
 ## Arak e Metanol em Bali: O Que Turistas Precisam Saber Antes de Beber

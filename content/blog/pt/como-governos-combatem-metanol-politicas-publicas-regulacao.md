@@ -6,9 +6,10 @@ author: "Romério Rodrigues dos Santos Silva"
 locale: "pt-BR"
 published: false
 status: "rascunho"
-image: "/images/blog/politicas-publicas-metanol-mundo.png"
-imageAlt: "Panorama de diferentes políticas públicas adotadas por governos para combater o envenenamento por metanol"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["políticas públicas", "regulação", "metanol", "governos", "OMS", "fiscalização"]
+focusKeyword: "políticas públicas metanol"
 ---
 
 # Políticas Públicas Contra Metanol: Estratégias Globais que Salvam Vidas

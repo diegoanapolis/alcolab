@@ -6,10 +6,10 @@ date: "2026-04-08"
 published: false
 status: "rascunho"
 locale: "pt-BR"
-image: "/images/blog/sintomas-intoxicacao-metanol.png"
-imageAlt: "Infográfico mostrando os sintomas de intoxicação por metanol em ordem cronológica de aparecimento"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["sintomas metanol", "intoxicação", "emergência médica", "visão turva", "saúde"]
-keyword: "sintomas intoxicação metanol"
+focusKeyword: "sintomas de intoxicação por metanol"
 ---
 
 ## Reconhecer os sintomas pode salvar sua vida

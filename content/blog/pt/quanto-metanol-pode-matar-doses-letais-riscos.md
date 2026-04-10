@@ -6,9 +6,10 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 author: "Pedro Augusto de Oliveira Morais"
-image: "/images/blog/dose-letal-metanol.png"
-imageAlt: "Infográfico mostrando as doses de metanol e seus efeitos no organismo humano desde intoxicação até dose letal"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [dose letal, metanol, toxicologia, intoxicação, risco, saúde]
+focusKeyword: "quanto metanol pode matar"
 ---
 
 # Quanto de metanol pode matar? Entenda as doses letais e os riscos

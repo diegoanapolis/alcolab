@@ -6,10 +6,10 @@ date: 2026-04-08
 locale: "pt-BR"
 published: false
 status: "rascunho"
-keyword: "cegueira metanol visão"
-image: "/images/blog/cegueira-metanol-nervo-optico.png"
-imageAlt: "Ilustração médica do nervo óptico sendo afetado pelo ácido fórmico durante intoxicação por metanol"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [cegueira, metanol, nervo óptico, ácido fórmico, sequelas, visão]
+focusKeyword: "cegueira por metanol"
 ---
 
 # Cegueira por Metanol: Por que a Intoxicação Afeta a Visão

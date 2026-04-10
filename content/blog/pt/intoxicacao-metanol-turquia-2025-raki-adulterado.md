@@ -4,11 +4,12 @@ description: "Metanol Turquia 2025 deixa 120+ mortes com rakı adulterado. Istam
 date: "2026-04-08"
 author: "Pedro Augusto de Oliveira Morais"
 tags: ["metanol", "Turquia", "rakı", "Istambul", "surto 2025", "álcool falsificado"]
-image: "/images/blog/metanol-turquia-raki-adulterado-2025.png"
-imageAlt: "Garrafas de rakı turco com alerta sobre adulteração por metanol na crise de 2025 na Turquia"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 locale: "pt-BR"
 published: false
 status: "rascunho"
+focusKeyword: "metanol raki Turquia"
 ---
 
 ## Turquia 2025: O Surto Mais Grave de Metanol do Ano

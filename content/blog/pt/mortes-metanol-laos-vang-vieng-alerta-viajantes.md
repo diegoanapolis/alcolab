@@ -6,9 +6,10 @@ date: 2026-04-08
 locale: "pt-BR"
 published: false
 status: "rascunho"
-image: "/images/blog/vang-vieng-laos-metanol-turistas.png"
-imageAlt: "Vista de Vang Vieng no Laos, destino turístico onde 6 turistas morreram por intoxicação por metanol em 2024"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["Laos", "Vang Vieng", "metanol", "turistas", "Tiger Vodka", "alerta viagem"]
+focusKeyword: "metanol Laos Vang Vieng"
 ---
 
 # Mortes por metanol no Laos: o caso Vang Vieng e o alerta para viajantes

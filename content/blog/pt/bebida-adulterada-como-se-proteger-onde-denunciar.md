@@ -7,8 +7,9 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 tags: [bebida adulterada, denúncia, ANVISA, Procon, vigilância sanitária, prevenção]
-image: "/images/blog/bebida-adulterada-denuncia-brasil.png"
-imageAlt: "Guia visual de onde denunciar bebidas adulteradas no Brasil incluindo ANVISA, Procon e vigilância sanitária"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
+focusKeyword: "bebida adulterada"
 ---
 
 ## Bebida adulterada: como se proteger e onde denunciar no Brasil

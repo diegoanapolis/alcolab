@@ -4,11 +4,12 @@ description: "Intoxicação metanol mundial afeta 185 países com 40 mil vítima
 date: "2026-04-08"
 author: "Romério Rodrigues dos Santos Silva"
 tags: ["intoxicação metanol", "saúde pública global", "MSF", "surtos", "185 países", "epidemiologia"]
-image: "/images/blog/intoxicacao-metanol-mundo-mapa.png"
-imageAlt: "Mapa mundial destacando os 185 países com casos documentados de intoxicação por metanol"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 locale: "pt-BR"
 published: false
 status: "rascunho"
+focusKeyword: "intoxicação por metanol no mundo"
 ---
 
 ## Intoxicação por Metanol: Uma Crise de Saúde Pública Global Silenciosa

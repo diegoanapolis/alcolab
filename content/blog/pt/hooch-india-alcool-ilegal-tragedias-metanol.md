@@ -6,9 +6,10 @@ date: 2026-04-08
 locale: "pt-BR"
 published: false
 status: "rascunho"
-image: "/images/blog/hooch-india-alcool-ilegal.png"
-imageAlt: "Produção clandestina de hooch na Índia rural, o álcool ilegal que frequentemente contém metanol"
+image: "/images/blog/default.jpg"
+imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["hooch", "Índia", "álcool ilegal", "metanol", "Tamil Nadu", "Assam"]
+focusKeyword: "hooch metanol Índia"
 ---
 
 # Hooch na Índia: o álcool ilegal que mata milhares
