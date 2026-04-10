@@ -10,6 +10,7 @@ tags: ["como usar AlcoLab", "triagem de metanol", "passo a passo", "detecção m
 image: "/images/blog/passo-a-passo-alcolab-seringa.png"
 imageAlt: "Seringa de 20mL com agulha 22G usada no passo a passo da triagem de metanol pelo AlcoLab"
 focusKeyword: "como usar AlcoLab"
+translationSlug: "how-to-use-alcolab-step-by-step-methanol-screening"
 ---
 
 ## Como Usar AlcoLab: Guia Prático Para Triagem

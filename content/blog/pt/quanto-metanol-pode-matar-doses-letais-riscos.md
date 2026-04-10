@@ -6,6 +6,7 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 author: "Pedro Augusto de Oliveira Morais"
+translationSlug: "how-much-methanol-can-kill-lethal-doses"
 image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [dose letal, metanol, toxicologia, intoxicação, risco, saúde]

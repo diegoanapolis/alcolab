@@ -10,6 +10,7 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 focusKeyword: "intoxicação por metanol no mundo"
+translationSlug: "methanol-poisoning-worldwide-public-health-crisis-185-countries"
 ---
 
 # Intoxicação por metanol no mundo: crise global

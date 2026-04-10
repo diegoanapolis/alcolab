@@ -5,11 +5,12 @@ date: 2026-04-08
 author: "Romério Rodrigues dos Santos Silva"
 locale: "pt-BR"
 published: false
-status: "rascunho"
+status: "em_revisao"
 image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [arak, Bali, Indonésia, metanol, turismo, Sudeste Asiático]
 focusKeyword: "arak metanol Bali"
+translationSlug: "arak-methanol-bali-indonesia-tourist-guide"
 ---
 
 ## Arak Metanol Bali: Como Turistas Podem se Proteger

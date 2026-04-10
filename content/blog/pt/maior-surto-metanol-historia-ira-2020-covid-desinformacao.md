@@ -10,6 +10,7 @@ image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [Irã, surto metanol, COVID-19, desinformação, fake news, 2020]
 focusKeyword: "surto de metanol Irã 2020"
+translationSlug: "largest-methanol-outbreak-iran-2020-covid-misinformation"
 ---
 
 ## Surto de Metanol Irã 2020: Maior Crise da História

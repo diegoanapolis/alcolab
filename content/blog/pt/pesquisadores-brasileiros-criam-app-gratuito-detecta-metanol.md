@@ -10,6 +10,7 @@ tags: ["app detecta metanol", "detecção de metanol", "AlcoLab", "segurança de
 image: "/images/blog/alcolab-app-triagem-metanol.png"
 imageAlt: "Interface do aplicativo AlcoLab mostrando resultado de triagem de metanol em bebida alcoólica"
 focusKeyword: "app detecta metanol"
+translationSlug: "brazilian-researchers-create-free-app-detects-methanol"
 ---
 
 ## App Detecta Metanol Gratuitamente: A Solução Que Brasil Precisava

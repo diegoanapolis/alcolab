@@ -17,6 +17,7 @@ tags:
   - impostos
   - adulteração
 focusKeyword: "álcool ilegal adulteração"
+translationSlug: "why-illegal-alcohol-kills-economics-of-methanol-adulteration"
 ---
 
 ## Álcool Ilegal: A Economia Mortal da Adulteração com Metanol

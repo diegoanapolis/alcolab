@@ -17,6 +17,7 @@ tags:
   - lei rastreio
   - 2025
 focusKeyword: "metanol Rússia Irkutsk"
+translationSlug: "methanol-russia-irkutsk-2016-new-tracking-law-2025"
 ---
 
 ## Metanol Rússia Irkutsk: Da Crise à Nova Legislação

@@ -6,6 +6,7 @@ date: "2026-04-08"
 published: false
 status: "rascunho"
 locale: "pt-BR"
+translationSlug: "methanol-poisoning-symptoms-warning-signs"
 image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["sintomas metanol", "intoxicação", "emergência médica", "visão turva", "saúde"]

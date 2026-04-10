@@ -10,6 +10,7 @@ tags: [bebida adulterada, denúncia, ANVISA, Procon, vigilância sanitária, pre
 image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 focusKeyword: "bebida adulterada"
+translationSlug: "adulterated-drinks-how-to-protect-yourself-report"
 ---
 
 ## Bebida Adulterada: Proteção, Reconhecimento e Denúncia

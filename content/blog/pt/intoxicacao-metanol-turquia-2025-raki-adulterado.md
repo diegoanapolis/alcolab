@@ -8,8 +8,9 @@ image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 locale: "pt-BR"
 published: false
-status: "rascunho"
+status: "em_revisao"
 focusKeyword: "metanol raki Turquia"
+translationSlug: "methanol-crisis-turkey-2025-adulterated-raki"
 ---
 
 ## Metanol Raki Turquia 2025: O Surto Crítico

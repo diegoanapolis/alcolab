@@ -15,6 +15,7 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 focusKeyword: "AlcoLab triagem metanol"
+translationSlug: "alcolab-international-reach-brazilian-methanol-screening-tool"
 ---
 
 ## AlcoLab triagem metanol já salva vidas globalmente

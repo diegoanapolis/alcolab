@@ -5,11 +5,12 @@ author: "Romério Rodrigues dos Santos Silva"
 date: "2026-04-08"
 locale: "pt-BR"
 published: false
-status: "rascunho"
+status: "em_revisao"
 image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["cegueira", "metanol", "nervo óptico", "ácido fórmico", "sequelas", "visão"]
 focusKeyword: "cegueira por metanol"
+translationSlug: "methanol-blindness-why-poisoning-affects-vision"
 ---
 
 # Cegueira por Metanol: Por Que a Intoxicação Afeta a Visão

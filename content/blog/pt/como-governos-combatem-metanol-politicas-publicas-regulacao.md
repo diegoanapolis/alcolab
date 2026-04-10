@@ -10,6 +10,7 @@ image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["políticas públicas", "regulação", "metanol", "governos", "OMS", "fiscalização"]
 focusKeyword: "políticas públicas metanol"
+translationSlug: "how-governments-fight-methanol-public-policy-regulation"
 ---
 
 ## Políticas Públicas Metanol: Estratégias Globais que Salvam Vidas

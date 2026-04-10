@@ -10,6 +10,7 @@ image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [cachaça artesanal, destilação, metanol, controle qualidade, MAPA, alambique]
 focusKeyword: "metanol em cachaça artesanal"
+translationSlug: "artisanal-cachaca-quality-control-methanol-risks"
 ---
 
 ## Metanol em Cachaça Artesanal: Ciência da Destilação e Segurança

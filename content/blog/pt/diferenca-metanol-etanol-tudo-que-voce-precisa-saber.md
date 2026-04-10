@@ -6,6 +6,7 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 author: "Romério Rodrigues dos Santos Silva"
+translationSlug: "methanol-vs-ethanol-differences-explained"
 image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [metanol, etanol, diferença, química, toxicidade, álcool]

@@ -16,6 +16,7 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 focusKeyword: "como identificar metanol em bebida"
+translationSlug: "how-to-detect-methanol-in-drinks"
 ---
 
 ## Por que saber como identificar metanol em bebida é urgente

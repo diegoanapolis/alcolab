@@ -11,6 +11,7 @@ image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: [FCDO, alerta metanol, países risco, viagem, Reino Unido, segurança]
 focusKeyword: "alerta de metanol FCDO"
+translationSlug: "british-methanol-alert-29-countries-fcdo-risk-list"
 ---
 
 # Alerta de metanol FCDO: 29 países e proteção

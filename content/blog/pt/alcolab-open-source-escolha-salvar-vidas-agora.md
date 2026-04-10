@@ -11,6 +11,7 @@ image: "/images/blog/alcolab-open-source-codigo-aberto.png"
 imageAlt: "Símbolo de código aberto representando a decisão do AlcoLab de ser open source e gratuito"
 tags: ["open source", "AlcoLab", "código aberto", "saúde pública", "patente", "inovação"]
 focusKeyword: "AlcoLab open source"
+translationSlug: "alcolab-open-source-choosing-to-save-lives-now"
 ---
 
 ## AlcoLab open source: vida agora ou lucro depois

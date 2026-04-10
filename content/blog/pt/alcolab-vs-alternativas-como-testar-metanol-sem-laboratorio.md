@@ -15,6 +15,7 @@ locale: "pt-BR"
 published: false
 status: "rascunho"
 focusKeyword: "como testar metanol sem laboratório"
+translationSlug: "how-to-test-methanol-without-lab-alcolab-vs-alternatives"
 ---
 
 ## Como Testar Metanol Sem Laboratório: O Desafio Real

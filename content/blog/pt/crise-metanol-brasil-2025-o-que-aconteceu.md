@@ -6,6 +6,7 @@ date: "2026-04-08"
 locale: "pt-BR"
 published: false
 status: "rascunho"
+translationSlug: "brazil-methanol-crisis-2025-what-happened"
 image: "/images/blog/default.jpg"
 imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
 tags: ["crise metanol", "Brasil 2025", "São Paulo", "vigilância sanitária", "saúde pública", "surto"]
