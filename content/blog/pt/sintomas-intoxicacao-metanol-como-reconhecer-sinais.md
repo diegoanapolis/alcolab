@@ -1,6 +1,6 @@
 ---
-title: "Sintomas de intoxicação por metanol: como reconhecer os sinais a tempo"
-description: "Aprenda a identificar os sintomas de intoxicação por metanol rapidamente e saiba quando procurar ajuda emergencial para evitar consequências irreversíveis."
+title: "Sintomas de intoxicação por metanol: fases e sinais de alerta"
+description: "Aprenda as fases dos sintomas de intoxicação por metanol, diferenças com ressaca e quando procurar ajuda emergencial para salvar sua visão."
 author: "Romério Rodrigues dos Santos Silva"
 date: "2026-04-08"
 published: false
@@ -14,100 +14,319 @@ focusKeyword: "sintomas de intoxicação por metanol"
 
 ## Reconhecer os sintomas pode salvar sua vida
 
-A intoxicação por metanol segue uma progressão de sintomas que variam ao longo do tempo. Infelizmente, muitas pessoas confundem os sinais iniciais com uma simples ressaca alcoólica comum. Essa confusão é extremamente perigosa, pois cada hora que passa sem atendimento médico apropriado aumenta o risco de danos permanentes e irreversíveis.
+A intoxicação por metanol segue uma progressão previsível de sintomas que variam ao longo do tempo. Infelizmente, muitas pessoas confundem os sinais iniciais com uma simples ressaca alcoólica comum. Essa confusão é extremamente perigosa.
 
-O conhecimento é poder nessa situação. Compreender a cronologia dos sintomas e reconhecer as diferenças cruciais entre uma intoxicação por metanol e um hangover comum pode literalmente ser a diferença entre a vida e a morte. Além disso, pode significar a diferença entre manter a visão e se tornar cego permanentemente.
+Cada hora que passa sem atendimento médico apropriado aumenta o risco de danos permanentes e irreversíveis. Conhecimento é poder nessa situação. Compreender a cronologia dos **sintomas de intoxicação por metanol** pode literalmente ser a diferença entre a vida e a morte.
+
+Além disso, pode significar a diferença entre manter a visão e se tornar cego permanentemente. Esse é um aspecto absolutamente crucial que não pode ser ignorado.
+
+## Progressão temporal dos sintomas
+
+Conforme demonstrado no gráfico abaixo, os **sintomas de intoxicação por metanol** evoluem em fases bem definidas:
+
+```svg
+<svg viewBox="0 0 450 280" xmlns="http://www.w3.org/2000/svg">
+  <!-- Title -->
+  <text x="225" y="20" font-size="16" font-weight="bold" text-anchor="middle" fill="#002060">
+    Progressão Temporal dos Sintomas de Intoxicação por Metanol
+  </text>
+  
+  <!-- Timeline axis -->
+  <line x1="60" y1="240" x2="420" y2="240" stroke="#002060" stroke-width="2"/>
+  <line x1="60" y1="30" x2="60" y2="240" stroke="#002060" stroke-width="2"/>
+  
+  <!-- Time markers -->
+  <circle cx="100" cy="240" r="4" fill="#002060"/>
+  <text x="100" y="260" font-size="10" text-anchor="middle" fill="#666">0-12h</text>
+  
+  <circle cx="180" cy="240" r="4" fill="#1F4E79"/>
+  <text x="180" y="260" font-size="10" text-anchor="middle" fill="#666">12-24h</text>
+  
+  <circle cx="260" cy="240" r="4" fill="#E74C3C"/>
+  <text x="260" y="260" font-size="10" text-anchor="middle" fill="#666">24-48h</text>
+  
+  <circle cx="340" cy="240" r="4" fill="#E74C3C"/>
+  <text x="340" y="260" font-size="10" text-anchor="middle" fill="#666">48h+</text>
+  
+  <!-- Severity curve -->
+  <path d="M 100 180 L 180 100 L 260 40 L 340 30" stroke="#E74C3C" stroke-width="3" fill="none"/>
+  
+  <!-- Severity labels -->
+  <text x="65" y="45" font-size="10" fill="#666">Grave</text>
+  <text x="65" y="110" font-size="10" fill="#666">Moderado</text>
+  <text x="65" y="190" font-size="10" fill="#666">Leve</text>
+  
+  <!-- Horizontal grid -->
+  <line x1="60" y1="100" x2="420" y2="100" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="60" y1="180" x2="420" y2="180" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3,3"/>
+  
+  <!-- Legend -->
+  <rect x="50" y="30" width="10" height="10" fill="#002060"/>
+  <text x="65" y="37" font-size="9" fill="#333">Fase 1 (Inicial)</text>
+  
+  <rect x="50" y="50" width="10" height="10" fill="#1F4E79"/>
+  <text x="65" y="57" font-size="9" fill="#333">Fase 2 (Alerta)</text>
+  
+  <rect x="50" y="70" width="10" height="10" fill="#E74C3C"/>
+  <text x="65" y="77" font-size="9" fill="#333">Fase 3+ (Crítico)</text>
+</svg>
+```
+
+Primeiramente, compreenda que a trajetória é sempre no sentido de deterioração. Os sintomas não melhoram com o tempo. Eles pioram progressivamente. Essa é a diferença mais crítica entre intoxicação por metanol e ressaca comum.
 
 ## Fase 1: as primeiras 12 horas após a ingestão
 
-Imediatamente após consumir uma bebida contaminada com metanol, a pessoa experimenta sintomas que parecem perfeitamente normais de intoxicação alcoólica. Nesta fase inicial, há náusea, vômito e desconforto abdominal leve a moderado. A pessoa pode também sentir tontura e perda de equilíbrio, exatamente como aconteceria após beber bebidas alcoólicas legítimas.
+Imediatamente após consumir uma bebida contaminada com metanol, a pessoa experimenta sintomas que parecem perfeitamente normais de intoxicação alcoólica.
 
-Dor de cabeça surge durante essa primeira fase e geralmente não é particularmente intensa. A pessoa pode se sentir sonolenta, letárgica e geralmente mal-estar. Em muitos casos, o indivíduo pode até tentar dormir, achando que "acordará melhor" — um pensamento completamente compreensível dado os sintomas semelharem aos de um hangover comum.
+**Sintomas iniciais típicos da Fase 1:**
+- Náusea e vômito
+- Desconforto abdominal (leve a moderado)
+- Tontura e perda de equilíbrio
+- Dor de cabeça (geralmente não intensa)
+- Sonolência e letargia
+- Mal-estar geral
+- Sensação de fraqueza
 
-O grande problema nessa fase é a falsa sensação de segurança. Porque os sintomas são tão similares aos de uma intoxicação alcoólica normal, muitas pessoas não procuram ajuda médica. Elas simplesmente vão para casa, bebem água e se deitam, esperando que os sintomas desapareçam naturalmente. Infelizmente, o que está acontecendo dentro do corpo é muito mais sinistro.
+A pessoa pode se sentir exatamente como após beber bebidas alcoólicas legítimas. Pode até tentar dormir, achando que "acordará melhor". Esse pensamento é completamente compreensível dado os sintomas semelharem aos de um hangover comum.
 
-Enquanto a pessoa dorme ou descansa, o metanol está sendo metabolizado no fígado. A enzima álcool desidrogenase está convertendo metanol em formaldeído, e depois em ácido fórmico — a substância que causará danos irreversíveis. Os primeiros sintomas são apenas o começo de uma trajetória perigosa e progressiva.
+Portanto, nessa fase, muitas pessoas não procuram ajuda médica. Elas simplesmente vão para casa. Bebem água e se deitam. Esperam que os sintomas desapareçam naturalmente. Infelizmente, o que está acontecendo dentro do corpo é muito mais sinistro.
+
+Enquanto a pessoa dorme ou descansa, o metanol está sendo metabolizado no fígado. A enzima álcool desidrogenase está convertendo metanol em formaldeído. Depois em ácido fórmico — a substância que causará danos irreversíveis.
+
+**O grande problema nessa fase:** A falsa sensação de segurança. Os sintomas são tão similares aos de uma intoxicação normal que ninguém se preocupa seriamente.
 
 ## Fase 2: entre 12 e 24 horas — os sinais de alerta
 
-Conforme as horas passam e o metanol continua sendo metabolizado, os sintomas pioram significativamente. A dor de cabeça, que era moderada na fase anterior, se intensifica e se torna severa. Medicamentos de venda livre podem não fazer muito efeito, e a pessoa pode começar a se preocupar de verdade.
+Conforme as horas passam e o metanol continua sendo metabolizado, os sintomas pioram significativamente. Nesse sentido, essa é a fase crítica onde as diferenças começam a aparecer.
 
-O vômito continua ou retorna com mais intensidade. A dor abdominal se agrava, evoluindo de um desconforto geral para uma dor localizadora. A pessoa pode se sentir febril e debilitada. Fraqueza muscular é comum, e andar ou ficar de pé se torna progressivamente mais difícil.
+**Piora dos sintomas anteriores:**
+- Dor de cabeça intensifica — torna-se severa
+- Medicamentos de venda livre podem não fazer efeito
+- Vômito continua ou retorna com mais intensidade
+- Dor abdominal se agrava
+- Fraqueza muscular é notável
+- Andar ou ficar de pé se torna progressivamente mais difícil
+- Febre e debilidade geral
+- Sensação de friozinho na pele
 
-Aqui é onde os sinais específicos da intoxicação por metanol começam a aparecer. Visão turva é frequentemente um dos primeiros sintomas específicos a surgir durante essa fase. A pessoa pode relatar dificuldade para focar, dificuldade para ler ou visão dupla. Alguns descrevem uma sensação de niebla sobre os olhos ou como se estivessem vendo através de um vidro sujo.
+**Sintomas específicos da Fase 2:**
+- Visão turva (sinal muito importante!)
+- Dificuldade para focar
+- Visão dupla
+- Sensação de névoa sobre os olhos
+- Sensação como se estivesse vendo através de vidro sujo
+- "Visão de campo de neve" (snowfield vision) — muito específica para metanol
+- Confusão mental e desorientação
+- Dificuldade de concentração
+- Memória prejudicada
+- Sensações corporais estranhas
+- Sopor (sonolência anormal)
+- Aceleração do ritmo cardíaco
+- Respiração mais rápida que o normal
+- Pressão arterial elevada ou irregular
 
-Um sintoma particularmente característico e assustador é chamado de "visão de campo de neve" (snowfield vision). Nessa condição, a pessoa vê o que parece ser uma estática branca ou granulada, semelhante ao padrão que aparecia em televisores antigos quando não sintonizados corretamente. Esse sintoma é altamente específico para envenenamento por metanol e deve desencadear uma busca imediata por cuidados médicos.
+Um sintoma particularmente característico e assustador é chamado de "visão de campo de neve" (snowfield vision). Nessa condição, a pessoa vê uma estática branca ou granulada. É semelhante ao padrão que aparecia em televisores antigos quando não sintonizados. Esse sintoma é altamente específico para envenenamento por metanol.
 
-A confusão mental pode começar a se manifestar nessa fase. A pessoa pode se sentir desorientada em relação a tempo e lugar. Dificuldade de concentração e memória prejudicada são comuns. Alguns relatam sensação de "alucinação" ou sensações corporais estranhas.
-
-Outros sintomas nessa fase incluem sopor (um nível de sonolência anormal), friozinho na pele, aceleração do ritmo cardíaco e respiração mais rápida que o normal. A pressão arterial pode estar elevada ou irregular.
+**Esse é o ponto crítico:** Se esse sintoma aparecer, procure cuidados médicos de emergência imediatamente. Não espere. Não duvide.
 
 ## Fase 3: após 24-48 horas — o perigo crítico
 
-Passadas mais de 24 horas desde a ingestão, os sintomas evoluem para um estado perigoso e potencialmente fatal. A confusão mental piora drasticamente, evoluindo para delirium e comportamento irracional. A pessoa pode não reconhecer pessoas próximas ou lugares familiares. Fala incoerente e comportamento errático são comuns.
+Passadas mais de 24 horas desde a ingestão, os sintomas evoluem para um estado perigoso e potencialmente fatal. Nessa fase, as chances de danos permanentes aumentam exponencialmente.
 
-Convulsões podem ocorrer nessa fase. O corpo entra em um estado de choque, com instabilidade severa dos sinais vitais. Cegueira total ou cegueira progressiva começa a ocorrer, frequentemente de forma devastadoramente rápida. O que começou como visão turva pode evoluir para escuridão completa em poucas horas.
+**Deterioração crítica:**
+- Confusão mental piora drasticamente
+- Delirium e comportamento irracional
+- Pessoa pode não reconhecer familiares
+- Fala incoerente
+- Comportamento errático
+- Convulsões podem ocorrer
+- Choque corporal com sinais vitais instáveis
+- Cegueira total ou cegueira progressiva
+- Respiração laborada
+- Insuficiência respiratória possível
+- Coma
+- Colapso cardiorrespiratório possível
+- Morte
 
-A respiração se torna progressivamente mais laborada, e a pessoa pode entrar em insuficiência respiratória — uma condição onde o corpo não consegue oxigenar o sangue adequadamente. Coma é uma possibilidade real nessa fase. A morte pode ocorrer por colapso cardiorrespiratório ou por acidose metabólica severa que desencadeia falha de múltiplos órgãos.
+Cegueira começa a ocorrer. Frequentemente de forma devastadoramente rápida. O que começou como visão turva pode evoluir para escuridão completa em poucas horas. A visão pode passar de normal para irreversivelmente perdida em apenas 24 horas.
 
-## A diferença crítica: ressaca versus envenenamento por metanol
+**A realidade brutal dessa fase:** Sem intervenção médica imediata, a morte é possível. Afinal, praticamente nenhum sistema corporal fica isento dos efeitos tóxicos do ácido fórmico.
 
-Aqui está a distinção absolutamente crucial que pode salvar uma vida: uma ressaca alcoólica comum melhora com o tempo e hidratação. Quando você dorme 8 horas e acorda, bebe água, come algo e descansa, a ressaca típica irá melhorar significativamente ao longo do dia.
+## A diferença crítica: ressaca versus metanol
 
-Com intoxicação por metanol, o oposto ocorre. Os sintomas não melhoram — eles pioram progressivamente. Uma pessoa que se sente apenas levemente mal pela manhã pode estar em perigo crítico à noite. A trajetória é sempre no sentido de deterioração, não de melhora.
+**Tabela comparativa:**
 
-Essa é a razão pela qual esperar "ver se melhora" é absolutamente a estratégia errada. Esperar pelas 24 ou 48 horas geralmente significa esperar demais. O tratamento deve ser iniciado o mais rápido possível após a ingestão suspeita de metanol.
+| Aspecto | Ressaca Comum | Intoxicação por Metanol |
+|---|---|---|
+| **Evolução** | Melhora progressivamente | Piora progressivamente |
+| **Duração** | 8-24 horas | Horas até morte |
+| **Visão turva** | Não ocorre | Ocorre após 12-24h |
+| **Recuperação com repouso** | Sim | Não |
+| **Reação a água/alimento** | Melhora significativa | Sem melhora |
+| **Campo de neve visual** | Nunca ocorre | Altamente específico |
+| **Delirium** | Raro | Comum após 24h |
+| **Outcome sem tratamento** | Completa recuperação | Cegueira ou morte |
+| **Urgência médica** | Não | Sim, emergência |
+
+Aqui está a distinção absolutamente crucial que pode salvar uma vida: **uma ressaca alcoólica comum melhora com o tempo e hidratação.** Quando você dorme 8 horas e acorda, bebe água, come algo e descansa, a ressaca típica irá melhorar significativamente ao longo do dia.
+
+Com intoxicação por metanol, o oposto ocorre. Os sintomas não melhoram — eles pioram. Uma pessoa que se sente apenas levemente mal pela manhã pode estar em perigo crítico à noite.
+
+Essa é a razão pela qual esperar "ver se melhora" é absolutamente a estratégia errada. Esperar pelas 24 ou 48 horas geralmente significa esperar demais. O tratamento deve ser iniciado o mais rápido possível após a ingestão suspeita.
 
 ## O sinal de aviso crítico: distúrbios visuais
 
-Se há um único sintoma que deve desencadear uma ida imediata à emergência, é qualquer tipo de problema visual que aparece 12 a 48 horas após beber. Visão turva, visão de campo de neve, dor nos olhos, sensibilidade à luz, ou qualquer alteração na visão deve ser tratada como uma emergência médica.
+**Se há um único sintoma que deve desencadear uma ida imediata à emergência, é qualquer tipo de problema visual.**
 
-Não espere para ver se melhora. Não tente dirigir para o hospital (seria perigoso demais). Chame uma ambulância ou peça que alguém o leve imediatamente. Informe ao médico que você suspeita de ingestão de metanol e quando ocorreu a ingestão, se possível.
+Isso inclui:
+- Visão turva
+- Visão de campo de neve
+- Dor nos olhos
+- Sensibilidade à luz
+- Qualquer alteração na visão
+- Dificuldade para focar
+- Visão dupla
+- Perda parcial ou total de visão
+
+Esse sinal deve aparecer 12 a 48 horas após beber. Qualquer combinação desses sintomas deve ser tratada como uma emergência médica.
+
+**Não espere para ver se melhora.** Não tente dirigir para o hospital (seria perigoso). Chame uma ambulância. Peça que alguém o leve imediatamente. Informe ao médico que você suspeita de ingestão de metanol. Indique quando ocorreu a ingestão se possível.
+
+Quanto mais rápido o tratamento é iniciado, melhores são as chances de sobrevivência. Melhores são as chances de evitar cegueira permanente.
 
 ## O que fazer em caso de suspeita de envenenamento
 
 Se você ou alguém próximo suspeita de ter ingerido metanol, existem etapas críticas que devem ser seguidas imediatamente:
 
-Primeiro, procure atendimento médico de emergência. Não hesite, não espere. Ligue para a ambulância (192 no Brasil) ou dirija-se ao hospital mais próximo. Quanto mais rápido o tratamento é iniciado, melhores são as chances de sobrevivência e de evitar cegueira permanente.
+**Passo 1: Procure atendimento médico de emergência**
+- Não hesite. Não espere.
+- Ligue para a ambulância (192 no Brasil)
+- Dirija-se ao hospital mais próximo
+- Quanto mais rápido o tratamento é iniciado, melhores são as chances
 
-Segundo, tente fornecer aos médicos o máximo de informação possível. Quando você bebeu? Quanto você bebeu? Qual era a origem da bebida? Se possível, traga a garrafa ou rótulo do produto para que os médicos vejam o que você consumiu. Essas informações ajudam os médicos a confirmar o diagnóstico e iniciar o tratamento apropriado.
+**Passo 2: Forneça informações aos médicos**
+- Quando você bebeu?
+- Quanto você bebeu?
+- Qual era a origem da bebida?
+- Se possível, traga a garrafa ou rótulo do produto
+- Essas informações ajudam os médicos a confirmar o diagnóstico
+- Permitem o tratamento apropriado
 
-Terceiro, não tente "se tratar em casa" com remédios caseiros ou medicamentos de venda livre. Não há remédio caseiro que funcione para envenenamento por metanol. O tratamento requer intervenção médica profissional em ambiente hospitalar.
+**Passo 3: Não tente se tratar em casa**
+- Não use remédios caseiros
+- Não use medicamentos de venda livre
+- Não há remédio caseiro que funcione para metanol
+- O tratamento requer intervenção médica profissional em hospital
+
+**Passo 4: Permita o tratamento apropriado**
+- Aceite intravenosa e suporte respiratório se necessário
+- Siga as recomendações dos médicos
+- Não questione a medicação recomendada
+- Sua vida depende do tratamento hospitalar apropriado
 
 ## O tratamento médico para intoxicação por metanol
 
-Em um hospital, o tratamento inclui várias etapas importantes. A primeira é o apoio básico — suporte respiratório se necessário, reposição de fluidos por via intravenosa, e monitoramento dos sinais vitais.
+Em um hospital, o tratamento de **sintomas de intoxicação por metanol** inclui várias etapas importantes:
 
-A segunda é o tratamento específico. O medicamento mais eficaz é o fomepizol, um inibidor de álcool desidrogenase. Ao bloquear essa enzima, o fomepizol evita que o metanol seja convertido em formaldeído e ácido fórmico — impedindo os danos. Alternativamente, em hospitais onde o fomepizol não está disponível, etanol (a mesma bebida alcoólica que normalmente evitamos) pode ser administrado por via intravenosa como antídoto, pois compete com o metanol pela atenção da enzima álcool desidrogenase.
+**Primeira etapa — Apoio básico:**
+- Suporte respiratório se necessário
+- Reposição de fluidos por via intravenosa
+- Monitoramento contínuo dos sinais vitais
+- Estabilização cardiovascular
 
-A terceira é a correção da acidose metabólica severa, geralmente através de bicarbonato de sódio administrado por via intravenosa. Essa etapa é crucial porque a acidose é responsável por muitos dos danos sistêmicos.
+**Segunda etapa — Tratamento específico:**
+O medicamento mais eficaz é o **fomepizol**, um inibidor de álcool desidrogenase. Ao bloquear essa enzima, o fomepizol evita que o metanol seja convertido em formaldeído e ácido fórmico. Impede os danos quando administrado rapidamente.
 
-Em casos severos, hemodiálise pode ser necessária para remover o metanol do sangue. Essa é uma medida mais agressiva reservada para envenenamentos particularmente graves.
+Alternativamente, em hospitais onde o fomepizol não está disponível, **etanol** (a mesma bebida alcoólica) pode ser administrado por via intravenosa como antídoto. Compete com o metanol pela atenção da enzima álcool desidrogenase. Portanto, retarda a metabolização tóxica.
+
+**Terceira etapa — Correção da acidose:**
+- Bicarbonato de sódio administrado por via intravenosa
+- Essa etapa é crucial porque a acidose causa danos sistêmicos
+- Restaura o pH do sangue
+- Protege contra colapso orgânico
+
+**Quarta etapa — Remoção do metanol (casos graves):**
+- Hemodiálise remove o metanol do sangue
+- Medida mais agressiva para casos graves
+- Especialmente importante em doses altas
+- Implementada rapidamente quando necessário
 
 ## Estatísticas de 2025: a resposta do Brasil
 
-Em 2025, o Brasil enfrentou uma crise de intoxicação por metanol que exigiu mobilização da saúde pública. Através da PAHO (Organização Pan-Americana de Saúde), o país recebeu 2.500 unidades de fomepizol — uma medicação crítica e cara para o tratamento de envenenamento por metanol.
+Em 2025, o Brasil enfrentou uma crise de intoxicação por metanol que exigiu mobilização da saúde pública:
 
-Além disso, foram distribuídas 11.500 ampolas de etanol farmacêutico através do Sistema Único de Saúde (SUS). Essas ampolas seriam usadas como antídoto nos casos onde o fomepizol não estava disponível. Esses números refletem a magnitude do problema e a resposta coordenada necessária para lidar com uma crise de saúde pública dessa escala.
+```svg
+<svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Title -->
+  <text x="250" y="20" font-size="16" font-weight="bold" text-anchor="middle" fill="#002060">
+    Resposta Brasileira à Crise de Metanol - 2025
+  </text>
+  
+  <!-- Axes -->
+  <line x1="60" y1="250" x2="480" y2="250" stroke="#002060" stroke-width="2"/>
+  <line x1="60" y1="30" x2="60" y2="250" stroke="#002060" stroke-width="2"/>
+  
+  <!-- Y-axis labels -->
+  <text x="40" y="260" font-size="10" text-anchor="middle" fill="#666">0</text>
+  <text x="40" y="190" font-size="10" text-anchor="middle" fill="#666">5000</text>
+  <text x="40" y="130" font-size="10" text-anchor="middle" fill="#666">10000</text>
+  <text x="40" y="70" font-size="10" text-anchor="middle" fill="#666">15000</text>
+  
+  <!-- Bars -->
+  <rect x="100" y="140" width="100" height="110" fill="#002060"/>
+  <text x="150" y="270" font-size="11" text-anchor="middle" fill="#333">Fomepizol</text>
+  <text x="150" y="260" font-size="13" font-weight="bold" text-anchor="middle" fill="#002060">2.500</text>
+  
+  <rect x="250" y="50" width="100" height="200" fill="#1F4E79"/>
+  <text x="300" y="270" font-size="11" text-anchor="middle" fill="#333">Etanol Farm.</text>
+  <text x="300" y="260" font-size="13" font-weight="bold" text-anchor="middle" fill="#1F4E79">11.500</text>
+  
+  <!-- Grid lines -->
+  <line x1="60" y1="190" x2="480" y2="190" stroke="#e0e0e0" stroke-width="1"/>
+  <line x1="60" y1="130" x2="480" y2="130" stroke="#e0e0e0" stroke-width="1"/>
+  <line x1="60" y1="70" x2="480" y2="70" stroke="#e0e0e0" stroke-width="1"/>
+  
+  <!-- Y-axis title -->
+  <text x="30" y="140" font-size="11" text-anchor="middle" fill="#666">Unidades</text>
+</svg>
+```
 
-Muitas vidas foram salvas graças a essa mobilização, mas muitas outras não o foram. A diferença frequentemente entre um resultado trágico e uma sobrevivência era o quanto rápido a pessoa procurou ajuda médica.
+Através da PAHO (Organização Pan-Americana de Saúde), o Brasil recebeu **2.500 unidades de fomepizol** — uma medicação crítica e cara para o tratamento de envenenamento por metanol.
+
+Além disso, foram distribuídas **11.500 ampolas de etanol farmacêutico** através do Sistema Único de Saúde (SUS). Essas ampolas seriam usadas como antídoto nos casos onde o fomepizol não estava disponível.
+
+Esses números refletem a magnitude do problema. Refletem a resposta coordenada necessária para lidar com uma crise de saúde pública dessa escala.
+
+Muitas vidas foram salvas graças a essa mobilização. Mas muitas outras não o foram. A diferença frequentemente entre um resultado trágico e uma sobrevivência era o quanto rápido a pessoa procurou ajuda médica.
+
+**Sendo assim, tempo é literalmente vida nessa situação.**
 
 ## Prevenção: a melhor medicina
 
-Enquanto é crucial saber reconhecer os sintomas, a verdadeira solução é a prevenção. A melhor forma de evitar os sintomas de intoxicação por metanol é simplesmente não ingerir metanol em primeiro lugar.
+Enquanto é crucial saber reconhecer os sintomas de intoxicação por metanol, a verdadeira solução é a prevenção. A melhor forma de evitar os sintomas é simplesmente não ingerir metanol em primeiro lugar.
 
-Isso significa comprar bebidas apenas de estabelecimentos confiáveis e respeitáveis. Significa preferir bebidas de marcas conhecidas e reconhecidas. Significa evitar bebidas "baratas demais" ou ofertas que parecem muito boas para ser verdadeiras — porque frequentemente não são.
+**Estratégias de prevenção:**
+- Compre bebidas apenas de estabelecimentos confiáveis
+- Prefira bebidas de marcas conhecidas e reconhecidas
+- Evite bebidas "baratas demais"
+- Evite ofertas que parecem muito boas para ser verdadeiras
+- Desconfie de bebidas vendidas sem lacre original
+- Questione origem de bebidas de fornecedores desconhecidos
 
-Mas também significa ser proativo em relação à segurança. Antes de beber uma bebida de origem desconhecida ou questionável, considere realizar um teste simples. [AlcoLab](https://alcolab.org) oferece uma forma gratuita e acessível de testar bebidas alcoólicas para a presença de metanol.
+Mas também significa ser proativo em relação à segurança. Antes de beber uma bebida de origem desconhecida ou questionável, considere realizar um teste simples.
 
-Usando apenas uma seringa, uma balança de cozinha comum e um smartphone, qualquer pessoa pode realizar um teste que fornece resultados confiáveis em questão de minutos. Não requer equipamento sofisticado ou conhecimento técnico. É uma ferramenta democrática que coloca a capacidade de proteção nas mãos de cada consumidor.
+[AlcoLab](https://alcolab.org) oferece uma forma gratuita e acessível de testar bebidas alcoólicas para a presença de metanol.
 
-## Conclusão: vigilância constante contra uma ameaça invisível
+Usando apenas uma seringa, uma balança de cozinha comum e um smartphone, qualquer pessoa pode realizar um teste que fornece resultados confiáveis em questão de minutos. Não requer equipamento sofisticado. Não requer conhecimento técnico. É uma ferramenta democrática que coloca a capacidade de proteção nas mãos de cada consumidor.
 
-Os sintomas de intoxicação por metanol seguem uma progressão previsível e aterradora — de um hangover aparente para a cegueira e a morte em questão de horas. Reconhecer essa progressão é absolutamente vital.
+## Conclusão: vigilância constante
 
-Se você ou alguém próximo experimenta qualquer um desses sintomas, especialmente visão turva ou campo de neve visual, 12 a 48 horas após beber, procure cuidados médicos de emergência imediatamente. Não espere. Não duvide. Não tente se medicar em casa.
+Os **sintomas de intoxicação por metanol** seguem uma progressão previsível e aterradora. Evoluem de um hangover aparente para a cegueira e a morte em questão de horas.
 
-A prevenção, no entanto, continua sendo a melhor estratégia. Compre de fontes confiáveis, evite bebidas de origem duvidosa e considere usar AlcoLab para testar bebidas quando houver qualquer dúvida sobre sua origem ou segurança.
+Reconhecer essa progressão é absolutamente vital. Se você ou alguém próximo experimenta qualquer um desses sintomas, especialmente visão turva ou campo de neve visual, 12 a 48 horas após beber, procure cuidados médicos de emergência imediatamente.
 
-**Lembre-se: quando se trata de intoxicação por metanol, cada minuto que você espera é um minuto em que os danos aumentam. A ação rápida pode salvar sua visão e sua vida.**
+Não espere. Não duvide. Não tente se medicar em casa.
+
+A prevenção, no entanto, continua sendo a melhor estratégia. Compre de fontes confiáveis. Evite bebidas de origem duvidosa. Considere usar AlcoLab para testar bebidas quando houver qualquer dúvida sobre sua origem ou segurança.
+
+**Lembre-se: quando se trata de sintomas de intoxicação por metanol, cada minuto que você espera é um minuto em que os danos aumentam. A ação rápida pode salvar sua visão e sua vida.**
