@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { getPosts } from "@/lib/blog";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Blog — Methanol Screening, Public Health and Food Safety",
   description: "Articles about methanol screening in beverages, food safety, public health and AlcoLab usage. Reliable information for consumer protection.",

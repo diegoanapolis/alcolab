@@ -6,6 +6,8 @@ import path from "path";
 import { notFound } from "next/navigation";
 import { getPost, getAllSlugs } from "@/lib/blog";
 
+export const dynamic = "force-dynamic";
+
 interface PageProps {
   params: { slug: string };
 }
