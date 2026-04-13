@@ -47,6 +47,7 @@ export default function BlogListPT() {
                     src={post.image}
                     alt={post.imageAlt || post.title}
                     fill
+                    unoptimized
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, 256px"
                   />

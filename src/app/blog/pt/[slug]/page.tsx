@@ -163,6 +163,7 @@ export default function BlogPostPT({ params }: PageProps) {
                   src={heroImage}
                   alt={post.imageAlt || post.title}
                   fill
+                  unoptimized
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 45vw"
                   priority
