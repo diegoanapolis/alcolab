@@ -6,6 +6,23 @@ import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import ImageExt from "@tiptap/extension-image";
 import Youtube from "@tiptap/extension-youtube";
+
+/* Custom Image extension that preserves the style attribute (needed for width %) */
+const CustomImage = ImageExt.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      style: {
+        default: null,
+        parseHTML: (element: HTMLElement) => element.getAttribute("style"),
+        renderHTML: (attributes: Record<string, unknown>) => {
+          if (!attributes.style) return {};
+          return { style: attributes.style as string };
+        },
+      },
+    };
+  },
+});
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -425,7 +442,7 @@ export default function RichEditor({
         openOnClick: false,
         HTMLAttributes: { target: "_blank", rel: "noopener noreferrer" },
       }),
-      ImageExt.configure({
+      CustomImage.configure({
         inline: false,
         HTMLAttributes: { class: "rounded-lg" },
       }),
