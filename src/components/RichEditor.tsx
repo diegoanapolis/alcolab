@@ -7,7 +7,8 @@ import Link from "@tiptap/extension-link";
 import ImageExt from "@tiptap/extension-image";
 import Youtube from "@tiptap/extension-youtube";
 
-/* Custom Image extension that preserves the style attribute (needed for width %) */
+/* Custom Image extension that preserves the style attribute (needed for width %)
+   AND serializes images with style as raw HTML so it survives the Markdown round-trip. */
 const CustomImage = ImageExt.extend({
   addAttributes() {
     return {
@@ -18,6 +19,27 @@ const CustomImage = ImageExt.extend({
         renderHTML: (attributes: Record<string, unknown>) => {
           if (!attributes.style) return {};
           return { style: attributes.style as string };
+        },
+      },
+    };
+  },
+  addStorage() {
+    return {
+      markdown: {
+        serialize(state: any, node: any) {
+          const src = node.attrs.src || "";
+          const alt = node.attrs.alt || "";
+          const style = node.attrs.style || "";
+          if (style) {
+            // Output as raw HTML so the style survives markdown round-trip
+            state.write(`<img src="${src}" alt="${alt}" style="${style}" />\n\n`);
+          } else {
+            // Default markdown image syntax
+            state.write(`![${alt}](${src})\n\n`);
+          }
+        },
+        parse: {
+          // Handled by TipTap's parseHTML (reads <img> tags with style attr)
         },
       },
     };
@@ -453,7 +475,7 @@ export default function RichEditor({
         height: 360,
       }),
       Highlight.configure({ multicolor: false }),
-      TextAlign.configure({ types: ["heading", "paragraph"] }),
+      TextAlign.configure({ types: ["heading", "paragraph", "blockquote"] }),
       Placeholder.configure({
         placeholder: "Comece a escrever o artigo...",
       }),
