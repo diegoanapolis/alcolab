@@ -1,17 +1,30 @@
 ---
-title: "AlcoLab open source: gratuitamente agora, não patente depois"
-description: "AlcoLab open source gratuito: por que os criadores escolheram salvar vidas agora em vez de esperar patente por 7 anos."
-date: 2026-04-08
-author: "Diego Mendes de Souza"
-category: "Impacto Social"
-locale: "pt-BR"
+title: >-
+  App de triagem de metanol: por que os criadores do AlcoLab abriram mão da
+  patente para lançar a ferramenta de imediato
+description: >-
+  Um app de triagem de metanol gratuito e open source, criado do próprio bolso.
+  A história de quem decidiu que contribuir para a saúde pública pesava mais do
+  que qualquer retorno.
+date: '2026-04-08'
+author: Diego Mendes de Souza
+category: Impacto Social
+locale: pt-BR
 published: false
-status: "rascunho"
-image: "/images/blog/alcolab-open-source-codigo-aberto.png"
-imageAlt: "Símbolo de código aberto representando a decisão do AlcoLab de ser open source e gratuito"
-tags: ["open source", "AlcoLab", "código aberto", "saúde pública", "patente", "inovação"]
-focusKeyword: "AlcoLab open source"
-translationSlug: "alcolab-open-source-choosing-to-save-lives-now"
+status: rascunho
+image: /images/blog/alcolab-open-source-codigo-aberto.png
+imageAlt: >-
+  Símbolo de código aberto representando a decisão do AlcoLab de ser open source
+  e gratuito
+tags:
+  - open source
+  - AlcoLab
+  - código aberto
+  - saúde pública
+  - patente
+  - inovação
+focusKeyword: app de triagem de metanol
+translationSlug: alcolab-open-source-choosing-to-save-lives-now
 ---
 
 ## AlcoLab open source: vida agora ou lucro depois
