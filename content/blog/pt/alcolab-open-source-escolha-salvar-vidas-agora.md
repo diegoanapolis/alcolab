@@ -72,6 +72,8 @@ Isso é possível enquanto dura o fôlego. E a equipe é honesta sobre os riscos
 
 O método de referência para detectar metanol em bebidas é a **Cromatografia Gasosa (CG)** — técnica de alta precisão, exatidão e discriminação que separa e identifica os componentes de uma mistura com confiabilidade. Equipamentos CG, a depender da configuração, **custam entre R$ 200 mil e R$ 600 mil.** Nesse sentido, a maioria dos municípios brasileiros, não possuem esse tipo de equipamento disponível — e a maioria dos países afetados por contaminação de bebidas também não.
 
+<img src="/images/blog/1-1776179222960.png" alt="Seringa de farmácia, balança 0.1 g, e smartphone como únicos itens necessários para triagem de metanol usando o app Alcolab" style="max-width:70%;margin:0 auto;display:block" />
+
 Quando a análise depende de equipamentos que só existem em capitais ou grandes centros de pesquisa e ou de perícia, a capacidade de triagem durante uma crise fica geograficamente restrita. É esse gap que o AlcoLab tenta endereçar: uma ferramenta que usa uma seringa de farmácia; balança de cozinha com resolução minima de 0.1g; e um celular com câmera; acessíveis a grande parte das pessoas.
 
 |  | Cromatografia gasosa (GC-MS/FID) | AlcoLab |
