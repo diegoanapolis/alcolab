@@ -381,6 +381,16 @@ input, select, textarea { color: var(--color-brand); }
 .prose li > p { margin-top: 0; margin-bottom: 0; }
 .prose li::marker { color: #002060; }
 
+/* ─── Blog: subtítulos também justificados (consistente com o corpo) ─── */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  text-align: justify;
+}
+
 /* ─── Blog: espaçamento reduzido antes e depois de subtítulos ─── */
 .prose h2 { margin-top: 1.2em; margin-bottom: 0.35em; }
 .prose h3 { margin-top: 0.95em; margin-bottom: 0.28em; }

@@ -1,8 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import fs from "fs";
-import path from "path";
 import { notFound } from "next/navigation";
 import { getPost, getAllSlugs } from "@/lib/blog";
 
@@ -15,22 +13,17 @@ interface PageProps {
 const DEFAULT_BLOG_IMAGE = "/images/blog/default.jpg";
 
 /**
- * Resolve a blog post image path: if the referenced file does not exist
- * in public/, fall back to the default blog image. External URLs are
- * returned as-is.
+ * Resolve a blog post image path.
+ *
+ * We DO NOT check the filesystem here: on Railway (ephemeral FS) an image
+ * uploaded after the last build is not in public/ on every running container,
+ * which was causing custom images to silently revert to the default.
+ * The Next.js fallback rewrite (/images/blog/:f -> /api/images/blog/:f)
+ * serves uploaded files from disk, so it's safe to trust the URL.
  */
 function resolveImage(src: string | undefined | null): string {
   if (!src) return DEFAULT_BLOG_IMAGE;
-  // External URLs (http/https) are passed through
-  if (/^https?:\/\//i.test(src)) return src;
-  try {
-    const rel = src.startsWith("/") ? src.slice(1) : src;
-    const abs = path.join(process.cwd(), "public", rel);
-    if (fs.existsSync(abs)) return src;
-  } catch {
-    /* ignore */
-  }
-  return DEFAULT_BLOG_IMAGE;
+  return src;
 }
 
 export async function generateStaticParams() {
