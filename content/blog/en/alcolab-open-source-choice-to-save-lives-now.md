@@ -9,8 +9,8 @@ date: '2026-04-08'
 author: Diego Mendes de Souza
 category: Impacto Social
 locale: en
-published: false
-status: aprovado
+published: true
+status: publicado
 image: /images/blog/7-1776185010225.jpg
 imageAlt: Distilled beverage and cell phone with Alcolab methanol screening app.
 tags:
