@@ -13,7 +13,9 @@ locale: en
 published: false
 status: em_revisao
 image: /images/blog/6-1776179720938.jpg
-imageAlt: Open source symbol representing AlcoLab's decision to be open source and free
+imageAlt: >-
+  Símbolo de código aberto representando a decisão do AlcoLab de ser open source
+  e gratuito
 tags:
   - open source
   - AlcoLab
