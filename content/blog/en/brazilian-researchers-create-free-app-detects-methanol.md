@@ -1,16 +1,26 @@
 ---
-title: "Brazilian Researchers Create Free App That Detects Methanol"
-description: "App detects methanol in beverages: AlcoLab is a free solution created by Brazilian researchers to combat global methanol poisoning crisis."
-date: "2026-04-08"
-author: "Diego Mendes de Souza"
-locale: "en"
+title: Brazilian Researchers Create Free App That Detects Methanol
+description: >-
+  App detects methanol in beverages: AlcoLab is a free solution created by
+  Brazilian researchers to combat global methanol poisoning crisis.
+date: '2026-04-08'
+author: Diego Mendes de Souza
+locale: en
 published: false
-status: "em_revisao"
-tags: ["app detects methanol", "methanol detection", "AlcoLab", "beverage safety", "public health", "health technology"]
-image: "/images/blog/alcolab-app-triagem-metanol.png"
-imageAlt: "AlcoLab application interface showing methanol screening result in alcoholic beverage"
-focusKeyword: "app detects methanol"
-translationSlug: "pesquisadores-brasileiros-criam-app-gratuito-detecta-metanol"
+status: em_revisao
+tags:
+  - app detects methanol
+  - methanol detection
+  - AlcoLab
+  - beverage safety
+  - public health
+  - health technology
+image: /images/blog/alcolab-app-triagem-metanol.png
+imageAlt: >-
+  Interface do aplicativo AlcoLab mostrando resultado de triagem de metanol em
+  bebida alcoólica
+focusKeyword: app detects methanol
+translationSlug: pesquisadores-brasileiros-criam-app-gratuito-detecta-metanol
 ---
 
 ## App Detects Methanol Freely: The Solution Brazil Needed
