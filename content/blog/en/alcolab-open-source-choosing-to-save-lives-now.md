@@ -1,17 +1,27 @@
 ---
-title: "AlcoLab Open Source: Saving Lives Now, Not Patents Later"
-description: "AlcoLab open source free: why creators chose to save lives now instead of waiting for patent in 7 years."
-date: "2026-04-08"
-author: "Diego Mendes de Souza"
-category: "Social Impact"
-locale: "en"
+title: 'AlcoLab Open Source: Saving Lives Now, Not Patents Later'
+description: >-
+  AlcoLab open source free: why creators chose to save lives now instead of
+  waiting for patent in 7 years.
+date: '2026-04-08'
+author: Diego Mendes de Souza
+category: Social Impact
+locale: en
 published: false
-status: "em_revisao"
-image: "/images/blog/alcolab-open-source-codigo-aberto.png"
-imageAlt: "Open-source symbol representing AlcoLab's decision to be open source and free"
-tags: ["open source", "AlcoLab", "open code", "public health", "patent", "innovation"]
-focusKeyword: "AlcoLab open source"
-translationSlug: "alcolab-open-source-escolha-salvar-vidas-agora"
+status: em_revisao
+image: /images/blog/alcolab-open-source-codigo-aberto.png
+imageAlt: >-
+  Símbolo de código aberto representando a decisão do AlcoLab de ser open source
+  e gratuito
+tags:
+  - open source
+  - AlcoLab
+  - open code
+  - public health
+  - patent
+  - innovation
+focusKeyword: AlcoLab open source
+translationSlug: alcolab-open-source-escolha-salvar-vidas-agora
 ---
 
 ## AlcoLab Open Source: Life Now or Profit Later
