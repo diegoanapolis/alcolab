@@ -1,6 +1,53 @@
 import { NextRequest, NextResponse } from "next/server";
+import path from "path";
 import { getAllPosts, getPost, updatePostStatus, updatePost } from "@/lib/blog";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { syncLocalFile } from "@/lib/github-sync";
+
+/**
+ * Persist a blog post (and its sibling translation, if any) to GitHub so
+ * the edit survives Railway redeploys.  Runs async but we await it so the
+ * caller returns only after the commit finishes — gives the editor correct
+ * feedback if the sync fails.
+ */
+async function persistPostToGitHub(
+  locale: "pt" | "en",
+  slug: string,
+  translationSlug: string | undefined,
+  oldSlug: string | undefined,
+  reason: string,
+) {
+  const cwd = process.cwd();
+  // Main post
+  const mainAbs = path.join(cwd, "content", "blog", locale, `${slug}.md`);
+  await syncLocalFile(mainAbs, `admin(blog): ${reason} ${locale}/${slug}`);
+
+  // If the post was renamed (newSlug != slug), delete the old file on GitHub
+  if (oldSlug && oldSlug !== slug) {
+    const oldAbs = path.join(cwd, "content", "blog", locale, `${oldSlug}.md`);
+    await syncLocalFile(
+      oldAbs, // file no longer exists locally, triggers delete
+      `admin(blog): rename ${locale}/${oldSlug} -> ${slug}`,
+    );
+  }
+
+  // If the post has a sibling translation, sync it too (featured image sync
+  // and translationSlug backlinks can touch it).
+  if (translationSlug) {
+    const siblingLocale: "pt" | "en" = locale === "pt" ? "en" : "pt";
+    const siblingAbs = path.join(
+      cwd,
+      "content",
+      "blog",
+      siblingLocale,
+      `${translationSlug}.md`,
+    );
+    await syncLocalFile(
+      siblingAbs,
+      `admin(blog): sync sibling ${siblingLocale}/${translationSlug}`,
+    );
+  }
+}
 
 export const dynamic = "force-dynamic";
 
@@ -134,6 +181,15 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
+    // Mirror to GitHub so the status change survives the next redeploy
+    await persistPostToGitHub(
+      normalizedLocale,
+      updatedPost.slug,
+      updatedPost.translationSlug,
+      undefined,
+      `status=${status}`,
+    );
+
     // Return updated post without full content
     return NextResponse.json({
       slug: updatedPost.slug,
@@ -204,6 +260,16 @@ export async function PUT(request: NextRequest) {
     if (!updatedPost) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
+
+    // Mirror to GitHub so admin edits survive the next Railway redeploy.
+    // Pass oldSlug so a rename also deletes the old file on GitHub.
+    await persistPostToGitHub(
+      normalizedLocale,
+      updatedPost.slug,
+      updatedPost.translationSlug,
+      slug, // oldSlug (before rename)
+      "update",
+    );
 
     return NextResponse.json({
       slug: updatedPost.slug,

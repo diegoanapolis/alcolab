@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import path from "path";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { getAllPosts, upsertTranslatedPost } from "@/lib/blog";
+import { syncLocalFile } from "@/lib/github-sync";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -192,6 +194,18 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+
+  // Mirror both the new EN file and the back-linked PT source to GitHub so
+  // the translation and the translationSlug update survive redeploys.
+  const cwd = process.cwd();
+  await syncLocalFile(
+    path.join(cwd, "content", "blog", "en", `${saved.slug}.md`),
+    `admin(translate): create en/${saved.slug} from pt/${slug}`,
+  );
+  await syncLocalFile(
+    path.join(cwd, "content", "blog", "pt", `${slug}.md`),
+    `admin(translate): link pt/${slug} -> en/${saved.slug}`,
+  );
 
   return NextResponse.json({
     ok: true,

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { commitFileToGitHub } from "@/lib/github-sync";
 import fs from "fs";
 import path from "path";
 
@@ -53,6 +54,14 @@ export async function POST(request: NextRequest) {
     // Write file
     const buffer = Buffer.from(await file.arrayBuffer());
     fs.writeFileSync(filePath, buffer);
+
+    // Mirror to GitHub so the uploaded image survives Railway redeploys.
+    // The repo path is relative to the project root.
+    await commitFileToGitHub(
+      `public/images/blog/${fileName}`,
+      buffer,
+      `admin(upload): ${fileName}`,
+    );
 
     const publicUrl = `/images/blog/${fileName}`;
 
