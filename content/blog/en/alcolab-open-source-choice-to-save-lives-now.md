@@ -11,10 +11,8 @@ category: Impacto Social
 locale: en
 published: false
 status: em_revisao
-image: /images/blog/6-1776179720938.jpg
-imageAlt: >-
-  Símbolo de código aberto representando a decisão do AlcoLab de ser open source
-  e gratuito
+image: /images/blog/7-1776185010225.jpg
+imageAlt: Distilled beverage and cell phone with Alcolab methanol screening app.
 tags:
   - open source
   - AlcoLab
