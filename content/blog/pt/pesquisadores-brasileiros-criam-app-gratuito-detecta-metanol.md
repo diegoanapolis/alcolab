@@ -3,9 +3,9 @@ title: >-
   Alcolab - Pesquisadores brasileiros criam app gratuito que auxilia na detecção
   de metanol
 description: >-
-  App detecta metanol em bebidas: AlcoLab é solução gratuita criada por
-  pesquisadores brasileiros para combater a crise de envenenamento por metanol
-  globalmente.
+  App auxilia na detecção de metanol em bebidas: AlcoLab é solução gratuita
+  criada por pesquisadores brasileiros para auxiliar no combate à crise global
+  de envenenamento por metanol.
 date: '2026-04-08'
 author: Diego Mendes de Souza
 locale: pt-BR
@@ -22,7 +22,7 @@ image: /images/blog/6-1776179720938.jpg
 imageAlt: >-
   Bebida destilada e smartphone com app Alcolab que auxilia na detecção de
   metanol
-focusKeyword: app detecta metanol
+focusKeyword: detecção de metanol
 translationSlug: brazilian-researchers-create-free-app-detects-methanol
 ---
 ## Como dois Químicos e uma Administradora criaram uma ferramenta gratuita contra o metanol – sem pedir nada em troca
