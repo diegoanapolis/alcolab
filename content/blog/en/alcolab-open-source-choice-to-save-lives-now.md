@@ -71,6 +71,8 @@ This is exactly what the team wants to avoid, precisely because they believe in 
 
 The reference method for detecting methanol in beverages is **Gas Chromatography (GC)** — a high-precision, accuracy, and discrimination technique that separates and identifies the components of a mixture reliably. GC equipment, depending on configuration, **costs between R$ 200 thousand and R$ 600 thousand.** In this sense, most Brazilian municipalities do not have this type of equipment available — and most countries affected by beverage contamination do not either.
 
+<img src="/images/blog/2-1776184983409.png" alt="Syringe, 0.1g scale, and smartphone: requirements for methanol screening with Alcolab." style="max-width:70%;margin:0 auto;display:block" />
+
 When analysis depends on equipment that only exists in capitals or large research and forensic centers, screening capacity during a crisis is geographically restricted. This is the gap that AlcoLab tries to address: a tool that uses a pharmacy syringe; a kitchen scale with minimum resolution of 0.1g; and a cell phone with a camera; accessible to most people.
 
 |  | Gas chromatography (GC-MS/FID) | AlcoLab |
