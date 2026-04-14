@@ -8,6 +8,10 @@
  *
  * If GITHUB_TOKEN is missing (e.g., local dev), we silently skip the sync —
  * the filesystem copy is still written, so the admin keeps working locally.
+ *
+ * Isolation test: this file should be updatable without touching any blog
+ * content.  That is the whole point — code commits live here in src/**,
+ * content commits live under content/ and public/images/.
  */
 import fs from "fs";
 import path from "path";
