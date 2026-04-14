@@ -64,7 +64,7 @@ Nesse sentido, os custos estimados até aqui estão listados na tabela abaixo.
 | Infraestrutura — Railway Pro | US$ 20/mês × 6 meses | R$ 700 |
 | Ferramentas de desenvolvimento | GitHub Copilot + Claude Max, 6 meses | R$ 3.840 |
 | Horas de P&D | 290 h (Diego 150h · Pedro 80h · Romério 30h · Nayara 30h) | R$ 29.000 |
-| **Total investido** |  | **R$ 36.140** |
+| **Total investido estimado** |  | **R$ 36.140** |
 
 Isso é possível enquanto dura o fôlego. E a equipe é honesta sobre os riscos: projetos *open source* sem apoio institucional têm um histórico conhecido de esgotamento. Desenvolvedores voluntários se sobrecarregam, manutenção se acumula, atualizações deixam de ser feitas e a infraestrutura vai ficando vulnerável. O resultado é o que o meio chama de *abandonware* — software que existe, mas não tem mais ninguém por trás.
 
