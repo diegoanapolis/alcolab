@@ -398,6 +398,29 @@ export function upsertTranslatedPost(
 
   const targetPath = path.join(targetDir, `${normalizedTargetSlug}.md`);
 
+  // If the target file ALREADY exists (re-translating an existing EN),
+  // preserve its current status/published so we don't silently demote a
+  // published translation back to draft.  For a fresh translation, start
+  // as "em_revisao" + published=false so the author reviews before shipping.
+  const targetExists = fs.existsSync(targetPath);
+  let existingStatus: string = "em_revisao";
+  let existingPublished: boolean = false;
+  if (targetExists) {
+    try {
+      const { data: existingData } = matter(
+        fs.readFileSync(targetPath, "utf-8"),
+      );
+      if (typeof existingData.status === "string") {
+        existingStatus = existingData.status;
+      }
+      if (typeof existingData.published === "boolean") {
+        existingPublished = existingData.published;
+      }
+    } catch {
+      /* ignore — fall back to defaults */
+    }
+  }
+
   // Start from source frontmatter so everything (image, date, author, ...)
   // is mirrored unless the caller overrides a specific field.
   const targetData: Record<string, unknown> = {
@@ -406,9 +429,10 @@ export function upsertTranslatedPost(
     description: target.description,
     locale: target.locale === "pt" ? "pt-BR" : "en",
     translationSlug: sourceSlug,
-    // Always keep the target unpublished until the author reviews it
-    status: "em_revisao",
-    published: false,
+    // Preserve existing status when overwriting an already-translated post;
+    // otherwise start as draft so the author reviews first.
+    status: existingStatus,
+    published: existingPublished,
   };
 
   if (target.imageAlt !== undefined) targetData.imageAlt = target.imageAlt;
@@ -444,8 +468,8 @@ export function upsertTranslatedPost(
       ? (targetData.tags as string[])
       : [],
     locale: (targetData.locale as string) || target.locale,
-    published: false,
-    status: "em_revisao",
+    published: existingPublished,
+    status: existingStatus as BlogPost["status"],
     focusKeyword: (targetData.focusKeyword as string) || "",
     translationSlug: sourceSlug,
     content: target.content,

@@ -177,9 +177,18 @@ export async function POST(request: NextRequest) {
         .filter(Boolean)
     : undefined;
 
+  // If the PT source already has a linked EN translation, reuse that slug
+  // so the existing file is OVERWRITTEN with the new translation.  Without
+  // this, the LLM can pick a slightly different slug on each run and we
+  // end up creating orphan files while the user keeps seeing the old EN.
+  const effectiveTargetSlug =
+    source.translationSlug && source.translationSlug.trim().length > 0
+      ? source.translationSlug.trim()
+      : targetSlug;
+
   const saved = upsertTranslatedPost("pt", slug, {
     locale: "en",
-    slug: targetSlug,
+    slug: effectiveTargetSlug,
     title: targetTitle,
     description: targetDescription,
     content: targetContent,
