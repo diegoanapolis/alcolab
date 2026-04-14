@@ -18,10 +18,10 @@ tags:
   - segurança de bebidas
   - saúde pública
   - tecnologia para saúde
-image: /images/blog/6-1776179720938.jpg
+image: /images/blog/7-1776185010225.jpg
 imageAlt: >-
-  Bebida destilada e smartphone com app Alcolab que auxilia na detecção de
-  metanol
+  Distilled beverage and smartphone with the AlcoLab app that assists in
+  methanol detection
 focusKeyword: detecção de metanol
 translationSlug: brazilian-researchers-create-free-app-detects-methanol
 ---
