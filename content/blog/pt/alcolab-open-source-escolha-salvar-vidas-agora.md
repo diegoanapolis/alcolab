@@ -10,8 +10,8 @@ date: '2026-04-08'
 author: Diego Mendes de Souza
 category: Impacto Social
 locale: pt-BR
-published: false
-status: aprovado
+published: true
+status: publicado
 image: /images/blog/6-1776179720938.jpg
 imageAlt: >-
   Símbolo de código aberto representando a decisão do AlcoLab de ser open source
