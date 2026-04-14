@@ -37,11 +37,11 @@ Diego não trabalhava diretamente com bebidas adulteradas — sua atuação na P
 
 Primeiramente, Diego passou dias pesquisando na literatura científica sobre as propriedades físicas e químicas do etanol e do metanol. Os dois álcoois são muito parecidos — tão parecidos que a maioria dos métodos de análise simples não consegue distingui-los com segurança. A densidade, por exemplo, dá uma excelente noção do teor alcoólico total, mas não discrimina se esse teor vem do etanol, metanol ou mistura de ambos.
 
-Nesse sentido, Diego identificou uma diferença relevante: **a viscosidade**. O metanol é menos viscoso que o etanol e que a água. Por isso, quando o metanol está presente, escoa mais rápido, por exemplo, por um viscosímetro. A propriedade parecia simples, mas poderia ser o que faltava para montar uma metodologia acessível. Portanto, teve a ideia de **adaptar esse escoamento para** um dispositivo simples e acessível, **uma seringa de farmácia**. Veja o que explicou o Diego em entrevista ao Olhar Digital:
+Nesse sentido, Diego identificou uma diferença relevante: **a viscosidade**. O metanol é menos viscoso que o etanol e que a água. Por isso, quando o metanol está presente, escoa mais rápido, por exemplo, por um viscosímetro. A propriedade parecia simples, mas poderia ser o que faltava para montar uma metodologia acessível. Portanto, teve a ideia de **adaptar esse escoamento para** um dispositivo simples e acessível, **uma seringa de farmácia**. Em seguida, veio a ideia de embarcar isso em um App que auxiliasse na detecção de metanol. Veja o que explicou o Diego em entrevista ao Olhar Digital:
 
 > Densidade não discrimina o metanol do etanol. A gente mede a densidade na balança de cozinha e ela dá a noção inicial de quanto tem de álcool na mistura. A densidade dá uma direção — e a solução embarcada no Alcolab refina essa direção com a viscosidade obtida pelo escoamento. Como o metanol é menos viscoso, escoa mais rápido. A gente usa as duas variáveis de forma complementar para chegar à conclusão de composição hidroalcoólica mais provável.
 
-Com dados da literatura em mãos, Diego começou a trabalhar informalmente em casa — testando parâmetros, cruzando dados, construindo base de dados para subsidiar o algoritmo e fluxograma metodológico. Em paralelo, Pedro Augusto conduziu testes experimentais por conta própria para validar se o que a metodologia indicava no papel se confirmava na prática. Não havia projeto formal. <u>Não havia financiamento. Havia duas pessoas usando o próprio tempo livre e gastando dinheiro do próprio bolso para ver se a ideia funcionava</u>.
+Com dados da literatura em mãos, Diego começou a trabalhar informalmente em casa — testando parâmetros, cruzando dados, construindo base de dados para subsidiar o algoritmo e fluxograma metodológico. Em paralelo, Pedro Augusto conduziu testes experimentais por conta própria para validar se o que a metodologia indicava no papel se confirmava na prática. Não havia projeto formal. <u>Não havia financiamento. Havia duas pessoas usando o próprio tempo livre e gastando dinheiro do próprio bolso para ver se a ideia funcionava para detecção de metanol.</u>
 
 ## Da ideia à solução prática: entrada da Nayara e do Romério
 
@@ -51,7 +51,7 @@ Ademais, mais um interessado em voluntariar apareceu. Romério Rodrigues dos San
 
 Os quatro trabalharam por meses sem nenhum incentivo externo. Os custos de hospedagem em servidor, os materiais para testes e as bebidas comerciais compradas para calibração saíram do bolso deles mesmos.
 
-Quando a ferramenta estava praticamente pronta, a equipe se viu diante de uma escolha real: pedir uma patente — processo que leva de 2 a 7 anos — ou lançar imediatamente, de graça, para quem precisasse.
+Quando a ferramenta estava praticamente pronta, a equipe se viu diante de uma escolha real: pedir uma patente de solução que auxiliava na detecção de metanol — processo que leva de 2 a 7 anos — ou lançar imediatamente, de graça, para quem precisasse.
 
 Escolheram lançar.
 
@@ -61,10 +61,10 @@ Então, o AlcoLab foi ao ar em 10 de março de 2026.
 
 ## Como funciona a triagem de metanol - Alcolab
 
-O AlcoLab é um aplicativo web, acessível em [alcolab.org](http://alcolab.org), sem necessidade de download. O processo completo leva entre 15 e 25 minutos e exige apenas três itens:\
-•	uma seringa de 20 mL com agulha 22G (a mais comum nas farmácias),\
-•	uma balança de cozinha com resolução de 0,1g (importante, mas é possível examinar sem ela); e\
-•	um smartphone com câmera.
+O AlcoLab é um aplicativo web, acessível em [alcolab.org](http://alcolab.org), sem necessidade de download para auxiliar na detecção de metanol por meio de exame de triagem (não confirmatório). O processo completo leva entre 15 e 25 minutos e exige apenas três itens:\
+• uma seringa de 20 mL com agulha 22G (a mais comum nas farmácias),\
+• uma balança de cozinha com resolução de 0,1g (importante, mas é possível examinar sem ela); e\
+• um smartphone com câmera.
 
 <img src="/images/blog/1-1776179222960.png" alt="Seringa de 20 mL, balança com resolução 0.1g e smartphone para triagem de metanol pelo app Alcolab" style="max-width:75%;margin:0 auto;display:block" />
 
@@ -91,7 +91,7 @@ A adesão internacional mostra algo que a equipe já suspeitava e os dados da OM
 
 ## O que vem pela frente para o Alcolab
 
-Nesse sentido, o AlcoLab ainda é custeado pelos próprios pesquisadores. Projetos *open source* sem apoio institucional enfrentam riscos reais: manutenção acumulada, infraestrutura vulnerável, risco de abandono pelos autores. Portanto, a equipe que conhece esse histórico quer evitá-lo.
+Nesse sentido, o AlcoLab (app que auxilia na detecção de metanol por triagem) ainda é custeado pelos próprios pesquisadores. Projetos *open source* sem apoio institucional enfrentam riscos reais: manutenção acumulada, infraestrutura vulnerável, risco de abandono pelos autores. Portanto, a equipe que conhece esse histórico quer evitá-lo.
 
 Por isso, busca parcerias em três frentes:
 
