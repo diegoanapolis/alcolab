@@ -26,174 +26,80 @@ tags:
 focusKeyword: app de triagem de metanol
 translationSlug: alcolab-open-source-choosing-to-save-lives-now
 ---
+## A encruzilhada
 
-## AlcoLab open source: vida agora ou lucro depois
+Quando a metodologia já estava estruturada e os testes experimentais confirmavam o potencial da ferramenta, a equipe — Diego Mendes de Souza, Pedro Augusto de Oliveira Morais, Nayara Ferreira Santos e Romério Rodrigues dos Santos Silva — **precisou decidir o que fazer com o que havia construído**.
 
-Os criadores do [AlcoLab](https://alcolab.org) enfrentaram encruzilhada fundamental. Não optaram pelo caminho tradicional da inovação — patentes, licenças exclusivas, lucros futuros.
+A primeira opção seria propor os instrumentos utilizados como um dispositivo físico mínimo e iniciar um pedido de patente. Seria o caminho mais seguro para proteger a invenção e eventualmente obter retorno pela invenção, estudo e trabalho investidos.
 
-Em vez disso, escolheram **salvar vidas agora**. Tornaram a tecnologia completamente gratuita e **open source**. Essa decisão merece ser contada porque não foi fácil. E suas implicações vão muito além de código.
+O problema é que havia há surto ativo, no Brasil e fora dele. **Pessoas estavam sendo intoxicadas e algumas perdendo suas vidas**. E a janela entre "ideia pronta" e "patente concedida" poderia durar anos.
 
-## O Dilema: Patente ou Acesso Imediato?
+A segunda opção era lançar imediatamente, de graça, assumindo os custos do próprio bolso — servidor online, domínio, materiais de teste, bebidas para calibração — sem garantia alguma de retorno. Escolheram esta segunda.
 
-Quando uma inovação surge em saúde pública, há processo convencional estabelecido:
+## O que "open source" significa na prática
 
-1. Proteger propriedade intelectual via patente
-2. Aguardar 1,5 anos para publicação oficial
-3. Esperar 5-7 anos até concessão
-4. Depois monetizar a tecnologia
+O AlcoLab foi publicado sob licença **AGPL-3.0** — uma das licenças de código aberto mais rigorosas disponíveis. Ela garante que **qualquer versão derivada da ferramenta também precise ser aberta**, impedindo que terceiros transformem o código em produto proprietário sem disponibilizar as modificações.
 
-Ninguém culparia o time por seguir esse caminho. Seria seguro, previsível, potencialmente lucrativo.
+Antes da publicação pública, a equipe realizou dois passos estratégicos:
 
-Mas havia problema incômodo: **pessoas estavam sendo envenenadas naquele exato momento**. Em países onde bebidas adulteradas são realidade brutal. Como aguardar 7 anos enquanto pessoas morrem?
+1. Depósito junto ao **INPI** — que fixa a data de prioridade da invenção no Brasil; e
+2. Publicação no **Zenodo**, repositório científico internacional.
 
-A resposta foi um belo "não". Sendo assim, escolheram diferente. Afinal, vidas não esperam patentes.
+Esses registros não visam exploração comercial, mas sim justamente o contrário. Nesse sentido, visam impedir que outra pessoa ou empresa reivindique a ideia como própria depois que ela já foi tornada pública. É, portanto, uma proteção orientada à abertura, não ao fechamento.
 
-## A Decisão: Código Aberto Agora
+O código completo está disponível em [github.com/diegoanapolis/alcolab](https://github.com/diegoanapolis/alcolab). Qualquer pessoa pode revisar a metodologia, auditar o algoritmo, sugerir melhorias ou adaptar a ferramenta para outros contextos — desde que mantenha o mesmo compromisso de abertura.
 
-O **AlcoLab foi publicado como open source sob licença AGPL-3.0**. Essa escolha protege tudo:
+## O custo real da gratuidade
 
-**AGPL-3.0 significa:** qualquer derivação deve ser open source também. Código-fonte completamente disponível. Nenhuma brecha para exploração proprietária.
+Por outro lado, software gratuito não significa software sem custo. Significa que alguém está arcando com ele.
 
-Mas o time foi estratégico. Primeiro, realizaram **depósito junto ao INPI** (Instituto Nacional de Propriedade Industrial). Isso garantiu prioridade de data. Apenas após esse passo publicaram tudo abertamente.
+No caso do AlcoLab, essa conta foi — e ainda é — paga pelos próprios criadores. Hospedagem em servidor, registro de domínio, bebidas comerciais compradas para testes experimentais, materiais para calibração e muitas horas de pesquisa e de trabalho. Tudo saiu do bolso da equipe, que trabalhou por meses sem nenhum incentivo externo. Nesse sentido, os custos estimados até aqui estão listados na tabela abaixo.
 
-Além disso, depositaram pesquisa no **Zenodo**, repositório científico internacional. Por quê? Para impedir que terceiras partes reivindicassem patente sobre mesma ideia em outras jurisdições.
+| Item | Detalhe | Custo estimado |
+| --- | --- | --- |
+| Bebidas para calibração | 10 rótulos (whisky e vodka) | R$ 1.000 |
+| Reagentes químicos | Etanol e metanol PA, 10 L cada | R$ 1.600 |
+| Infraestrutura — Railway Pro | US$ 20/mês × 6 meses | R$ 700 |
+| Ferramentas de desenvolvimento | GitHub Copilot + Claude Max, 6 meses | R$ 3.840 |
+| Horas de P&D | 290 h (Diego 150h · Pedro 80h · Romério 30h · Nayara 30h) | R$ 29.000 |
+| **Total investido** |  | **R$ 36.140** |
 
-Portanto, protegeram simultaneamente inovação e garantiram acesso universal. Em suma, AlcoLab open source salva vidas agora.
+Isso é possível enquanto dura o fôlego. E a equipe é honesta sobre os riscos: projetos open source sem apoio institucional têm um histórico conhecido de esgotamento. Desenvolvedores voluntários se sobrecarregam, manutenção se acumula, atualizações deixam de ser feitas e a infraestrutura vai ficando vulnerável. O resultado é o que o meio chama de *abandonware* — software que existe, mas não tem mais ninguém por trás.
 
-## A Realidade dos Custos: Suporte Voluntário
+É exatamente isso que a equipe quer evitar justamente por acreditar no impacto positivo da ferramenta para saúde pública.
 
-Aqui entra a parte não dita sobre software open source.
+## Por que a abertura importa para uma ferramenta de saúde pública
 
-**Membros do time pagam pessoalmente pelos custos de hospedagem**. Ninguém lucra. O servidor roda porque acreditam na missão.
+O método de referência para detectar metanol em bebidas é a cromatografia gasosa — técnica de alta precisão que separa e identifica os componentes de uma mistura com exatidão. O equipamento custa mais de R$ 30 mil. Fiocruz e UFSC têm. A maioria dos municípios brasileiros, não — e a maioria dos países afetados por contaminação de bebidas também não.
 
-Isso é sustentável por quanto tempo? Essa é pergunta que assombra qualquer projeto open source. Nesse sentido, o que acontece quando entusiasmo inicial se esgota?
+Quando a análise depende de equipamentos que só existem em capitais ou grandes centros, a capacidade de triagem durante uma crise fica geograficamente restrita. É esse gap que o AlcoLab tenta endereçar: uma ferramenta que usa seringa de farmácia e balança de cozinha, acessível a qualquer pessoa com smartphone.
 
-## Riscos Silenciosos da Sustentabilidade
+Torná-la aberta não é só uma postura ética — é funcional. Código auditável é código confiável. Metodologia transparente pode ser verificada por outros pesquisadores. E uma ferramenta gratuita alcança exatamente quem mais precisa dela: agentes de fiscalização em regiões com pouca estrutura, pequenos produtores, distribuidores, consumidores.
 
-Quando projetos open source carecem de suporte formal, cenários perigosos emergem:
+## Os primeiros resultados
 
-### Burnout Voluntário
+Em cerca de um mês de site público, o AlcoLab registrou quase 2.500 visitantes únicos e aproximadamente 34 mil requisições ao servidor, com acessos de todos os continentes — Brasil, Estados Unidos, China, França, Canadá, Singapura e Suíça, entre outros.
 
-Contribuidores dedicados possuem vidas, trabalhos, famílias. Manter projeto de graça indefinidamente leva ao esgotamento. Quantos desenvolvedores abandonaram projetos?
+Esses números confirmam o que a equipe já suspeitava: o problema não é brasileiro. A contaminação de bebidas por metanol afeta dezenas de países, especialmente onde fiscalização e infraestrutura laboratorial são limitadas. Uma solução aberta tem, por definição, alcance que uma solução proprietária dificilmente teria.
 
-### Débito Técnico Acumulado
+## O que a equipe busca agora
 
-Sem recursos para refatoração, padrões antigos se consolidam. Código que funciona em 2026 quebra em 2027. Features novas ficam incompatíveis com fundações antigas.
+A sustentabilidade do projeto depende de parcerias. A equipe busca apoio em três frentes: validação técnica, manutenção financeira e aperfeiçoamento contínuo da ferramenta.
 
-### Vulnerabilidades de Segurança
+No âmbito internacional, foram contatados os Médicos Sem Fronteiras — que mantém a Methanol Poisoning Initiative desde 2012 —, a OPAS/OMS, fundações como Wellcome Trust e Gates Foundation, e organismos como BID Lab e STDF. No âmbito nacional, a lista inclui Fiocruz, MAPA, ANP, vigilância sanitária e parlamentares do Distrito Federal. No campo do fomento à pesquisa, há submissões planejadas à FAPEMA, FINEP e FAP-DF.
 
-Atualizações críticas não ocorrem. Dependências desatualizam. AlcoLab roda em navegadores com brechas de segurança conhecidas. Portanto, risco emerge silenciosamente.
+Nenhuma parceria está fechada ainda. O projeto é recente e as tratativas estão em curso.
 
-### Infraestrutura Abandonada
+O que existe de concreto é a ferramenta em si: funcional, gratuita, auditável, disponível agora.
 
-Servidores falham. Certificados SSL expiram. Links quebram. Gradualmente, projeto vira "abandonware" — tecnologia fantasma. Sendo assim, sustentabilidade é crítica.
+## Uma nota final
 
-## O Maior Medo: Abandono, Não Fracasso
+A escolha por abrir o código e lançar de graça não foi indolor. Significa abrir mão de qualquer retorno direto pelo trabalho feito. Significa continuar bancando os custos sem saber por quanto tempo. Significa apostar que o impacto coletivo vale mais do que a proteção individual da invenção.
 
-Uma das criadoras, Nayara, resumiu perfeitamente o receio:
+Para a equipe do AlcoLab, pesou mais a possibilidade de que a ferramenta chegasse a tempo — a consumidores, fiscais, distribuidores, agentes de saúde — do que a segurança de um modelo de negócio que ainda demoraria anos para se concretizar.
 
-> "Nosso maior medo não é que AlcoLab falhe — é que seja abandonado por falta de suporte."
+Isso não é manifesto. É apenas o que aconteceu.
 
-Isso não é paranoia. É lucidez sobre ecologia do software livre. Contudo, existem soluções. Nesse sentido, parcerias são fundamentais.
+**AlcoLab está disponível em [alcolab.org](http://alcolab.org)**.Código-fonte: [github.com/diegoanapolis/alcolab](https://github.com/diegoanapolis/alcolab)
 
-## Busca de Parcerias: Três Frentes Estratégicas
-
-Para evitar cenário sombrio, AlcoLab persegue **três tipos de parceria**:
-
-### Credibilidade Científica
-
-Parcerias internacionais com autoridades de saúde conferem legitimidade:
-
-- **MSF** — emergências médicas globais
-- **PAHO/WHO** — validação pan-americana
-- **STDF (WTO)** — comércio internacional
-- **Wellcome Trust** — pesquisa global
-- **Gates Foundation** — doenças negligenciadas
-- **Mozilla Foundation** — internet aberta
-
-### Suporte Financeiro Sustentável
-
-Mantendo operações reais:
-
-- **BID Lab** — inovação social
-- Fundações internacionais em saúde pública
-
-### Aprimoramento Contínuo
-
-Melhorias técnicas:
-
-- Universidades colaborando em algoritmos
-- Comunidade global contribuindo código
-
-Portanto, parcerias múltiplas garantem sustentabilidade. Em suma, nenhuma alternativa de abandono.
-
-## Parcerias Nacionais: Enraizando Localmente
-
-Olha só para parcerias brasileiras buscadas:
-
-- **Fiocruz** — pulsão científica nacional
-- **MAPA** — regulação de bebidas
-- **Vigilância Sanitária DF** — operadores públicos
-- **FAP-DF, FAPEMA, FINEP** — fundações de pesquisa
-
-Além disso, o time busca **apoio parlamentar** junto a legisladores. Isso cria possibilidade de financiamento público.
-
-Nesse sentido, isso significa algo profundo: AlcoLab não quer ser aplicativo interessante. Quer ser **infraestrutura pública de saúde**. Portanto, estratégia é institucionalizar, não comercializar. Sendo assim, sustentabilidade é garantida.
-
-## Prova de Impacto: Números Elocuentes
-
-Poucos dias após lançamento, dados eram convincentes:
-
-- **340+ visitantes únicos**
-- **8.400+ requisições ao servidor**
-- Acessos de: Brasil, EUA, França, Canadá, Singapura, Suíça
-
-O mundo inteiro quer essa ferramenta. Demanda existe, é notória. Sendo assim, oferta precisa ser mantida. Portanto, sustentabilidade é imperativo para impacto contínuo.
-
-## O Fator Custo: Acessibilidade Radical
-
-Para contextualizar por que open source importa:
-
-Um **gascromatógrafo** custa **R$200.000+**. Um **espectrômetro Raman** custa **R$180.000-300.000**. Instituições de saúde pública em países em desenvolvimento? Não possuem orçamento.
-
-**AlcoLab custa menos de R$10** — basicamente custos de hospedagem divididos por usuários. Afinal, é gratuito.
-
-Essa diferença não é marginal. É a diferença entre análise ser privilégio de laboratórios versus direito de qualquer pessoa. Portanto, open source é filosofia e prática de acessibilidade.
-
-## Disponibilidade Global: Acesso Total
-
-Quer usar agora? Simples:
-
-- **[https://alcolab.org](https://alcolab.org)** — aplicação web
-- **[https://github.com/diegoanapolis/alcolab](https://github.com/diegoanapolis/alcolab)** — código-fonte completo
-
-Nenhuma restrição. Nenhuma conta requerida. Nenhuma publicidade. Em suma, transparência total. Afinal, open source significa isso.
-
-## Por Que Essa Escolha Importa Profundamente
-
-A decisão de fazer AlcoLab open source transcende tecnologia. Afirma que **inovação em saúde não é commodity**. Que vidas humanas precedem lucro. Que transparência científica é não-negociável.
-
-Também declara: **confiamos em comunidade mais que propriedade**.
-
-Mas também é pragmático. Open source aumenta auditoria — mais olhos, menos bugs. AGPL protege contra exploração. Zenodo eterniza conhecimento. Portanto, open source é ética e prática simultâneas. Sendo assim, impacto é amplificado.
-
-## O Caminho Adiante: Crescimento Sustentável
-
-AlcoLab está em ponto de inflexão. Tecnologia funciona. Demanda existe. Precisa **crescer sem perder alma**.
-
-Parcerias com Fiocruz, PAHO, Wellcome Trust oferecem sustentação institucional. Apoio parlamentar cria financiamento estável. Comunidade global contribui código.
-
-Mas tudo depende disso: **projeto não seja abandonado**. Nesse sentido, sustentabilidade é absolutamente crítica.
-
-## Conclusão: Escolha Radical Por Vidas
-
-Sete anos aguardando patente? Não. Dois anos esperando propriedade? Não.
-
-AlcoLab escolheu **agora**. Escolheu **livre**. Escolheu **transparência**. Essa é escolha de quem acredita que tecnologia que salva vidas é bem público, não propriedade privada.
-
-**Próximos passos:**
-- Se trabalha em saúde pública, conheça [https://alcolab.org](https://alcolab.org)
-- Quer entender a ciência? Leia sobre [densidade e viscosidade](/blog/pt/ciencia-por-tras-alcolab-densidade-viscosidade-metanol)
-- Pronto para testar? Veja [como usar AlcoLab passo a passo](/blog/pt/como-usar-alcolab-passo-a-passo-triagem-metanol)
-
-A história do AlcoLab acabou de começar. E está sendo escrita por quem se recusa a esperar. Afinal, vidas não podem esperar patentes.
+Se este projeto faz sentido para você, a forma mais direta de ajudar é compartilhar com quem possa se beneficiar — um consumidor, um produtor, um fiscal, alguém que trabalhe com segurança alimentar. E se você representa uma instituição que poderia apoiar o AlcoLab, ou conhece quem possa, entre em contato: [**alcolabapp@gmail.com**](mailto:alcolabapp@gmail.com)
