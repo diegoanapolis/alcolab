@@ -18,10 +18,10 @@ tags:
   - segurança de bebidas
   - saúde pública
   - tecnologia para saúde
-image: /images/blog/alcolab-app-triagem-metanol.png
+image: /images/blog/6-1776179720938.jpg
 imageAlt: >-
-  Interface do aplicativo AlcoLab mostrando resultado de triagem de metanol em
-  bebida alcoólica
+  Bebida destilada e smartphone com app Alcolab que auxilia na detecção de
+  metanol
 focusKeyword: app detecta metanol
 translationSlug: brazilian-researchers-create-free-app-detects-methanol
 ---
