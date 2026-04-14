@@ -16,7 +16,9 @@ tags:
   - public health
   - health technology
 image: /images/blog/6-1776179720938.jpg
-imageAlt: Distilled beverage and smartphone with AlcoLab app that helps detect methanol
+imageAlt: >-
+  Bebida destilada e smartphone com app Alcolab que auxilia na detecção de
+  metanol
 focusKeyword: methanol detection
 translationSlug: pesquisadores-brasileiros-criam-app-gratuito-detecta-metanol
 ---
