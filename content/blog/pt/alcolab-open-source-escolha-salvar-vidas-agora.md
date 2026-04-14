@@ -24,7 +24,7 @@ tags:
   - patente
   - inovação
 focusKeyword: app de triagem de metanol
-translationSlug: alcolab-open-source-choosing-to-save-lives-now
+translationSlug: alcolab-open-source-choice-to-save-lives-now
 ---
 ## A encruzilhada
 
