@@ -1,156 +1,107 @@
 ---
-title: Brazilian Researchers Create Free App That Detects Methanol
+title: AlcoLab - Brazilian Researchers Create Free App That Helps Detect Methanol
 description: >-
-  App detects methanol in beverages: AlcoLab is a free solution created by
-  Brazilian researchers to combat global methanol poisoning crisis.
+  Free app helps detect methanol in beverages: AlcoLab is a solution created by
+  Brazilian researchers to combat the global methanol poisoning crisis.
 date: '2026-04-08'
 author: Diego Mendes de Souza
 locale: en
 published: false
 status: em_revisao
 tags:
-  - app detects methanol
+  - methanol detection app
   - methanol detection
   - AlcoLab
   - beverage safety
   - public health
   - health technology
 image: /images/blog/6-1776179720938.jpg
-imageAlt: >-
-  Bebida destilada e smartphone com app Alcolab que auxilia na detecção de
-  metanol
-focusKeyword: app detects methanol
+imageAlt: Distilled beverage and smartphone with AlcoLab app that helps detect methanol
+focusKeyword: methanol detection
 translationSlug: pesquisadores-brasileiros-criam-app-gratuito-detecta-metanol
 ---
+## How Two Chemists and One Administrator Created a Free Tool Against Methanol – Asking Nothing in Return
 
-## App Detects Methanol Freely: The Solution Brazil Needed
+In 2025, Brazil faced a severe outbreak of methanol poisoning in alcoholic beverages. Between September and December, dozens of people were hospitalized and more than 20 died — cases that were concentrated mainly in São Paulo, but not restricted to it.
 
-Brazil's methanol crisis reached alarming numbers in 2025. Registered **97 confirmed cases** with **62 deaths**, concentrated mainly in São Paulo. Facing this tragedy, Brazilian researchers took decisive action: create a free tool that detects methanol in beverages.
+It was in this context that Pedro Augusto de Oliveira Morais, PhD in Chemometrics, asked two simple questions to his colleague Diego Mendes de Souza, also a Chemist and Criminal Expert: Were methanol poisoning cases reaching forensics? Did he envision any way to detect the contaminant without depending on a laboratory equipped with expensive instruments?
 
-**AlcoLab** is an innovative web application developed by:
-- **Diego Mendes de Souza** — Doctor in Chemometrics, Criminal Expert
-- **Pedro Augusto de Oliveira Morais** — PhD in Chemometrics, professor at UFMA
+Diego didn't work directly with adulterated beverages — his work at the Civil Police focuses on drug analysis. But the question stuck and the desire to contribute to preventing new contaminations arose. And he began to research.
 
-The project emerges as urgent response to public health problem that can't wait. Therefore, app detects methanol because lives depend on it.
+## The Discovery Through Literature Data
 
-## Why AlcoLab Is Revolutionary: Choosing the Common Good
+First, Diego spent days researching in the scientific literature about the physical and chemical properties of ethanol and methanol. The two alcohols are very similar — so similar that most simple analysis methods cannot distinguish them safely. Density, for example, gives an excellent notion of total alcohol content, but does not discriminate whether that content comes from ethanol, methanol or a mixture of both.
 
-When researchers face important discovery, many follow traditional patent path. This process takes 1.5-7 years. AlcoLab's creators made a different and courageous choice.
+In this regard, Diego identified a relevant difference: **viscosity**. Methanol is less viscous than ethanol and water. Therefore, when methanol is present, it flows faster, for example, through a viscometer. The property seemed simple, but could be what was missing to assemble an accessible methodology. Therefore, he had the idea of **adapting this flow to** a simple and accessible device, **a pharmacy syringe**. Next came the idea of embedding this in an app that would help detect methanol. See what Diego explained in an interview with Olhar Digital:
 
-"We chose to make it available freely now instead of patenting and waiting 7 years. Lives can't wait," said Diego Mendes de Souza. This decision resulted in product launched under open-source license (AGPL-3.0), with administrative collaboration from Nayara Ferreira Santos as co-holder.
+> Density does not discriminate methanol from ethanol. We measure density on a kitchen scale and it gives the initial notion of how much alcohol is in the mixture. Density gives a direction — and the solution embedded in AlcoLab refines that direction with viscosity obtained by flow. Since methanol is less viscous, it flows faster. We use the two variables in a complementary way to reach the conclusion of the most likely hydroalcoholic composition.
 
-Furthermore, project was published in Zenodo and has priority registration at INPI. This way, solution combines scientific responsibility with immediate accessibility. Therefore, app detects methanol because they prioritize lives, not profit.
+With literature data in hand, Diego began working informally at home — testing parameters, cross-referencing data, building a database to support the algorithm and methodological flowchart. In parallel, Pedro Augusto conducted experimental tests on his own to validate whether what the methodology indicated on paper was confirmed in practice. There was no formal project. <u>There was no funding. There were two people using their own free time and spending money from their own pockets to see if the idea worked for methanol detection.</u>
 
-## How the App Detects Methanol: The Science Behind
+## From Idea to Practical Solution: Entry of Nayara and Romério
 
-AlcoLab uses innovative method based on **density and viscosity** to distinguish ethanol from methanol. Solution's genius lies in its simplicity: uses measurements anyone can make at home.
+When the tests began to show real potential, the team needed more than science - they needed a tool that anyone could use. That's when Nayara Ferreira Santos, Administrator, entered the project, contributing with the interface usability and the administrative structure of the initiative.
 
-Method doesn't require sophisticated equipment. Detection works through comparing physical properties of ethanol and methanol. Substances have different characteristics when measured appropriately.
+Moreover, one more person interested in volunteering appeared. Romério Rodrigues dos Santos Silva, Postdoctoral Researcher in Biochemistry, began to contribute to the tool's usability and also in more experimental tests of the tool.
 
-Result arrives in just **15-25 minutes**, with traffic light indicator:
-- **Green:** Safe (compatible with pure ethanol)
-- **Yellow:** More data needed
-- **Red:** Possible methanol presence
+The four worked for months without any external incentive. The costs of server hosting, materials for testing and commercial beverages purchased for calibration came out of their own pockets.
 
-This way, app detects methanol with visual simplicity. Interpretation is immediate and accessible to anyone. Therefore, complex technology becomes common use tool.
+When the tool was practically ready, the team found itself facing a real choice: apply for a patent for a solution that helped detect methanol — a process that takes 2 to 7 years — or launch immediately, for free, to whoever needed it.
 
-## Materials Needed: Less than R$10
+They chose to launch.
 
-One of AlcoLab's greatest merits is its accessibility. To do complete screening, you need only:
+> The team opted to launch immediately and for free. There was no guarantee of return for the months of work invested — but there was the concrete possibility that the tool would arrive in time to be useful for those who need it: consumers, inspectors, distributors. For us, contributing to contain a serious public health problem weighed more than any other consideration.
 
-- 20mL syringe with 22G needle
-- Kitchen scale with 0.1g resolution
-- Smartphone with internet access
-- Distilled water (for calibration)
+So, AlcoLab went live on March 10, 2026.
 
-Total cost of materials stays below **R$10**. This means practically anyone in Brazil accesses this screening, regardless of economic situation.
+## How Methanol Screening Works - AlcoLab
 
-On the other hand, smartphone with any operating system works perfectly. App is compatible with iOS and Android through Progressive Web App (PWA). Therefore, app detects methanol because it costs so little that it's accessible to all. After all, safety isn't a luxury.
+AlcoLab is a web application, accessible at [alcolab.org](http://alcolab.org), without the need for download to help detect methanol through screening (non-confirmatory) examination. The complete process takes between 15 and 25 minutes and requires only three items:\
+• a 20 mL syringe with 22G needle (the most common in pharmacies),\
+• a kitchen scale with 0.1g resolution (important, but it is possible to examine without it); and\
+• a smartphone with camera.
 
-## Local Technology: Your Data Stays With You
+<img src="/images/blog/1-1776179222960.png" alt="20 mL syringe, scale with 0.1g resolution and smartphone for methanol screening by AlcoLab app" style="max-width:75%;margin:0 auto;display:block" />
 
-AlcoLab was designed respecting user privacy. Application works entirely offline after accessing it once. Processes all data locally in the browser.
+> It's worth remembering that this is a screening and not confirmatory methodology. AlcoLab results do not completely replace confirmatory tests, but function as an auxiliary tool in screening for the presence of methanol. In suspicious cases, even if the result shows compatibility with the label, consumption is not recommended. Report to Health Surveillance, Police and Consumer Protection Agency.
 
-No personal information or screening results are sent to remote servers. All processing happens through **Python/Pyodide** — Python implementation in WebAssembly running directly on your device.
+## Step-by-Step Methodology
 
-This feature is fundamental in emergency situations, where data privacy and security are critical. Furthermore, guarantees functioning even with intermittent connections. Therefore, app detects methanol while keeping you protected.
+1. The user draws and weighs 20 mL of water and then 20 mL of the beverage being analyzed — this provides the relative density.
+2. Next, position the syringe vertically and film the flow of liquid between the 18 and 14 mL marks — this allows estimation of relative viscosity.
+3. With this data entered into the application, along with label information, the app flow estimates the alcohol content based on grids from the literature. It then searches in that content range, in an experimental grid developed by the authors, for the composition or compositions compatible with the obtained flow time.
 
-## Global Reach: From São Paulo to the World
+## Results Report and Statistics Applied by AlcoLab
 
-Despite being solution developed to combat Brazilian crisis, AlcoLab already has reached global usage. Application was accessed by users in:
-- Brazil
-- United States
-- France
-- Canada
-- Singapore
-- Switzerland
+- **Statistics**: The app evaluates the experimental uncertainty of measurements, comparing the composition identified in the previous step with compositions of nearby results through Z-test for comparison of means and Monte Carlo probabilistic simulation. The objective is to include nearby compositions, statistically equivalent and/or probabilistically likely.
+- **Results report**: The equivalent and/or most likely compositions are compared with the declared label. The app organizes experimental measurements and results in a report and displays an immediate safety indicator in traffic light format (green / yellow / red). For example, when there is considerable probability for the presence of methanol and/or incompatibility with the label, the traffic light assumes a red color.
 
-This global adoption evidences universality of the problem. Beverage contamination with methanol isn't exclusive to Brazil. It's a challenge affecting multiple countries.
+> It's worth remembering that the tool only works with pure distillates — vodka, cachaça, whisky, rum, gin, tequila, aguardiente. It is not compatible, for now, with liqueurs, beers, wines or mixed drinks, because these have more diverse chemical composition that impacts the density and viscosity parameters.
 
-This way, app detects methanol globally. AlcoLab positions itself as global tool for beverage safety and public health. Therefore, Brazilian solution became planetary solution.
+## The First Month of Availability
 
-## Compatibility with Different Distilled Beverages
+In about one month, the public website [alcolab.org](http://alcolab.org) already had visits from almost **2500 users and about 34 thousand requests spread across all continents**. With accesses in countries like Brazil, United States, China, France, Canada, Singapore and Switzerland. Moreover, the project appears in the first Google results both in Portuguese ("app triagem de metanol") and in English ("methanol screening app").
 
-**App detects methanol** in variety of pure distilled beverages:
-- Vodka
-- Cachaça
-- Whisky
-- Rum
-- Gin
-- Tequila
-- Pisco
-- Tiquira
+The international adoption shows something the team already suspected and WHO data pointed to: beverage contamination by methanol is not a problem and concern exclusively in Brazil. It is a global problem, especially in countries with little oversight and laboratory infrastructure.
 
-However, it doesn't work with liqueurs, beers, wines, mixed drinks, flavored distillates, or turbid beverages. Limitation exists because these products have different physical properties.
+## What Lies Ahead for AlcoLab
 
-On the other hand, this specificity ensures precision exactly in highest-risk beverages. Therefore, app detects methanol where it matters most. In this sense, focus is on beverages causing real poisonings.
+In this regard, AlcoLab (app that helps detect methanol through screening) is still funded by the researchers themselves. Open source projects without institutional support face real risks: accumulated maintenance, vulnerable infrastructure, risk of abandonment by the authors. Therefore, the team that knows this history wants to avoid it.
 
-## Partnership With International Organizations: Expanding Impact
+For this reason, they seek partnerships in three fronts:
 
-AlcoLab creators actively seek partnerships with large-reach institutions:
-- **MSF** — Médecins Sans Frontières
-- **PAHO/WHO** — Pan-American Health Organization
-- **Fiocruz** — Oswaldo Cruz Foundation
-- **MAPA** — Ministry of Agriculture
-- **Brazilian Lawmakers** — public funding
+1. technical validation,
+2. financial sustainability and
+3. tool improvement.
 
-These strategic partnerships can significantly amplify application impact. Furthermore, open possibilities for integration in public health policies and health surveillance.
+<img src="/images/blog/3-1776179455672.png" alt="Desired partnerships for AlcoLab: validation by official laboratories and financial sustainability" style="max-width:75%;margin:0 auto;display:block" />
 
-In short, goal is transforming technological solution into real instrument of collective health protection. Therefore, app detects methanol with public reach, not just private. Therefore, impact will be institutionalized.
+Among the institutions contacted by email are Doctors Without Borders (which maintains the Methanol Poisoning Initiative since 2012), PAHO/WHO, Fiocruz, MAPA, ANP, and local parliamentarians. In the field of funding, the authors are studying and planning submissions inside and outside the country.
 
-## Media Coverage and Recognition
+No partnership is confirmed yet, but some negotiations are underway. Moreover, the project has been publicly available for a short time.
 
-AlcoLab's importance was recognized by specialist media. Olhar Digital released news on **March 31, 2026**, highlighting innovation and commitment to public good.
+**What is confirmed is what already exists**: a functional, free, open source and auditable tool, created by three people who decided that solving the problem was more urgent than protecting the invention.
 
-Project already has open-source repository available at https://github.com/diegoanapolis/alcolab, where developers and researchers can contribute and audit code.
+> If this project makes sense to you, the simplest way to help is to share it with those who might benefit — a consumer, a producer, an inspector, someone working with food safety. And if you represent an institution that could support AlcoLab, or know someone who might, get in touch: [alcolabapp@gmail.com](mailto:alcolabapp@gmail.com)
 
-This way, transparency and scientific collaboration are project pillars. Therefore, app detects methanol with confidence because it's publicly auditable. After all, open code means guaranteed trust.
-
-## Where to Access: Democratizing Safety
-
-AlcoLab is available for immediate use at **https://alcolab.org**. No need for downloads or complicated installation. Anyone with web browser starts screening.
-
-Complete source code is at **https://github.com/diegoanapolis/alcolab** for those wanting to review methodology or contribute improvements.
-
-On the other hand, users preferring simply to use the tool can do so without any technical knowledge. Therefore, app detects methanol both for technicians and any ordinary person. Therefore, accessibility is democratic.
-
-## Next Steps: Expanding the Solution
-
-AlcoLab continues in development and continuous improvement. Furthermore, there are perspectives for integration with laboratories and Brazilian public health institutes.
-
-Community of developers and researchers around the project grows constantly. In short, this is just the beginning of transformation in how we handle alcoholic beverage safety.
-
-## Conclusion: Technology Serving Life
-
-AlcoLab's emergence represents important milestone in Brazilian innovation history. Facing crisis claiming lives, researchers chose to prioritize public good over immediate economic gains.
-
-**App detects methanol** simply, quickly, and accessibly to anyone. Since its launch, it demonstrated utility in multiple countries and contexts. This way, it significantly contributes to reducing methanol poisoning risks worldwide. After all, technology that saves lives is technology that matters.
-
-**Next Readings:**
-- [How to use AlcoLab step by step](/blog/en/how-to-use-alcolab-step-by-step-methanol-screening)
-- [The science behind: density and viscosity](/blog/en/science-behind-alcolab-density-viscosity-methanol-detection)
-- [Why AlcoLab is open source](/blog/en/alcolab-open-source-choosing-to-save-lives-now)
-
-If you consume alcoholic beverages, consider using [AlcoLab](https://alcolab.org) for greater safety. Therefore, start your screening now. In this sense, your health deserves this protection.
-
-**AlcoLab is an auxiliary screening tool. Even if results show 'compatible with label' and 'methanol absent', if there are other signs of adulteration, we recommend not consuming the beverage.**
+**AlcoLab is available at [alcolab.org](http://alcolab.org)**.Source code: [github.com/diegoanapolis/alcolab](https://github.com/diegoanapolis/alcolab)Contact: [alcolabapp@gmail.com](mailto:alcolabapp@gmail.com)
