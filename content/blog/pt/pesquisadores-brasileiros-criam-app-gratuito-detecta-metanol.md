@@ -9,8 +9,8 @@ description: >-
 date: '2026-04-08'
 author: Diego Mendes de Souza
 locale: pt-BR
-published: false
-status: aprovado
+published: true
+status: publicado
 tags:
   - app detecta metanol
   - detecção de metanol
