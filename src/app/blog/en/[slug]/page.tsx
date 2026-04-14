@@ -127,7 +127,7 @@ export default function BlogPostEN({ params }: PageProps) {
               <p className="text-xs text-neutral-400 mb-2">
                 {formatDate(post.date)} {post.author && `· ${post.author}`}
               </p>
-              <h1 className="text-2xl sm:text-3xl font-bold text-[#002060] leading-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold text-[#002060] leading-tight text-justify">
                 {post.title}
               </h1>
               {post.description && (

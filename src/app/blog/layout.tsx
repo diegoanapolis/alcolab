@@ -11,10 +11,6 @@ export const metadata: Metadata = {
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-dvh bg-white">
-      {/* Tarja CTA superior (largura total da tela) */}
-      <a href="/" className="cta-banner">
-        Conheça o app AlcoLab — Triagem gratuita de metanol em minutos
-      </a>
       {/* Blog header */}
       <header className="border-b border-neutral-200 bg-white sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -37,6 +33,10 @@ export default function BlogLayout({ children }: { children: React.ReactNode }) 
           </nav>
         </div>
       </header>
+      {/* Tarja CTA (logo abaixo do header, largura total da tela) */}
+      <a href="/" className="cta-banner">
+        Conheça o app AlcoLab — Triagem gratuita de metanol em minutos
+      </a>
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 py-8">
         {children}
