@@ -9,7 +9,7 @@ category: Social Impact
 locale: en
 published: false
 status: em_revisao
-image: /images/blog/alcolab-open-source-codigo-aberto.png
+image: /images/blog/6-1776179720938.jpg
 imageAlt: >-
   Símbolo de código aberto representando a decisão do AlcoLab de ser open source
   e gratuito
