@@ -54,16 +54,16 @@ On the other hand, free software (methanol screening app) does not mean software
 
 > In AlcoLab's case, that bill was — and still is — paid by us creators. Server hosting, domain registration, commercial beverages purchased for experimental tests, materials for calibration, and many hours of research and work. Everything came out of the team's pocket, who worked for months without any external support.
 
-In this sense, the estimated costs so far are listed in the table below.
+In this context, the estimated costs so far are listed in the table below.
 
-| Item | Detail | Estimated cost |
+| Item | Details | Estimated Cost |
 | --- | --- | --- |
-| Beverages for calibration | 10 brands (whisky and vodka) | R$ 1.000 |
-| Chemical reagents | Ethanol and methanol PA, 10 L each | R$ 1.600 |
-| Infrastructure — Railway Pro | US$ 20/month × 6 months | R$ 700 |
-| Development tools | GitHub Copilot + Claude Max, 6 months | R$ 3.840 |
-| R&D hours | 290 h (Diego 150h · Pedro 80h · Romério 30h · Nayara 30h) | R$ 29.000 |
-| **Total estimated investment** |  | **R$ 36.140** |
+| Beverages for calibration | 10 labels (whisky and vodka) | US$ 200 |
+| Chemical reagents | Ethanol and methanol (analytical grade), 10 L each | US$ 320 |
+| Infrastructure — Railway Pro | US$ 20/month × 6 months | US$ 140 |
+| Development tools | GitHub Copilot + Claude Max, 6 months | US$ 768 |
+| R&D hours | 290 h (Diego 150h · Pedro 80h · Romério 30h · Nayara 30h) | US$ 5,800 |
+| **Total estimated investment** |  | **US$ 7,228** |
 
 This is possible while the stamina lasts. And the team is honest about the risks: open source projects without institutional support have a well-known history of burnout. Volunteer developers become overloaded, maintenance accumulates, updates stop being made, and infrastructure becomes vulnerable. The result is what the field calls *abandonware* — software that exists but no longer has anyone behind it.
 
