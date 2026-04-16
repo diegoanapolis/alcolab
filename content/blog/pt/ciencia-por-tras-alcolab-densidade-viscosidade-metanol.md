@@ -1,17 +1,27 @@
 ---
-title: "Densidade e viscosidade: como AlcoLab detecta metanol"
-description: "A ciência por trás do AlcoLab: densidade e viscosidade revelam metanol. Tecnologia científica que detecta contaminação com precisão próxima 100%."
-date: 2026-04-08
-author: "Diego Mendes de Souza"
-category: "Tecnologia"
-locale: "pt-BR"
+title: 'Densidade e viscosidade: como AlcoLab detecta metanol'
+description: >-
+  A ciência por trás do AlcoLab: densidade e viscosidade revelam metanol.
+  Tecnologia científica que detecta contaminação com precisão próxima 100%.
+date: '2026-04-08'
+author: Diego Mendes de Souza
+category: Tecnologia
+locale: pt-BR
 published: false
-status: "rascunho"
-image: "/images/blog/ciencia-alcolab-densidade-viscosidade.png"
-imageAlt: "Diagrama científico mostrando como densidade e viscosidade relativas são usadas para detectar metanol em bebidas"
-tags: ["densidade", "viscosidade", "metanol", "detecção química", "análise de bebidas", "saúde pública"]
-focusKeyword: "densidade viscosidade metanol"
-translationSlug: "science-behind-alcolab-density-viscosity-methanol-detection"
+status: em_revisao
+image: /images/blog/ciencia-alcolab-densidade-viscosidade.png
+imageAlt: >-
+  Diagrama científico mostrando como densidade e viscosidade relativas são
+  usadas para detectar metanol em bebidas
+tags:
+  - densidade
+  - viscosidade
+  - metanol
+  - detecção química
+  - análise de bebidas
+  - saúde pública
+focusKeyword: densidade viscosidade metanol
+translationSlug: science-behind-alcolab-density-viscosity-methanol-detection
 ---
 
 ## Densidade e Viscosidade: A Ciência do AlcoLab
