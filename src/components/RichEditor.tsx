@@ -55,6 +55,35 @@ import { TableHeader } from "@tiptap/extension-table-header";
 import { Markdown } from "tiptap-markdown";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+/**
+ * tiptap-markdown escapes backslashes and underscores when serialising back to
+ * Markdown.  Inside LaTeX blocks ($…$ and $$…$$) those escapes corrupt the
+ * formulas.  This helper reverses the damage *only* inside math delimiters.
+ *
+ * It also strips the trailing `\` that tiptap-markdown appends to `$$` lines
+ * (it treats them as "hard line-break" markers).
+ */
+function fixLatexEscaping(md: string): string {
+  // Fix display math: $$…$$ (possibly spanning multiple lines)
+  md = md.replace(/\$\$\\?\n([\s\S]*?)\n?\$\$/g, (_match, inner: string) => {
+    const fixed = inner
+      .replace(/\\\\/g, "\\")       // \\mu  → \mu
+      .replace(/\\_/g, "_")          // \_    → _
+      .replace(/\\$/gm, "");         // trailing \ on each line
+    return `$$\n${fixed}\n$$`;
+  });
+
+  // Fix inline math: $…$ (single line, non-greedy)
+  md = md.replace(/\$([^\$\n]+?)\$/g, (_match, inner: string) => {
+    const fixed = inner
+      .replace(/\\\\/g, "\\")
+      .replace(/\\_/g, "_");
+    return `$${fixed}$`;
+  });
+
+  return md;
+}
+
 /* ─── Types ─── */
 interface RichEditorProps {
   content: string;
@@ -495,8 +524,8 @@ export default function RichEditor({
     content: initialContent.current,
     onUpdate: ({ editor: ed }) => {
       if (suppressUpdate.current) return;
-      const md = (ed.storage as any).markdown.getMarkdown() as string;
-      onChange(md);
+      const raw = (ed.storage as any).markdown.getMarkdown() as string;
+      onChange(fixLatexEscaping(raw));
     },
     editorProps: {
       attributes: {
@@ -525,7 +554,9 @@ export default function RichEditor({
 
   useEffect(() => {
     if (!editor) return;
-    const currentMd = (editor.storage as any).markdown?.getMarkdown() as string;
+    const currentMd = fixLatexEscaping(
+      (editor.storage as any).markdown?.getMarkdown() as string
+    );
     if (content !== currentMd) {
       suppressUpdate.current = true;
       editor.commands.setContent(content);

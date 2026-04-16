@@ -11,8 +11,35 @@ const markdownRenderer = new Marked(
   })
 );
 
+/**
+ * tiptap-markdown escapes backslashes (\ → \\) and underscores (_ → \_) when
+ * serialising the editor back to Markdown.  Inside LaTeX blocks those escapes
+ * break KaTeX.  This helper reverses the damage *only* inside math delimiters
+ * before the Markdown renderer (+ katex extension) ever sees the content.
+ */
+function fixLatexEscaping(md: string): string {
+  // Display math: $$…$$ (possibly multi-line, with optional trailing \)
+  md = md.replace(/\$\$\\?\n([\s\S]*?)\n?\$\$/g, (_match, inner: string) => {
+    const fixed = inner
+      .replace(/\\\\/g, "\\")       // \\mu  → \mu
+      .replace(/\\_/g, "_")          // \_    → _
+      .replace(/\\$/gm, "");         // trailing \ on lines
+    return `$$\n${fixed}\n$$`;
+  });
+
+  // Inline math: $…$ (single line)
+  md = md.replace(/\$([^\$\n]+?)\$/g, (_match, inner: string) => {
+    const fixed = inner
+      .replace(/\\\\/g, "\\")
+      .replace(/\\_/g, "_");
+    return `$${fixed}$`;
+  });
+
+  return md;
+}
+
 function renderMarkdown(content: string): string {
-  return markdownRenderer.parse(content) as string;
+  return markdownRenderer.parse(fixLatexEscaping(content)) as string;
 }
 
 export interface BlogPost {
