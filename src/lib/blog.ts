@@ -1,7 +1,19 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { marked } from "marked";
+import { Marked } from "marked";
+import markedKatex from "marked-katex-extension";
+
+const markdownRenderer = new Marked(
+  markedKatex({
+    throwOnError: false,
+    nonStandard: true,
+  })
+);
+
+function renderMarkdown(content: string): string {
+  return markdownRenderer.parse(content) as string;
+}
 
 export interface BlogPost {
   slug: string;
@@ -53,29 +65,34 @@ export function getPosts(locale: "pt" | "en"): BlogPost[] {
     .map((filename) => {
       const slug = filename.replace(/\.md$/, "");
       const filePath = path.join(dir, filename);
-      const raw = fs.readFileSync(filePath, "utf-8");
-      const { data, content } = matter(raw);
+      try {
+        const raw = fs.readFileSync(filePath, "utf-8");
+        const { data, content } = matter(raw);
 
-      return {
-        slug,
-        title: data.title || "",
-        description: data.description || "",
-        date: normalizeDate(data.date),
-        author: data.author || "",
-        image: data.image || "",
-        imageAlt: data.imageAlt || "",
-        tags: Array.isArray(data.tags) ? data.tags : typeof data.tags === "string" ? data.tags.split(",").map((t: string) => t.trim()) : [],
-        locale: data.locale || locale,
-        published: data.published !== false,
-        status: data.status || "rascunho",
-        focusKeyword: data.focusKeyword || "",
-        translationSlug: data.translationSlug || undefined,
-        content,
-        html: marked(content) as string,
-      } satisfies BlogPost;
+        return {
+          slug,
+          title: data.title || "",
+          description: data.description || "",
+          date: normalizeDate(data.date),
+          author: data.author || "",
+          image: data.image || "",
+          imageAlt: data.imageAlt || "",
+          tags: Array.isArray(data.tags) ? data.tags : typeof data.tags === "string" ? data.tags.split(",").map((t: string) => t.trim()) : [],
+          locale: data.locale || locale,
+          published: data.published !== false,
+          status: data.status || "rascunho",
+          focusKeyword: data.focusKeyword || "",
+          translationSlug: data.translationSlug || undefined,
+          content,
+          html: renderMarkdown(content),
+        } satisfies BlogPost;
+      } catch (err) {
+        console.error(`[blog] Skipping ${locale}/${slug}: ${err instanceof Error ? err.message : String(err)}`);
+        return null;
+      }
     })
-    .filter((p) => p.published)
-    .sort((a, b) => (b.date > a.date ? 1 : -1));
+    .filter((p) => p !== null && p.published)
+    .sort((a, b) => ((b as BlogPost).date > (a as BlogPost).date ? 1 : -1)) as BlogPost[];
 
   return posts;
 }
@@ -88,28 +105,33 @@ export function getPost(locale: "pt" | "en", slug: string): BlogPost | null {
 
   if (!fs.existsSync(filePath)) return null;
 
-  const raw = fs.readFileSync(filePath, "utf-8");
-  const { data, content } = matter(raw);
+  try {
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const { data, content } = matter(raw);
 
-  if (data.published === false) return null;
+    if (data.published === false) return null;
 
-  return {
-    slug,
-    title: data.title || "",
-    description: data.description || "",
-    date: normalizeDate(data.date),
-    author: data.author || "",
-    image: data.image || "",
-    imageAlt: data.imageAlt || "",
-    tags: Array.isArray(data.tags) ? data.tags : typeof data.tags === "string" ? data.tags.split(",").map((t: string) => t.trim()) : [],
-    locale: data.locale || locale,
-    published: true,
-    status: data.status || "rascunho",
-    focusKeyword: data.focusKeyword || "",
-        translationSlug: data.translationSlug || undefined,
-    content,
-    html: marked(content) as string,
-  };
+    return {
+      slug,
+      title: data.title || "",
+      description: data.description || "",
+      date: normalizeDate(data.date),
+      author: data.author || "",
+      image: data.image || "",
+      imageAlt: data.imageAlt || "",
+      tags: Array.isArray(data.tags) ? data.tags : typeof data.tags === "string" ? data.tags.split(",").map((t: string) => t.trim()) : [],
+      locale: data.locale || locale,
+      published: true,
+      status: data.status || "rascunho",
+      focusKeyword: data.focusKeyword || "",
+      translationSlug: data.translationSlug || undefined,
+      content,
+      html: renderMarkdown(content),
+    };
+  } catch (err) {
+    console.error(`[blog] Error reading ${locale}/${slug}: ${err instanceof Error ? err.message : String(err)}`);
+    return null;
+  }
 }
 
 /**
@@ -138,28 +160,34 @@ export function getAllPosts(locale: "pt" | "en"): BlogPost[] {
     .map((filename) => {
       const slug = filename.replace(/\.md$/, "");
       const filePath = path.join(dir, filename);
-      const raw = fs.readFileSync(filePath, "utf-8");
-      const { data, content } = matter(raw);
+      try {
+        const raw = fs.readFileSync(filePath, "utf-8");
+        const { data, content } = matter(raw);
 
-      return {
-        slug,
-        title: data.title || "",
-        description: data.description || "",
-        date: normalizeDate(data.date),
-        author: data.author || "",
-        image: data.image || "",
-        imageAlt: data.imageAlt || "",
-        tags: Array.isArray(data.tags) ? data.tags : typeof data.tags === "string" ? data.tags.split(",").map((t: string) => t.trim()) : [],
-        locale: data.locale || locale,
-        published: data.published !== false,
-        status: data.status || "rascunho",
-        focusKeyword: data.focusKeyword || "",
-        translationSlug: data.translationSlug || undefined,
-        content,
-        html: marked(content) as string,
-      } satisfies BlogPost;
+        return {
+          slug,
+          title: data.title || "",
+          description: data.description || "",
+          date: normalizeDate(data.date),
+          author: data.author || "",
+          image: data.image || "",
+          imageAlt: data.imageAlt || "",
+          tags: Array.isArray(data.tags) ? data.tags : typeof data.tags === "string" ? data.tags.split(",").map((t: string) => t.trim()) : [],
+          locale: data.locale || locale,
+          published: data.published !== false,
+          status: data.status || "rascunho",
+          focusKeyword: data.focusKeyword || "",
+          translationSlug: data.translationSlug || undefined,
+          content,
+          html: renderMarkdown(content),
+        } satisfies BlogPost;
+      } catch (err) {
+        console.error(`[blog] Skipping ${locale}/${slug}: ${err instanceof Error ? err.message : String(err)}`);
+        return null;
+      }
     })
-    .sort((a, b) => (b.date > a.date ? 1 : -1));
+    .filter((p) => p !== null)
+    .sort((a, b) => ((b as BlogPost).date > (a as BlogPost).date ? 1 : -1)) as BlogPost[];
 
   return posts;
 }
@@ -207,7 +235,7 @@ export function updatePostStatus(
     focusKeyword: data.focusKeyword || "",
         translationSlug: data.translationSlug || undefined,
     content,
-    html: marked(content) as string,
+    html: renderMarkdown(content),
   };
 }
 
@@ -357,7 +385,7 @@ export function updatePost(
     focusKeyword: data.focusKeyword || "",
     translationSlug: data.translationSlug || undefined,
     content: finalContent,
-    html: marked(finalContent) as string,
+    html: renderMarkdown(finalContent),
   };
 }
 
@@ -473,6 +501,6 @@ export function upsertTranslatedPost(
     focusKeyword: (targetData.focusKeyword as string) || "",
     translationSlug: sourceSlug,
     content: target.content,
-    html: marked(target.content) as string,
+    html: renderMarkdown(target.content),
   };
 }
