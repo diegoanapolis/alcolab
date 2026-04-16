@@ -8,7 +8,7 @@ author: Diego Mendes de Souza
 category: Tecnologia
 locale: pt-BR
 published: false
-status: rascunho
+status: em_revisao
 image: /images/blog/ciencia-alcolab-densidade-viscosidade.png
 imageAlt: >-
   Diagrama científico mostrando como densidade e viscosidade relativas são
