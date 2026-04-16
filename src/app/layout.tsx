@@ -4,6 +4,7 @@
 // See LICENSE file in the project root.
 
 import type { Metadata } from "next";
+import "katex/dist/katex.min.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
