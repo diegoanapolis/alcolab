@@ -189,7 +189,9 @@ com $\\beta(x) = a_4 x^4 + a_3 x^3 + a_2 x^2 + a_1 x + a_0$ ajustado aos dados e
 
 **Pipeline consolidado:**
 
-$$ \\mu\_{20,°C} = \\underbrace{\\mu\_{\\text{abs}} \\times \\frac{\\mu\_{\\text{água_ref}}}{\\mu\_{\\text{água_abs}}}}*{\\text{correção de escala (setup)}} + \\underbrace{(T-20) \\times \\beta(x)}*{\\text{correção térmica}} $$
+$$\
+\\mu\_{20,°C} = \\underbrace{\\mu\_{\\text{abs}} \\times \\frac{\\mu\_{\\text{água-ref}}}{\\mu\_{\\text{água-abs}}}}*{\\text{correção de escala (setup)}} + \\underbrace{(T-20) \\times \\beta(x)}*{\\text{correção térmica}}\
+$$
 
 Aplicado tanto na **calibração da malha** (normalizando dados obtidos em temperaturas diversas e com seringas/agulhas de marcas diferentes) quanto no **uso em campo**. Dados de calibração heterogêneos (duas seringas, marcas diferentes, temperaturas variadas) atingiram, após correção, $R^2 &gt; 0{,}986$ para água-etanol e água-metanol — confirmando que a correção relativa absorve diferenças de hardware.
 
