@@ -167,8 +167,8 @@ function formatReference(e: BibEntry): string {
   const parts: string[] = [];
   if (e.author) parts.push(formatAuthors(e.author) + ".");
   if (e.title) parts.push(e.title.replace(/\.$/, "") + ".");
-  if (e.journal) parts.push(`*${e.journal}*.`);
-  else if (e.booktitle) parts.push(`In: *${e.booktitle}*.`);
+  if (e.journal) parts.push(`<em>${e.journal}</em>.`);
+  else if (e.booktitle) parts.push(`In: <em>${e.booktitle}</em>.`);
   if (e.publisher) parts.push(e.publisher + ".");
   if (e.year) {
     let detail = e.year;
