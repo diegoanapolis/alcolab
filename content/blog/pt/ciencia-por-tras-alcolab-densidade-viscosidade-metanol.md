@@ -384,12 +384,11 @@ Projetos *open source* sem apoio institucional têm um histórico conhecido: des
 
 ### Parcerias com laboratórios oficiais
 
-A primeira frente de parcerias buscada é com **laboratórios oficiais de metrologia legal e institutos de pesquisa** — INMETRO no Brasil, CENAM no México, equivalentes em outros países, universidades públicas com infraestrutura reológica (cone-placa, Ubbelohde, rheomat). O objetivo é:
+A primeira frente de parcerias buscada é com **laboratórios oficiais de metrologia legal e institutos de pesquisa** — ANP, ANVISA, MAPA, INMETRO no Brasil, equivalentes em outros países. O objetivo é:
 
 - **Aumentar o número de pontos de calibração** no interior do simplex ternário, substituindo parte da derivação RK-mid por medidas experimentais diretas e **refinando o termo de excesso** em toda a faixa de $w_{\text{total}}$, inclusive na região do EHC.
 - Conduzir **estudos de precisão interlaboratorial e entre analistas**, quantificando a reprodutibilidade real do método em condições de fiscalização.
 - **Aumentar a robustez e a confiabilidade da malha experimental**, devolvendo ao usuário final resultados mais assertivos e estatisticamente qualificados.
-- Padronizar um **lote de referência de seringas+agulhas** para triagem analítica, reduzindo a variabilidade absorvida hoje pela correção relativa à água.
 
 ### Parcerias com instituições de fiscalização
 
@@ -410,7 +409,7 @@ O AlcoLab combina **densidade e viscosidade** — duas grandezas físicas simple
 **Para apoiar, colaborar ou demandar adaptação:** \[\[email protected\]\](mailto:\[email protected\]) — e **compartilhar** com quem possa se beneficiar (consumidores, produtores, fiscais, agentes de saúde, reguladores de combustível) é, sempre, a forma mais simples de ajudar.
 
 **AlcoLab está disponível em [alcolab.org](https://alcolab.org).Código-fonte:** [github.com/diegoanapolis/alcolab](https://github.com/diegoanapolis/alcolab) · AGPL-3.0\
-**Contato para parcerias:** \[\[email protected\]\](mailto:\[email protected\])
+**Contato para parcerias:** [alcolabapp@gmail.com](mailto:alcolabapp@gmail.com)
 
 ---
 
