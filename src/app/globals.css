@@ -354,6 +354,16 @@
   }
   .prose table caption { color: var(--dm-text-muted) !important; }
 
+  /* ===== Blog: caixa de destaque (dark) ===== */
+  .prose .destaque {
+    background: rgba(37, 99, 235, 0.12) !important;
+    border-left-color: #60a5fa !important;
+    color: var(--dm-text) !important;
+  }
+  .prose .destaque strong {
+    color: #93bbfc !important;
+  }
+
   /* ===== BLOG CTA inferior: borda clara para destacar no modo escuro ===== */
   .blog-cta-box {
     border-color: #60a5fa !important;
@@ -525,6 +535,24 @@ input, select, textarea { color: var(--color-brand); }
 .prose .reference-item em,
 .prose .reference-item i {
   font-style: italic;
+}
+
+/* ─── Blog: caixa de destaque ─── */
+.prose .destaque {
+  background: #eff6ff;
+  border-left: 4px solid #2563eb;
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  color: #1e3a5f;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.prose .destaque p {
+  margin: 0;
+}
+.prose .destaque strong {
+  color: #1e40af;
 }
 
 /* ─── CTA Banner (tarja clicável) ─── */
