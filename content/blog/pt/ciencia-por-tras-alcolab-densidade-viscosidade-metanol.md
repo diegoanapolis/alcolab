@@ -188,10 +188,10 @@ O fluxo começa com o perfil do usuário (leigo, técnico ou laboratório), que 
 ### Medição de densidade (Fluxo 1)
 
 1. Tarar a balança com a seringa vazia (ou registrar e subtrair).
-2. Aspirar exatamente 10,0 mL de água; pesar; registrar $m_{\text{água}}$.
-3. Aspirar exatamente 10,0 mL da amostra (após enxágue com a própria amostra); pesar; registrar $m_{\text{amostra}}$.
+2. Aspirar exatamente 20,0 mL de água; pesar; registrar $m_{\text{água}}$.
+3. Aspirar exatamente 20,0 mL da amostra (após enxágue com a própria amostra); pesar; registrar $m_{\text{amostra}}$.
 
-Densidade relativa: $`ρ_rel = m_{\text{amostra}} / m_água` $. Com balança de 0,1 g, a incerteza típica é ±0,005 em $\rho_{\text{rel}}$, equivalente a **±0,5–1 % em teor alcoólico em massa** — suficiente para o papel da densidade no método (direcionar a busca na malha de viscosidade, não quantificar álcool com precisão metrológica).
+Densidade relativa: $ρ_rel = m_{\text{amostra}} / m_água$. Com balança de 0,1 g, a incerteza típica é ±0,005 em $\rho_{\text{rel}}$, equivalente a **±0,5–1 % em teor alcoólico em massa** — suficiente para o papel da densidade no método (direcionar a busca na malha de viscosidade, não quantificar álcool com precisão metrológica).
 
 A conversão $\rho_{\text{rel}}$ → w\_álcool faz busca inversa **simultânea** nas malhas binárias EtOH–H₂O e MeOH–H₂O a 20 °C, retornando (w_EtOH_equiv, w_MeOH_equiv). A média é usada como estimativa pontual de $w_{\text{total}}$ e o intervalo entre os dois valores fornece a faixa possível — abordagem deliberadamente conservadora dada a quase coincidência das duas curvas binárias.
 
