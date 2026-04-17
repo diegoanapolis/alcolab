@@ -169,7 +169,7 @@ Medidas feitas em outra temperatura (durante a construção da malha ou pelo usu
 
 **Etapa 1 - Viscosidade absoluta aparente (Hagen–Poiseuille):**
 
-$$ \mu_{\text{abs}} = \frac{\pi . r^4 . \rho . g . h . t}{8 . L  V} $$
+$$ \mu_{\text{abs}} = \frac{\pi  r^4  \rho  g  h  t}{8  L  V} $$
 
 onde r é o raio interno da agulha, ρ a densidade de referência (água, \~997 kg/m³, usada igualmente para água e amostra — a escolha é proposital, pois o erro se cancela na etapa 2), g a gravidade, h a altura hidrostática média, t o tempo de escoamento, L o comprimento da agulha e V o volume escoado. O resultado é uma **viscosidade aparente do sistema**, não absoluta rigorosa.
 
