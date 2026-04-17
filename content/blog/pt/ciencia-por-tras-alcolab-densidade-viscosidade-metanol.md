@@ -45,9 +45,7 @@ O delegado-geral da Polícia de São Paulo, Artur Dian, disse no final de outubr
 
 Embora em muitos casos não tenha sido determinada a rota do metanol presente nas garrafas de destilados, o maior caso de adulteração elucidado em São Paulo sugere <u>interconexão entre adulteração de combustível, adulteração de bebidas e casos de intoxicação por metanol</u>.
 
-<img src="/images/blog/not-cia-1776446871629.png" alt="notícia do G1 sobre a localização de postos de combustível que adulteravam etanol com metanol e que foi utilizado na falsificação de bebidas" style="max-width:65%;margin:0 auto;display:block" />
-
----
+<img src="/images/blog/not-cia-1776447070981.png" alt="notícia do G1 sobre a localização de postos de combustível que adulteravam etanol com metanol e que foi utilizado na falsificação de bebidas" style="max-width:60%;margin:0 auto;display:block" />
 
 ## Da matriz energética brasileira à adulteração do etanol combustível com metanol
 
@@ -115,11 +113,11 @@ Em equipamento de rotina, três instrumentos dominam o cenário:
 - **Densímetros portáteis de tubo em U oscilante**: exatidão ≈ 0,001 g/cm³, custo USD 3000–15000.
 - **Densímetros de bancada Anton Paar**: padrão metrológico (±0,00005 g/cm³), inviáveis fora de laboratório.
 
+![Instrumentos utilizados na determinação alcoólica de etanol: picnômetro, alcôometro, densímetro portátil, densímetro de alta resolução](/images/blog/densimetro-picnometro-alcoometro-1776448066389.png)
+
 Para o AlcoLab, a exigência não é exatidão metrológica absoluta, e sim uma **densidade relativa ρ/ρ\_H₂O bem estimada a partir de um densímetro comum ou de pesagem simples em balança com resolução 0.1g** (podendo ser até de uso doméstico). É o suficiente para restringir a busca ternária por viscosidade, como se verá adiante.
 
-### Por que a densidade, sozinha, não basta para metanol — e cons
-
-### equência para a triagem
+### Por que a densidade, sozinha, não basta para metanol — e consequência para a triagem
 
 Considere as densidades absolutas puras a 20 °C: $\rho(\text{H}_2\text{O}) = 0{,}9982$ g/cm³; $\rho(\text{EtOH}) = 0{,}7893$ g/cm³; $\rho(\text{MeOH}) = 0{,}7914$ g/cm³. O contraste entre os dois álcoois é de **apenas $0{,}0021$ g/cm³ ($\approx 0{,}26$ %)**, muito abaixo do limite de detecção de qualquer densímetro doméstico e mesmo abaixo da precisão típica de densímetros portáteis de ±0,001 g/cm³.
 
