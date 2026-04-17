@@ -15,8 +15,9 @@ authors:
   - saúde pública
   - open source date: 2026-04-15T00:00:00.000Z
 description: >-
-  A ciência por trás do AlcoLab: densidade e viscosidade revelam metanol.
-  Tecnologia científica que detecta contaminação com precisão próxima 100%.
+  AlcoLab: ferramenta gratuita e open source para triagem de metanol em bebidas
+  e em combustíveis usando seringa, balança e smartphone. Base científica,
+  viscosidade e densidade.
 date: '2026-04-08'
 author: Diego Mendes de Souza
 category: Tecnologia
