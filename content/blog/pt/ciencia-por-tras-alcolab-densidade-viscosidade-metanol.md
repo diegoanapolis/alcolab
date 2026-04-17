@@ -191,17 +191,17 @@ O fluxo começa com o perfil do usuário (leigo, técnico ou laboratório), que 
 2. Aspirar exatamente 10,0 mL de água; pesar; registrar $m_{\text{água}}$.
 3. Aspirar exatamente 10,0 mL da amostra (após enxágue com a própria amostra); pesar; registrar $m_{\text{amostra}}$.
 
-Densidade relativa: `ρ_rel = $m_{\text{amostra}}$ / m_água`. Com balança de 0,1 g, a incerteza típica é ±0,005 em $\rho_{\text{rel}}$, equivalente a **±0,5–1 % em teor alcoólico em massa** — suficiente para o papel da densidade no método (direcionar a busca na malha de viscosidade, não quantificar álcool com precisão metrológica).
+Densidade relativa: $`ρ_rel = m_{\text{amostra}} / m_água` $. Com balança de 0,1 g, a incerteza típica é ±0,005 em $\rho_{\text{rel}}$, equivalente a **±0,5–1 % em teor alcoólico em massa** — suficiente para o papel da densidade no método (direcionar a busca na malha de viscosidade, não quantificar álcool com precisão metrológica).
 
 A conversão $\rho_{\text{rel}}$ → w\_álcool faz busca inversa **simultânea** nas malhas binárias EtOH–H₂O e MeOH–H₂O a 20 °C, retornando (w_EtOH_equiv, w_MeOH_equiv). A média é usada como estimativa pontual de $w_{\text{total}}$ e o intervalo entre os dois valores fornece a faixa possível — abordagem deliberadamente conservadora dada a quase coincidência das duas curvas binárias.
 
 ### Medição de temperatura
 
-O usuário registra a temperatura da água e da amostra. 1 °C de diferença altera μ(água) em \~2,3 %, então a medida de T impacta diretamente a correção térmica do pipeline. O app aceita qualquer termômetro com resolução de 0,5 °C e opera na faixa **20–30 °C**; amostras fora dessa faixa disparam aviso.
+O usuário registra a temperatura da água e da amostra. Pode optar por não registrar desde que garanta equalização de temperatura entre água e amostra com diferença máxima de 2ºC. Neste caso, o software orienta o usuário ao tempo mínimo para se atingir a estabilidade térmica.
 
 ### Medição de viscosidade (Fluxo 2)
 
-O usuário cronometra **três (ou mais)** tempos de escoamento de um volume fixo (padrão 10 mL) da água e da amostra na mesma seringa+agulha. O app calcula o CV entre repetições; se $CV &gt; 5$ %, alerta e recomenda repetir. Os tempos médios alimentam um pipeline de três etapas (viscosidade absoluta aparente por Hagen–Poiseuille → correção relativa à água → normalização térmica para 20 °C) que resulta na **viscosidade da amostra corrigida e referenciada a 20 °C**, pronta para consulta na malha.
+O usuário cronometra **dois (ou mais)** tempos de escoamento de um volume fixo (padrão 10 mL) da água e da amostra na mesma seringa+agulha. O app calcula o CV entre repetições; se $CV &gt; 5$ %, alerta e recomenda repetir. Os tempos médios alimentam um pipeline de três etapas (viscosidade absoluta aparente por Hagen–Poiseuille → correção relativa à água → normalização térmica para 20 °C) que resulta na **viscosidade da amostra corrigida e referenciada a 20 °C**, pronta para consulta na malha.
 
 ### Densidade como "norte": por que é o ponto-chave
 
