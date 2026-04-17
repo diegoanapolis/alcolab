@@ -213,17 +213,17 @@ A malha ternária do AlcoLab é uma superfície curva em ($w_{\text{total}}$, $z
 
 **Como ler a figura.** As curvas representam, de cima para baixo:
 
-- A curva vermelha no topo ($z_{\text{MeOH}} = 0$) é o **binário água-etanol**: vai do ponto "Água" na origem (à esquerda, onde μ ≈ 1,0 mPa·s) até o ponto "Etanol" no canto direito superior.
-- A curva azul-celeste na base ($z_{\text{MeOH}} = 1$) é o **binário água-metanol**: parte do mesmo ponto "Água" e termina no ponto "Metanol" no canto direito inferior, com viscosidade sensivelmente menor que o etanol puro.
+- A curva no topo ($z_{\text{MeOH}} = 0$) é o **binário água-etanol**: vai do ponto "Água" na origem (à esquerda, onde μ ≈ 1,0 mPa·s) até o ponto "Etanol" no canto direito superior.
+- A curva na base ($z_{\text{MeOH}} = 1$) é o **binário água-metanol**: parte do mesmo ponto "Água" e termina no ponto "Metanol" no canto direito inferior, com viscosidade sensivelmente menor que o etanol puro.
 - Entre as duas, nove curvas intermediárias ($z_{\text{MeOH}} = 0{,}1$ a $0{,}9$) descrevem **misturas ternárias água–etanol–metanol** com proporção crescente de metanol no álcool total. Todas partem do mesmo ponto (água pura) e vão se separando à medida que o teor alcoólico aumenta, refletindo a diferença de viscosidade entre os dois álcoois puros discutida na seção anterior.
 
 **Três regiões em destaque na figura.**
 
-- **Região de menor poder discriminatório** (elipse à esquerda, $w_{\text{total}}$ ≲ 0,10): as curvas estão praticamente superpostas — há pouca diferença prática entre uma água com traços de etanol e uma água com traços de metanol. Amostras muito diluídas caem nessa região e, por construção, o AlcoLab sinaliza "inconclusivo".
-- **Região de maior aplicação a bebidas destiladas** (elipse central, $w_{\text{total}}$ ≈ 0,25–0,50): destilados típicos (cachaça, vodka, gim, whisky) ficam nessa faixa, onde a separação vertical entre as curvas é máxima.
-- **Região de maior aplicação a etanol combustível** (elipse à direita, $w_{\text{total}}$ ≈ 0,90–0,95): concentra o EHC, onde a separação entre as curvas, embora menor que no pico, ainda é suficiente para discriminar adulterações ≳ 5 % de metanol.
+- **Região de menor poder discriminatório** (elipse à esquerda, $w_{\text{total}}$ ≲ 0,10): as curvas estão praticamente superpostas — há pouca diferença prática e numérica entre as curvas binárias água-etanol, água-metanol e todas as possibilidades ternárias. Na prática, fica estatisticamente difícil distinguir se apenas um álcool presente ou qual proporção de cada um. Por isso, em amostras muito diluídas é comum os resultados demonstrarem diferentes composições em termos de participantes (água e um dos álcoois, e uma composição ternária) são possíveis e estatisticamente equivalentes.
+- **Região de maior aplicação a bebidas destiladas** (elipse central, $w_{\text{total}}$ ≈ 0,25–0,50): destilados típicos (cachaça, vodka, gim, whisky) ficam nessa faixa, em que a separação vertical entre as curvas é muito satisfatória (maior poder discriminante).
+- **Região de maior aplicação a etanol combustível** (elipse à direita, $w_{\text{total}}$ ≈ 0,90–0,95): concentra o EHC, onde a separação entre as curvas também é muito satisfatória e, portanto, suficiente para discriminar adulterações ≳ 5 % de metanol.
 
-**O problema da ambiguidade — e como a densidade o resolve.** Imagine uma medida experimental de viscosidade $\mu^\* \approx 1{,}2$ mPa·s (linha horizontal tracejada na figura). Se apenas a viscosidade fosse consultada, a malha ofereceria **duas soluções plausíveis completamente opostas**, marcadas com X:
+**O problema da ambiguidade da viscosidade - e como a medida de densidade o resolve.** Imagine uma medida experimental de viscosidade $\mu^ \approx 1{,}2$ mPa·s (linha horizontal tracejada na figura). Se apenas a viscosidade fosse consultada, a malha ofereceria **duas soluções plausíveis completamente opostas**, marcadas com X:
 
 - **Amostra 1**, à esquerda: $w_{\text{total}}$ ≈ 0,25, sobre a curva vermelha ($z_{\text{MeOH}}$ baixo) — caracterizaria uma **bebida destilada de teor médio dominada por etanol** (o cenário esperado para uma cachaça ou uma vodka legítima).
 - **Amostra 2**, à direita: $w_{\text{total}}$ ≈ 0,92, sobre uma curva baixa ($z_{\text{MeOH}}$ alto) — caracterizaria um **etanol combustível adulterado com grande proporção de metanol** (cenário compatível com a Operação Carbono Oculto).
