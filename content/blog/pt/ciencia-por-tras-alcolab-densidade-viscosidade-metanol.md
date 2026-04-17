@@ -209,7 +209,7 @@ O usuário cronometra **dois (ou mais)** tempos de escoamento de um volume fixo 
 
 A malha ternária do AlcoLab é uma superfície curva em ($w_{\text{total}}$, $z_{\text{MeOH}}$). A **Figura 1** mostra um corte dessa malha a 20 °C, com a viscosidade no eixo vertical e a fração mássica total de álcool no eixo horizontal.
 
-![Figura 1. Malha de viscosidade a 20 °C: cortes entre os binários água-metanol e água-etanol, com regiões de aplicação destacadas e duas amostras hipotéticas de mesma viscosidade experimental separadas pela densidade.](/images/blog/malha-viscosidade-alcolab-e-exemplos-1776452778248.jpg)
+<img src="/images/blog/malha-viscosidade-alcolab-e-exemplos-1776452778248.jpg" alt="Figura 1. Malha de viscosidade a 20 °C: cortes entre os binários água-metanol e água-etanol, com regiões de aplicação destacadas e duas amostras hipotéticas de mesma viscosidade experimental separadas pela densidade." style="max-width:90%;margin:0 auto;display:block" />
 
 **Como ler a figura.** As curvas representam, de cima para baixo:
 
