@@ -35,22 +35,38 @@ tags:
 focusKeyword: densidade viscosidade metanol
 translationSlug: science-behind-alcolab-density-viscosity-methanol-detection
 ---
+App open source na triagem de metanol em bebidas e combustíveis: entenda a metodologia do AlcoLab
 
-AlcoLab: triagem gratuita de metanol em bebidas — blog técnico
+O delegado-geral da Polícia de São Paulo, Artur Dian, disse no final de outubro de 2025:
 
-Este post resume, em formato direto, a base científica e técnica do **AlcoLab**, uma ferramenta web gratuita e *open source* de triagem de metanol em bebidas alcoólicas. É dirigido a pesquisadores, fiscais, profissionais de saúde pública e potenciais parceiros institucionais.
+> Todas as bebidas adulteradas com metanol no estado saíam de uma fábrica clandestina gerenciada por uma família em São Bernardo do Campo \\cite{gazetadopovo2025}.
+
+Segundo investigações, o etanol adulterado com metanol era adquirido em dois postos de combustíveis da região pertencentes à facção criminosa PCC. Vale lembrar que São Paulo é disparado o estado mais afetado pelas intoxicações por metanol. Pelo balanço final consolidado pelo Ministério da Saúde, das 890 notificações registradas entre 26 de setembro e 5 de dezembro, São Paulo concentrou 578 delas e 50 dos 73 casos confirmados nacionalmente, além de 10 dos 22 óbitos confirmados \\cite{brasil2025}.
+
+Embora em muitos casos não tenha sido determinada a rota do metanol presente nas garrafas de destilados, o maior caso de adulteração elucidado em São Paulo sugere interconexão entre adulteração de combustível, adulteração de bebidas e casos de intoxicação por metanol.
 
 ---
 
-## 1. Metanol como problema de saúde pública contemporâneo
+## Da matriz energética brasileira à adulteração do etanol combustível com metanol
 
-O metanol (CH₃OH) é o álcool alifático mais simples e compartilha com o etanol (CH₃CH₂OH) propriedades macroscópicas muito próximas — miscibilidade total com água, pontos de ebulição próximos e, sobretudo, **densidades praticamente coincidentes a 20 °C** ($\rho_{\text{MeOH}}/\rho_{\text{H₂O}} \approx 0{,}791$ vs. $\rho_{\text{EtOH}}/\rho_{\text{H₂O}} \approx 0{,}789$). O consumidor não distingue uma bebida adulterada pelo gosto, pelo cheiro ou pela aparência — e essa similaridade é a raiz do problema de saúde pública. O diferencial, no entanto, é toxicológico: metabolizado pela álcool desidrogenase a formaldeído e depois a ácido fórmico, o metanol causa acidose metabólica e lesão irreversível do nervo óptico e dos núcleos putaminais \\cite{pohanka2019,mcmartin2015,mcmartin2024}.
+- Etanol hidratado combustível (EHC) um dos pilares da matriz energética brasileira, com produção anual superior a 30 bilhões de litros para mais de 40 milhões de veículos \\cite{unica2026};
+- Comercializado em mais de 42 mil postos, Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP), por meio do Programa de Monitoramento da Qualidade dos Combustíveis (PMQC) e de fiscalizações diretas \\cite{anp2026};
+- Historicamente, as fraudes mais comuns envolviam a adição excessiva de água ao EHC e a mistura de solventes mais baratos à gasolina;
+- A adulteração de combustíveis com metanol é motivada por um diferencial de preço significativo. Em 2024–2025 o preço médio do metanol industrial importado ficou bem abaixo do custo do etanol hidratado das usinas \\cite{argusmedia2025,novacana2025b};
+- Essa diferença de \~50% gera margens ilícitas expressivas, amplificadas pela sonegação fiscal que frequentemente acompanha o esquema \\cite{argusmedia2025,novacana2025b};
+- Operação Carbono Oculto da Polícia Federal em conjunto com o Ministério Público, agosto de 2025, revelou esquema bilionário envolvendo importação irregular de metanol pelo Porto de Paranaguá e distribuição a postos de combustíveis controlados por organização criminosa \\cite{datamarnews2025,visaoagro2025};
+- Combustível adulterado continha até 90% de metanol, 180 vezes mais que o limite 0,5% v/v permitido pela ANP \\cite{visaoagro2025}.
 
-**Principais dados:**
+---
+
+## Intoxicação por metanol pela adulteração de bebidas com metanol
+
+O consumidor não distingue uma bebida adulterada pelo gosto, pelo cheiro ou pela aparência — e essa similaridade é a raiz do problema de saúde pública. O diferencial, no entanto, é toxicológico: metabolizado pela álcool desidrogenase a formaldeído e depois a ácido fórmico, o metanol causa acidose metabólica e lesão irreversível do nervo óptico e dos núcleos putaminais \\cite{pohanka2019,mcmartin2015,mcmartin2024}.
 
 - **Dose potencialmente letal** em adulto: \~30 mL de metanol puro; \~10 mL já podem causar cegueira permanente \\cite{rietjens2014,elbakary2010}.
 - **Concentrações sanguíneas letais**: 118–257 mg/dL; mortalidade de até 50 % em hospitais com diagnóstico limitado \\cite{alnefaie2024,alqurashi2023}.
 - **Latência clínica** típica: 12–24 h, seguida de acidose, alterações visuais ("visão em nevada"), convulsões e coma.
+- **Crise no Brasil**: entre setembro e novembro de 2025, o Brasil registrou 890 notificações de intoxicação por metanol em bebidas alcoólicas, das quais 73 casos foram confirmados em sete estados, resultando em 22 óbitos — com São Paulo concentrando cerca de 68% dos casos confirmados (50) e 10 das mortes.
 - **Alerta OPAS/OMS (out. 2025)**: envenenamentos em pelo menos cinco países das Américas, com mais de 200 casos suspeitos no Brasil por bebidas destiladas adulteradas \\cite{opas2025}.
 - **Tratamento**: inibidores competitivos da ADH — etanol terapêutico ou, preferencialmente, fomepizol (ataque 15 mg/kg; manutenção 10 mg/kg a cada 12 h) \\cite{megarbane2010,hantson1999,eapcct2023}.
 - **Agravantes na América Latina**: fomepizol é **caro e de baixa disponibilidade** \\cite{eapcct2023,zakharov2014}; confirmação analítica por GC-FID / GC-MS é restrita a laboratórios oficiais, com tempos de resposta de horas a dias.
@@ -59,32 +75,34 @@ A conclusão prática é que o ganho clínico e epidemiológico mais alto não v
 
 ---
 
-## 2. O estado atual de identificação e quantificação de metanol
+## O estado atual da identificação e quantificação de metanol em bebidas e combustíveis
 
-As técnicas analíticas disponíveis podem ser agrupadas em três níveis de complexidade e custo (Tabela 1).
+As técnicas analíticas disponíveis para identificação e quantificação de metanol em bebidas e combustíveis são, no essencial, as mesmas — mudam a norma que as regula (AOAC e farmacopeias nacionais para bebidas; ABNT NBR 16041 e Res. ANP 907/2022 para combustíveis) e os laboratórios ou agentes que as executam. A Tabela 1 abaixo organiza essas ferramentas pelo eixo que importa para saúde pública e fiscalização em campo: disponibilidade, investimento e custo por análise.
 
-**Tabela 1. Ferramentas analíticas para quantificação e/ou identificação de metanol em bebidas.**
+**Tabela 1.** Ferramentas analíticas para quantificação e/ou identificação de metanol em bebidas e combustíveis.
 
-| Categoria | Método | LQ típico | Tempo | Custo unitário (USD) | Custo de investimento (USD) | Campo |
-| --- | --- | --- | --- | --- | --- | --- |
-| Confirmatório (quanti) | HS-GC-FID | 1–5 mg/L | 15–60 min | 20–60 | 30 000–80 000 | Laboratório oficial |
-| Confirmatório (quali) | HS-GC-MS | 0,1–1 mg/L | 15–60 min | 30–80 | 100 000–250 000 | Laboratório oficial |
-| Espectroscópico portátil | NIR / FTIR-ATR / Raman portátil | 0,5–5 % m/m | 1–5 min | 5–20 | 15 000–60 000 | Campo (limitado) |
-| Instrumento portátil | Sensor quimiorresistivo + coluna | 10–1 000 ppm no ar exalado \\cite{vandenbroek2021} | 2 min | 100 por teste + equipamento | 5 000–15 000 | Emergência clínica |
-| Triagem de baixíssimo custo | Colorimetria com permanganato/ácido cromotrópico | 1–5 % m/m | 5–15 min | &lt; 1 | &lt; 50 (reagentes e vidraria) | Fiscalização |
-| Triagem de baixíssimo custo | **AlcoLab (densidade + viscosidade em seringa)** | **\~5 % m/m** | **10–15 min** | **&lt; 0,50** | **&lt; 30 (seringa, balança, termômetro)** | **Fiscalização / usuário final** |
+| Método | Comentário | Disponibilidade e limitações | Investimento | Custo/análise |
+| --- | --- | --- | --- | --- |
+| **Cromatografias instrumentais (GC-FID e GC-MS)** | Padrão-ouro confirmatório para bebidas (AOAC \\cite{aoac2023}) e combustíveis (ABNT NBR 16041 / Res. ANP 907/2022 \\cite{anp2022,abnt2012}). | Muito baixa. Disponível apenas em laboratórios estruturados e grandes centros. Resposta: horas a dias. | Alto (&gt; US$ 50 mil) | Intermediário (US$ 100–300) |
+| **Sensor quimiorresistivo portátil em ar exalado** | Triagem da vítima **já exposta**, com boa correlação contra GC-MS (R² = 0,966) \\cite{vandenbroek2021}. Não analisa a bebida nem o combustível em si. | Baixa (emergência clínica). Não aplicável à análise da amostra antes do consumo ou da entrega. Resposta: 2 min. | Intermediário (US$ 5 mil–15 mil) | Alto (US$ 100/teste) |
+| **Densímetro (termodensímetro, picnômetro, tubo em U oscilante)** | Método clássico de alcoolometria em bebidas (OIML R 22 / AOAC \\cite{oiml1975,osborne1913,aoac2023}) e instrumento obrigatório da fiscalização da ANP em postos revendedores de etanol combustível \\cite{anp2022,adnormas2018}. | Média. Resposta: minutos. Limitação fundamental: ρ(MeOH) ≈ ρ(EtOH) — metanol é praticamente invisível ao densímetro até \~40 % de substituição. | Baixo a intermediário (&lt; US$ 50 para termodensímetro de vidro; alguns milhares de dólares para densímetro de tubo em U oscilante) | Muito baixo (&lt; US$ 1) |
+| **Técnicas espectroscópicas (NIR, FTIR-ATR, Raman)** | LOD típico de 2,5–6 % m/m; existem versões portáteis comerciais, **vantagem prática para fiscalização em campo** \\cite{lachenmeier2021,carneiro2008,silva2012}. | Baixa (operação especializada). Pode exigir calibração multivariada e matrizes bem comportadas. Resposta: 1–15 min. | Intermediário a alto (US$ 15 mil–US$ 150 mil) | Baixo (US$ 5–20) |
+| **Colorimetria (permanganato / ácido cromotrópico / ISO 1388-8)** | Triagem qualitativa de baixíssimo custo (ISO 1388-8 \\cite{anp2022} para combustíveis; ácido cromotrópico / permanganato para bebidas). | Alta. Sujeita a interferências de matriz: congêneres naturais e pigmentos em destilados envelhecidos, licores e bebidas coloridas geram falsos positivos; amostras muito diluídas geram falsos negativos. Resposta: 5–15 min. | Muito baixo (&lt; US$ 50, reagentes e vidraria) | Muito baixo (&lt; US$ 1) |
+| **AlcoLab (densidade + viscosidade em seringa e balança)** | Triagem **qualitativa e semiquantitativa**: detecta metanol acima de \~5 % m/m (LOD pode ser reduzido com recalibração) e estima a composição ternária água–etanol–metanol; gratuito, *open source* (AGPL-3.0), executa no navegador e funciona offline. Aplicável tanto a bebidas quanto a etanol combustível. | Alta (usuário final, fiscal, profissional de saúde pública). Resposta: 10–20 min. | Muito baixo (&lt; US$ 30, seringa, balança, termômetro) | Baixíssimo (\~US$ 0,00; não utiliza reagentes químicos e o padrão de calibração é a água) |
 
-No primeiro extremo, a cromatografia é o padrão-ouro, com precisão e exatidão suficientes para subsidiar autuação administrativa e judicial. No extremo oposto, reações colorimétricas (oxidação do metanol a formaldeído e detecção por ácido cromotrópico ou reagente de Schiff) são baratas e simples, mas sofrem de interferências em matrizes complexas (cachaças envelhecidas em madeira, licores com pigmentos, destilados com congêneres naturais). Em posição intermediária, detectores portáteis de metanol no ar exalado — que já atingem $R^2 = 0{,}966$ contra espectrometria de massas — são excelentes para triar vítimas já expostas, mas **não detectam a contaminação na bebida antes do consumo** \\cite{vandenbroek2021}.
+Em um extremo, a cromatografia é o padrão-ouro — precisa, exata, regulatoriamente aceita para autuação administrativa e judicial — mas restrita a laboratórios oficiais, com tempo de resposta em horas a dias que não serve à decisão em campo. No extremo oposto, a colorimetria é barata e imediata, mas sofre interferências de matriz que comprometem seu uso em destilados envelhecidos, licores, bebidas coloridas e amostras muito diluídas. Entre os dois, as técnicas espectroscópicas portáteis (NIR, FTIR, Raman) oferecem um compromisso interessante, mas ainda operam em faixa de dezenas a centenas de milhares de dólares e podem exigir calibração multivariada específica para cada matriz.
 
-Há, portanto, uma lacuna clara: **uma ferramenta que o usuário final, o fiscal ou o profissional de saúde pública possa usar em campo, sem reagentes, usando apenas utensílios domésticos, para triar a amostra antes que ela seja ingerida**. É nessa lacuna que o AlcoLab se insere.
+No lado clássico da fiscalização, o densímetro — instrumento obrigatório da ANP em postos revendedores e método centenário de alcoolometria em bebidas — tem uma limitação fundamental: é incapaz de detectar metanol enquanto a substituição se mantém abaixo de \~40%, porque ρ(MeOH) ≈ ρ(EtOH). O sensor quimiorresistivo em ar exalado, por sua vez, triage a vítima já exposta, não a amostra antes do consumo ou da entrega.
+
+A lacuna é evidente e simétrica nos dois domínios: falta uma ferramenta que o usuário final, o fiscal ou o profissional de saúde pública possa usar em campo, sem reagentes, com custo na casa de algumas dezenas de reais, para triar bebida ou combustível **antes** que a amostra chegue ao consumidor ou ao tanque. **É nessa lacuna que o AlcoLab se insere — com o mesmo método físico (densidade + viscosidade) aplicável aos dois contextos.**
 
 ---
 
-## 3. Densidade: forte para quantificar álcool, insuficiente para discriminar metanol
+## Densidade: forte para quantificar álcool, insuficiente para discriminar metanol
 
-### 3.1 Por que a densidade funciona tão bem para soluções hidroalcoólicas
+### Por que a densidade funciona tão bem para soluções hidroalcoólicas
 
-A densidade de uma mistura líquida depende do volume molar dos seus componentes e das interações moleculares entre eles. Para o sistema binário água-etanol, a dependência da densidade com o teor alcoólico é **monotônica e suave** entre 0 e 100 % de etanol e varia pouco com a temperatura na faixa usual de trabalho (20–30 °C). Essa robustez explica por que a densitometria é o método universal de quantificação de etanol em bebidas há mais de um século \\cite{osborne1913,oiml1975,aoac2023}.
+A densidade de uma mistura líquida depende do volume molar dos seus componentes e das interações moleculares entre eles. Para o sistema binário água-etanol, a dependência da densidade com o teor alcoólico é **monotônica e suave** entre 0 e 100 % de etanol e varia pouco com a temperatura na faixa usual de trabalho (20–30 °C). Essa robustez explica por que a densitometria é o método universal de quantificação de etanol em bebidas há mais de um século \\cite{osborne1913,oiml1975,aoac2023}, e é também o motivo pelo qual a ANP, na Resolução nº 907/2022, adota a massa específica a 20 °C como principal parâmetro físico-químico de qualidade do etanol hidratado combustível (EHC), com faixa especificada de 807,6 a 811,0 kg/m³ \\cite{anp2022,adnormas2018}.
 
 As compilações de referência seguem três linhagens: (i) metrológica europeia — tabelas de Osborne, McKelvy e Bearce (1913), adotadas pela OIML na recomendação OIML R 22 (*International Alcoholometric Tables*); (ii) compêndios AOAC International e farmacopeias nacionais (USP, Farm. Bras., EP), ajustados a ±0,01 °GL para fins regulatórios; (iii) modelos preditivos calibrados com densímetros de tubo em U oscilante (Anton Paar DMA 4500/5000/5001), em que desvios de 0,00002 g/cm³ propagam-se em ±0,01 %m/m de etanol \\cite{lachenmeier2021,lopesjesus2006,osborne1987}.
 
@@ -96,19 +114,19 @@ Em equipamento de rotina, três instrumentos dominam o cenário:
 
 Para o AlcoLab, a exigência não é exatidão metrológica absoluta, e sim uma **densidade relativa ρ/ρ\_H₂O bem estimada a partir de pesagem em balança doméstica** — no regime de \~0,001 g/cm³ de incerteza. É o suficiente para restringir a busca ternária, como se verá adiante.
 
-### 3.2 Por que a densidade, sozinha, não basta para metanol — e consequência para a triagem
+### Por que a densidade, sozinha, não basta para metanol — e consequência para a triagem
 
 Considere as densidades absolutas puras a 20 °C: $\rho(\text{H}_2\text{O}) = 0{,}9982$ g/cm³; $\rho(\text{EtOH}) = 0{,}7893$ g/cm³; $\rho(\text{MeOH}) = 0{,}7914$ g/cm³. O contraste entre os dois álcoois é de **apenas $0{,}0021$ g/cm³ ($\approx 0{,}26$ %)**, muito abaixo do limite de detecção de qualquer densímetro doméstico e mesmo abaixo da precisão típica de densímetros portáteis de ±0,001 g/cm³.
 
-Formalmente, trata-se de um problema de **não-injetividade**: na região típica de destilados ($w_{\text{total}}$ entre 0,25 e 0,50), a densidade da mistura é praticamente independente da fração interna entre os dois álcoois. Há, portanto, infinitas composições ($w_{\text{EtOH}}$, $w_{\text{MeOH}}$) que produzem a mesma densidade. Uma mistura água-etanol de 40 % m/m é densimetricamente indistinguível de uma mistura água-metanol de 40 % m/m pela grande maioria das técnicas por densidade.
+Formalmente, trata-se de um problema de **não-injetividade**: seja na região típica de destilados ($w_{\text{total}}$ entre 0,25 e 0,50), seja no regime do EHC ($w_{\text{total}}$ ≈ 0,93), a densidade da mistura é praticamente independente da fração interna entre os dois álcoois. Há, portanto, infinitas composições ($w_{\text{EtOH}}$, $w_{\text{MeOH}}$) que produzem a mesma densidade. Uma mistura água-etanol de 40 % m/m é densimetricamente indistinguível de uma mistura água-metanol de 40 % m/m pela grande maioria das técnicas por densidade; no EHC, cenários de adulteração com até \~20 % de substituição por metanol produzem variação de densidade inferior à resolução de um termodensímetro de campo e da própria tolerância especificada pela ANP \\cite{anp2022}.
 
 Estudos de referência \\cite{lachenmeier2021,lopesjesus2006} reforçam esse limite: trabalhos sobre densidade e volumes molares de excesso em misturas ternárias água-metanol-etanol \\cite{dizechi1982} mostram que a diferença entre os excessos água-etanol e água-metanol produz uma assinatura **tênue demais** para servir de vetor discriminatório em instrumento de baixo custo.
 
-**Consequência prática:** a densitometria clássica, apesar de seu mérito inquestionável na quantificação de etanol, nunca foi adotada como ferramenta de triagem de metanol. A literatura de adulteração de bebidas reconhece há décadas essa lacuna e recomenda, para esse fim, métodos cromatográficos ou técnicas espectroscópicas (NIR, FTIR-ATR, Raman) \\cite{lachenmeier2021}, que, embora portáteis, têm custo de aquisição elevado e raramente estão disponíveis para fiscalização municipal. **Falta uma segunda grandeza física**, que o AlcoLab introduz na forma da viscosidade relativa medida em seringa com agulha 22G. A densidade, longe de ser abandonada, assume papel fundamental: **restringe drasticamente a região do espaço de composições** em que a amostra pode estar, direcionando a busca pela viscosidade.
+**Consequência prática:** a densitometria clássica, apesar de seu mérito inquestionável na quantificação de etanol, nunca foi adotada como ferramenta de triagem de metanol — seja em bebidas, seja em combustíveis. A literatura de adulteração reconhece há décadas essa lacuna e recomenda, para esse fim, métodos cromatográficos ou técnicas espectroscópicas (NIR, FTIR-ATR, Raman) \\cite{lachenmeier2021,carneiro2008,silva2012}, que, embora portáteis, têm custo de aquisição elevado e raramente estão disponíveis para fiscalização municipal ou para inspeção rotineira em postos revendedores. **Falta uma segunda grandeza física**, que o AlcoLab introduz na forma da viscosidade relativa medida em seringa com agulha 22G. A densidade, longe de ser abandonada, assume papel fundamental: **restringe drasticamente a região do espaço de composições** em que a amostra pode estar, direcionando a busca pela viscosidade.
 
 ---
 
-## 4. Viscosidade: a grandeza que separa metanol de etanol
+## Viscosidade: a grandeza que separa metanol de etanol
 
 Diante da inviabilidade de usar apenas a densidade, os autores iniciaram uma investigação sistemática de **propriedades físicas simples, mensuráveis em campo, que discriminassem os dois álcoois**. A viscosidade emergiu como a candidata natural.
 
@@ -118,101 +136,17 @@ A viscosidade dinâmica μ é, em termos macroscópicos, a resistência ao escoa
 - $\mu(\text{MeOH}) = 0{,}554$ mPa·s
 - $\mu(\text{EtOH}) = 1{,}200$ mPa·s
 
-O contraste entre os dois álcoois é **enorme**: $\mu(\text{EtOH})$ é mais de **duas vezes** $\mu(\text{MeOH})$. Essa diferença não é acidental — reflete a forte contribuição do grupo metila adicional do etanol à energia de ativação do escoamento (dominada por interações dispersivas C–H⋯H–C e por volume livre menor). A viscosidade oferece, portanto, um **fator de discriminação muito superior ao da densidade**.
+O contraste entre os dois álcoois é **enorme**: $\mu(\text{EtOH})$ é mais de **duas vezes** $\mu(\text{MeOH})$. Essa diferença não é acidental — reflete a forte contribuição do grupo metila adicional do etanol à energia de ativação do escoamento (dominada por interações dispersivas C–H⋯H–C e por volume livre menor). A viscosidade oferece, portanto, um **fator de discriminação muito superior ao da densidade**, tanto no regime dos destilados quanto no regime do etanol combustível.
 
-### 4.1 O desvio da viscosidade em misturas aquosas
+### O desvio da viscosidade em misturas aquosas
 
 Quando os álcoois são misturados à água, a viscosidade **não se comporta de maneira simples**. Para os dois binários de interesse — água-metanol e água-etanol — a viscosidade **passa por um máximo acentuado em composição intermediária**: cerca de $w_{\text{EtOH}}$ ≈ 0,40–0,50 para água-etanol ($\mu_{\text{max}}$ ≈ 2,5–2,9 mPa·s) e $w_{\text{MeOH}}$ ≈ 0,40 para água-metanol ($\mu_{\text{max}}$ ≈ 1,5–1,7 mPa·s). O desvio positivo em relação à média ponderada é manifestação direta da **reorganização da rede de pontes de hidrogênio**: a água se estrutura ao redor das cadeias alifáticas do álcool (*clusters* hidrofóbicos), criando arranjos metaestáveis que aumentam a fricção \\cite{dizechi1982,guevaracarrion2011,grunberg1949,redlich1948}. Acima de \~50 % m/m de álcool, a estrutura da água é progressivamente desmontada e a viscosidade decresce.
 
-Apesar desse comportamento não ideal, **a grande diferença absoluta entre etanol e metanol puros mantém a discriminação em misturas**. Uma mistura água-etanol a 40 % m/m exibe viscosidade próxima de 2,5 mPa·s a 20 °C, enquanto uma mistura água-metanol na mesma proporção fica em torno de 1,5 mPa·s — **uma diferença de quase 70 %**. Isso se traduz em tempos de escoamento bem distintos no mesmo sistema capilar. O mesmo princípio se aplica a misturas ternárias: duas amostras com a mesma fração total de álcool, mas com predominância de etanol em uma e de metanol na outra, apresentarão tempos de escoamento marcadamente diferentes. **É essa separação que o AlcoLab explora.**
-
-### 4.2 Modelos matemáticos de referência
-
-A literatura do século XX acumulou uma coleção de modelos para viscosidade de misturas. Os mais relevantes para o AlcoLab:
-
-- **Arrhenius-log** (regra ideal logarítmica): $\ln \mu_{\text{mix}} = x_1 \ln \mu_1 + x_2 \ln \mu_2$. Falha por 30–60 % no máximo da curva água-álcool.
-- **Grunberg-Nissan \\cite{grunberg1949}**: adiciona termo $x_1 x_2 G_{12}$ ao log-ideal. Simples, mas não captura bem a assimetria água-álcool.
-- **Redlich-Kister \\cite{redlich1948}**: parametriza o excesso $\Delta \ln \mu = x_1 x_2 \sum A_k (x_1 - x_2)^k$. Três a quatro termos descrevem bem o sistema água-etanol (20–50 °C). Adotado em estudos de misturas alcoólicas \\cite{budeanu2017} e é um dos blocos do AlcoLab.
-- **Jouyban-Acree \\cite{jouyban2012}**: acopla composição e temperatura em um mesmo ajuste, 5–7 parâmetros.
-- **McAllister-3 \\cite{mcallister1960}**: teoria de "saltos de três corpos"; popular em alcano-álcool.
-
-Publicações recentes confirmam a onipresença dessa bateria: Wang et al. (2023) aplicam Jouyban-Acree, Grunberg-Nissan, Eyring-Margules, Heric, McAllister, Arrhenius e Redlich-Kister simultaneamente; Budeanu e Dumitrescu (2017) fazem o mesmo em n-heptano-álcool; Steltenpohl e Graczová (2022) atingem desvios de 1,17–2,15 % RRMSE em líquidos iônicos+água/álcool com Redlich-Kister (4ª ordem) + Jouyban-Acree \\cite{steltenpohl2022a,steltenpohl2022b}. Guevara-Carrion et al. (2011), via simulação molecular, comparam SPC, SPC/E, TIP4P e TIP4P/2005 para água e suas misturas, com desvios de 5–15 % para água pura e 5–20 % para misturas \\cite{guevaracarrion2011}. Parez et al. (2013) medem a primeira difusão de Fick do binário metanol+etanol e predizem a difusão ternária por simulação \\cite{parez2013}.
-
-Em resumo: arsenal matemático estabelecido, dados binários abundantes, extensão ternária viável — **desde que as viscosidades binárias sejam medidas no mesmo sistema instrumental em que o resultado vai ser usado**. Essa ressalva é o cerne da dificuldade que os autores enfrentaram.
-
-### 4.3 A jornada dos autores: tentativa com dados de literatura
-
-O desenvolvimento do AlcoLab começou pela hipótese mais econômica: **reaproveitar dados de viscosidade binária da literatura** (CRC Handbook, Khattab 2012, Kabir 2004, Song 2008, Mikhail 1961), aplicá-los aos modelos acima e evitar uma rotina experimental longa.
-
-Ao longo dos primeiros meses, várias versões desse pipeline "literatura-only" foram implementadas. O resultado foi consistentemente **instável**:
-
-- em certas temperaturas e composições, o ajuste era aceitável (desvios de 3–7 %);
-- em outras — principalmente em teores baixos ($w_{\text{total}}$ ≲ 0,20) ou temperaturas 28–30 °C — a previsão divergia em 15–30 %, com sinal **às vezes invertido** (o experimental escoava mais rápido; em outros dias, mais devagar).
-
-Um fato elucidativo: os dois desenvolvedores trabalhavam em regiões com temperaturas ambiente significativamente diferentes (Centro-Oeste e Nordeste do Brasil), e a dependência térmica do erro aparecia de forma **oposta** nos dois conjuntos. Esse contraste expôs a raiz do problema: **a viscosidade medida em um viscosímetro capilar padronizado (Ubbelohde, tubo em U, cone-placa) não é idêntica à medida num escoamento gravitacional por seringa descartável com agulha curta**, especialmente com gradiente de cisalhamento distribuído, entrada cônica abrupta e desvio parcial do perfil de Poiseuille.
-
-Hagen-Poiseuille é exata para escoamento laminar, permanente e perfil parabólico plenamente desenvolvido em tubo longo ($L/D \gg 100$). Em seringa+agulha 22G (\~3,8 cm; 0,41 mm de diâmetro interno), $L/D \approx 90$ — **limítrofe** —, a entrada é um cone pronunciado do cilindro (\~1,2 cm) à agulha, e efeitos inerciais em $Re \approx 20$–$200$ introduzem correções de entrada (correção de Couette) dependentes **do lote de agulhas, do preenchimento e da temperatura**. O que o usuário mede com a seringa **não é a viscosidade "de manual"**, mas uma viscosidade aparente específica ao sistema — com relação estável, porém não trivial, com o valor absoluto.
-
-### 4.4 Decisão: malha experimental própria + modelagem em seringa
-
-Com a inviabilidade demonstrada de usar dados da literatura como insumo direto, os autores decidiram **construir uma malha de viscosidade própria**, medida no mesmo sistema seringa+agulha 22G que o usuário final usaria.
-
-**Configuração experimental de referência:**
-
-- Seringa de 20 mL cristal descartável, volume útil 15 mL.
-- Agulha 22G × 32 mm (Ø externo 0,7 mm; Ø interno nominal 0,41 mm).
-- Escoamento livre sob gravidade, seringa vertical, êmbolo removido. O usuário cronometra o tempo entre o início do escoamento e o volume-alvo.
-- Água destilada ou filtrada como referência, medida imediatamente antes e depois da amostra na mesma seringa.
-
-**Temperatura de referência:** a malha é construída a **20 °C**. Essa escolha não é arbitrária: a 20 °C, os líquidos apresentam as **maiores viscosidades** dentro da faixa de operação (20–30 °C), o que corresponde aos maiores tempos de escoamento e, portanto, à condição em que os desvios da idealidade são mais pronunciados. Calibrar nessa temperatura garante representar o cenário mais exigente. **A faixa de operação validada do aplicativo é 20–30 °C**; fora dela, a análise de viscosidade é desabilitada.
-
-Medidas feitas em outra temperatura (durante a construção da malha ou pelo usuário em campo) são corrigidas por um **pipeline de três etapas**:
-
-**Etapa 1 — Viscosidade absoluta aparente (Hagen–Poiseuille):**
-
-$$ \mu_{\text{abs}} = \frac{\pi , r^4 , \rho , g , h , t}{8 , L , V} $$
-
-onde r é o raio interno da agulha, ρ a densidade de referência (água, \~997 kg/m³, usada igualmente para água e amostra — a escolha é proposital, pois o erro se cancela na etapa 2), g a gravidade, h a altura hidrostática média, t o tempo de escoamento, L o comprimento da agulha e V o volume escoado. O resultado é uma **viscosidade aparente do sistema**, não absoluta rigorosa.
-
-**Etapa 2 — Correção relativa à água (eliminação de erros sistemáticos):**
-
-$$ \mu_{\text{corr-setup}} = \mu_{\text{amostra-abs}} \times \frac{\mu_{\text{água-ref}}}{\mu_{\text{água-abs}}} $$
-
-$\mu_{\text{água-ref}}$ é o valor NIST/IAPWS tabelado para a temperatura medida. É o princípio clássico da **viscosimetria relativa** (Ostwald, Ubbelohde): na razão $\mu_{\text{amostra-abs}}$ / $\mu_{\text{água-abs}}$, todos os fatores geométricos e sistemáticos do setup (raio⁴, L efetivo, perdas de entrada, densidade fixa) se **cancelam matematicamente**. Resta apenas o tempo de escoamento e o erro aleatório da cronometragem.
-
-**Etapa 3 — Normalização térmica para 20 °C (expansão linear local, Taylor de 1ª ordem):**
-
-$$ \mu_{20,°C} = \mu_{\text{corr-setup}} + (T - 20) \times \beta(x) $$
-
-com β(x) = a₄x⁴ + a₃x³ + a₂x² + a₁x + a₀ ajustado aos dados experimentais dos autores. A aproximação linear é válida para |T − 20| ≲ 10 °C, cobrindo a faixa operacional. A escolha de uma correção linear sobre Arrhenius ou Vogel-Fulcher-Tammann se deu por eficiência computacional e suficiência da precisão no intervalo alvo.
-
-**Pipeline consolidado:**
-
-$$ \mu_{20,°C} = \underbrace{\mu_{\text{abs}} \times \frac{\mu_{\text{água-ref}}}{\mu_{\text{água-abs}}}}*{\text{correção de escala (setup)}} + \underbrace{(T-20) \times \beta(x)}*{\text{correção térmica}} $$
-
-Aplicado tanto na **calibração da malha** (normalizando dados obtidos em temperaturas diversas e com seringas/agulhas de marcas diferentes) quanto no **uso em campo**. Dados de calibração heterogêneos (duas seringas, marcas diferentes, temperaturas variadas) atingiram, após correção, **$R^2 &gt; 0{,}986$** para água-etanol e água-metanol — confirmando que a correção relativa absorve diferenças de hardware.
-
-**Modelagem das bordas binárias:** o conjunto já corrigido é interpolado em **$\ln(\mu)$ vs. fração molar de água $x_W$** usando **PCHIP** (*Piecewise Cubic Hermite Interpolating Polynomial*) com ancoragem nas extremidades $x_W$ = 0 e $x_W$ = 1. PCHIP preserva monotonicidade local e evita oscilações espúrias; trabalhar em $\ln(\mu)$ garante positividade, tem motivação física (Arrhenius-log) e é numericamente estável em float32. Alternativas polinomiais (3ª, 4ª, 5ª ordem) foram testadas como diagnóstico, mas o PCHIP venceu na validação cruzada. MAPE típico: **1,5–3,5 %** nos pontos deixados de fora.
-
-**Extensão ternária:** não foi medida diretamente no interior do simplex (5151 pontos em passo de 1 % seriam impraticáveis à mão). A superfície é **derivada dos dois binários**:
-
-$$ \ln \mu_{\text{tern}}($x_W$, r) = (1-r) \ln \mu_{\text{MeOH}}($x_W$) + r \ln \mu_{\text{EtOH}}($x_W$) + r(1-r), \Delta($x_W$) $$
-
-com r = $x_{\text{Et}}$ / ($x_{\text{Et}}$ + $x_{\text{Me}}$). O termo de excesso Δ($x_W$) é construído como **"RK-mid"** (inspirado no primeiro coeficiente Redlich-Kister aplicado a $r = 0{,}5$), com duas salvaguardas:
-
-- **$\lambda = 0{,}20$** — escala a correção teórica a 20 % da magnitude nominal (decisão conservadora, para não introduzir viés ternário sem base experimental direta);
-- **$\alpha = 0{,}30$** — cap: `|Δ($x_W$)| ≤ α · |ln μ_EtOH($x_W$) − ln μ_MeOH($x_W$)|`, garantindo que a correção nunca exceda 30 % do contraste binário natural;
-- Δ($x_W$) suavizado pelo mesmo PCHIP das bordas.
-
-A malha final é uma grade sobre o simplex em %m/m inteiros — **5 151 nós** a 20 °C, arquivo `ternary_mesh_all_T20_50_lambda020_alpha030_step1pct.npz`. Para produção, é reparametrizada em ($w_{\text{total}}$, $z_{\text{MeOH}}$), com $z_{\text{MeOH}}$ = $w_{\text{MeOH}}$ / $w_{\text{total}}$, gerando duas versões embarcadas: `malha_viscosidade_ajuste_bordas_f32.npz` (1001 × 1001, \~3,3 MB) e `_coarse251_f32.npz` (fallback de 257 kB).
-
-**Consulta em tempo de execução:** para uma $\mu^\*$ corrigida a 20 °C e uma faixa de $w_{\text{total}}$ vinda da densidade, o app busca nós (w, z) que satisfazem `|μ_pred(w, z) − $\mu^*$| ≤ tol% · $\mu^*$` (default ±2 %).
-
-**Validação externa:** MAPE de 4–8 % contra Song 2008 (dados Ubbelohde) em $w_{\text{total}}$ ∈ \[0, 0,70\] e contra dados ternários próprios como *holdout* — coerente com a instrumentação específica do AlcoLab.
+Apesar desse comportamento não ideal, **a grande diferença absoluta entre etanol e metanol puros mantém a discriminação em misturas**. Uma mistura água-etanol a 40 % m/m exibe viscosidade próxima de 2,5 mPa·s a 20 °C, enquanto uma mistura água-metanol na mesma proporção fica em torno de 1,5 mPa·s — **uma diferença de quase 70 %**. Isso se traduz em tempos de escoamento bem distintos no mesmo sistema capilar. O mesmo princípio se aplica a misturas ternárias: duas amostras com a mesma fração total de álcool, mas com predominância de etanol em uma e de metanol na outra, apresentarão tempos de escoamento marcadamente diferentes — seja no regime de bebidas destiladas (0,25 ≲ $w_{\text{total}}$ ≲ 0,50), seja no regime do EHC ($w_{\text{total}}$ ≈ 0,93). **É essa separação que o AlcoLab explora.**
 
 ---
 
-## 5. O AlcoLab: proposta, autores, princípio de funcionamento
+## O AlcoLab: proposta, autores, princípio de funcionamento
 
 O AlcoLab é uma ferramenta web **gratuita, open-source e offline-capable**, desenvolvida pelos autores **Diego Mendes de Souza, Pedro Augusto de Oliveira Morais e Nayara Ferreira Santos**. O aplicativo executa o pipeline analítico **inteiramente no navegador via Pyodide** (Python compilado para WebAssembly), sem envio de dados a servidores, e funciona em qualquer smartphone moderno.
 
@@ -228,19 +162,19 @@ O AlcoLab é uma ferramenta web **gratuita, open-source e offline-capable**, des
 - A **densidade relativa** — obtida pela pesagem de um volume calibrado da amostra contra água — fornece o **teor alcoólico total** (w, fração mássica de álcool) com precisão suficiente para restringir a região do espaço de composições em que a amostra se encontra.
 - A **viscosidade relativa** — obtida pelo tempo de escoamento gravitacional pela seringa — fornece uma segunda grandeza que, diferentemente da densidade, **separa metanol de etanol com folga**.
 
-A combinação das duas permite estimar a composição ternária água-etanol-metanol mais compatível com as medidas e, em consequência, identificar amostras com metanol acima de um limiar de segurança.
+A combinação das duas permite estimar a composição ternária água-etanol-metanol mais compatível com as medidas e, em consequência, identificar amostras com metanol acima de um limiar de segurança. O mesmo princípio se aplica tanto à triagem de bebidas destiladas quanto à triagem de etanol combustível.
 
 > **A densidade diz quanto álcool há ao todo; a viscosidade diz que álcool é.**
 
 ---
 
-## 6. Passo a passo analítico do AlcoLab
+## Passo a passo analítico do AlcoLab
 
-### 6.1 Entrada e normalização
+### Entrada e normalização
 
-O fluxo começa com o perfil do usuário (leigo, técnico ou laboratório), que adapta a granularidade da interface, e com os metadados da amostra (tipo, teor de rótulo em °GL / %v/v / %m/m, marca, lote). A validação é feita por *schema* Zod que rejeita valores fora de ranges físicos plausíveis. Internamente, toda composição passa a ser expressa em **fração mássica** e toda temperatura em °C. A conversão %v/v → %m/m usa tabela interpolada a 20 °C (`conversao_vv_para_wE_20C.csv`); bebidas rotuladas em °GL a temperatura ≠ 20 °C passam primeiro por correção via `densidade_alcool_gl20a30.csv`.
+O fluxo começa com o perfil do usuário (leigo, técnico ou laboratório), que adapta a granularidade da interface, e com os metadados da amostra (tipo, teor de rótulo em °GL / %v/v / %m/m, marca, lote). A validação é feita por *schema* Zod que rejeita valores fora de ranges físicos plausíveis. Internamente, toda composição passa a ser expressa em **fração mássica** e toda temperatura em °C. A conversão %v/v → %m/m usa tabela interpolada a 20 °C (`conversao_vv_para_wE_20C.csv`); bebidas ou amostras de EHC rotuladas em °GL / °INPM a temperatura ≠ 20 °C passam primeiro por correção via `densidade_alcool_gl20a30.csv`.
 
-### 6.2 Medição de densidade (Fluxo 1)
+### Medição de densidade (Fluxo 1)
 
 1. Tarar a balança com a seringa vazia (ou registrar e subtrair).
 2. Aspirar exatamente 10,0 mL de água; pesar; registrar $m_{\text{água}}$.
@@ -248,52 +182,54 @@ O fluxo começa com o perfil do usuário (leigo, técnico ou laboratório), que 
 
 Densidade relativa: `ρ_rel = $m_{\text{amostra}}$ / m_água`. Com balança de 0,1 g, a incerteza típica é ±0,005 em $\rho_{\text{rel}}$, equivalente a **±0,5–1 % em teor alcoólico em massa** — suficiente para o papel da densidade no método (direcionar a busca na malha de viscosidade, não quantificar álcool com precisão metrológica).
 
-A conversão $\rho_{\text{rel}}$ → w_álcool faz busca inversa **simultânea** nas malhas binárias EtOH–H₂O e MeOH–H₂O a 20 °C, retornando (w_EtOH_equiv, w_MeOH_equiv). A média é usada como estimativa pontual de $w_{\text{total}}$ e o intervalo entre os dois valores fornece a faixa possível — abordagem deliberadamente conservadora dada a quase coincidência das duas curvas binárias.
+A conversão $\rho_{\text{rel}}$ → w\_álcool faz busca inversa **simultânea** nas malhas binárias EtOH–H₂O e MeOH–H₂O a 20 °C, retornando (w_EtOH_equiv, w_MeOH_equiv). A média é usada como estimativa pontual de $w_{\text{total}}$ e o intervalo entre os dois valores fornece a faixa possível — abordagem deliberadamente conservadora dada a quase coincidência das duas curvas binárias.
 
-### 6.3 Medição de temperatura
+### Medição de temperatura
 
-O usuário registra a temperatura da água e da amostra. 1 °C de diferença altera μ(água) em \~2,3 %, então a medida de T impacta diretamente a Etapa 3 do pipeline. O app aceita qualquer termômetro com resolução de 0,5 °C e opera na faixa **20–30 °C**; amostras fora dessa faixa disparam aviso.
+O usuário registra a temperatura da água e da amostra. 1 °C de diferença altera μ(água) em \~2,3 %, então a medida de T impacta diretamente a correção térmica do pipeline. O app aceita qualquer termômetro com resolução de 0,5 °C e opera na faixa **20–30 °C**; amostras fora dessa faixa disparam aviso.
 
-### 6.4 Medição de viscosidade (Fluxo 2)
+### Medição de viscosidade (Fluxo 2)
 
-O usuário cronometra **três (ou mais)** tempos de escoamento de um volume fixo (padrão 10 mL) da água e da amostra na mesma seringa+agulha. O app calcula o CV entre repetições; se $CV &gt; 5$ %, alerta e recomenda repetir. Os tempos médios alimentam o pipeline de três etapas (6.1.1–6.1.3) resultando na **viscosidade da amostra corrigida e referenciada a 20 °C**, pronta para consulta na malha.
+O usuário cronometra **três (ou mais)** tempos de escoamento de um volume fixo (padrão 10 mL) da água e da amostra na mesma seringa+agulha. O app calcula o CV entre repetições; se $CV &gt; 5$ %, alerta e recomenda repetir. Os tempos médios alimentam um pipeline de três etapas (viscosidade absoluta aparente por Hagen–Poiseuille → correção relativa à água → normalização térmica para 20 °C) que resulta na **viscosidade da amostra corrigida e referenciada a 20 °C**, pronta para consulta na malha.
 
-### 6.5 Densidade como "norte": por que é o ponto-chave
+### Densidade como "norte": por que é o ponto-chave
 
-A malha ternária é uma superfície curva em ($w_{\text{total}}$, $z_{\text{MeOH}}$). Para uma viscosidade $\mu^\*$ experimental, o conjunto de composições compatíveis **não é um ponto — é uma curva de nível**, com centenas de candidatas espalhadas da malha.
+A malha ternária é uma superfície curva em ($w_{\text{total}}$, $z_{\text{MeOH}}$). Para uma viscosidade $\mu^\*$ experimental, o conjunto de composições compatíveis **não é um ponto — é uma curva de nível**, com centenas de candidatas espalhadas na malha.
 
 Por exemplo, para $\mu^*$ = 1,80 mPa·s a 20 °C, a curva C($\mu^*$) cobre desde:
 
 - **Bebidas de baixo teor com domínio de etanol** ($w_{\text{total}}$ ≈ 0,25–0,35; $z_{\text{MeOH}}$ ≈ 0–0,2);
 - até **bebidas de alto teor com domínio de metanol** ($w_{\text{total}}$ ≈ 0,55–0,70; $z_{\text{MeOH}}$ ≈ 0,7–1,0).
 
-São composições **quimicamente opostas** que produzem o mesmo tempo de escoamento. A densidade sozinha não discrimina; a viscosidade sozinha também não. A densidade entra como **filtro de região**: se a medida informa $w_{\text{total}}$ ≈ 0,40 ± 0,03, a segunda região é eliminada automaticamente. Só então a viscosidade é consultada para escolher, dentro da faixa compatível, qual composição explica melhor $\mu^\*$.
+São composições **quimicamente opostas** que produzem o mesmo tempo de escoamento. A densidade sozinha não discrimina; a viscosidade sozinha também não. A densidade entra como **filtro de região**: se a medida informa $w_{\text{total}}$ ≈ 0,40 ± 0,03, a segunda região é eliminada automaticamente. Só então a viscosidade é consultada para escolher, dentro da faixa compatível, qual composição explica melhor $\mu^\*$. No caso do EHC, onde $w_{\text{total}}$ é conhecido a priori e está tipicamente próximo de 0,93, o filtro de densidade atua com ainda mais força, e a viscosidade fica encarregada de estimar a fração de metanol na mistura alcoólica.
 
-### 6.6 Cálculo e exibição
+### Cálculo e exibição
 
 O Web Worker carrega o runtime Pyodide (5–10 s na primeira chamada) e executa: (i) `app_w_alcool_v2.py` → $w_{\text{total}}$ a partir da densidade; (ii) `main.py` + `processamento.py` → pipeline de correção, consulta à malha, composição ternária mais compatível e análise estatística. O resultado é serializado para exibição em `results/page.tsx`.
 
 ---
 
-## 7. A camada estatística do AlcoLab
+## A camada estatística do AlcoLab
 
-### 7.1 Por que uma camada estatística específica é necessária
+### Por que uma camada estatística específica é necessária
 
-A saída bruta do pipeline é a "composição mais compatível" com ($w_{\text{total}}$, μ_relativa). Não basta: o usuário final precisa saber se (i) essa composição é **estatisticamente melhor** que a hipótese "sem metanol" e (ii) **quão confiável** é essa decisão frente à incerteza das medidas em seringa e balança.
+A saída bruta do pipeline é a "composição mais compatível" com ($w_{\text{total}}$, μ\_relativa). Não basta: o usuário final precisa saber se (i) essa composição é **estatisticamente melhor** que a hipótese "sem metanol" e (ii) **quão confiável** é essa decisão frente à incerteza das medidas em seringa e balança.
 
 O AlcoLab responde à primeira pergunta com um **teste t-Student bilateral** e à segunda com uma **simulação de Monte Carlo com 3 000 replicatas**.
 
-### 7.2 Métodos
+### Métodos
 
-**Teste t-Student / Welch \cite{wang2023}.** Para n ≥ 2 repetições:
+**Teste t-Student / Welch \\cite{wang2023}.** Para n ≥ 2 repetições:
 
-$$ t = \frac{\bar{\mu}*{\text{exp}} - \mu*{\text{ref}}}{s_{\mu} / \sqrt{n}} $$
+$$
+t = \frac{\bar{\mu}*{\text{exp}} - \mu*{\text{ref}}}{s_{\mu} / \sqrt{n}}
+$$
 
 Decisão bilateral com α = 0,05; rejeita $H_0$ (mistura idêntica à referência) se |t| excede $t_{0{,}025,, n-1}$. Com n = 1, o app cai em aproximação normal (z-score) com SD default = 0,025 mPa·s relativo. Correção de Welch é invocada automaticamente quando há heterocedasticidade forte entre amostra e referência \\cite{domanska2009,haghbakhsh2021}.
 
 **Monte Carlo para propagação de incerteza.** Formalizada em GUM S1 \\cite{jcgm2008gum,jcgm2008mc,cox2006}, é o padrão quando (a) a relação entrada/saída é fortemente não-linear ou (b) as distribuições não são gaussianas. Ambas as condições se aplicam: a malha é não-linear em (w, z) e a medida em seringa tem distribuição aproximadamente normal mas com caudas por falhas operacionais pontuais. Estudos comparando GUM analítico com MC \\cite{jcgm2008mc,cox2006} mostram que em problemas multivariados não-lineares o MC captura **covariâncias e assimetrias** que o GUM linearizado subestima; aplicações em copulas \\cite{possolo2010} e forense \\cite{liu2011} validam a abordagem. 3 000 replicatas rodam em &lt; 1 s em navegador moderno.
 
-### 7.3 Implementação e hipóteses comparadas
+### Implementação e hipóteses comparadas
 
 Parâmetros fixados em código: `MC_N_DEFAULT = 3000`; `ALPHA_MEDIA = 0,05`; `P_CUTOFF_HIGH_SELECTIVITY = 0,70`; `P_CUTOFF_LOW_SELECTIVITY = 0,80`; `W_LOW_SELECTIVITY = 0,20`; `SD_DEFAULT_N1 = 0,025`; `MALHA_SIGMA_DEFAULT = 0,0` (reservado para um σ por célula futuro).
 
@@ -312,71 +248,76 @@ O núcleo de `_avaliar_amostra` gera `mu_sims = N(μ_mean, μ_se, size=3000)` e,
 - Se $P(H_{\text{tern}})$ ≥ $P_{\text{cutoff}}$ **e** $z_{\text{MeOH}}$ na composição mais compatível &gt; 5 % m/m → "incompatível" (provável adulteração).
 - Casos intermediários → amarelo, recomenda repetir.
 
-### 7.4 Sensibilidade efetiva por faixa
+### Sensibilidade efetiva por faixa
 
 Em **$w_{\text{total}}$ ≤ 0,20** as duas bordas binárias se aproximam (ambas tendem a μ da água), e o teste fica naturalmente menos seletivo. O app eleva o *cut-off* de 0,70 para 0,80 e inclui hipóteses de traços 1–5 %. Resultado prático:
 
 - **$w_{\text{total}}$ 0,30–0,60** (destilados típicos — cachaça, vodka, gim, whisky): sensibilidade a $z_{\text{MeOH}}$ ≥ 5 % com confiança ≥ 70 %.
 - **$w_{\text{total}}$ 0,15–0,30** (licores, cervejas fortes): sensibilidade a $z_{\text{MeOH}}$ ≥ 10 % com confiança ≥ 80 %.
 - **$w_{\text{total}}$ &lt; 0,15** (bebidas muito diluídas): "álcool detectado, discriminação inconclusiva"; recomenda análise complementar.
+- **$w_{\text{total}}$ ≈ 0,93** (etanol hidratado combustível): regime de alto teor, com as duas bordas binárias ainda suficientemente separadas em viscosidade — sensibilidade compatível com a detecção de $z_{\text{MeOH}}$ ≥ 5–10 %, faixa que abrange todos os cenários documentados na Operação Carbono Oculto (20–90 % de metanol).
 
-### 7.5 Semáforo final
+### Semáforo final
 
 Integra três blocos em `semaphoreLogic.ts`:
 
 1. **Qualidade experimental** (`experimentApproved`): ≥ 2 repetições, CV ≤ 5 %, $R^2 \geq 0{,}99$ se houver vídeo+IA, μ da água de referência dentro de ±15 % do tabelado.
 2. **Compatibilidade analítica** (`compativel`): Compatible / Incompatible / Inconclusive.
-3. **Semântica por tipo de amostra** (bebida vs. álcool comercial vs. etanol combustível): para bebidas, vermelho exige **ambos** "Incompatible" E "metanol alto (&gt; 5 %)" E `experimentApproved`.
+3. **Semântica por tipo de amostra** (bebida vs. álcool comercial vs. etanol combustível): para bebidas, vermelho exige **ambos** "Incompatible" E "metanol alto (&gt; 5 %)" E `experimentApproved`; para EHC, a mesma lógica se aplica usando o limite regulatório da ANP (0,5 % v/v) como gatilho de vermelho quando a medida estatisticamente excede esse valor.
 
-Por construção, é **conservadora**: vermelho só dispara quando a evidência experimental é boa, a decisão estatística é robusta e o contexto permite conclusão toxicologicamente relevante. Amostras borderline caem em amarelo.
+Por construção, é **conservadora**: vermelho só dispara quando a evidência experimental é boa, a decisão estatística é robusta e o contexto permite conclusão toxicologicamente ou regulatoriamente relevante. Amostras borderline caem em amarelo.
 
 ---
 
-## 8. Discussão e limitações
+## Discussão e limitações
 
-### 8.1 Desempenho atual
+### Desempenho atual
 
 Em testes de validação com amostras preparadas em laboratório com concentrações conhecidas:
 
 - **Quantificação de $w_{\text{total}}$**: erros típicos &lt; 5 % em 0,25 ≤ $w_{\text{total}}$ ≤ 0,70.
 - **Identificação de metanol &gt; 5 % m/m em amostras com $w_{\text{total}}$ ≥ 0,30**: taxa de acerto **100 %** nos conjuntos internos.
 - **Falsos positivos em amostras legítimas**: próximos de zero, graças ao semáforo conservador.
+- **Aplicabilidade a etanol combustível**: o princípio físico é o mesmo — validação formal em amostras reais de EHC, em conjunto com a ANP e laboratórios credenciados, é um dos próximos passos do projeto.
 
-### 8.2 Por que o limiar de 5 % é clinicamente adequado
+### Por que o limiar de 5 % é clinicamente adequado em bebidas
 
 Não é uma limitação acidental: as intoxicações graves relatadas envolvem tipicamente bebidas com **10–40 % m/m de metanol**, associadas a adulterações grosseiras para aumentar rendimento de destilados \\cite{alnefaie2024,alqurashi2023,paasma2012,vale2007}. Em quantidades pequenas (&lt; 1–2 %), o metanol **compete com o etanol pela ADH**: se o etanol está muito acima do metanol, o fígado processa preferencialmente o etanol e parte do metanol é eliminado inalterado antes da formação tóxica de formiato \\cite{megarbane2010,barceloux2002}. Além disso, traços de 0,1–1 % m/m ocorrem **naturalmente** em destilados de frutas (aguardentes, bagaceiras, grappas) e são **legalmente permitidos** (Regulamento UE 2019/787). O AlcoLab é projetado para o **perfil de risco que importa** — fraudes com substituição significativa — e não para quantificar traços inofensivos.
 
-### 8.3 Limitações remanescentes
+No caso do etanol combustível, o limite regulatório é ainda mais estreito (0,5 % v/v pela Res. ANP 907/2022 \\cite{anp2022}). O AlcoLab não pretende competir com a GC-FID na verificação desse limite regulatório nominal, mas sim fornecer triagem rápida de campo em cenários de adulteração grosseira — como os 20–90 % documentados na Operação Carbono Oculto \\cite{visaoagro2025,datamarnews2025} — que são, de longe, os de maior impacto sanitário e econômico.
+
+### Limitações remanescentes
 
 - **Faixa de temperatura de operação (20–30 °C):** fora dela, análise de viscosidade desabilitada; recomenda-se aguardar equilíbrio térmico.
 - **Poucos pontos experimentais no interior do simplex ternário:** MAPE 4–8 % na validação externa é aceitável para triagem, não para metrologia de alta exatidão. Expandir o conjunto é o caminho mais imediato de refinamento.
 - **Regiões de baixa seletividade ($w_{\text{total}}$ &lt; 0,20) e bordas extremas ($w_{\text{total}}$ &gt; 0,80):** resolução discriminatória menor; tendência a "inconclusivo". Um acréscimo futuro pode ser confirmação colorimétrica rápida (ácido cromotrópico) nessas regiões específicas.
+- **Validação formal em EHC:** conduzida em parte pelos autores mas ainda pendente de estudo interlaboratorial com amostras reais de postos revendedores, em parceria com a ANP.
 
 ---
 
-## 9. Como o AlcoLab foi disponibilizado: licença AGPL-3.0 e estratégia de abertura
+## Como o AlcoLab foi disponibilizado: licença AGPL-3.0 e estratégia de abertura
 
 Quando a metodologia já estava estruturada e os testes experimentais confirmavam o potencial da ferramenta, a equipe enfrentou uma decisão concreta: **pedir patente** — processo de 2 a 7 anos, com proteção da invenção e possível retorno — ou **lançar imediatamente, de graça, assumindo os custos do próprio bolso**, sem garantia alguma de retorno. Havia surto ativo de intoxicações no Brasil e em outros países, vidas em risco, e uma janela de tempo que a via patentária não conseguiria atender. A equipe escolheu lançar. O AlcoLab foi ao ar em **10 de março de 2026**.
 
-### 9.1 A escolha por AGPL-3.0
+### A escolha por AGPL-3.0
 
-O AlcoLab foi publicado sob licença **GNU AGPL-3.0** — uma das licenças de código aberto mais rigorosas disponíveis. A propriedade central da AGPL, relevante para uma ferramenta de saúde pública, é o chamado **"copyleft de rede"**: qualquer versão modificada do código — inclusive versões executadas como serviço web por terceiros — **precisa disponibilizar publicamente o código-fonte modificado**. Isso impede que um ator privado pegue o AlcoLab, faça melhorias e as transforme em produto proprietário pago, sem devolver à comunidade o que derivou do trabalho aberto.
+O AlcoLab foi publicado sob licença **GNU AGPL-3.0** — uma das licenças de código aberto mais rigorosas disponíveis. A propriedade central da AGPL, relevante para uma ferramenta de saúde pública e de apoio à fiscalização de combustíveis, é o chamado **"copyleft de rede"**: qualquer versão modificada do código — inclusive versões executadas como serviço web por terceiros — **precisa disponibilizar publicamente o código-fonte modificado**. Isso impede que um ator privado pegue o AlcoLab, faça melhorias e as transforme em produto proprietário pago, sem devolver à comunidade o que derivou do trabalho aberto.
 
-Na prática, a AGPL-3.0 garante três coisas ao ecossistema de saúde pública:
+Na prática, a AGPL-3.0 garante três coisas ao ecossistema de saúde pública e de fiscalização:
 
 - **A gratuidade é juridicamente sustentável.** Uma empresa pode usar o AlcoLab comercialmente, mas se o modificar para oferecer um serviço, deverá publicar a versão modificada sob a mesma licença.
-- **A metodologia continua auditável.** Pesquisadores, peritos e agentes de fiscalização podem revisar o algoritmo, validar critérios estatísticos e propor melhorias — condição essencial quando se trata de decisão que afeta consumo de bebida.
+- **A metodologia continua auditável.** Pesquisadores, peritos, fiscais e agentes de saúde pública podem revisar o algoritmo, validar critérios estatísticos e propor melhorias — condição essencial quando se trata de decisão que afeta consumo de bebida ou comercialização de combustível.
 - **A ferramenta pode ser adaptada** a outros contextos (outros tipos de amostra, outras línguas, outras interfaces) **desde que se mantenha o compromisso de abertura**.
 
-### 9.2 Por que os autores optaram por essa abordagem
+### Por que os autores optaram por essa abordagem
 
 A equipe identificou três razões convergentes:
 
 1. **Urgência de saúde pública.** Dezenas de casos no Brasil em 2025 e o alerta da OPAS/OMS em outubro de 2025 \\cite{opas2025} tornavam a janela patentária inviável eticamente.
 2. **Alinhamento com o público-alvo.** A ferramenta faz mais sentido exatamente em regiões com pouca infraestrutura laboratorial — onde um produto proprietário teria adoção muito menor.
-3. **Auditabilidade como requisito técnico.** Para uma ferramenta cujo resultado pode orientar consumo, denúncia ou autuação, metodologia fechada é obstáculo científico, não vantagem competitiva.
+3. **Auditabilidade como requisito técnico.** Para uma ferramenta cujo resultado pode orientar consumo, denúncia, autuação ou apreensão de combustível, metodologia fechada é obstáculo científico, não vantagem competitiva.
 
-### 9.3 Proteção da prioridade e publicação científica
+### Proteção da prioridade e publicação científica
 
 Abertura não significa ausência de proteção da autoria. Antes da publicação pública, a equipe executou dois passos estratégicos:
 
@@ -385,15 +326,15 @@ Abertura não significa ausência de proteção da autoria. Antes da publicaçã
 
 Esses registros **não visam exploração comercial** — visam justamente o contrário: impedir que um terceiro reivindique a ideia como própria depois que ela já foi tornada pública. É uma proteção orientada à abertura, não ao fechamento. O código completo está em [github.com/diegoanapolis/alcolab](https://github.com/diegoanapolis/alcolab).
 
-### 9.4 Primeiros resultados de adoção
+### Primeiros resultados de adoção
 
-Em cerca de um mês de site público, o AlcoLab registrou **quase 2 500 visitantes únicos e aproximadamente 34 000 requisições** ao servidor, com acessos em todos os continentes — Brasil, Estados Unidos, China, França, Canadá, Singapura e Suíça, entre outros. A adesão internacional confirma o que a equipe suspeitava: **a contaminação de bebidas por metanol não é um problema exclusivamente brasileiro**; é global, especialmente em países com fiscalização e infraestrutura laboratorial limitadas.
+Em cerca de um mês de site público, o AlcoLab registrou **quase 2 500 visitantes únicos e aproximadamente 34 000 requisições** ao servidor, com acessos em todos os continentes — Brasil, Estados Unidos, China, França, Canadá, Singapura e Suíça, entre outros. A adesão internacional confirma o que a equipe suspeitava: **a contaminação por metanol não é um problema exclusivamente brasileiro**; é global, especialmente em países com fiscalização e infraestrutura laboratorial limitadas, e atinge tanto bebidas quanto combustíveis.
 
 ---
 
-## 10. Parcerias necessárias e riscos ao projeto
+## Parcerias necessárias e riscos ao projeto
 
-### 10.1 O custo real da gratuidade
+### O custo real da gratuidade
 
 Software gratuito **não é software sem custo** — significa que alguém está arcando com ele. No caso do AlcoLab, essa conta foi — e continua sendo — paga pelos próprios criadores: hospedagem em servidor, registro de domínio, bebidas comerciais para testes, materiais de calibração, reagentes e muitas horas de pesquisa e desenvolvimento. Os custos estimados até a publicação deste texto estão na Tabela 2.
 
@@ -408,24 +349,24 @@ Software gratuito **não é software sem custo** — significa que alguém está
 | Horas de P&D | 290 h (Diego 150h · Pedro 80h · Romério 30h · Nayara 30h) | R$ 29 000 |
 | **Total investido estimado** |  | **R$ 36 140** |
 
-### 10.2 Riscos reais de um projeto sem suporte institucional
+### Riscos reais de um projeto sem suporte institucional
 
-Projetos *open source* sem apoio institucional têm um histórico conhecido: desenvolvedores voluntários se sobrecarregam, manutenção se acumula, atualizações deixam de ser feitas e a infraestrutura vai ficando vulnerável. O resultado é o que o meio chama de **abandonware** — software que existe, mas não tem mais ninguém por trás. Para uma ferramenta de saúde pública, esse desfecho é particularmente grave: a continuidade depende de manutenção ativa (atualização de dependências, correções de segurança, novos pontos de calibração, adaptação a novos tipos de bebida). **É esse cenário que a equipe quer evitar** — precisamente porque acredita no impacto positivo da ferramenta para a saúde pública.
+Projetos *open source* sem apoio institucional têm um histórico conhecido: desenvolvedores voluntários se sobrecarregam, manutenção se acumula, atualizações deixam de ser feitas e a infraestrutura vai ficando vulnerável. O resultado é o que o meio chama de **abandonware** — software que existe, mas não tem mais ninguém por trás. Para uma ferramenta de saúde pública e de apoio à fiscalização de combustíveis, esse desfecho é particularmente grave: a continuidade depende de manutenção ativa (atualização de dependências, correções de segurança, novos pontos de calibração, adaptação a novos tipos de bebida ou de combustível). **É esse cenário que a equipe quer evitar** — precisamente porque acredita no impacto positivo da ferramenta.
 
-### 10.3 Parcerias com laboratórios oficiais
+### Parcerias com laboratórios oficiais
 
 A primeira frente de parcerias buscada é com **laboratórios oficiais de metrologia legal e institutos de pesquisa** — INMETRO no Brasil, CENAM no México, equivalentes em outros países, universidades públicas com infraestrutura reológica (cone-placa, Ubbelohde, rheomat). O objetivo é:
 
-- **Aumentar o número de pontos de calibração** no interior do simplex ternário, substituindo parte da derivação RK-mid por medidas experimentais diretas e **refinando o termo de excesso** Δ($x_W$).
+- **Aumentar o número de pontos de calibração** no interior do simplex ternário, substituindo parte da derivação RK-mid por medidas experimentais diretas e **refinando o termo de excesso** em toda a faixa de $w_{\text{total}}$, inclusive na região do EHC.
 - Conduzir **estudos de precisão interlaboratorial e entre analistas**, quantificando a reprodutibilidade real do método em condições de fiscalização.
 - **Aumentar a robustez e a confiabilidade da malha experimental**, devolvendo ao usuário final resultados mais assertivos e estatisticamente qualificados.
 - Padronizar um **lote de referência de seringas+agulhas** para triagem analítica, reduzindo a variabilidade absorvida hoje pela correção relativa à água.
 
-### 10.4 Parcerias com instituições de fiscalização
+### Parcerias com instituições de fiscalização
 
-A segunda frente é com **instituições relacionadas à fiscalização de bebidas e combustíveis** — Vigilância Sanitária, Polícia Civil, Procon, MAPA, ANP, Anvisa. O objetivo aqui é bidirecional: (i) disponibilizar a ferramenta validada a agentes de campo como triagem pré-laboratorial; (ii) **captar dos próprios usuários finais as demandas reais** — ajustes necessários, novas funcionalidades, tipos de amostra ainda não cobertos (licores, cervejas, vinhos, bebidas mistas), melhorias de usabilidade e integração com sistemas oficiais de notificação. O ciclo de feedback com quem usa é o caminho mais curto para que o AlcoLab deixe de ser uma prova de conceito bem-sucedida e se torne um instrumento operacional da fiscalização brasileira e latino-americana.
+A segunda frente é com **instituições relacionadas à fiscalização de bebidas e combustíveis** — Vigilância Sanitária, Polícia Civil, Procon, MAPA, **ANP**, Anvisa. O objetivo aqui é bidirecional: (i) disponibilizar a ferramenta validada a agentes de campo como triagem pré-laboratorial, tanto em bebidas quanto em postos revendedores de etanol combustível; (ii) **captar dos próprios usuários finais as demandas reais** — ajustes necessários, novas funcionalidades, tipos de amostra ainda não cobertos (licores, cervejas, vinhos, bebidas mistas, gasolinas), melhorias de usabilidade e integração com sistemas oficiais de notificação e com o PMQC. O ciclo de feedback com quem usa é o caminho mais curto para que o AlcoLab deixe de ser uma prova de conceito bem-sucedida e se torne um instrumento operacional da fiscalização brasileira e latino-americana.
 
-### 10.5 Outras frentes em tratativa
+### Outras frentes em tratativa
 
 No âmbito internacional, foram contatados os **Médicos Sem Fronteiras** (que mantêm a *Methanol Poisoning Initiative* desde 2012), a **OPAS/OMS**, fundações como **Wellcome Trust** e **Gates Foundation**, e organismos como **BID Lab** e **STDF**. No âmbito nacional, a lista inclui **Fiocruz, MAPA, ANP, Vigilância Sanitária e parlamentares**. No campo do fomento à pesquisa, há submissões planejadas à **FAPEMA, FINEP e FAP-DF**, além de **FAPESP, CNPq e Finep** para estudos de validação em larga escala.
 
@@ -435,13 +376,77 @@ Nenhuma parceria está fechada ainda — o projeto é recente e as tratativas es
 
 ## Conclusão
 
-O AlcoLab combina **densidade e viscosidade** — duas grandezas físicas simples, mensuráveis em campo com seringa, balança de cozinha e smartphone — em um pipeline analítico com camada estatística Monte Carlo, atingindo erros &lt; 5 % em teor alcoólico total e identificação consistente de metanol acima de 5 % m/m, faixa compatível com o perfil clínico das intoxicações reais. A malha de viscosidade foi construída experimentalmente pelos autores no mesmo sistema seringa+agulha 22G usado pelo usuário final, após a constatação de que dados da literatura — medidos em viscosímetros padronizados — não transferiam para o escoamento gravitacional em seringa descartável. A ferramenta é gratuita, *open source* sob AGPL-3.0, e seu código é auditável em [github.com/diegoanapolis/alcolab](https://github.com/diegoanapolis/alcolab). A sustentabilidade e a universalização dependem agora de parcerias técnicas e institucionais que os autores não têm capacidade de financiar isoladamente.
+O AlcoLab combina **densidade e viscosidade** — duas grandezas físicas simples, mensuráveis em campo com seringa, balança de cozinha e smartphone — em um pipeline analítico com camada estatística Monte Carlo, atingindo erros &lt; 5 % em teor alcoólico total e identificação consistente de metanol acima de 5 % m/m, faixa compatível com o perfil clínico das intoxicações reais e também com os cenários de adulteração grosseira documentados em etanol combustível. A malha de viscosidade foi construída experimentalmente pelos autores no mesmo sistema seringa+agulha 22G usado pelo usuário final, após a constatação de que dados da literatura — medidos em viscosímetros padronizados — não transferiam para o escoamento gravitacional em seringa descartável. A ferramenta é gratuita, *open source* sob AGPL-3.0, e seu código é auditável em [github.com/diegoanapolis/alcolab](https://github.com/diegoanapolis/alcolab). A sustentabilidade e a universalização — tanto na triagem de bebidas quanto na triagem de combustíveis — dependem agora de parcerias técnicas e institucionais que os autores não têm capacidade de financiar isoladamente.
 
-**Para apoiar, colaborar ou demandar adaptação:** \[\[email protected\]\](mailto:\[email protected\]) — e **compartilhar** com quem possa se beneficiar (consumidores, produtores, fiscais, agentes de saúde) é, sempre, a forma mais simples de ajudar.
+**Para apoiar, colaborar ou demandar adaptação:** \[\[email protected\]\](mailto:\[email protected\]) — e **compartilhar** com quem possa se beneficiar (consumidores, produtores, fiscais, agentes de saúde, reguladores de combustível) é, sempre, a forma mais simples de ajudar.
+
+**AlcoLab está disponível em [alcolab.org](https://alcolab.org).Código-fonte:** [github.com/diegoanapolis/alcolab](https://github.com/diegoanapolis/alcolab) · AGPL-3.0\
+**Contato para parcerias:** \[\[email protected\]\](mailto:\[email protected\])
 
 ---
 
 ```bibtex
+@misc{gazetadopovo2025,
+  title={Falsifica{\c{c}}{\~a}o: metanol, bebidas e combust{\'\i}veis convergem com rastro de mortes, feridos e milh{\~o}es em preju{\'\i}zo},
+  author={{Gazeta do Povo}},
+  year={2025},
+  url={https://www.gazetadopovo.com.br/brasil/falsificacao-metanol-bebidas-combustiveis-convergem-com-rastro-de-mortes-feridos-milhoes-prejuizo/},
+  note={Acesso em: abr. 2026}
+}
+
+@misc{brasil2025,
+  title={Com a redu{\c{c}}{\~a}o de novos casos, Governo do Brasil encerra Sala de Situa{\c{c}}{\~a}o sobre intoxica{\c{c}}{\~a}o por metanol},
+  author={{Minist{\'e}rio da Sa{\'u}de}},
+  year={2025},
+  url={https://www.gov.br/saude/pt-br/assuntos/noticias/2025/dezembro/com-a-reducao-de-novos-casos-governo-do-brasil-encerra-sala-de-situacao-sobre-intoxicacao-por-metanol},
+  note={Dez. 2025}
+}
+
+@misc{unica2026,
+  title={Dados de produ{\c{c}}{\~a}o de etanol no Brasil, safra 2024/2025},
+  author={{UNICA}},
+  year={2026},
+  url={https://unicadata.com.br/},
+  note={Acesso em: abr. 2026}
+}
+
+@misc{anp2026,
+  title={Programa de Monitoramento da Qualidade dos Combust{\'\i}veis --- PMQC},
+  author={{ANP}},
+  year={2026},
+  url={https://www.gov.br/anp/pt-br/assuntos/qualidade-de-produtos/programas-monitoramento/programa-de-monitoramento-da-qualidade-dos-combustiveis},
+  note={Acesso em: abr. 2026}
+}
+
+@misc{argusmedia2025,
+  title={Viewpoint: Brazil methanol market adapts to spot price},
+  author={{Argus Media}},
+  year={2025},
+  url={https://www.argusmedia.com/en/news-and-insights/latest-market-news/2771339-viewpoint-brazil-methanol-market-adapts-to-spot-price}
+}
+
+@misc{novacana2025b,
+  title={MP identificou importa{\c{c}}{\~a}o irregular de metanol pelo PCC para adulterar combust{\'\i}veis},
+  author={{NovaCana}},
+  year={2025},
+  url={https://www.novacana.com/noticias/mp-identificou-importacao-irregular-metanol-pcc-adulterar-combustiveis-280825},
+  note={28 ago. 2025}
+}
+
+@misc{datamarnews2025,
+  title={Brazil Cracks Down on Fuel Fraud Scheme Linked to PCC, Illegal Methanol Imports Through Paranagu{\'a} Port},
+  author={{DatamarNews}},
+  year={2025},
+  url={https://datamarnews.com/noticias/brazil-cracks-down-on-fuel-fraud-scheme-linked-to-pcc-illegal-methanol-imports-through-paranagua-port/}
+}
+
+@misc{visaoagro2025,
+  title={Combust{\'\i}vel do PCC tinha at{\'e} 90\% de metanol; ANP permite s{\'o} 0,5\%},
+  author={{Vis{\~a}o Agro}},
+  year={2025},
+  url={https://visaoagro.com.br/combustivel-do-pcc-tinha-ate-90-de-metanol-anp-permite-so-05/}
+}
+
 @article{pohanka2019,
   title={Antidotes Against Methanol Poisoning: A Review},
   author={Pohanka, Miroslav},
@@ -558,14 +563,35 @@ O AlcoLab combina **densidade e viscosidade** — duas grandezas físicas simple
   year={2014}
 }
 
-@article{vandenbroek2021,
-  title={Screening Methanol Poisoning with a Portable Breath Detector},
-  author={van den Broek, Jan and others},
-  journal={Analytical Chemistry},
-  volume={93},
-  number={2},
-  pages={1170--1178},
-  year={2021}
+@book{aoac2023,
+  title={Official Methods of Analysis, Method 942.06: Alcohol by Volume in Distilled Liquors},
+  author={{AOAC International}},
+  publisher={AOAC International},
+  year={2023},
+  note={22nd ed.}
+}
+
+@misc{anp2022,
+  title={Resolu{\c{c}}{\~a}o ANP n{\textordmasculine} 907, de 18 de novembro de 2022. Disp{\~o}e sobre as especifica{\c{c}}{\~o}es do etanol combust{\'\i}vel e suas regras de comercializa{\c{c}}{\~a}o em todo o territ{\'o}rio nacional},
+  author={{ANP}},
+  year={2022},
+  note={Di{\'a}rio Oficial da Uni{\~a}o, 22 nov. 2022}
+}
+
+@misc{abnt2012,
+  title={NBR 16041:2012 --- Etanol combust{\'\i}vel --- Determina{\c{c}}{\~a}o de metanol e etanol por cromatografia gasosa},
+  author={{ABNT}},
+  year={2012},
+  publisher={Associa{\c{c}}{\~a}o Brasileira de Normas T{\'e}cnicas},
+  note={Rio de Janeiro}
+}
+
+@book{oiml1975,
+  title={International Alcoholometric Tables},
+  author={{OIML}},
+  publisher={OIML R 22-1. Paris: OIML},
+  year={1975},
+  note={atualizada}
 }
 
 @article{osborne1913,
@@ -577,20 +603,12 @@ O AlcoLab combina **densidade e viscosidade** — duas grandezas físicas simple
   year={1913}
 }
 
-@book{oiml1975,
-  title={International Alcoholometric Tables},
-  author={{OIML}},
-  publisher={OIML R 22-1. Paris: OIML},
-  year={1975},
-  note={atualizada}
-}
-
-@book{aoac2023,
-  title={Official Methods of Analysis, Method 942.06: Alcohol by Volume in Distilled Liquors},
-  author={{AOAC International}},
-  publisher={AOAC International},
-  year={2023},
-  note={22nd ed.}
+@misc{adnormas2018,
+  title={A determina{\c{c}}{\~a}o da massa espec{\'\i}fica no etanol combust{\'\i}vel},
+  author={{Revista AdNormas}},
+  year={2018},
+  url={https://revistaadnormas.com.br/2018/11/06/a-determinacao-da-massa-especifica-no-etanol-combustivel},
+  note={Nov. 2018}
 }
 
 @article{lachenmeier2021,
@@ -599,6 +617,37 @@ O AlcoLab combina **densidade e viscosidade** — duas grandezas físicas simple
   journal={Journal of Consumer Protection and Food Safety},
   volume={16},
   pages={215--228},
+  year={2021}
+}
+
+@article{carneiro2008,
+  title={Determination of Ethanol Fuel Adulteration by Methanol Using Partial Least-Squares Models Based on Fourier Transform Techniques},
+  author={Carneiro, Helena S. P. and Medeiros, Alex R. and Oliveira, Flavia C. C. and Aguiar, Gustavo M. and Rubim, Joel C. and Suarez, Paulo A. Z.},
+  journal={Energy \& Fuels},
+  volume={22},
+  number={4},
+  pages={2767--2770},
+  year={2008},
+  doi={10.1021/ef8000218}
+}
+
+@article{silva2012,
+  title={Detection of adulteration in hydrated ethyl alcohol fuel using infrared spectroscopy and supervised pattern recognition methods},
+  author={Silva, Adenilton C. and Pontes, Liliana F. B. L. and Pimentel, Maria F. and Pontes, M{\'a}rcio J. C.},
+  journal={Talanta},
+  volume={93},
+  pages={129--134},
+  year={2012},
+  doi={10.1016/j.talanta.2012.01.060}
+}
+
+@article{vandenbroek2021,
+  title={Screening Methanol Poisoning with a Portable Breath Detector},
+  author={van den Broek, Jan and others},
+  journal={Analytical Chemistry},
+  volume={93},
+  number={2},
+  pages={1170--1178},
   year={2021}
 }
 
@@ -660,66 +709,6 @@ O AlcoLab combina **densidade e viscosidade** — duas grandezas físicas simple
   number={2},
   pages={345--348},
   year={1948}
-}
-
-@article{budeanu2017,
-  title={Densities and viscosities for binary mixtures of n-heptane with alcohols at different temperatures},
-  author={Budeanu, Mihaela M and Dumitrescu, Vasile},
-  journal={Journal of the Serbian Chemical Society},
-  volume={82},
-  number={9},
-  pages={1005--1016},
-  year={2017}
-}
-
-@article{jouyban2012,
-  title={Modeling solubility of drugs in water--cosolvent mixtures at various temperatures},
-  author={Jouyban, Abolghasem and Fakhree, Mohammad Ali Abolghassemi and Acree Jr, William E},
-  journal={Journal of Drug Delivery Science and Technology},
-  volume={22},
-  number={6},
-  pages={495--504},
-  year={2012}
-}
-
-@article{mcallister1960,
-  title={The viscosity of liquid mixtures},
-  author={McAllister, Robert A},
-  journal={AIChE Journal},
-  volume={6},
-  number={3},
-  pages={427--431},
-  year={1960}
-}
-
-@article{steltenpohl2022a,
-  title={Binary mixtures containing imidazolium ionic liquids: properties measurement},
-  author={Steltenpohl, Pavol and Graczov{\'a}, Elena},
-  journal={Acta Chimica Slovaca},
-  volume={15},
-  number={1},
-  pages={19--28},
-  year={2022}
-}
-
-@article{steltenpohl2022b,
-  title={Modeling of transport properties of binary mixtures including ionic liquids},
-  author={Steltenpohl, Pavol and Hole{\v{c}}kov{\'a}, Alena and Graczov{\'a}, Elena},
-  journal={Acta Chimica Slovaca},
-  volume={15},
-  number={2},
-  pages={120--129},
-  year={2022}
-}
-
-@article{parez2013,
-  title={Mutual diffusion in the ternary mixture of water + methanol + ethanol},
-  author={Parez, Stanislav and Guevara-Carrion, Gabriela and Hasse, Hans and Vrabec, Jadran},
-  journal={Physical Chemistry Chemical Physics},
-  volume={15},
-  number={11},
-  pages={3985--4001},
-  year={2013}
 }
 
 @article{wang2023,
@@ -826,7 +815,3 @@ O AlcoLab combina **densidade e viscosidade** — duas grandezas físicas simple
   year={2002}
 }
 ```
-
----
-
-**AlcoLab está disponível em [alcolab.org](https://alcolab.org/).** **Código-fonte:** [github.com/diegoanapolis/alcolab](https://github.com/diegoanapolis/alcolab) · AGPL-3.0 **Contato para parcerias:** \[\[email protected\]\](mailto:\[email protected\])
