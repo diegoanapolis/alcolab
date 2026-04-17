@@ -502,15 +502,16 @@ input, select, textarea { color: var(--color-brand); }
 
 /* ─── Blog: citações acadêmicas (BibTeX) ─── */
 .prose .citation-link {
-  color: #002060;
+  color: #1a56db;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.85em;
-  vertical-align: super;
-  line-height: 0;
+  font-size: inherit;
+  vertical-align: baseline;
+  line-height: inherit;
 }
 .prose .citation-link:hover {
   text-decoration: underline;
+  color: #1e40af;
 }
 .prose .reference-item {
   font-size: 0.85rem;
