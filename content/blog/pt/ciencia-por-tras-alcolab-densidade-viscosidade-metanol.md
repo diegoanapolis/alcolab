@@ -43,7 +43,7 @@ Este post resume, em formato direto, a base científica e técnica do **AlcoLab*
 
 ## 1. Metanol como problema de saúde pública contemporâneo
 
-O metanol (CH₃OH) é o álcool alifático mais simples e compartilha com o etanol (CH₃CH₂OH) propriedades macroscópicas muito próximas — miscibilidade total com água, pontos de ebulição próximos e, sobretudo, **densidades praticamente coincidentes a 20 °C** ($\rho_{\text{MeOH}}/\rho_{\text{H}*2\text{O}} \approx 0{,}791$ vs. $\rho*{\text{EtOH}}/\rho_{\text{H}_2\text{O}} \approx 0{,}789$). O consumidor não distingue uma bebida adulterada pelo gosto, pelo cheiro ou pela aparência — e essa similaridade é a raiz do problema de saúde pública. O diferencial, no entanto, é toxicológico: metabolizado pela álcool desidrogenase a formaldeído e depois a ácido fórmico, o metanol causa acidose metabólica e lesão irreversível do nervo óptico e dos núcleos putaminais \[1–3\].
+O metanol (CH₃OH) é o álcool alifático mais simples e compartilha com o etanol (CH₃CH₂OH) propriedades macroscópicas muito próximas — miscibilidade total com água, pontos de ebulição próximos e, sobretudo, **densidades praticamente coincidentes a 20 °C** ($\\rho\_{\\text{MeOH}}/\\rho\_{\\text{H}*2\\text{O}} \\approx 0{,}791$ vs. $\\rho*{\\text{EtOH}}/\\rho\_{\\text{H}\_2\\text{O}} \\approx 0{,}789$). O consumidor não distingue uma bebida adulterada pelo gosto, pelo cheiro ou pela aparência — e essa similaridade é a raiz do problema de saúde pública. O diferencial, no entanto, é toxicológico: metabolizado pela álcool desidrogenase a formaldeído e depois a ácido fórmico, o metanol causa acidose metabólica e lesão irreversível do nervo óptico e dos núcleos putaminais \[1–3\].
 
 **Principais dados:**
 
@@ -93,13 +93,13 @@ Em equipamento de rotina, três instrumentos dominam o cenário:
 - **Densímetros portáteis de tubo em U oscilante**: exatidão ≈ 0,001 g/cm³, custo USD 3 000–15 000.
 - **Densímetros de bancada Anton Paar**: padrão metrológico (±0,00005 g/cm³), inviáveis fora de laboratório.
 
-Para o AlcoLab, a exigência não é exatidão metrológica absoluta, e sim uma **densidade relativa $\rho/\rho_{\text{H}_2\text{O}}$ bem estimada a partir de pesagem em balança doméstica** — no regime de \~0,001 g/cm³ de incerteza. É o suficiente para restringir a busca ternária, como se verá adiante.
+Para o AlcoLab, a exigência não é exatidão metrológica absoluta, e sim uma **densidade relativa $\\rho/\\rho\_{\\text{H}\_2\\text{O}}$ bem estimada a partir de pesagem em balança doméstica** — no regime de \~0,001 g/cm³ de incerteza. É o suficiente para restringir a busca ternária, como se verá adiante.
 
 ### 3.2 Por que a densidade, sozinha, não basta para metanol — e consequência para a triagem
 
-Considere as densidades absolutas puras a 20 °C: $\rho(\text{H}_2\text{O}) = 0{,}9982$ g/cm³; $\rho(\text{EtOH}) = 0{,}7893$ g/cm³; $\rho(\text{MeOH}) = 0{,}7914$ g/cm³. O contraste entre os dois álcoois é de **apenas 0,0021 g/cm³ (≈ 0,26 %)**, muito abaixo do limite de detecção de qualquer densímetro doméstico e mesmo abaixo da precisão típica de densímetros portáteis de ±0,001 g/cm³.
+Considere as densidades absolutas puras a 20 °C: $\\rho(\\text{H}\_2\\text{O}) = 0{,}9982$ g/cm³; $\\rho(\\text{EtOH}) = 0{,}7893$ g/cm³; $\\rho(\\text{MeOH}) = 0{,}7914$ g/cm³. O contraste entre os dois álcoois é de **apenas 0,0021 g/cm³ (≈ 0,26 %)**, muito abaixo do limite de detecção de qualquer densímetro doméstico e mesmo abaixo da precisão típica de densímetros portáteis de ±0,001 g/cm³.
 
-Formalmente, trata-se de um problema de **não-injetividade**: na região típica de destilados ($w_{\text{total}}$ entre 0,25 e 0,50), a densidade da mistura é praticamente independente da fração interna entre os dois álcoois. Há, portanto, infinitas composições $(w_{\text{EtOH}},, w_{\text{MeOH}})$ que produzem a mesma densidade. Uma mistura água-etanol de 40 % m/m é densimetricamente indistinguível de uma mistura água-metanol de 40 % m/m pela grande maioria das técnicas por densidade.
+Formalmente, trata-se de um problema de **não-injetividade**: na região típica de destilados ($w\_{\\text{total}}$ entre 0,25 e 0,50), a densidade da mistura é praticamente independente da fração interna entre os dois álcoois. Há, portanto, infinitas composições $(w\_{\\text{EtOH}},, w\_{\\text{MeOH}})$ que produzem a mesma densidade. Uma mistura água-etanol de 40 % m/m é densimetricamente indistinguível de uma mistura água-metanol de 40 % m/m pela grande maioria das técnicas por densidade.
 
 Estudos de referência \[17, 18\] reforçam esse limite: trabalhos sobre densidade e volumes molares de excesso em misturas ternárias água-metanol-etanol \[20\] mostram que a diferença entre os excessos água-etanol e água-metanol produz uma assinatura **tênue demais** para servir de vetor discriminatório em instrumento de baixo custo.
 
@@ -113,15 +113,15 @@ Diante da inviabilidade de usar apenas a densidade, os autores iniciaram uma inv
 
 A viscosidade dinâmica μ é, em termos macroscópicos, a resistência ao escoamento sob tensão de cisalhamento; microscopicamente, é determinada pela frequência de saltos moleculares e pela eficiência do empacotamento. Os valores puros a 20 °C são:
 
-- $\mu(\text{H}_2\text{O}) = 1{,}002$ mPa·s
-- $\mu(\text{MeOH}) = 0{,}554$ mPa·s
-- $\mu(\text{EtOH}) = 1{,}200$ mPa·s
+- $\\mu(\\text{H}\_2\\text{O}) = 1{,}002$ mPa·s
+- $\\mu(\\text{MeOH}) = 0{,}554$ mPa·s
+- $\\mu(\\text{EtOH}) = 1{,}200$ mPa·s
 
-O contraste entre os dois álcoois é **enorme**: $\mu(\text{EtOH})$ é mais de **duas vezes** $\mu(\text{MeOH})$. Essa diferença não é acidental — reflete a forte contribuição do grupo metila adicional do etanol à energia de ativação do escoamento (dominada por interações dispersivas C–H⋯H–C e por volume livre menor). A viscosidade oferece, portanto, um **fator de discriminação muito superior ao da densidade**.
+O contraste entre os dois álcoois é **enorme**: $\\mu(\\text{EtOH})$ é mais de **duas vezes** $\\mu(\\text{MeOH})$. Essa diferença não é acidental — reflete a forte contribuição do grupo metila adicional do etanol à energia de ativação do escoamento (dominada por interações dispersivas C–H⋯H–C e por volume livre menor). A viscosidade oferece, portanto, um **fator de discriminação muito superior ao da densidade**.
 
 ### 4.1 O desvio da viscosidade em misturas aquosas
 
-Quando os álcoois são misturados à água, a viscosidade **não se comporta de maneira simples**. Para os dois binários de interesse — água-metanol e água-etanol — a viscosidade **passa por um máximo acentuado em composição intermediária**: cerca de $w_{\text{EtOH}} \approx 0{,}40\text{–}0{,}50$ para água-etanol ($\mu_{\max} \approx 2{,}5\text{–}2{,}9$ mPa·s) e $w_{\text{MeOH}} \approx 0{,}40$ para água-metanol ($\mu_{\max} \approx 1{,}5\text{–}1{,}7$ mPa·s). O desvio positivo em relação à média ponderada é manifestação direta da **reorganização da rede de pontes de hidrogênio**: a água se estrutura ao redor das cadeias alifáticas do álcool (*clusters* hidrofóbicos), criando arranjos metaestáveis que aumentam a fricção \[20–23\]. Acima de \~50 % m/m de álcool, a estrutura da água é progressivamente desmontada e a viscosidade decresce.
+Quando os álcoois são misturados à água, a viscosidade **não se comporta de maneira simples**. Para os dois binários de interesse — água-metanol e água-etanol — a viscosidade **passa por um máximo acentuado em composição intermediária**: cerca de $w\_{\\text{EtOH}} \\approx 0{,}40\\text{–}0{,}50$ para água-etanol ($\\mu\_{\\max} \\approx 2{,}5\\text{–}2{,}9$ mPa·s) e $w\_{\\text{MeOH}} \\approx 0{,}40$ para água-metanol ($\\mu\_{\\max} \\approx 1{,}5\\text{–}1{,}7$ mPa·s). O desvio positivo em relação à média ponderada é manifestação direta da **reorganização da rede de pontes de hidrogênio**: a água se estrutura ao redor das cadeias alifáticas do álcool (*clusters* hidrofóbicos), criando arranjos metaestáveis que aumentam a fricção \[20–23\]. Acima de \~50 % m/m de álcool, a estrutura da água é progressivamente desmontada e a viscosidade decresce.
 
 Apesar desse comportamento não ideal, **a grande diferença absoluta entre etanol e metanol puros mantém a discriminação em misturas**. Uma mistura água-etanol a 40 % m/m exibe viscosidade próxima de 2,5 mPa·s a 20 °C, enquanto uma mistura água-metanol na mesma proporção fica em torno de 1,5 mPa·s — **uma diferença de quase 70 %**. Isso se traduz em tempos de escoamento bem distintos no mesmo sistema capilar. O mesmo princípio se aplica a misturas ternárias: duas amostras com a mesma fração total de álcool, mas com predominância de etanol em uma e de metanol na outra, apresentarão tempos de escoamento marcadamente diferentes. **É essa separação que o AlcoLab explora.**
 
@@ -129,9 +129,9 @@ Apesar desse comportamento não ideal, **a grande diferença absoluta entre etan
 
 A literatura do século XX acumulou uma coleção de modelos para viscosidade de misturas. Os mais relevantes para o AlcoLab:
 
-- **Arrhenius-log** (regra ideal logarítmica): $\ln \mu_{\text{mix}} = x_1 \ln \mu_1 + x_2 \ln \mu_2$. Falha por 30–60 % no máximo da curva água-álcool.
-- **Grunberg-Nissan \[22\]**: adiciona termo $x_1 x_2 , G_{12}$ ao log-ideal. Simples, mas não captura bem a assimetria água-álcool.
-- **Redlich-Kister \[23\]**: parametriza o excesso $\Delta \ln \mu = x_1 x_2 \sum A_k (x_1 - x_2)^k$. Três a quatro termos descrevem bem o sistema água-etanol (20–50 °C). Adotado em estudos de misturas alcoólicas \[24\] e é um dos blocos do AlcoLab.
+- **Arrhenius-log** (regra ideal logarítmica): $\\ln \\mu\_{\\text{mix}} = x_1 \\ln \\mu_1 + x_2 \\ln \\mu_2$. Falha por 30–60 % no máximo da curva água-álcool.
+- **Grunberg-Nissan \[22\]**: adiciona termo $x_1 x_2 , G\_{12}$ ao log-ideal. Simples, mas não captura bem a assimetria água-álcool.
+- **Redlich-Kister \[23\]**: parametriza o excesso $\\Delta \\ln \\mu = x_1 x_2 \\sum A_k (x_1 - x_2)^k$. Três a quatro termos descrevem bem o sistema água-etanol (20–50 °C). Adotado em estudos de misturas alcoólicas \[24\] e é um dos blocos do AlcoLab.
 - **Jouyban-Acree \[25\]**: acopla composição e temperatura em um mesmo ajuste, 5–7 parâmetros.
 - **McAllister-3 \[26\]**: teoria de "saltos de três corpos"; popular em alcano-álcool.
 
@@ -150,7 +150,7 @@ Ao longo dos primeiros meses, várias versões desse pipeline "literatura-only" 
 
 Um fato elucidativo: os dois desenvolvedores trabalhavam em regiões com temperaturas ambiente significativamente diferentes (Centro-Oeste e Nordeste do Brasil), e a dependência térmica do erro aparecia de forma **oposta** nos dois conjuntos. Esse contraste expôs a raiz do problema: **a viscosidade medida em um viscosímetro capilar padronizado (Ubbelohde, tubo em U, cone-placa) não é idêntica à medida num escoamento gravitacional por seringa descartável com agulha curta**, especialmente com gradiente de cisalhamento distribuído, entrada cônica abrupta e desvio parcial do perfil de Poiseuille.
 
-Hagen-Poiseuille é exata para escoamento laminar, permanente e perfil parabólico plenamente desenvolvido em tubo longo ($L/D \gg 100$). Em seringa+agulha 22G (\~3,8 cm; 0,41 mm de diâmetro interno), $L/D \approx 90$ — **limítrofe** —, a entrada é um cone pronunciado do cilindro (\~1,2 cm) à agulha, e efeitos inerciais em $Re \approx 20\text{–}200$ introduzem correções de entrada (correção de Couette) dependentes **do lote de agulhas, do preenchimento e da temperatura**. O que o usuário mede com a seringa **não é a viscosidade "de manual"**, mas uma viscosidade aparente específica ao sistema — com relação estável, porém não trivial, com o valor absoluto.
+Hagen-Poiseuille é exata para escoamento laminar, permanente e perfil parabólico plenamente desenvolvido em tubo longo ($L/D \\gg 100$). Em seringa+agulha 22G (\~3,8 cm; 0,41 mm de diâmetro interno), $L/D \\approx 90$ — **limítrofe** —, a entrada é um cone pronunciado do cilindro (\~1,2 cm) à agulha, e efeitos inerciais em $Re \\approx 20\\text{–}200$ introduzem correções de entrada (correção de Couette) dependentes **do lote de agulhas, do preenchimento e da temperatura**. O que o usuário mede com a seringa **não é a viscosidade "de manual"**, mas uma viscosidade aparente específica ao sistema — com relação estável, porém não trivial, com o valor absoluto.
 
 ### 4.4 Decisão: malha experimental própria + modelagem em seringa
 
@@ -169,45 +169,47 @@ Medidas feitas em outra temperatura (durante a construção da malha ou pelo usu
 
 **Etapa 1 - Viscosidade absoluta aparente (Hagen–Poiseuille):**
 
-$$ \mu_{\text{abs}} = \frac{\pi  r^4  \rho  g  h  t}{8  L  V} $$
+$$ \\mu\_{\\text{abs}} = \\frac{\\pi r^4 \\rho g h t}{8 L V} $$
 
 onde r é o raio interno da agulha, ρ a densidade de referência (água, \~997 kg/m³, usada igualmente para água e amostra — a escolha é proposital, pois o erro se cancela na etapa 2), g a gravidade, h a altura hidrostática média, t o tempo de escoamento, L o comprimento da agulha e V o volume escoado. O resultado é uma **viscosidade aparente do sistema**, não absoluta rigorosa.
 
 **Etapa 2 - Correção relativa à água (eliminação de erros sistemáticos):**
 
-$$ \mu_{\text{corr-setup}} = \mu_{\text{amostra-abs}} \times \frac{\mu_{\text{água-ref}}}{\mu_{\text{água-abs}}} $$
+$$ \\mu\_{\\text{corr-setup}} = \\mu\_{\\text{amostra-abs}} \\times \\frac{\\mu\_{\\text{água-ref}}}{\\mu\_{\\text{água-abs}}} $$
 
-μ_água_ref é o valor NIST/IAPWS tabelado para a temperatura medida. É o princípio clássico da **viscosimetria relativa** (Ostwald, Ubbelohde): na razão μ_amostra_abs / μ_água_abs, todos os fatores geométricos e sistemáticos do setup (raio⁴, L efetivo, perdas de entrada, densidade fixa) se **cancelam matematicamente**. Resta apenas o tempo de escoamento e o erro aleatório da cronometragem.
+μ\_água_ref é o valor NIST/IAPWS tabelado para a temperatura medida. É o princípio clássico da **viscosimetria relativa** (Ostwald, Ubbelohde): na razão μ\_amostra_abs / μ\_água_abs, todos os fatores geométricos e sistemáticos do setup (raio⁴, L efetivo, perdas de entrada, densidade fixa) se **cancelam matematicamente**. Resta apenas o tempo de escoamento e o erro aleatório da cronometragem.
 
 **Etapa 3 - Normalização térmica para 20 °C (expansão linear local, Taylor de 1ª ordem):**
 
-$$ \mu_{20,°C} = \mu_{\text{corr_setup}} + (T - 20) \times \beta(x) $$
+$$\
+\\mu\_{20,°C} = \\mu\_{\\text{corr-setup}} + (T - 20) \\times \\beta(x)\
+$$
 
-com $\beta(x) = a_4 x^4 + a_3 x^3 + a_2 x^2 + a_1 x + a_0$ ajustado aos dados experimentais dos autores. A aproximação linear é válida para $|T - 20| \lesssim 10$ °C, cobrindo a faixa operacional. A escolha de uma correção linear sobre Arrhenius ou Vogel-Fulcher-Tammann se deu por eficiência computacional e suficiência da precisão no intervalo alvo.
+com $\\beta(x) = a_4 x^4 + a_3 x^3 + a_2 x^2 + a_1 x + a_0$ ajustado aos dados experimentais dos autores. A aproximação linear é válida para $|T - 20| \\lesssim 10$ °C, cobrindo a faixa operacional. A escolha de uma correção linear sobre Arrhenius ou Vogel-Fulcher-Tammann se deu por eficiência computacional e suficiência da precisão no intervalo alvo.
 
 **Pipeline consolidado:**
 
-$$ \mu_{20,°C} = \underbrace{\mu_{\text{abs}} \times \frac{\mu_{\text{água_ref}}}{\mu_{\text{água_abs}}}}*{\text{correção de escala (setup)}} + \underbrace{(T-20) \times \beta(x)}*{\text{correção térmica}} $$
+$$ \\mu\_{20,°C} = \\underbrace{\\mu\_{\\text{abs}} \\times \\frac{\\mu\_{\\text{água_ref}}}{\\mu\_{\\text{água_abs}}}}*{\\text{correção de escala (setup)}} + \\underbrace{(T-20) \\times \\beta(x)}*{\\text{correção térmica}} $$
 
 Aplicado tanto na **calibração da malha** (normalizando dados obtidos em temperaturas diversas e com seringas/agulhas de marcas diferentes) quanto no **uso em campo**. Dados de calibração heterogêneos (duas seringas, marcas diferentes, temperaturas variadas) atingiram, após correção, $R^2 &gt; 0{,}986$ para água-etanol e água-metanol — confirmando que a correção relativa absorve diferenças de hardware.
 
-**Modelagem das bordas binárias:** o conjunto já corrigido é interpolado em $\ln(\mu)$ vs. fração molar de água $x_W$ usando **PCHIP** (*Piecewise Cubic Hermite Interpolating Polynomial*) com ancoragem nas extremidades $x_W = 0$ e $x_W = 1$. PCHIP preserva monotonicidade local e evita oscilações espúrias; trabalhar em $\ln(\mu)$ garante positividade, tem motivação física (Arrhenius-log) e é numericamente estável em float32. Alternativas polinomiais (3ª, 4ª, 5ª ordem) foram testadas como diagnóstico, mas o PCHIP venceu na validação cruzada. MAPE típico: **1,5–3,5 %** nos pontos deixados de fora.
+**Modelagem das bordas binárias:** o conjunto já corrigido é interpolado em $\\ln(\\mu)$ vs. fração molar de água $x_W$ usando **PCHIP** (*Piecewise Cubic Hermite Interpolating Polynomial*) com ancoragem nas extremidades $x_W = 0$ e $x_W = 1$. PCHIP preserva monotonicidade local e evita oscilações espúrias; trabalhar em $\\ln(\\mu)$ garante positividade, tem motivação física (Arrhenius-log) e é numericamente estável em float32. Alternativas polinomiais (3ª, 4ª, 5ª ordem) foram testadas como diagnóstico, mas o PCHIP venceu na validação cruzada. MAPE típico: **1,5–3,5 %** nos pontos deixados de fora.
 
 **Extensão ternária:** não foi medida diretamente no interior do simplex (5151 pontos em passo de 1 % seriam impraticáveis à mão). A superfície é **derivada dos dois binários**:
 
-$$ \ln \mu_{\text{tern}}(x_W, r) = (1-r) \ln \mu_{\text{MeOH}}(x_W) + r \ln \mu_{\text{EtOH}}(x_W) + r(1-r), \Delta(x_W) $$
+$$ \\ln \\mu\_{\\text{tern}}(x_W, r) = (1-r) \\ln \\mu\_{\\text{MeOH}}(x_W) + r \\ln \\mu\_{\\text{EtOH}}(x_W) + r(1-r), \\Delta(x_W) $$
 
-com $r = x_{\text{Et}} / (x_{\text{Et}} + x_{\text{Me}})$. O termo de excesso $\Delta(x_W)$ é construído como **"RK-mid"** (inspirado no primeiro coeficiente Redlich-Kister aplicado a $r = 0{,}5$), com duas salvaguardas:
+com $r = x\_{\\text{Et}} / (x\_{\\text{Et}} + x\_{\\text{Me}})$. O termo de excesso $\\Delta(x_W)$ é construído como **"RK-mid"** (inspirado no primeiro coeficiente Redlich-Kister aplicado a $r = 0{,}5$), com duas salvaguardas:
 
-- $\lambda = 0{,}20$ — escala a correção teórica a 20 % da magnitude nominal (decisão conservadora, para não introduzir viés ternário sem base experimental direta);
-- $\alpha = 0{,}30$ — cap: $|\Delta(x_W)| \leq \alpha \cdot |\ln \mu_{\text{EtOH}}(x_W) - \ln \mu_{\text{MeOH}}(x_W)|$, garantindo que a correção nunca exceda 30 % do contraste binário natural;
-- $\Delta(x_W)$ suavizado pelo mesmo PCHIP das bordas.
+- $\\lambda = 0{,}20$ — escala a correção teórica a 20 % da magnitude nominal (decisão conservadora, para não introduzir viés ternário sem base experimental direta);
+- $\\alpha = 0{,}30$ — cap: $|\\Delta(x_W)| \\leq \\alpha \\cdot |\\ln \\mu\_{\\text{EtOH}}(x_W) - \\ln \\mu\_{\\text{MeOH}}(x_W)|$, garantindo que a correção nunca exceda 30 % do contraste binário natural;
+- $\\Delta(x_W)$ suavizado pelo mesmo PCHIP das bordas.
 
 A malha final é uma grade sobre o simplex em %m/m inteiros — **5 151 nós** a 20 °C, arquivo `ternary_mesh_all_T20_50_lambda020_alpha030_step1pct.npz`. Para produção, é reparametrizada em (w_total, z_MeOH), com z_MeOH = w_MeOH / w_total, gerando duas versões embarcadas: `malha_viscosidade_ajuste_bordas_f32.npz` (1001 × 1001, \~3,3 MB) e `_coarse251_f32.npz` (fallback de 257 kB).
 
-**Consulta em tempo de execução:** para uma $\mu^*$ corrigida a 20 °C e uma faixa de $w_{\text{total}}$ vinda da densidade, o app busca nós $(w, z)$ que satisfazem $|\mu_{\text{pred}}(w, z) - \mu^*| \leq \text{tol%} \cdot \mu^\*$ (default ±2 %).
+**Consulta em tempo de execução:** para uma $\\mu^*$ corrigida a 20 °C e uma faixa de $w\_{\\text{total}}$ vinda da densidade, o app busca nós $(w, z)$ que satisfazem $|\\mu\_{\\text{pred}}(w, z) - \\mu^*| \\leq \\text{tol%} \\cdot \\mu^\*$ (default ±2 %).
 
-**Validação externa:** MAPE de 4–8 % contra Song 2008 (dados Ubbelohde) em $w_{\text{total}} \in \[0;, 0{,}70\]$ e contra dados ternários próprios como *holdout* — coerente com a instrumentação específica do AlcoLab.
+**Validação externa:** MAPE de 4–8 % contra Song 2008 (dados Ubbelohde) em $w\_{\\text{total}} \\in \[0;, 0{,}70\]$ e contra dados ternários próprios como *holdout* — coerente com a instrumentação específica do AlcoLab.
 
 ---
 
@@ -242,12 +244,12 @@ O fluxo começa com o perfil do usuário (leigo, técnico ou laboratório), que 
 ### 6.2 Medição de densidade (Fluxo 1)
 
 1. Tarar a balança com a seringa vazia (ou registrar e subtrair).
-2. Aspirar exatamente 10,0 mL de água; pesar; registrar m_água.
+2. Aspirar exatamente 10,0 mL de água; pesar; registrar m\_água.
 3. Aspirar exatamente 10,0 mL da amostra (após enxágue com a própria amostra); pesar; registrar m_amostra.
 
-Densidade relativa: $\rho_{\text{rel}} = m_{\text{amostra}} / m_{\text{água}}$. Com balança de 0,1 g, a incerteza típica é ±0,005 em ρ_rel, equivalente a **±0,5–1 % em teor alcoólico em massa** — suficiente para o papel da densidade no método (direcionar a busca na malha de viscosidade, não quantificar álcool com precisão metrológica).
+Densidade relativa: $\\rho\_{\\text{rel}} = m\_{\\text{amostra}} / m\_{\\text{água}}$. Com balança de 0,1 g, a incerteza típica é ±0,005 em ρ\_rel, equivalente a **±0,5–1 % em teor alcoólico em massa** — suficiente para o papel da densidade no método (direcionar a busca na malha de viscosidade, não quantificar álcool com precisão metrológica).
 
-A conversão $\rho_{\text{rel}} \to w_{\text{álcool}}$ faz busca inversa **simultânea** nas malhas binárias EtOH–H₂O e MeOH–H₂O a 20 °C, retornando $(w_{\text{EtOH_equiv}},, w_{\text{MeOH_equiv}})$. A média é usada como estimativa pontual de w_total e o intervalo entre os dois valores fornece a faixa possível — abordagem deliberadamente conservadora dada a quase coincidência das duas curvas binárias.
+A conversão $\\rho\_{\\text{rel}} \\to w\_{\\text{álcool}}$ faz busca inversa **simultânea** nas malhas binárias EtOH–H₂O e MeOH–H₂O a 20 °C, retornando $(w\_{\\text{EtOH_equiv}},, w\_{\\text{MeOH_equiv}})$. A média é usada como estimativa pontual de w_total e o intervalo entre os dois valores fornece a faixa possível — abordagem deliberadamente conservadora dada a quase coincidência das duas curvas binárias.
 
 ### 6.3 Medição de temperatura
 
@@ -259,14 +261,14 @@ O usuário cronometra **três (ou mais)** tempos de escoamento de um volume fixo
 
 ### 6.5 Densidade como "norte": por que é o ponto-chave
 
-A malha ternária é uma superfície curva em $(w_{\text{total}},, z_{\text{MeOH}})$. Para uma viscosidade $\mu^\*$ experimental, o conjunto de composições compatíveis **não é um ponto — é uma curva de nível**, com centenas de candidatas espalhadas da malha.
+A malha ternária é uma superfície curva em $(w\_{\\text{total}},, z\_{\\text{MeOH}})$. Para uma viscosidade $\\mu^\*$ experimental, o conjunto de composições compatíveis **não é um ponto — é uma curva de nível**, com centenas de candidatas espalhadas da malha.
 
-Por exemplo, para $\mu^\* = 1{,}80$ mPa·s a 20 °C, a curva $C(\mu^\*)$ cobre desde:
+Por exemplo, para $\\mu^\* = 1{,}80$ mPa·s a 20 °C, a curva $C(\\mu^\*)$ cobre desde:
 
-- **Bebidas de baixo teor com domínio de etanol** ($w_{\text{total}} \approx 0{,}25\text{–}0{,}35$; $z_{\text{MeOH}} \approx 0\text{–}0{,}2$);
-- até **bebidas de alto teor com domínio de metanol** ($w_{\text{total}} \approx 0{,}55\text{–}0{,}70$; $z_{\text{MeOH}} \approx 0{,}7\text{–}1{,}0$).
+- **Bebidas de baixo teor com domínio de etanol** ($w\_{\\text{total}} \\approx 0{,}25\\text{–}0{,}35$; $z\_{\\text{MeOH}} \\approx 0\\text{–}0{,}2$);
+- até **bebidas de alto teor com domínio de metanol** ($w\_{\\text{total}} \\approx 0{,}55\\text{–}0{,}70$; $z\_{\\text{MeOH}} \\approx 0{,}7\\text{–}1{,}0$).
 
-São composições **quimicamente opostas** que produzem o mesmo tempo de escoamento. A densidade sozinha não discrimina; a viscosidade sozinha também não. A densidade entra como **filtro de região**: se a medida informa $w_{\text{total}} \approx 0{,}40 \pm 0{,}03$, a segunda região é eliminada automaticamente. Só então a viscosidade é consultada para escolher, dentro da faixa compatível, qual composição explica melhor $\mu^\*$.
+São composições **quimicamente opostas** que produzem o mesmo tempo de escoamento. A densidade sozinha não discrimina; a viscosidade sozinha também não. A densidade entra como **filtro de região**: se a medida informa $w\_{\\text{total}} \\approx 0{,}40 \\pm 0{,}03$, a segunda região é eliminada automaticamente. Só então a viscosidade é consultada para escolher, dentro da faixa compatível, qual composição explica melhor $\\mu^\*$.
 
 ### 6.6 Cálculo e exibição
 
@@ -278,52 +280,52 @@ O Web Worker carrega o runtime Pyodide (5–10 s na primeira chamada) e executa:
 
 ### 7.1 Por que uma camada estatística específica é necessária
 
-A saída bruta do pipeline é a "composição mais compatível" com (w_total, μ_relativa). Não basta: o usuário final precisa saber se (i) essa composição é **estatisticamente melhor** que a hipótese "sem metanol" e (ii) **quão confiável** é essa decisão frente à incerteza das medidas em seringa e balança.
+A saída bruta do pipeline é a "composição mais compatível" com (w_total, μ\_relativa). Não basta: o usuário final precisa saber se (i) essa composição é **estatisticamente melhor** que a hipótese "sem metanol" e (ii) **quão confiável** é essa decisão frente à incerteza das medidas em seringa e balança.
 
 O AlcoLab responde à primeira pergunta com um **teste t-Student bilateral** e à segunda com uma **simulação de Monte Carlo com 3 000 replicatas**.
 
 ### 7.2 Métodos
 
-**Teste t-Student / Welch \[30\].** Para $n \geq 2$ repetições:
+**Teste t-Student / Welch \[30\].** Para $n \\geq 2$ repetições:
 
-$$ t = \frac{\bar{\mu}*{\text{exp}} - \mu*{\text{ref}}}{s_{\mu} / \sqrt{n}} $$
+$$ t = \\frac{\\bar{\\mu}*{\\text{exp}} - \\mu*{\\text{ref}}}{s\_{\\mu} / \\sqrt{n}} $$
 
-Decisão bilateral com $\alpha = 0{,}05$; rejeita $H_0$ (mistura idêntica à referência) se $|t|$ excede $t_{0{,}025,, n-1}$. Com $n = 1$, o app cai em aproximação normal (z-score) com SD default = 0,025 mPa·s relativo. Correção de Welch é invocada automaticamente quando há heterocedasticidade forte entre amostra e referência \[31, 32\].
+Decisão bilateral com $\\alpha = 0{,}05$; rejeita $H_0$ (mistura idêntica à referência) se $|t|$ excede $t\_{0{,}025,, n-1}$. Com $n = 1$, o app cai em aproximação normal (z-score) com SD default = 0,025 mPa·s relativo. Correção de Welch é invocada automaticamente quando há heterocedasticidade forte entre amostra e referência \[31, 32\].
 
 **Monte Carlo para propagação de incerteza.** Formalizada em GUM S1 \[33–35\], é o padrão quando (a) a relação entrada/saída é fortemente não-linear ou (b) as distribuições não são gaussianas. Ambas as condições se aplicam: a malha é não-linear em (w, z) e a medida em seringa tem distribuição aproximadamente normal mas com caudas por falhas operacionais pontuais. Estudos comparando GUM analítico com MC \[34, 35\] mostram que em problemas multivariados não-lineares o MC captura **covariâncias e assimetrias** que o GUM linearizado subestima; aplicações em copulas \[36\] e forense \[37\] validam a abordagem. 3 000 replicatas rodam em &lt; 1 s em navegador moderno.
 
 ### 7.3 Implementação e hipóteses comparadas
 
-Parâmetros fixados em código: `MC_N_DEFAULT = 3000`; `ALPHA_MEDIA = 0,05`; `P_CUTOFF_HIGH_SELECTIVITY = 0,70`; `P_CUTOFF_LOW_SELECTIVITY = 0,80`; `W_LOW_SELECTIVITY = 0,20`; `SD_DEFAULT_N1 = 0,025`; `MALHA_SIGMA_DEFAULT = 0,0` (reservado para um $\sigma$ por célula futuro).
+Parâmetros fixados em código: `MC_N_DEFAULT = 3000`; `ALPHA_MEDIA = 0,05`; `P_CUTOFF_HIGH_SELECTIVITY = 0,70`; `P_CUTOFF_LOW_SELECTIVITY = 0,80`; `W_LOW_SELECTIVITY = 0,20`; `SD_DEFAULT_N1 = 0,025`; `MALHA_SIGMA_DEFAULT = 0,0` (reservado para um $\\sigma$ por célula futuro).
 
-O núcleo de `_avaliar_amostra` gera $\mu_{\text{sims}} = \mathcal{N}(\mu_{\text{mean}},, \mu_{\text{se}},, \text{size}=3000)$ e, para cada hipótese $H_k$, calcula $\chi^2_{i,k}$ contra a viscosidade prevista pela malha. A hipótese vencedora por replicata é contada; a probabilidade posterior é a fração de vitórias. A semeadura do RNG é feita por **CRC-32 do identificador da amostra**, garantindo reprodutibilidade cross-platform (importante para auditabilidade em perícia).
+O núcleo de `_avaliar_amostra` gera $\\mu\_{\\text{sims}} = \\mathcal{N}(\\mu\_{\\text{mean}},, \\mu\_{\\text{se}},, \\text{size}=3000)$ e, para cada hipótese $H_k$, calcula $\\chi^2\_{i,k}$ contra a viscosidade prevista pela malha. A hipótese vencedora por replicata é contada; a probabilidade posterior é a fração de vitórias. A semeadura do RNG é feita por **CRC-32 do identificador da amostra**, garantindo reprodutibilidade cross-platform (importante para auditabilidade em perícia).
 
 **Hipóteses comparadas em paralelo** (dentro da faixa de w_total direcionada pela densidade):
 
-- $H_{\text{tern}}$: composição ternária mais compatível (permite todos os três componentes);
-- $H_{\text{EtOH}}$: binário água-etanol ($z_{\text{MeOH}} = 0$);
-- $H_{\text{MeOH}}$: binário água-metanol ($z_{\text{MeOH}} = 1$);
-- $H_{\text{trace}}$: traços (1–5 % m/m) de um álcool no outro — para capturar adulteração leve.
+- $H\_{\\text{tern}}$: composição ternária mais compatível (permite todos os três componentes);
+- $H\_{\\text{EtOH}}$: binário água-etanol ($z\_{\\text{MeOH}} = 0$);
+- $H\_{\\text{MeOH}}$: binário água-metanol ($z\_{\\text{MeOH}} = 1$);
+- $H\_{\\text{trace}}$: traços (1–5 % m/m) de um álcool no outro — para capturar adulteração leve.
 
 **Decisão conservadora:**
 
-- Se $P(H_{\text{EtOH}}) \geq P_{\text{cutoff}}$ → "compatível com etanol apenas".
-- Se $P(H_{\text{tern}}) \geq P_{\text{cutoff}}$ **e** $z_{\text{MeOH}}$ na composição mais compatível &gt; 5 % m/m → "incompatível" (provável adulteração).
+- Se $P(H\_{\\text{EtOH}}) \\geq P\_{\\text{cutoff}}$ → "compatível com etanol apenas".
+- Se $P(H\_{\\text{tern}}) \\geq P\_{\\text{cutoff}}$ **e** $z\_{\\text{MeOH}}$ na composição mais compatível &gt; 5 % m/m → "incompatível" (provável adulteração).
 - Casos intermediários → amarelo, recomenda repetir.
 
 ### 7.4 Sensibilidade efetiva por faixa
 
-Em $w_{\text{total}} \leq 0{,}20$ as duas bordas binárias se aproximam (ambas tendem a $\mu$ da água), e o teste fica naturalmente menos seletivo. O app eleva o *cut-off* de 0,70 para 0,80 e inclui hipóteses de traços 1–5 %. Resultado prático:
+Em $w\_{\\text{total}} \\leq 0{,}20$ as duas bordas binárias se aproximam (ambas tendem a $\\mu$ da água), e o teste fica naturalmente menos seletivo. O app eleva o *cut-off* de 0,70 para 0,80 e inclui hipóteses de traços 1–5 %. Resultado prático:
 
-- $w_{\text{total}}$ **0,30–0,60** (destilados típicos — cachaça, vodka, gim, whisky): sensibilidade a $z_{\text{MeOH}} \geq 5%$ com confiança ≥ 70 %.
-- $w_{\text{total}}$ **0,15–0,30** (licores, cervejas fortes): sensibilidade a $z_{\text{MeOH}} \geq 10%$ com confiança ≥ 80 %.
-- $w_{\text{total}} &lt; 0{,}15$ (bebidas muito diluídas): "álcool detectado, discriminação inconclusiva"; recomenda análise complementar.
+- $w\_{\\text{total}}$ **0,30–0,60** (destilados típicos — cachaça, vodka, gim, whisky): sensibilidade a $z\_{\\text{MeOH}} \\geq 5%$ com confiança ≥ 70 %.
+- $w\_{\\text{total}}$ **0,15–0,30** (licores, cervejas fortes): sensibilidade a $z\_{\\text{MeOH}} \\geq 10%$ com confiança ≥ 80 %.
+- $w\_{\\text{total}} &lt; 0{,}15$ (bebidas muito diluídas): "álcool detectado, discriminação inconclusiva"; recomenda análise complementar.
 
 ### 7.5 Semáforo final
 
 Integra três blocos em `semaphoreLogic.ts`:
 
-1. **Qualidade experimental** (`experimentApproved`): ≥ 2 repetições, CV ≤ 5 %, $R^2 \geq 0{,}99$ se houver vídeo+IA, $\mu$ da água de referência dentro de ±15 % do tabelado.
+1. **Qualidade experimental** (`experimentApproved`): ≥ 2 repetições, CV ≤ 5 %, $R^2 \\geq 0{,}99$ se houver vídeo+IA, $\\mu$ da água de referência dentro de ±15 % do tabelado.
 2. **Compatibilidade analítica** (`compativel`): Compatible / Incompatible / Inconclusive.
 3. **Semântica por tipo de amostra** (bebida vs. álcool comercial vs. etanol combustível): para bebidas, vermelho exige **ambos** "Incompatible" E "metanol alto (&gt; 5 %)" E `experimentApproved`.
 
@@ -337,8 +339,8 @@ Por construção, é **conservadora**: vermelho só dispara quando a evidência 
 
 Em testes de validação com amostras preparadas em laboratório com concentrações conhecidas:
 
-- **Quantificação de $w_{\text{total}}$**: erros típicos &lt; 5 % em $0{,}25 \leq w_{\text{total}} \leq 0{,}70$.
-- **Identificação de metanol &gt; 5 % m/m em amostras com $w_{\text{total}} \geq 0{,}30$**: taxa de acerto **100 %** nos conjuntos internos.
+- **Quantificação de $w\_{\\text{total}}$**: erros típicos &lt; 5 % em $0{,}25 \\leq w\_{\\text{total}} \\leq 0{,}70$.
+- **Identificação de metanol &gt; 5 % m/m em amostras com $w\_{\\text{total}} \\geq 0{,}30$**: taxa de acerto **100 %** nos conjuntos internos.
 - **Falsos positivos em amostras legítimas**: próximos de zero, graças ao semáforo conservador.
 
 ### 8.2 Por que o limiar de 5 % é clinicamente adequado
@@ -349,7 +351,7 @@ Não é uma limitação acidental: as intoxicações graves relatadas envolvem t
 
 - **Faixa de temperatura de operação (20–30 °C):** fora dela, análise de viscosidade desabilitada; recomenda-se aguardar equilíbrio térmico.
 - **Poucos pontos experimentais no interior do simplex ternário:** MAPE 4–8 % na validação externa é aceitável para triagem, não para metrologia de alta exatidão. Expandir o conjunto é o caminho mais imediato de refinamento.
-- **Regiões de baixa seletividade ($w_{\text{total}} &lt; 0{,}20$) e bordas extremas ($w_{\text{total}} &gt; 0{,}80$):** resolução discriminatória menor; tendência a "inconclusivo". Um acréscimo futuro pode ser confirmação colorimétrica rápida (ácido cromotrópico) nessas regiões específicas.
+- **Regiões de baixa seletividade ($w\_{\\text{total}} &lt; 0{,}20$) e bordas extremas ($w\_{\\text{total}} &gt; 0{,}80$):** resolução discriminatória menor; tendência a "inconclusivo". Um acréscimo futuro pode ser confirmação colorimétrica rápida (ácido cromotrópico) nessas regiões específicas.
 
 ---
 
