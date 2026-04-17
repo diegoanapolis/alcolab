@@ -175,7 +175,7 @@ onde r é o raio interno da agulha, ρ a densidade de referência (água, \~997 
 
 **Etapa 2 - Correção relativa à água (eliminação de erros sistemáticos):**
 
-$$ \mu_{\text{corr_setup}} = \mu_{\text{amostra_abs}} \times \frac{\mu_{\text{agua_ref}}}{\mu_{\text{agua_abs}}} $$
+$$ \mu_{\text{corr-setup}} = \mu_{\text{amostra-abs}} \times \frac{\mu_{\text{água-ref}}}{\mu_{\text{água-abs}}} $$
 
 μ_água_ref é o valor NIST/IAPWS tabelado para a temperatura medida. É o princípio clássico da **viscosimetria relativa** (Ostwald, Ubbelohde): na razão μ_amostra_abs / μ_água_abs, todos os fatores geométricos e sistemáticos do setup (raio⁴, L efetivo, perdas de entrada, densidade fixa) se **cancelam matematicamente**. Resta apenas o tempo de escoamento e o erro aleatório da cronometragem.
 
