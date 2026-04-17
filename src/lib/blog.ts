@@ -18,9 +18,40 @@ const markdownRenderer = new Marked(
  * before the Markdown renderer (+ katex extension) ever sees the content.
  */
 function fixLatexEscaping(md: string): string {
+  // Unicode math characters → LaTeX equivalents (applied inside $ blocks)
+  function fixUnicodeMath(s: string): string {
+    return s
+      // Subscript digits: ₀–₉ → _0 – _9
+      .replace(/₀/g, "_0").replace(/₁/g, "_1").replace(/₂/g, "_2")
+      .replace(/₃/g, "_3").replace(/₄/g, "_4").replace(/₅/g, "_5")
+      .replace(/₆/g, "_6").replace(/₇/g, "_7").replace(/₈/g, "_8")
+      .replace(/₉/g, "_9")
+      // Superscript digits: ⁰–⁹ → ^0 – ^9
+      .replace(/⁰/g, "^0").replace(/¹/g, "^1").replace(/²/g, "^2")
+      .replace(/³/g, "^3").replace(/⁴/g, "^4").replace(/⁵/g, "^5")
+      .replace(/⁶/g, "^6").replace(/⁷/g, "^7").replace(/⁸/g, "^8")
+      .replace(/⁹/g, "^9")
+      // Common Unicode math symbols
+      .replace(/≈/g, "\\approx ").replace(/≥/g, "\\geq ").replace(/≤/g, "\\leq ")
+      .replace(/≫/g, "\\gg ").replace(/≪/g, "\\ll ")
+      .replace(/±/g, "\\pm ").replace(/∓/g, "\\mp ")
+      .replace(/×/g, "\\times ").replace(/÷/g, "\\div ")
+      .replace(/·/g, "\\cdot ")
+      .replace(/∞/g, "\\infty ").replace(/∑/g, "\\sum ")
+      .replace(/∏/g, "\\prod ").replace(/∫/g, "\\int ")
+      .replace(/√/g, "\\sqrt ")
+      .replace(/α/g, "\\alpha ").replace(/β/g, "\\beta ").replace(/γ/g, "\\gamma ")
+      .replace(/δ/g, "\\delta ").replace(/ε/g, "\\varepsilon ").replace(/μ/g, "\\mu ")
+      .replace(/σ/g, "\\sigma ").replace(/τ/g, "\\tau ").replace(/π/g, "\\pi ")
+      .replace(/ρ/g, "\\rho ").replace(/λ/g, "\\lambda ").replace(/χ/g, "\\chi ")
+      .replace(/Δ/g, "\\Delta ").replace(/Σ/g, "\\Sigma ")
+      // En-dash → proper minus in math
+      .replace(/–/g, "-");
+  }
+
   // Display math: $$…$$ (possibly multi-line, with optional trailing \)
   md = md.replace(/\$\$\\?\n([\s\S]*?)\n?\$\$/g, (_match, inner: string) => {
-    const fixed = inner
+    const fixed = fixUnicodeMath(inner)
       .replace(/\\\\/g, "\\")       // \\mu  → \mu
       .replace(/\\_/g, "_")          // \_    → _
       .replace(/\\$/gm, "");         // trailing \ on lines
@@ -29,7 +60,7 @@ function fixLatexEscaping(md: string): string {
 
   // Inline math: $…$ (single line)
   md = md.replace(/\$([^\$\n]+?)\$/g, (_match, inner: string) => {
-    const fixed = inner
+    const fixed = fixUnicodeMath(inner)
       .replace(/\\\\/g, "\\")
       .replace(/\\_/g, "_");
     return `$${fixed}$`;
