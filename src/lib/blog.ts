@@ -223,17 +223,53 @@ function processCitations(md: string): string {
   const numMap = new Map<string, number>();
   citationOrder.forEach((k, i) => numMap.set(k, i + 1));
 
-  // Second pass: replace \cite{...} with numbered links
+  // Second pass: replace \cite{...} with grouped numbered links
+  // e.g. \cite{a,b,c} → [1–3] or [1,4,5] with individual links per number
   let result = cleaned.replace(/\\cite\{([^}]+)\}/g, (_, keysStr: string) => {
     const keys = keysStr.split(",").map((k) => k.trim());
-    const nums = keys
+    const resolved = keys
       .map((k) => {
         const n = numMap.get(k);
         if (!n) return null;
-        return `<a href="#ref-${n}" class="citation-link" title="${entries.get(k)?.title || k}">[${n}]</a>`;
+        return { key: k, num: n };
       })
-      .filter(Boolean);
-    return nums.join("");
+      .filter((x): x is { key: string; num: number } => x !== null);
+    if (resolved.length === 0) return "";
+
+    // Sort by number for grouping
+    resolved.sort((a, b) => a.num - b.num);
+
+    // Group consecutive numbers into ranges
+    const groups: { start: { key: string; num: number }; end: { key: string; num: number } }[] = [];
+    let current = { start: resolved[0], end: resolved[0] };
+    for (let i = 1; i < resolved.length; i++) {
+      if (resolved[i].num === current.end.num + 1) {
+        current.end = resolved[i];
+      } else {
+        groups.push({ ...current });
+        current = { start: resolved[i], end: resolved[i] };
+      }
+    }
+    groups.push(current);
+
+    // Render: each number is a link, ranges use en-dash
+    const parts: string[] = [];
+    for (const g of groups) {
+      const t0 = entries.get(g.start.key)?.title || g.start.key;
+      if (g.start.num === g.end.num) {
+        // Single number
+        parts.push(`<a href="#ref-${g.start.num}" class="citation-link" title="${t0}">${g.start.num}</a>`);
+      } else if (g.end.num === g.start.num + 1) {
+        // Two consecutive: show as N,M
+        const t1 = entries.get(g.end.key)?.title || g.end.key;
+        parts.push(`<a href="#ref-${g.start.num}" class="citation-link" title="${t0}">${g.start.num}</a>,<a href="#ref-${g.end.num}" class="citation-link" title="${t1}">${g.end.num}</a>`);
+      } else {
+        // Range of 3+: show as N–M
+        const t1 = entries.get(g.end.key)?.title || g.end.key;
+        parts.push(`<a href="#ref-${g.start.num}" class="citation-link" title="${t0}">${g.start.num}</a>–<a href="#ref-${g.end.num}" class="citation-link" title="${t1}">${g.end.num}</a>`);
+      }
+    }
+    return `[${parts.join(",")}]`;
   });
 
   // Append references section
