@@ -175,7 +175,7 @@ O AlcoLab é uma ferramenta web **gratuita, *open-source* e offline-capable**, d
 
 A combinação das duas permite estimar a composição ternária água-etanol-metanol mais compatível com as medidas e, em consequência, identificar amostras com metanol acima de um limiar de segurança. O mesmo princípio se aplica tanto à triagem de bebidas destiladas quanto à triagem de etanol combustível.
 
-> **A densidade diz quanto álcool há ao todo; a viscosidade diz que álcool é.**
+> #### **A densidade diz quanto álcool há ao todo; a viscosidade diz que álcool é ou a contribuição de cada um.**
 
 ---
 
