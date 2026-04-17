@@ -38,8 +38,229 @@ function fixLatexEscaping(md: string): string {
   return md;
 }
 
+/* ───────────────────────────────────────────────────────────────────────────
+ * BibTeX-style citation processor
+ *
+ * Usage in Markdown:
+ *   - In the text:  \cite{key}  or  \cite{key1,key2,key3}
+ *   - At the end:   a fenced code block tagged `bibtex` with standard entries
+ *
+ * The processor:
+ *   1. Extracts all ```bibtex ... ``` blocks from the Markdown
+ *   2. Parses each @type{key, field = {value}, ...} entry
+ *   3. Assigns sequential numbers by order of FIRST \cite appearance
+ *   4. Replaces \cite{key} with linked [N] superscripts
+ *   5. Appends a formatted "Referências" / "References" section
+ *
+ * BibTeX entries that are never cited are omitted from the final list.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+interface BibEntry {
+  key: string;
+  type: string; // article, book, inproceedings, misc, …
+  title: string;
+  author: string;
+  journal: string;
+  booktitle: string;
+  year: string;
+  volume: string;
+  number: string;
+  pages: string;
+  publisher: string;
+  doi: string;
+  url: string;
+  note: string;
+}
+
+/** Parse a single BibTeX field value, handling nested braces. */
+function parseBibField(raw: string): string {
+  let val = raw.trim();
+  // Remove outer braces or quotes
+  if ((val.startsWith("{") && val.endsWith("}")) ||
+      (val.startsWith('"') && val.endsWith('"'))) {
+    val = val.slice(1, -1);
+  }
+  // Resolve common LaTeX accents: {\\~a} → ã, {\\^e} → ê, etc.
+  val = val
+    .replace(/\{\\~([a-zA-Z])\}/g, (_, c: string) => {
+      const map: Record<string, string> = { a: "ã", o: "õ", n: "ñ", A: "Ã", O: "Õ", N: "Ñ" };
+      return map[c] || c;
+    })
+    .replace(/\{\\\^([a-zA-Z])\}/g, (_, c: string) => {
+      const map: Record<string, string> = { a: "â", e: "ê", i: "î", o: "ô", u: "û", A: "Â", E: "Ê", I: "Î", O: "Ô", U: "Û" };
+      return map[c] || c;
+    })
+    .replace(/\{\\['']([a-zA-Z])\}/g, (_, c: string) => {
+      const map: Record<string, string> = { a: "á", e: "é", i: "í", o: "ó", u: "ú", A: "Á", E: "É", I: "Í", O: "Ó", U: "Ú" };
+      return map[c] || c;
+    })
+    .replace(/\{\\`([a-zA-Z])\}/g, (_, c: string) => {
+      const map: Record<string, string> = { a: "à", e: "è", i: "ì", o: "ò", u: "ù", A: "À", E: "È", I: "Ì", O: "Ò", U: "Ù" };
+      return map[c] || c;
+    })
+    .replace(/\{\\[""]([a-zA-Z])\}/g, (_, c: string) => {
+      const map: Record<string, string> = { a: "ä", e: "ë", i: "ï", o: "ö", u: "ü", A: "Ä", E: "Ë", I: "Ï", O: "Ö", U: "Ü" };
+      return map[c] || c;
+    })
+    .replace(/\{\\c\{([a-zA-Z])\}\}/g, (_, c: string) => {
+      const map: Record<string, string> = { c: "ç", C: "Ç" };
+      return map[c] || c;
+    })
+    // Strip remaining braces
+    .replace(/[{}]/g, "");
+  return val.trim();
+}
+
+/** Format "Last, First and Last2, First2" → "Last FM, Last2 F2" (abbreviated). */
+function formatAuthors(raw: string): string {
+  if (!raw) return "";
+  const authors = raw.split(/\s+and\s+/i);
+  return authors
+    .map((a) => {
+      const parts = a.split(",").map((s) => s.trim());
+      if (parts.length >= 2) {
+        const last = parts[0];
+        const initials = parts[1]
+          .split(/\s+/)
+          .map((w) => w.charAt(0).toUpperCase())
+          .join("");
+        return `${last} ${initials}`;
+      }
+      return a.trim();
+    })
+    .join(", ");
+}
+
+/** Format a BibEntry into a readable reference string (Vancouver-ish style). */
+function formatReference(e: BibEntry): string {
+  const parts: string[] = [];
+  if (e.author) parts.push(formatAuthors(e.author) + ".");
+  if (e.title) parts.push(e.title.replace(/\.$/, "") + ".");
+  if (e.journal) parts.push(`*${e.journal}*.`);
+  else if (e.booktitle) parts.push(`In: *${e.booktitle}*.`);
+  if (e.publisher) parts.push(e.publisher + ".");
+  if (e.year) {
+    let detail = e.year;
+    if (e.volume) {
+      detail += `;${e.volume}`;
+      if (e.number) detail += `(${e.number})`;
+    }
+    if (e.pages) detail += `:${e.pages}`;
+    parts.push(detail + ".");
+  }
+  if (e.doi) parts.push(`doi:[${e.doi}](https://doi.org/${e.doi})`);
+  else if (e.url) parts.push(`[Link](${e.url})`);
+  // Convert BibTeX double-dash to en-dash in the final string
+  return parts.join(" ").replace(/--/g, "–");
+}
+
+/** Extract all BibTeX entries from ```bibtex fenced blocks. */
+function parseBibtexBlocks(md: string): { cleaned: string; entries: Map<string, BibEntry> } {
+  const entries = new Map<string, BibEntry>();
+
+  // Remove ```bibtex ... ``` blocks and parse them
+  const cleaned = md.replace(/```bibtex\s*\n([\s\S]*?)```/gi, (_, block: string) => {
+    // Match individual entries: @type{key, ... }
+    const entryRegex = /@(\w+)\s*\{\s*([^,\s]+)\s*,([\s\S]*?)(?=\n@|\n*$)/g;
+    let m: RegExpExecArray | null;
+    while ((m = entryRegex.exec(block)) !== null) {
+      const type = m[1].toLowerCase();
+      const key = m[2].trim();
+      const body = m[3];
+
+      const entry: BibEntry = {
+        key, type,
+        title: "", author: "", journal: "", booktitle: "",
+        year: "", volume: "", number: "", pages: "",
+        publisher: "", doi: "", url: "", note: "",
+      };
+
+      // Parse fields: name = {value} or name = "value"
+      const fieldRegex = /(\w+)\s*=\s*(\{(?:[^{}]|\{[^{}]*\})*\}|"[^"]*"|\d+)/g;
+      let fm: RegExpExecArray | null;
+      while ((fm = fieldRegex.exec(body)) !== null) {
+        const fname = fm[1].toLowerCase() as keyof BibEntry;
+        if (fname in entry && fname !== "key" && fname !== "type") {
+          (entry as unknown as Record<string, string>)[fname] = parseBibField(fm[2]);
+        }
+      }
+
+      entries.set(key, entry);
+    }
+    return ""; // Remove the bibtex block from the markdown
+  });
+
+  return { cleaned, entries };
+}
+
+/**
+ * Process \cite{key} and \cite{key1,key2} in the markdown, replace with
+ * numbered links, and append the reference list.
+ */
+function processCitations(md: string): string {
+  const { cleaned, entries } = parseBibtexBlocks(md);
+
+  // No BibTeX blocks found → return as-is
+  if (entries.size === 0) return md;
+
+  // First pass: collect citation order by scanning \cite{...}
+  const citationOrder: string[] = [];
+  const citeRegex = /\\cite\{([^}]+)\}/g;
+  let cm: RegExpExecArray | null;
+  const tempMd = cleaned;
+  while ((cm = citeRegex.exec(tempMd)) !== null) {
+    const keys = cm[1].split(",").map((k) => k.trim());
+    for (const k of keys) {
+      if (!citationOrder.includes(k)) {
+        citationOrder.push(k);
+      }
+    }
+  }
+
+  if (citationOrder.length === 0) return cleaned;
+
+  // Build number map
+  const numMap = new Map<string, number>();
+  citationOrder.forEach((k, i) => numMap.set(k, i + 1));
+
+  // Second pass: replace \cite{...} with numbered links
+  let result = cleaned.replace(/\\cite\{([^}]+)\}/g, (_, keysStr: string) => {
+    const keys = keysStr.split(",").map((k) => k.trim());
+    const nums = keys
+      .map((k) => {
+        const n = numMap.get(k);
+        if (!n) return null;
+        return `<a href="#ref-${n}" class="citation-link" title="${entries.get(k)?.title || k}">[${n}]</a>`;
+      })
+      .filter(Boolean);
+    return nums.join("");
+  });
+
+  // Append references section
+  const refLines: string[] = [
+    "",
+    "---",
+    "",
+    "## Referências",
+    "",
+  ];
+  for (const key of citationOrder) {
+    const n = numMap.get(key)!;
+    const entry = entries.get(key);
+    if (entry) {
+      refLines.push(`<p id="ref-${n}" class="reference-item">${n}. ${formatReference(entry)}</p>`);
+    } else {
+      refLines.push(`<p id="ref-${n}" class="reference-item">${n}. [${key}] — referência não encontrada.</p>`);
+    }
+  }
+  refLines.push("");
+
+  result += "\n" + refLines.join("\n");
+  return result;
+}
+
 function renderMarkdown(content: string): string {
-  return markdownRenderer.parse(fixLatexEscaping(content)) as string;
+  return markdownRenderer.parse(fixLatexEscaping(processCitations(content))) as string;
 }
 
 export interface BlogPost {

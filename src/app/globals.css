@@ -500,6 +500,32 @@ input, select, textarea { color: var(--color-brand); }
   text-align: center;
 }
 
+/* ─── Blog: citações acadêmicas (BibTeX) ─── */
+.prose .citation-link {
+  color: #002060;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85em;
+  vertical-align: super;
+  line-height: 0;
+}
+.prose .citation-link:hover {
+  text-decoration: underline;
+}
+.prose .reference-item {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0.35em 0;
+  padding-left: 2em;
+  text-indent: -2em;
+  text-align: justify;
+  color: #374151;
+}
+.prose .reference-item em,
+.prose .reference-item i {
+  font-style: italic;
+}
+
 /* ─── CTA Banner (tarja clicável) ─── */
 .cta-banner {
   display: block;
