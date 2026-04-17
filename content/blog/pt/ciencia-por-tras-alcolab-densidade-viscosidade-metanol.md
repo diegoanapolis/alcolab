@@ -39,23 +39,25 @@ translationSlug: science-behind-alcolab-density-viscosity-methanol-detection
 ---
 O delegado-geral da Polícia de São Paulo, Artur Dian, disse no final de outubro de 2025:
 
-> Todas as bebidas adulteradas com metanol no estado saíam de uma fábrica clandestina gerenciada por uma família em São Bernardo do Campo \\cite{gazetadopovo2025}.
+> Todas as bebidas adulteradas com metanol no estado saíam de uma fábrica clandestina gerenciada por uma família em São Bernardo do Campo. O etanol adulterado com metanol era adquirido em dois postos de combustíveis da região pertencentes à facção criminosa PCC \\cite{gazetadopovo2025}.
 
-Segundo investigações, o etanol adulterado com metanol era adquirido em dois postos de combustíveis da região pertencentes à facção criminosa PCC. Vale lembrar que São Paulo é disparado o estado mais afetado pelas intoxicações por metanol. Pelo balanço final consolidado pelo Ministério da Saúde, das 890 notificações registradas entre 26 de setembro e 5 de dezembro, São Paulo concentrou 578 delas e 50 dos 73 casos confirmados nacionalmente, além de 10 dos 22 óbitos confirmados \\cite{brasil2025}.
+**São Paulo foi disparado o estado mais afetado pelas intoxicações por metanol**. Pelo balanço final consolidado pelo Ministério da Saúde, das 890 notificações registradas entre 26 de setembro e 5 de dezembro, São Paulo concentrou 578 delas e 50 dos 73 casos confirmados nacionalmente, além de 10 dos 22 óbitos confirmados \\cite{brasil2025}.
 
-Embora em muitos casos não tenha sido determinada a rota do metanol presente nas garrafas de destilados, o maior caso de adulteração elucidado em São Paulo sugere interconexão entre adulteração de combustível, adulteração de bebidas e casos de intoxicação por metanol.
+Embora em muitos casos não tenha sido determinada a rota do metanol presente nas garrafas de destilados, o maior caso de adulteração elucidado em São Paulo sugere <u>interconexão entre adulteração de combustível, adulteração de bebidas e casos de intoxicação por metanol</u>.
+
+<img src="/images/blog/not-cia-1776446871629.png" alt="notícia do G1 sobre a localização de postos de combustível que adulteravam etanol com metanol e que foi utilizado na falsificação de bebidas" style="max-width:65%;margin:0 auto;display:block" />
 
 ---
 
 ## Da matriz energética brasileira à adulteração do etanol combustível com metanol
 
-- Etanol hidratado combustível (EHC) um dos pilares da matriz energética brasileira, com produção anual superior a 30 bilhões de litros para mais de 40 milhões de veículos \\cite{unica2026};
-- Comercializado em mais de 42 mil postos, Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP), por meio do Programa de Monitoramento da Qualidade dos Combustíveis (PMQC) e de fiscalizações diretas \\cite{anp2026};
+- **Etanol hidratado combustível (EHC) um dos pilares da matriz energética brasileira**, com produção anual superior a 30 bilhões de litros para mais de 40 milhões de veículos \\cite{unica2026};
+- **Comercializado em mais de 42 mil postos**, com qualidade monitorada pela Agência Nacional do Petróleo, Gás Natural e Biocombustíveis (ANP), por meio do Programa de Monitoramento da Qualidade dos Combustíveis (PMQC) e de fiscalizações diretas \\cite{anp2026};
 - Historicamente, as fraudes mais comuns envolviam a adição excessiva de água ao EHC e a mistura de solventes mais baratos à gasolina;
-- A adulteração de combustíveis com metanol é motivada por um diferencial de preço significativo. Em 2024–2025 o preço médio do metanol industrial importado ficou bem abaixo do custo do etanol hidratado das usinas \\cite{argusmedia2025,novacana2025b};
-- Essa diferença de \~50% gera margens ilícitas expressivas, amplificadas pela sonegação fiscal que frequentemente acompanha o esquema \\cite{argusmedia2025,novacana2025b};
-- Operação Carbono Oculto da Polícia Federal em conjunto com o Ministério Público, agosto de 2025, revelou esquema bilionário envolvendo importação irregular de metanol pelo Porto de Paranaguá e distribuição a postos de combustíveis controlados por organização criminosa \\cite{datamarnews2025,visaoagro2025};
-- Combustível adulterado continha até 90% de metanol, 180 vezes mais que o limite 0,5% v/v permitido pela ANP \\cite{visaoagro2025}.
+- **A adulteração de combustíveis com metanol é motivada por um diferencial de preço significativo**. Em 2024–2025 o preço médio do metanol industrial importado ficou bem abaixo do custo do etanol hidratado das usinas \\cite{argusmedia2025,novacana2025b};
+- **Essa diferença de \~50% gera margens ilícitas expressivas**, amplificadas pela sonegação fiscal que frequentemente acompanha o esquema \\cite{argusmedia2025,novacana2025b};
+- **Operação Carbono Oculto da Polícia Federal em conjunto com o Ministério Público**, agosto de 2025, revelou esquema bilionário envolvendo importação irregular de metanol pelo Porto de Paranaguá e distribuição a postos de combustíveis controlados por organização criminosa \\cite{datamarnews2025,visaoagro2025};
+- **Combustível adulterado continha até 90% de metanol**, 180 vezes mais que o limite 0,5% v/v permitido pela ANP \\cite{visaoagro2025}.
 
 ---
 
@@ -70,6 +72,7 @@ O consumidor não distingue uma bebida adulterada pelo gosto, pelo cheiro ou pel
 - **Alerta OPAS/OMS (out. 2025)**: envenenamentos em pelo menos cinco países das Américas, com mais de 200 casos suspeitos no Brasil por bebidas destiladas adulteradas \\cite{opas2025}.
 - **Tratamento**: inibidores competitivos da ADH — etanol terapêutico ou, preferencialmente, fomepizol (ataque 15 mg/kg; manutenção 10 mg/kg a cada 12 h) \\cite{megarbane2010,hantson1999,eapcct2023}.
 - **Agravantes na América Latina**: fomepizol é **caro e de baixa disponibilidade** \\cite{eapcct2023,zakharov2014}; confirmação analítica por GC-FID / GC-MS é restrita a laboratórios oficiais, com tempos de resposta de horas a dias.
+- **2026 balanço até 3 de fevereiro**: continuidade da crise. 7 casos confirmados e 13 em apuração. Dois óbitos, um na Bahia e outro em São Paulo.
 
 A conclusão prática é que o ganho clínico e epidemiológico mais alto não vem de tratar melhor quem já se intoxicou, e sim de **impedir que a bebida adulterada chegue ao consumidor**. Isso exige ferramentas de triagem rápidas, baratas e disponíveis em campo.
 
@@ -79,18 +82,18 @@ A conclusão prática é que o ganho clínico e epidemiológico mais alto não v
 
 As técnicas analíticas disponíveis para identificação e quantificação de metanol em bebidas e combustíveis são, no essencial, as mesmas — mudam a norma que as regula (AOAC e farmacopeias nacionais para bebidas; ABNT NBR 16041 e Res. ANP 907/2022 para combustíveis) e os laboratórios ou agentes que as executam. A Tabela 1 abaixo organiza essas ferramentas pelo eixo que importa para saúde pública e fiscalização em campo: disponibilidade, investimento e custo por análise.
 
-**Tabela 1.** Ferramentas analíticas para quantificação e/ou identificação de metanol em bebidas e combustíveis.
+**Tabela 1.** Ferramentas analíticas para quantificação e/ou identificação de metanol em bebidas e combustíveis e a proposta do Alcolab.
 
 | Método | Comentário | Disponibilidade e limitações | Investimento | Custo/análise |
 | --- | --- | --- | --- | --- |
 | **Cromatografias instrumentais (GC-FID e GC-MS)** | Padrão-ouro confirmatório para bebidas (AOAC \\cite{aoac2023}) e combustíveis (ABNT NBR 16041 / Res. ANP 907/2022 \\cite{anp2022,abnt2012}). | Muito baixa. Disponível apenas em laboratórios estruturados e grandes centros. Resposta: horas a dias. | Alto (&gt; US$ 50 mil) | Intermediário (US$ 100–300) |
 | **Sensor quimiorresistivo portátil em ar exalado** | Triagem da vítima **já exposta**, com boa correlação contra GC-MS (R² = 0,966) \\cite{vandenbroek2021}. Não analisa a bebida nem o combustível em si. | Baixa (emergência clínica). Não aplicável à análise da amostra antes do consumo ou da entrega. Resposta: 2 min. | Intermediário (US$ 5 mil–15 mil) | Alto (US$ 100/teste) |
 | **Densímetro (termodensímetro, picnômetro, tubo em U oscilante)** | Método clássico de alcoolometria em bebidas (OIML R 22 / AOAC \\cite{oiml1975,osborne1913,aoac2023}) e instrumento obrigatório da fiscalização da ANP em postos revendedores de etanol combustível \\cite{anp2022,adnormas2018}. | Média. Resposta: minutos. Limitação fundamental: ρ(MeOH) ≈ ρ(EtOH) — metanol é praticamente invisível ao densímetro até \~40 % de substituição. | Baixo a intermediário (&lt; US$ 50 para termodensímetro de vidro; alguns milhares de dólares para densímetro de tubo em U oscilante) | Muito baixo (&lt; US$ 1) |
-| **Técnicas espectroscópicas (NIR, FTIR-ATR, Raman)** | LOD típico de 2,5–6 % m/m; existem versões portáteis comerciais, **vantagem prática para fiscalização em campo** \\cite{lachenmeier2021,carneiro2008,silva2012}. | Baixa (operação especializada). Pode exigir calibração multivariada e matrizes bem comportadas. Resposta: 1–15 min. | Intermediário a alto (US$ 15 mil–US$ 150 mil) | Baixo (US$ 5–20) |
+| **Técnicas espectroscópicas (NIR, FTIR-ATR, Raman)** | LOD típico de 2,5–6 % m/m; existem versões portáteis comerciais, **vantagem prática para fiscalização em campo** \\cite{lachenmeier2021,carneiro2008,silva2012}. | Baixa (operação especializada). Pode exigir calibração multivariada e matrizes bem comportadas. Resposta: 1–15 min. | Intermediário a alto (US$ 15 mil–US$ 150 mil) | Baixo (US$ 3–15) |
 | **Colorimetria (permanganato / ácido cromotrópico / ISO 1388-8)** | Triagem qualitativa de baixíssimo custo (ISO 1388-8 \\cite{anp2022} para combustíveis; ácido cromotrópico / permanganato para bebidas). | Alta. Sujeita a interferências de matriz: congêneres naturais e pigmentos em destilados envelhecidos, licores e bebidas coloridas geram falsos positivos; amostras muito diluídas geram falsos negativos. Resposta: 5–15 min. | Muito baixo (&lt; US$ 50, reagentes e vidraria) | Muito baixo (&lt; US$ 1) |
 | **AlcoLab (densidade + viscosidade em seringa e balança)** | Triagem **qualitativa e semiquantitativa**: detecta metanol acima de \~5 % m/m (LOD pode ser reduzido com recalibração) e estima a composição ternária água–etanol–metanol; gratuito, *open source* (AGPL-3.0), executa no navegador e funciona offline. Aplicável tanto a bebidas quanto a etanol combustível. | Alta (usuário final, fiscal, profissional de saúde pública). Resposta: 10–20 min. | Muito baixo (&lt; US$ 30, seringa, balança, termômetro) | Baixíssimo (\~US$ 0,00; não utiliza reagentes químicos e o padrão de calibração é a água) |
 
-Em um extremo, a cromatografia é o padrão-ouro — precisa, exata, regulatoriamente aceita para autuação administrativa e judicial — mas restrita a laboratórios oficiais, com tempo de resposta em horas a dias que não serve à decisão em campo. No extremo oposto, a colorimetria é barata e imediata, mas sofre interferências de matriz que comprometem seu uso em destilados envelhecidos, licores, bebidas coloridas e amostras muito diluídas. Entre os dois, as técnicas espectroscópicas portáteis (NIR, FTIR, Raman) oferecem um compromisso interessante, mas ainda operam em faixa de dezenas a centenas de milhares de dólares e podem exigir calibração multivariada específica para cada matriz.
+Em um extremo, a cromatografia é o padrão-ouro — precisa, exata, regulatoriamente aceita para autuação administrativa e judicial — mas restrita a laboratórios oficiais, com tempo de resposta em horas a dias que não serve à decisão rápida em campo. No extremo oposto, a colorimetria é barata e imediata, mas sofre interferências de matriz que comprometem seu uso em destilados envelhecidos, licores, bebidas coloridas e amostras muito diluídas. Entre os dois, as técnicas espectroscópicas portáteis (NIR, FTIR, Raman) oferecem um compromisso interessante, mas ainda operam em faixa de dezenas a centenas de milhares de dólares e podem exigir calibração multivariada específica para cada matriz.
 
 No lado clássico da fiscalização, o densímetro — instrumento obrigatório da ANP em postos revendedores e método centenário de alcoolometria em bebidas — tem uma limitação fundamental: é incapaz de detectar metanol enquanto a substituição se mantém abaixo de \~40%, porque ρ(MeOH) ≈ ρ(EtOH). O sensor quimiorresistivo em ar exalado, por sua vez, triage a vítima já exposta, não a amostra antes do consumo ou da entrega.
 
@@ -102,19 +105,21 @@ A lacuna é evidente e simétrica nos dois domínios: falta uma ferramenta que o
 
 ### Por que a densidade funciona tão bem para soluções hidroalcoólicas
 
-A densidade de uma mistura líquida depende do volume molar dos seus componentes e das interações moleculares entre eles. Para o sistema binário água-etanol, a dependência da densidade com o teor alcoólico é **monotônica e suave** entre 0 e 100 % de etanol e varia pouco com a temperatura na faixa usual de trabalho (20–30 °C). Essa robustez explica por que a densitometria é o método universal de quantificação de etanol em bebidas há mais de um século \\cite{osborne1913,oiml1975,aoac2023}, e é também o motivo pelo qual a ANP, na Resolução nº 907/2022, adota a massa específica a 20 °C como principal parâmetro físico-químico de qualidade do etanol hidratado combustível (EHC), com faixa especificada de 807,6 a 811,0 kg/m³ \\cite{anp2022,adnormas2018}.
+A densidade de uma mistura líquida depende do volume molar dos seus componentes e das interações moleculares entre eles. Para o sistema binário água-etanol, a dependência da **densidade com o teor alcoólico é monotônica e suave** entre 0 e 100 % de etanol. Essa robustez explica por que a densitometria é o método universal de quantificação de etanol em bebidas há mais de um século \\cite{osborne1913,oiml1975,aoac2023}, e é também o motivo pelo qual a ANP, na Resolução nº 907/2022, adota a massa específica a 20 °C como um dos importantes parâmetros físico-químicos de qualidade do etanol hidratado combustível (EHC), com faixa especificada de 807,6 a 811,0 kg/m³ \\cite{anp2022,adnormas2018}.
 
 As compilações de referência seguem três linhagens: (i) metrológica europeia — tabelas de Osborne, McKelvy e Bearce (1913), adotadas pela OIML na recomendação OIML R 22 (*International Alcoholometric Tables*); (ii) compêndios AOAC International e farmacopeias nacionais (USP, Farm. Bras., EP), ajustados a ±0,01 °GL para fins regulatórios; (iii) modelos preditivos calibrados com densímetros de tubo em U oscilante (Anton Paar DMA 4500/5000/5001), em que desvios de 0,00002 g/cm³ propagam-se em ±0,01 %m/m de etanol \\cite{lachenmeier2021,lopesjesus2006,osborne1987}.
 
 Em equipamento de rotina, três instrumentos dominam o cenário:
 
 - **Alcoômetros e picnômetros de vidro**: custo baixíssimo, mas exatidão limitada (±0,5 °GL em alcoômetros comerciais).
-- **Densímetros portáteis de tubo em U oscilante**: exatidão ≈ 0,001 g/cm³, custo USD 3 000–15 000.
+- **Densímetros portáteis de tubo em U oscilante**: exatidão ≈ 0,001 g/cm³, custo USD 3000–15000.
 - **Densímetros de bancada Anton Paar**: padrão metrológico (±0,00005 g/cm³), inviáveis fora de laboratório.
 
-Para o AlcoLab, a exigência não é exatidão metrológica absoluta, e sim uma **densidade relativa ρ/ρ\_H₂O bem estimada a partir de pesagem em balança doméstica** — no regime de \~0,001 g/cm³ de incerteza. É o suficiente para restringir a busca ternária, como se verá adiante.
+Para o AlcoLab, a exigência não é exatidão metrológica absoluta, e sim uma **densidade relativa ρ/ρ\_H₂O bem estimada a partir de um densímetro comum ou de pesagem simples em balança com resolução 0.1g** (podendo ser até de uso doméstico). É o suficiente para restringir a busca ternária por viscosidade, como se verá adiante.
 
-### Por que a densidade, sozinha, não basta para metanol — e consequência para a triagem
+### Por que a densidade, sozinha, não basta para metanol — e cons
+
+### equência para a triagem
 
 Considere as densidades absolutas puras a 20 °C: $\rho(\text{H}_2\text{O}) = 0{,}9982$ g/cm³; $\rho(\text{EtOH}) = 0{,}7893$ g/cm³; $\rho(\text{MeOH}) = 0{,}7914$ g/cm³. O contraste entre os dois álcoois é de **apenas $0{,}0021$ g/cm³ ($\approx 0{,}26$ %)**, muito abaixo do limite de detecção de qualquer densímetro doméstico e mesmo abaixo da precisão típica de densímetros portáteis de ±0,001 g/cm³.
 
@@ -122,7 +127,7 @@ Formalmente, trata-se de um problema de **não-injetividade**: seja na região t
 
 Estudos de referência \\cite{lachenmeier2021,lopesjesus2006} reforçam esse limite: trabalhos sobre densidade e volumes molares de excesso em misturas ternárias água-metanol-etanol \\cite{dizechi1982} mostram que a diferença entre os excessos água-etanol e água-metanol produz uma assinatura **tênue demais** para servir de vetor discriminatório em instrumento de baixo custo.
 
-**Consequência prática:** a densitometria clássica, apesar de seu mérito inquestionável na quantificação de etanol, nunca foi adotada como ferramenta de triagem de metanol — seja em bebidas, seja em combustíveis. A literatura de adulteração reconhece há décadas essa lacuna e recomenda, para esse fim, métodos cromatográficos ou técnicas espectroscópicas (NIR, FTIR-ATR, Raman) \\cite{lachenmeier2021,carneiro2008,silva2012}, que, embora portáteis, têm custo de aquisição elevado e raramente estão disponíveis para fiscalização municipal ou para inspeção rotineira em postos revendedores. **Falta uma segunda grandeza física**, que o AlcoLab introduz na forma da viscosidade relativa medida em seringa com agulha 22G. A densidade, longe de ser abandonada, assume papel fundamental: **restringe drasticamente a região do espaço de composições** em que a amostra pode estar, direcionando a busca pela viscosidade.
+**Consequência prática:** a densitometria clássica, apesar de seu mérito inquestionável na quantificação de etanol, nunca foi adotada como ferramenta de triagem de metanol — seja em bebidas, seja em combustíveis. A literatura de adulteração reconhece há décadas essa lacuna e recomenda, para esse fim, métodos cromatográficos ou técnicas espectroscópicas (NIR, FTIR-ATR, Raman) \\cite{lachenmeier2021,carneiro2008,silva2012}, que, embora portáteis, têm custo de aquisição elevado e raramente estão disponíveis para fiscalização municipal ou para inspeção rotineira em postos revendedores. **Faltava uma segunda grandeza física**, que a metodologia aqui proposta e embarcada no AlcoLab introduz na forma da viscosidade relativa medida em seringa com agulha 22G. A densidade, longe de ser abandonada, assume papel fundamental: **restringe drasticamente a região do espaço de composições** em que a amostra pode estar, direcionando a busca pela viscosidade.
 
 ---
 
