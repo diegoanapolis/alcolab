@@ -161,17 +161,17 @@ O AlcoLab é uma ferramenta web **gratuita, *open-source* e offline-capable**, d
 
 **Insumos físicos necessários:**
 
-- uma seringa comercial descartável de 20 mL com agulha 22G (o tipo mais comum em farmácias);
-- uma balança com resolução mínima de 0,1 g;
-- um smartphone com câmera.
+- **uma seringa comercial** descartável de 20 mL com agulha 22G (o tipo mais comum em farmácias);
+- **uma balança** com resolução mínima de 0,1 g (pode ser substituído por um densímetro);
+- **um smartphone**;
 - um termômetro, seu uso pode ser dispensado pela estabilização da temperatura da amostra e da água.
 
 ![Instrumentos para análise no Alcolab: seringa com agulha, balança 0.1g, smartphone](/images/blog/instrumentos-alcolab-1776450466709.png)
 
 **Princípio:** a análise combina duas grandezas físicas complementares.
 
-- A **densidade relativa** — obtida pela pesagem de um volume calibrado da amostra contra água — fornece o **teor alcoólico total** (w, fração mássica de álcool) com precisão suficiente para restringir a região do espaço de composições em que a amostra se encontra.
-- A **viscosidade relativa** — obtida pelo tempo de escoamento gravitacional pela seringa — fornece uma segunda grandeza que, diferentemente da densidade, **separa metanol de etanol com folga**.
+- A **densidade relativa** — obtida diretamente por densímetro ou pela pesagem de um volume calibrado da amostra contra água — fornece o **teor alcoólico total** (w, fração mássica de álcool) com precisão suficiente para restringir a região do espaço de composições em que a amostra se encontra.
+- A **viscosidade aparente relativa** — obtida pelo tempo de escoamento gravitacional pela seringa — fornece uma segunda grandeza que, diferentemente da densidade, **discrimina metanol e etanol**.
 
 A combinação das duas permite estimar a composição ternária água-etanol-metanol mais compatível com as medidas e, em consequência, identificar amostras com metanol acima de um limiar de segurança. O mesmo princípio se aplica tanto à triagem de bebidas destiladas quanto à triagem de etanol combustível.
 
