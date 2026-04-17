@@ -23,7 +23,7 @@ category: Tecnologia
 locale: pt-BR
 published: true
 status: publicado
-image: /images/blog/ciencia-alcolab-densidade-viscosidade.png
+image: /images/blog/6-1776179720938.jpg
 imageAlt: >-
   Diagrama científico mostrando como densidade e viscosidade relativas são
   usadas para detectar metanol em bebidas
