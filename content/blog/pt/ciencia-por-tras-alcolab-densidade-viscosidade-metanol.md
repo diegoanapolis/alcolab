@@ -232,15 +232,6 @@ São composições **quimicamente opostas**, em domínios analíticos opostos, m
 
 No caso específico do EHC, $w_{\text{total}}$ é conhecido a priori por especificação regulatória (cerca de 0,93) e o filtro de densidade atua com ainda mais força: a busca fica restrita à faixa direita do gráfico, e a viscosidade fica exclusivamente encarregada de estimar a fração de metanol no álcool total.
 
-A malha ternária é uma superfície curva em ($w_{\text{total}}$, $z_{\text{MeOH}}$). Para uma viscosidade $\mu^*$* experimental, o conjunto de composições compatíveis **não é um ponto — é uma curva de nível**, com centenas de candidatas espalhadas na malha.
-
-Por exemplo, para $\mu^*$ = 1,80 mPa·s a 20 °C, a curva C($\mu^*$) cobre desde:
-
-- **Bebidas de baixo teor com domínio de etanol** ($w_{\text{total}}$ ≈ 0,25–0,35; $z_{\text{MeOH}}$ ≈ 0–0,2);
-- até **bebidas de alto teor com domínio de metanol** ($w_{\text{total}}$ ≈ 0,55–0,70; $z_{\text{MeOH}}$ ≈ 0,7–1,0).
-
-São composições **quimicamente opostas** que produzem o mesmo tempo de escoamento. A densidade sozinha não discrimina; a viscosidade sozinha também não. A densidade entra como **filtro de região**: se a medida informa $w_{\text{total}}$ ≈ 0,40 ± 0,03, a segunda região é eliminada automaticamente. Só então a viscosidade é consultada para escolher, dentro da faixa compatível, qual composição explica melhor $\mu^\*$. No caso do EHC, onde $w_{\text{total}}$ é conhecido a priori e está tipicamente próximo de 0,93, o filtro de densidade atua com ainda mais força, e a viscosidade fica encarregada de estimar a fração de metanol na mistura alcoólica.
-
 ### Cálculo e exibição
 
 O Web Worker carrega o runtime Pyodide (5–10 s na primeira chamada) e executa: (i) `app_w_alcool_v2.py` → $w_{\text{total}}$ a partir da densidade; (ii) `main.py` + `processamento.py` → pipeline de correção, consulta à malha, composição ternária mais compatível e análise estatística. O resultado é serializado para exibição em `results/page.tsx`.
