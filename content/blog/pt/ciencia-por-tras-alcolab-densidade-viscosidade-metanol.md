@@ -209,7 +209,7 @@ com $r = x\_{\\text{Et}} / (x\_{\\text{Et}} + x\_{\\text{Me}})$. O termo de exce
 
 A malha final é uma grade sobre o simplex em %m/m inteiros — **5 151 nós** a 20 °C, arquivo `ternary_mesh_all_T20_50_lambda020_alpha030_step1pct.npz`. Para produção, é reparametrizada em (w_total, z_MeOH), com z_MeOH = w_MeOH / w_total, gerando duas versões embarcadas: `malha_viscosidade_ajuste_bordas_f32.npz` (1001 × 1001, \~3,3 MB) e `_coarse251_f32.npz` (fallback de 257 kB).
 
-**Consulta em tempo de execução:** para uma $\\mu^*$ corrigida a 20 °C e uma faixa de $w\_{\\text{total}}$ vinda da densidade, o app busca nós $(w, z)$ que satisfazem $|\\mu\_{\\text{pred}}(w, z) - \\mu^*| \\leq \\text{tol%} \\cdot \\mu^\*$ (default ±2 %).
+**Consulta em tempo de execução:** para uma $\\mu^*$ corrigida a 20 °C e uma faixa de $w\_{\\text{total}}$ vinda da densidade, o app busca nós $(w, z)$ que satisfazem* $|\\mu\_{\\text{pred}}(w, z) - \\mu^*| \\leq \\text{tol%} \\cdot \\mu^*$ (default ±2 %).
 
 **Validação externa:** MAPE de 4–8 % contra Song 2008 (dados Ubbelohde) em $w\_{\\text{total}} \\in \[0;, 0{,}70\]$ e contra dados ternários próprios como *holdout* — coerente com a instrumentação específica do AlcoLab.
 
@@ -251,7 +251,7 @@ O fluxo começa com o perfil do usuário (leigo, técnico ou laboratório), que 
 
 Densidade relativa: $\\rho\_{\\text{rel}} = m\_{\\text{amostra}} / m\_{\\text{água}}$. Com balança de 0,1 g, a incerteza típica é ±0,005 em ρ\_rel, equivalente a **±0,5–1 % em teor alcoólico em massa** — suficiente para o papel da densidade no método (direcionar a busca na malha de viscosidade, não quantificar álcool com precisão metrológica).
 
-A conversão $\\rho\_{\\text{rel}} \\to w\_{\\text{álcool}}$ faz busca inversa **simultânea** nas malhas binárias EtOH–H₂O e MeOH–H₂O a 20 °C, retornando $(w\_{\\text{EtOH_equiv}},, w\_{\\text{MeOH_equiv}})$. A média é usada como estimativa pontual de w_total e o intervalo entre os dois valores fornece a faixa possível — abordagem deliberadamente conservadora dada a quase coincidência das duas curvas binárias.
+A conversão $\\rho\_{\\text{rel}} \\to w\_{\\text{álcool}}$ faz busca inversa **simultânea** nas malhas binárias EtOH–H₂O e MeOH–H₂O a 20 °C, retornando $(w\_{\\text{EtOH-equiv}},\\, w\_{\\text{MeOH-equiv}})$. A média é usada como estimativa pontual de w_total e o intervalo entre os dois valores fornece a faixa possível — abordagem deliberadamente conservadora dada a quase coincidência das duas curvas binárias.
 
 ### 6.3 Medição de temperatura
 
