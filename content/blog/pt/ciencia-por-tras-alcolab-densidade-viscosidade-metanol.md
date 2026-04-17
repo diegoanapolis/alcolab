@@ -157,14 +157,16 @@ Apesar desse comportamento não ideal, **a grande diferença absoluta entre etan
 
 ## O AlcoLab: proposta, autores, princípio de funcionamento
 
-O AlcoLab é uma ferramenta web **gratuita, open-source e offline-capable**, desenvolvida pelos autores **Diego Mendes de Souza, Pedro Augusto de Oliveira Morais e Nayara Ferreira Santos**. O aplicativo executa o pipeline analítico **inteiramente no navegador via Pyodide** (Python compilado para WebAssembly), sem envio de dados a servidores, e funciona em qualquer smartphone moderno.
+O AlcoLab é uma ferramenta web **gratuita, *open-source* e offline-capable**, desenvolvida pelos autores **Diego Mendes de Souza, Pedro Augusto de Oliveira Morais e Nayara Ferreira Santos**. O aplicativo executa o pipeline analítico **inteiramente no navegador via Pyodide** (Python compilado para WebAssembly), sem envio de dados a servidores, e funciona em qualquer smartphone atual.
 
 **Insumos físicos necessários:**
 
-- uma seringa comercial descartável de 20 mL com agulha 22G (mais baratas em farmácia);
-- uma balança de cozinha com resolução ≥ 0,1 g;
-- a amostra (10–20 mL) e um volume equivalente de água comum como referência;
-- um cronômetro (o próprio smartphone).
+- uma seringa comercial descartável de 20 mL com agulha 22G (o tipo mais comum em farmácias);
+- uma balança com resolução mínima de 0,1 g;
+- um smartphone com câmera.
+- um termômetro, seu uso pode ser dispensado pela estabilização da temperatura da amostra e da água.
+
+![Instrumentos para análise no Alcolab: seringa com agulha, balança 0.1g, smartphone](/images/blog/instrumentos-alcolab-1776450466709.png)
 
 **Princípio:** a análise combina duas grandezas físicas complementares.
 
