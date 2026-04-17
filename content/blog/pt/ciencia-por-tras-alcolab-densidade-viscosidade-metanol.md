@@ -1,5 +1,7 @@
 ---
-title: 'Densidade e viscosidade: como AlcoLab detecta metanol'
+title: >-
+  App open source na triagem de metanol em bebidas e combustíveis: entenda a
+  metodologia do AlcoLab
 authors:
   - Diego Mendes de Souza
   - Pedro Augusto de Oliveira Morais
@@ -35,8 +37,6 @@ tags:
 focusKeyword: densidade viscosidade metanol
 translationSlug: science-behind-alcolab-density-viscosity-methanol-detection
 ---
-App open source na triagem de metanol em bebidas e combustíveis: entenda a metodologia do AlcoLab
-
 O delegado-geral da Polícia de São Paulo, Artur Dian, disse no final de outubro de 2025:
 
 > Todas as bebidas adulteradas com metanol no estado saíam de uma fábrica clandestina gerenciada por uma família em São Bernardo do Campo \\cite{gazetadopovo2025}.
