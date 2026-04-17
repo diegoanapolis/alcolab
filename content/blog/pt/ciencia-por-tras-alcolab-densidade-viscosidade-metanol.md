@@ -197,15 +197,44 @@ A conversão $\rho_{\text{rel}}$ → w\_álcool faz busca inversa **simultânea*
 
 ### Medição de temperatura
 
-O usuário registra a temperatura da água e da amostra. Pode optar por não registrar desde que garanta equalização de temperatura entre água e amostra com diferença máxima de 2ºC. Neste caso, o software orienta o usuário ao tempo mínimo para se atingir a estabilidade térmica.
+O usuário registra a temperatura da água e da amostra, podendo distinguir em até 3ºC (app faz correção da viscosidade em função da temperatura entre 20 e 30ºC). Pode optar por não registrar desde que garanta equalização de temperatura entre água e amostra. Neste caso, o software orienta o usuário ao tempo mínimo para se atingir a estabilidade térmica.
 
 ### Medição de viscosidade (Fluxo 2)
 
 O usuário cronometra **dois (ou mais)** tempos de escoamento de um volume fixo (padrão 10 mL) da água e da amostra na mesma seringa+agulha. O app calcula o CV entre repetições; se $CV &gt; 5$ %, alerta e recomenda repetir. Os tempos médios alimentam um pipeline de três etapas (viscosidade absoluta aparente por Hagen–Poiseuille → correção relativa à água → normalização térmica para 20 °C) que resulta na **viscosidade da amostra corrigida e referenciada a 20 °C**, pronta para consulta na malha.
 
+### Densidade como "norte" para viscosidade: por que é o ponto-chave
+
 ### Densidade como "norte": por que é o ponto-chave
 
-A malha ternária é uma superfície curva em ($w_{\text{total}}$, $z_{\text{MeOH}}$). Para uma viscosidade $\mu^\*$ experimental, o conjunto de composições compatíveis **não é um ponto — é uma curva de nível**, com centenas de candidatas espalhadas na malha.
+A malha ternária do AlcoLab é uma superfície curva em ($w_{\text{total}}$, $z_{\text{MeOH}}$). A **Figura 1** mostra um corte dessa malha a 20 °C, com a viscosidade no eixo vertical e a fração mássica total de álcool no eixo horizontal.
+
+![Figura 1. Malha de viscosidade a 20 °C: cortes entre os binários água-metanol e água-etanol, com regiões de aplicação destacadas e duas amostras hipotéticas de mesma viscosidade experimental separadas pela densidade.](/images/blog/malha-viscosidade-alcolab-e-exemplos-1776452778248.jpg)
+
+**Como ler a figura.** As curvas representam, de cima para baixo:
+
+- A curva vermelha no topo ($z_{\text{MeOH}} = 0$) é o **binário água-etanol**: vai do ponto "Água" na origem (à esquerda, onde μ ≈ 1,0 mPa·s) até o ponto "Etanol" no canto direito superior.
+- A curva azul-celeste na base ($z_{\text{MeOH}} = 1$) é o **binário água-metanol**: parte do mesmo ponto "Água" e termina no ponto "Metanol" no canto direito inferior, com viscosidade sensivelmente menor que o etanol puro.
+- Entre as duas, nove curvas intermediárias ($z_{\text{MeOH}} = 0{,}1$ a $0{,}9$) descrevem **misturas ternárias água–etanol–metanol** com proporção crescente de metanol no álcool total. Todas partem do mesmo ponto (água pura) e vão se separando à medida que o teor alcoólico aumenta, refletindo a diferença de viscosidade entre os dois álcoois puros discutida na seção anterior.
+
+**Três regiões em destaque na figura.**
+
+- **Região de menor poder discriminatório** (elipse à esquerda, $w_{\text{total}}$ ≲ 0,10): as curvas estão praticamente superpostas — há pouca diferença prática entre uma água com traços de etanol e uma água com traços de metanol. Amostras muito diluídas caem nessa região e, por construção, o AlcoLab sinaliza "inconclusivo".
+- **Região de maior aplicação a bebidas destiladas** (elipse central, $w_{\text{total}}$ ≈ 0,25–0,50): destilados típicos (cachaça, vodka, gim, whisky) ficam nessa faixa, onde a separação vertical entre as curvas é máxima.
+- **Região de maior aplicação a etanol combustível** (elipse à direita, $w_{\text{total}}$ ≈ 0,90–0,95): concentra o EHC, onde a separação entre as curvas, embora menor que no pico, ainda é suficiente para discriminar adulterações ≳ 5 % de metanol.
+
+**O problema da ambiguidade — e como a densidade o resolve.** Imagine uma medida experimental de viscosidade $\mu^\* \approx 1{,}2$ mPa·s (linha horizontal tracejada na figura). Se apenas a viscosidade fosse consultada, a malha ofereceria **duas soluções plausíveis completamente opostas**, marcadas com X:
+
+- **Amostra 1**, à esquerda: $w_{\text{total}}$ ≈ 0,25, sobre a curva vermelha ($z_{\text{MeOH}}$ baixo) — caracterizaria uma **bebida destilada de teor médio dominada por etanol** (o cenário esperado para uma cachaça ou uma vodka legítima).
+- **Amostra 2**, à direita: $w_{\text{total}}$ ≈ 0,92, sobre uma curva baixa ($z_{\text{MeOH}}$ alto) — caracterizaria um **etanol combustível adulterado com grande proporção de metanol** (cenário compatível com a Operação Carbono Oculto).
+
+São composições **quimicamente opostas**, em domínios analíticos opostos, mas produzem o mesmo tempo de escoamento pela seringa. A viscosidade sozinha não decide; a densidade sozinha também não — como visto na seção sobre densidade, o contraste de 0,26 % entre os dois álcoois puros está abaixo da resolução de qualquer balança doméstica.
+
+É justamente da combinação das duas que nasce a decisão. A densidade atua como **filtro de região**: a pesagem simultânea do volume calibrado informa $w_{\text{total}}$ a priori, com incerteza típica de ±1–3 %. O AlcoLab, por construção, **restringe a busca na malha a uma janela de ±3 % em torno do $w_{\text{total}}$ estimado pela densidade**. As duas hipóteses acima, portanto, **não se confundem**: se a densidade aponta para a vizinhança da Amostra 1, toda a região da Amostra 2 é descartada de imediato (e vice-versa). Só depois desse filtro a viscosidade é consultada, para escolher — dentro da janela compatível — qual composição explica melhor $\mu^\*$.
+
+No caso específico do EHC, $w_{\text{total}}$ é conhecido a priori por especificação regulatória (cerca de 0,93) e o filtro de densidade atua com ainda mais força: a busca fica restrita à faixa direita do gráfico, e a viscosidade fica exclusivamente encarregada de estimar a fração de metanol no álcool total.
+
+A malha ternária é uma superfície curva em ($w_{\text{total}}$, $z_{\text{MeOH}}$). Para uma viscosidade $\mu^*$* experimental, o conjunto de composições compatíveis **não é um ponto — é uma curva de nível**, com centenas de candidatas espalhadas na malha.
 
 Por exemplo, para $\mu^*$ = 1,80 mPa·s a 20 °C, a curva C($\mu^*$) cobre desde:
 
