@@ -326,8 +326,26 @@ function processCitations(md: string): string {
   return result;
 }
 
+/**
+ * Converts :::destaque / ::: fences into <div class="destaque"> blocks.
+ * The inner content is rendered as Markdown (bold, links, etc. work normally).
+ *
+ * Usage in the editor:
+ *   :::destaque
+ *   Texto com **negrito** e qualquer formatação Markdown.
+ *   :::
+ */
+function processDestaques(md: string): string {
+  return md.replace(
+    /^:::destaque\s*\n([\s\S]*?)\n:::\s*$/gm,
+    (_match, inner: string) => `<div class="destaque">\n\n${inner.trim()}\n\n</div>`
+  );
+}
+
 function renderMarkdown(content: string): string {
-  return markdownRenderer.parse(fixLatexEscaping(processCitations(content))) as string;
+  return markdownRenderer.parse(
+    fixLatexEscaping(processCitations(processDestaques(content)))
+  ) as string;
 }
 
 export interface BlogPost {
