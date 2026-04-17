@@ -201,11 +201,9 @@ O usuário registra a temperatura da água e da amostra, podendo distinguir em a
 
 ### Medição de viscosidade (Fluxo 2)
 
-O usuário cronometra **dois (ou mais)** tempos de escoamento de um volume fixo (padrão 10 mL) da água e da amostra na mesma seringa+agulha. O app calcula o CV entre repetições; se $CV &gt; 5$ %, alerta e recomenda repetir. Os tempos médios alimentam um pipeline de três etapas (viscosidade absoluta aparente por Hagen–Poiseuille → correção relativa à água → normalização térmica para 20 °C) que resulta na **viscosidade da amostra corrigida e referenciada a 20 °C**, pronta para consulta na malha.
+O usuário cronometra **dois (ou mais)** tempos de escoamento de um volume fixo (padrão 10 mL) da água e da amostra na mesma seringa+agulha. O app calcula o CV entre repetições; se CV &gt; 5%, alerta e recomenda repetir. Os tempos médios alimentam um pipeline de três etapas (viscosidade absoluta aparente por Hagen–Poiseuille → correção relativa à água → normalização térmica para 20 °C) que resulta na **viscosidade da amostra corrigida e referenciada a 20 °C**, pronta para consulta na malha.
 
 ### Densidade como "norte" para viscosidade: por que é o ponto-chave
-
-### Densidade como "norte": por que é o ponto-chave
 
 A malha ternária do AlcoLab é uma superfície curva em ($w_{\text{total}}$, $z_{\text{MeOH}}$). A **Figura 1** mostra um corte dessa malha a 20 °C, com a viscosidade no eixo vertical e a fração mássica total de álcool no eixo horizontal.
 
