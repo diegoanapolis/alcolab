@@ -181,9 +181,7 @@ $$ \\mu\_{\\text{corr-setup}} = \\mu\_{\\text{amostra-abs}} \\times \\frac{\\mu\
 
 **Etapa 3 - Normalização térmica para 20 °C (expansão linear local, Taylor de 1ª ordem):**
 
-$$\
-\\mu\_{20,°C} = \\mu\_{\\text{corr-setup}} + (T - 20) \\times \\beta(x)\
-$$
+$$\\mu\_{20,°C} = \\mu\_{\\text{corr-setup}} + (T - 20) \\times \\beta(x)$$
 
 com $\\beta(x) = a_4 x^4 + a_3 x^3 + a_2 x^2 + a_1 x + a_0$ ajustado aos dados experimentais dos autores. A aproximação linear é válida para $|T - 20| \\lesssim 10$ °C, cobrindo a faixa operacional. A escolha de uma correção linear sobre Arrhenius ou Vogel-Fulcher-Tammann se deu por eficiência computacional e suficiência da precisão no intervalo alvo.
 
