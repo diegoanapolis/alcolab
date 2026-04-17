@@ -35,7 +35,6 @@ tags:
 focusKeyword: densidade viscosidade metanol
 translationSlug: science-behind-alcolab-density-viscosity-methanol-detection
 ---
-
 AlcoLab: triagem gratuita de metanol em bebidas — blog técnico
 
 Este post resume, em formato direto, a base científica e técnica do **AlcoLab**, uma ferramenta web gratuita e *open source* de triagem de metanol em bebidas alcoólicas. É dirigido a pesquisadores, fiscais, profissionais de saúde pública e potenciais parceiros institucionais.
@@ -168,19 +167,19 @@ Com a inviabilidade demonstrada de usar dados da literatura como insumo direto, 
 
 Medidas feitas em outra temperatura (durante a construção da malha ou pelo usuário em campo) são corrigidas por um **pipeline de três etapas**:
 
-**Etapa 1 — Viscosidade absoluta aparente (Hagen–Poiseuille):**
+**Etapa 1 - Viscosidade absoluta aparente (Hagen–Poiseuille):**
 
-$$ \mu_{\text{abs}} = \frac{\pi , r^4 , \rho , g , h , t}{8 , L , V} $$
+$$ \mu_{\text{abs}} = \frac{\pi r^4 \rho g h t}{8 L V} $$
 
 onde r é o raio interno da agulha, ρ a densidade de referência (água, \~997 kg/m³, usada igualmente para água e amostra — a escolha é proposital, pois o erro se cancela na etapa 2), g a gravidade, h a altura hidrostática média, t o tempo de escoamento, L o comprimento da agulha e V o volume escoado. O resultado é uma **viscosidade aparente do sistema**, não absoluta rigorosa.
 
-**Etapa 2 — Correção relativa à água (eliminação de erros sistemáticos):**
+**Etapa 2 - Correção relativa à água (eliminação de erros sistemáticos):**
 
 $$ \mu_{\text{corr_setup}} = \mu_{\text{amostra_abs}} \times \frac{\mu_{\text{água_ref}}}{\mu_{\text{água_abs}}} $$
 
 μ_água_ref é o valor NIST/IAPWS tabelado para a temperatura medida. É o princípio clássico da **viscosimetria relativa** (Ostwald, Ubbelohde): na razão μ_amostra_abs / μ_água_abs, todos os fatores geométricos e sistemáticos do setup (raio⁴, L efetivo, perdas de entrada, densidade fixa) se **cancelam matematicamente**. Resta apenas o tempo de escoamento e o erro aleatório da cronometragem.
 
-**Etapa 3 — Normalização térmica para 20 °C (expansão linear local, Taylor de 1ª ordem):**
+**Etapa 3 - Normalização térmica para 20 °C (expansão linear local, Taylor de 1ª ordem):**
 
 $$ \mu_{20,°C} = \mu_{\text{corr_setup}} + (T - 20) \times \beta(x) $$
 
