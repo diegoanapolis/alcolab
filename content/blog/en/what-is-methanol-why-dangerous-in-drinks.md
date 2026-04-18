@@ -1,16 +1,25 @@
 ---
-title: "What is methanol: toxicity and risks in beverages"
-description: "Discover what methanol is, its toxic chemical structure, lethal metabolism in the body, and risks in adulterated drinks. Complete protection guide."
-author: "Pedro Augusto de Oliveira Morais"
-date: "2026-04-08"
+title: 'What is methanol: toxicity and risks in beverages'
+description: >-
+  Discover what methanol is, its toxic chemical structure, lethal metabolism in
+  the body, and risks in adulterated drinks. Complete protection guide.
+author: Pedro Augusto de Oliveira Morais
+date: '2026-04-08'
 published: false
-status: "em_revisao"
-locale: "en"
-translationSlug: "o-que-e-metanol-por-que-perigoso-bebidas"
-image: "/images/blog/default.jpg"
-imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
-tags: ["methanol", "methyl alcohol", "toxicity", "public health", "adulterated beverage"]
-focusKeyword: "what is methanol"
+status: em_revisao
+locale: en
+translationSlug: o-que-e-metanol-por-que-perigoso-bebidas
+image: /images/blog/063f3617-052f-4027-90fe-8a2185bb5048-1776543304133.png
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+tags:
+  - methanol
+  - methyl alcohol
+  - toxicity
+  - public health
+  - adulterated beverage
+focusKeyword: what is methanol
 ---
 
 ## What is methanol: a silent threat in beverages
