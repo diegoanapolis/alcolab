@@ -6,7 +6,7 @@ description: >-
 date: '2026-04-08'
 locale: pt-BR
 published: false
-status: rascunho
+status: em_revisao
 author: Pedro Augusto de Oliveira Morais
 translationSlug: how-much-methanol-can-kill-lethal-doses
 image: /images/blog/7f746353-8991-4782-941b-5aa69c674eca-1776542002129.png
