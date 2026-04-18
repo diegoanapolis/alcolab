@@ -1,16 +1,26 @@
 ---
-title: "Metanol Raki Turquia 2025: Crise de Rakí"
-description: "Metanol raki Turquia 2025 causou 120+ mortes em Istambul e Ankara. Nova lei com câmeras 24h. Saiba como identificar bebidas contaminadas com AlcoLab."
-date: "2026-04-08"
-author: "Pedro Augusto de Oliveira Morais"
-tags: ["metanol", "Turquia", "rakí", "Istambul", "surto 2025", "álcool falsificado"]
-image: "/images/blog/default.jpg"
-imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
-locale: "pt-BR"
+title: 'Metanol Raki Turquia 2025: Crise de Rakí'
+description: >-
+  Metanol raki Turquia 2025 causou 120+ mortes em Istambul e Ankara. Nova lei
+  com câmeras 24h. Saiba como identificar bebidas contaminadas com AlcoLab.
+date: '2026-04-08'
+author: Pedro Augusto de Oliveira Morais
+tags:
+  - metanol
+  - Turquia
+  - rakí
+  - Istambul
+  - surto 2025
+  - álcool falsificado
+image: /images/blog/default.jpg
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+locale: pt-BR
 published: false
-status: "em_revisao"
-focusKeyword: "metanol raki Turquia"
-translationSlug: "methanol-crisis-turkey-2025-adulterated-raki"
+status: rascunho
+focusKeyword: metanol raki Turquia
+translationSlug: methanol-crisis-turkey-2025-adulterated-raki
 ---
 
 ## Metanol Raki Turquia 2025: O Surto Crítico
