@@ -4,11 +4,11 @@ description: >-
   Como metanol surge na destilação de cachaça. Frações de destilação, regulação
   brasileira e boas práticas para segurança em bebidas artesanais.
 author: Pedro Augusto de Oliveira Morais
-date: 2026-04-08T00:00:00.000Z
+date: '2026-04-08'
 locale: pt-BR
 published: false
 status: em_revisao
-image: /images/blog/default.jpg
+image: /images/blog/7a059901-243f-4696-b1e3-fec44a29531a-1776545677434.png
 imageAlt: >-
   Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
   periculosidade, ilustrando o risco da adulteração de bebidas
