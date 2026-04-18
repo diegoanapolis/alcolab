@@ -3,7 +3,7 @@ title: 'Quanto metanol pode matar: doses letais e riscos'
 description: >-
   Descubra quanto metanol pode matar, doses letais, concentrações perigosas em
   bebidas adulteradas e como se proteger efetivamente.
-date: 2026-04-08T00:00:00.000Z
+date: '2026-04-08'
 locale: pt-BR
 published: false
 status: em_revisao
@@ -22,7 +22,6 @@ tags:
   - saúde
 focusKeyword: quanto metanol pode matar
 ---
-
 ## Quanto metanol pode matar: a realidade tóxica
 
 Quantos mililitros de metanol podem ser fatais? Esta é uma pergunta crucial para entender os riscos de bebidas adulteradas. Saber **quanto metanol pode matar** pode literalmente salvar sua vida ou a de um ente querido.
@@ -108,6 +107,7 @@ Essa é a razão pela qual o metanol é tão temido. Uma dose tão pequena causa
 Estudos indicam que doses entre 20 e 30 mL de metanol puro apresentam **alto risco de morte.** Nesse intervalo, a probabilidade de óbito aumenta significativamente, especialmente sem atendimento médico imediato.
 
 Registros históricos mostram:
+
 - Casos fatais com doses nesse intervalo
 - Casos fatais com doses menores em indivíduos vulneráveis
 - Sobrevivência com sequelas graves em outros casos
@@ -123,6 +123,7 @@ Para uma pessoa de 80 kg, 80 mL de metanol puro representa a dose letal estimada
 Aqui está o problema real nas bebidas adulteradas. Os criminosos não adicionam metanol puro e transparente. Eles o misturam com álcool etílico ou outros álcoois inferiores.
 
 **Concentrações documentadas em surtos históricos:**
+
 - 2,85% a 24,84% (Salvador 1999)
 - 20% a 80% (surtos recentes mundiais)
 - Teores de 30%+ (casos graves)
@@ -144,7 +145,7 @@ Uma garrafa de 700 mL de destilado com 20% de substituição por metanol conteri
 Conforme demonstrado na tabela abaixo, o risco aumenta exponencialmente:
 
 | Dose (mL) | Manifestações | Risco | Prognóstico sem Tratamento |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **5-10** | Intoxicação leve | Baixo | Possível recuperação com sequelas |
 | **10** | Cegueira irreversível | Moderado | Cegueira permanente |
 | **20** | Cegueira + acidose | Alto | Morte provável |
@@ -159,6 +160,7 @@ Nem todas as pessoas têm a mesma suscetibilidade ao metanol. Vários fatores in
 ### Peso corporal
 
 Pessoas mais leves absorvem doses maiores de forma concentrada. Uma criança está em risco muito maior que um adulto. Por exemplo:
+
 - Criança de 20 kg: dose letal ≈ 20-40 mL
 - Adolescente de 50 kg: dose letal ≈ 50-100 mL
 - Adulto de 80 kg: dose letal ≈ 80-160 mL
@@ -214,17 +216,20 @@ Brasil enfrentou diversos surtos de intoxicação por metanol. Em cada um deles,
 - **Doses altas (80+ mL)** = Morte quase certa
 
 **Surto de 1999 em Salvador:**
+
 - Dezenas de vítimas
 - Múltiplas mortes
 - Muitos cegos permanentes
 - Bebidas com concentrações de até 24%
 
 **Surto de 2013:**
+
 - Várias cidades brasileiras afetadas
 - Novamente alertou sobre a ameaça
 - Reforçou a importância da vigilância
 
 **Crise de 2025:**
+
 - 97 casos confirmados
 - 62 mortes
 - Principalmente em São Paulo
@@ -237,6 +242,7 @@ Esses eventos reforçam a importância da vigilância. Reforçam a importância 
 A adulteração com metanol não é exclusiva do Brasil. A Organização Mundial da Saúde estima que 21% do álcool consumido globalmente provém de fontes ilegais ou não reguladas.
 
 Países com crises recorrentes:
+
 - **Indonésia** — Surtos frequentes em Bali
 - **Índia** — Centenas de mortes anuais (hooch)
 - **Turquia** — Crise de raki adulterado
@@ -253,6 +259,7 @@ Como se proteger contra bebidas que contêm metanol? A primeira linha de defesa 
 Bebidas de origem duvidosa também representam risco. Bebidas vendidas sem lacre original são suspeitas. Bebidas armazenadas em condições inadequadas devem ser evitadas.
 
 **Estratégias eficazes de proteção:**
+
 - Compre apenas em estabelecimentos formalizados
 - Estabelecimentos com registro sanitário oferecem maior rastreabilidade
 - Segurança aumenta com estabelecimentos formalizados
