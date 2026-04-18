@@ -9,7 +9,7 @@ published: false
 status: rascunho
 locale: pt-BR
 translationSlug: what-is-methanol-why-dangerous-in-drinks
-image: /images/blog/default.jpg
+image: /images/blog/063f3617-052f-4027-90fe-8a2185bb5048-1776543304133.png
 imageAlt: >-
   Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
   periculosidade, ilustrando o risco da adulteração de bebidas
