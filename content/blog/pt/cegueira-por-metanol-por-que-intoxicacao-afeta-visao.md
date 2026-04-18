@@ -1,16 +1,26 @@
 ---
-title: "Cegueira por Metanol: Por Que Afeta a Visão"
-description: "Cegueira por metanol: como ácido fórmico danifica o nervo óptico. Sinais de alerta e tratamento de emergência para preservar visão."
-author: "Romério Rodrigues dos Santos Silva"
-date: "2026-04-08"
-locale: "pt-BR"
+title: 'Cegueira por Metanol: Por Que Afeta a Visão'
+description: >-
+  Cegueira por metanol: como ácido fórmico danifica o nervo óptico. Sinais de
+  alerta e tratamento de emergência para preservar visão.
+author: Romério Rodrigues dos Santos Silva
+date: '2026-04-08'
+locale: pt-BR
 published: false
-status: "em_revisao"
-image: "/images/blog/default.jpg"
-imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
-tags: ["cegueira", "metanol", "nervo óptico", "ácido fórmico", "sequelas", "visão"]
-focusKeyword: "cegueira por metanol"
-translationSlug: "methanol-blindness-why-poisoning-affects-vision"
+status: rascunho
+image: /images/blog/default.jpg
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+tags:
+  - cegueira
+  - metanol
+  - nervo óptico
+  - ácido fórmico
+  - sequelas
+  - visão
+focusKeyword: cegueira por metanol
+translationSlug: methanol-blindness-why-poisoning-affects-vision
 ---
 
 # Cegueira por Metanol: Por Que a Intoxicação Afeta a Visão
