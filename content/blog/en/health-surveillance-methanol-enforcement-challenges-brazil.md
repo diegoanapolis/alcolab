@@ -1,16 +1,27 @@
 ---
-title: "Health Surveillance and Methanol: Real Enforcement Challenges in Brazil"
-description: "Challenges of health surveillance in detecting methanol-contaminated beverages. Laboratory capacity, infrastructure, LACEN, and innovative solutions like AlcoLab."
-date: "2026-04-08"
-author: "Pedro Augusto de Oliveira Morais"
-locale: "en"
+title: 'Health Surveillance and Methanol: Real Enforcement Challenges in Brazil'
+description: >-
+  Challenges of health surveillance in detecting methanol-contaminated
+  beverages. Laboratory capacity, infrastructure, LACEN, and innovative
+  solutions like AlcoLab.
+date: '2026-04-08'
+author: Pedro Augusto de Oliveira Morais
+locale: en
 published: false
-status: "em_revisao"
-tags: [health surveillance, enforcement, methanol, LACEN, public health, Brazil]
-image: "/images/blog/default.jpg"
-imageAlt: "Three glass bottles with central one labeled METHANOL and GHS hazard pictograms illustrating the risk of beverage adulteration"
-focusKeyword: "health surveillance methanol"
-translationSlug: "vigilancia-sanitaria-metanol-desafios-fiscalizacao-brasil"
+status: em_revisao
+tags:
+  - health surveillance
+  - enforcement
+  - methanol
+  - LACEN
+  - public health
+  - Brazil
+image: /images/blog/default.jpg
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+focusKeyword: health surveillance methanol
+translationSlug: vigilancia-sanitaria-metanol-desafios-fiscalizacao-brasil
 ---
 
 ## Health Surveillance and Methanol: Real Enforcement Challenges in Brazil
