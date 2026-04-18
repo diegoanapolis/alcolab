@@ -1,16 +1,26 @@
 ---
-title: "Hemodiálise: Salvando Vidas em Intoxicação por Metanol"
-description: "Hemodiálise intoxicação metanol: como hospitais tratam envenenamento. Fomepizol, protocolos e técnicas que salvam vidas em emergências."
-date: "2026-04-08"
-locale: "pt-BR"
+title: 'Hemodiálise: Salvando Vidas em Intoxicação por Metanol'
+description: >-
+  Hemodiálise intoxicação metanol: como hospitais tratam envenenamento.
+  Fomepizol, protocolos e técnicas que salvam vidas em emergências.
+date: '2026-04-08'
+locale: pt-BR
 published: false
-status: "em_revisao"
-author: "Romério Rodrigues dos Santos Silva"
-image: "/images/blog/default.jpg"
-imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
-tags: ["tratamento", "hemodiálise", "fomepizol", "metanol", "hospital", "emergência médica"]
-focusKeyword: "hemodiálise intoxicação metanol"
-translationSlug: "hemodialysis-methanol-poisoning-treatment-hospitals"
+status: rascunho
+author: Romério Rodrigues dos Santos Silva
+image: /images/blog/default.jpg
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+tags:
+  - tratamento
+  - hemodiálise
+  - fomepizol
+  - metanol
+  - hospital
+  - emergência médica
+focusKeyword: hemodiálise intoxicação metanol
+translationSlug: hemodialysis-methanol-poisoning-treatment-hospitals
 ---
 
 # Hemodiálise: Como Hospitais Tratam Intoxicação por Metanol
