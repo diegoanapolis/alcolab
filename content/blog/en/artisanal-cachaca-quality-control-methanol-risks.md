@@ -1,16 +1,26 @@
 ---
-title: "Methanol in Artisanal Cachaça: Risks and Quality Control"
-description: "How methanol emerges in cachaça distillation. Distillation fractions, Brazilian regulation, and best practices for artisanal beverage safety."
-author: "Pedro Augusto de Oliveira Morais"
-date: "2026-04-08"
-locale: "en"
+title: 'Methanol in Artisanal Cachaça: Risks and Quality Control'
+description: >-
+  How methanol emerges in cachaça distillation. Distillation fractions,
+  Brazilian regulation, and best practices for artisanal beverage safety.
+author: Pedro Augusto de Oliveira Morais
+date: '2026-04-08'
+locale: en
 published: false
-status: "em_revisao"
-image: "/images/blog/default.jpg"
-imageAlt: "Three glass bottles with central one labeled METHANOL and GHS hazard pictograms illustrating the risk of beverage adulteration"
-tags: [artisanal cachaça, distillation, methanol, quality control, MAPA, alambique]
-focusKeyword: "methanol in artisanal cachaça"
-translationSlug: "cachaca-artesanal-controle-qualidade-riscos-metanol"
+status: em_revisao
+image: /images/blog/7a059901-243f-4696-b1e3-fec44a29531a-1776545677434.png
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+tags:
+  - artisanal cachaça
+  - distillation
+  - methanol
+  - quality control
+  - MAPA
+  - alambique
+focusKeyword: methanol in artisanal cachaça
+translationSlug: cachaca-artesanal-controle-qualidade-riscos-metanol
 ---
 
 ## Methanol in Artisanal Cachaça: Distillation Science and Safety
