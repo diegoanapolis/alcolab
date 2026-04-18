@@ -1,16 +1,26 @@
 ---
-title: "How much methanol can kill: lethal doses and risks"
-description: "Discover how much methanol can kill, lethal doses, dangerous concentrations in adulterated beverages, and how to protect yourself effectively."
-date: 2026-04-08
-locale: "en"
+title: 'How much methanol can kill: lethal doses and risks'
+description: >-
+  Discover how much methanol can kill, lethal doses, dangerous concentrations in
+  adulterated beverages, and how to protect yourself effectively.
+date: 2026-04-08T00:00:00.000Z
+locale: en
 published: false
-status: "em_revisao"
-author: "Pedro Augusto de Oliveira Morais"
-translationSlug: "quanto-metanol-pode-matar-doses-letais-riscos"
-image: "/images/blog/default.jpg"
-imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
-tags: [lethal dose, methanol, toxicology, intoxication, risk, health]
-focusKeyword: "how much methanol can kill"
+status: em_revisao
+author: Pedro Augusto de Oliveira Morais
+translationSlug: quanto-metanol-pode-matar-doses-letais-riscos
+image: /images/blog/7f746353-8991-4782-941b-5aa69c674eca-1776542002129.png
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+tags:
+  - lethal dose
+  - methanol
+  - toxicology
+  - intoxication
+  - risk
+  - health
+focusKeyword: how much methanol can kill
 ---
 
 ## How much methanol can kill: the toxic reality
