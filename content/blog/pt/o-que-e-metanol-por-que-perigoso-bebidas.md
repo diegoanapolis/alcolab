@@ -1,18 +1,26 @@
 ---
-title: "O que é metanol: toxicidade e risco em bebidas"
-description: "Descubra o que é metanol, sua estrutura química tóxica, metabolização letal no corpo e riscos em bebidas adulteradas. Proteção completa."
-author: "Pedro Augusto de Oliveira Morais"
-date: "2026-04-08"
+title: 'O que é metanol: toxicidade e risco em bebidas'
+description: >-
+  Descubra o que é metanol, sua estrutura química tóxica, metabolização letal no
+  corpo e riscos em bebidas adulteradas. Proteção completa.
+author: Pedro Augusto de Oliveira Morais
+date: '2026-04-08'
 published: false
-status: "rascunho"
-locale: "pt-BR"
-translationSlug: "what-is-methanol-why-dangerous-in-drinks"
-image: "/images/blog/default.jpg"
-imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
-tags: ["metanol", "álcool metílico", "toxicidade", "saúde pública", "bebida adulterada"]
-focusKeyword: "o que é metanol"
+status: rascunho
+locale: pt-BR
+translationSlug: what-is-methanol-why-dangerous-in-drinks
+image: /images/blog/default.jpg
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+tags:
+  - metanol
+  - álcool metílico
+  - toxicidade
+  - saúde pública
+  - bebida adulterada
+focusKeyword: o que é metanol
 ---
-
 ## O que é metanol: uma ameaça silenciosa nas bebidas
 
 **O que é metanol?** É uma substância química simples, porém extremamente tóxica para o corpo humano. Sua fórmula química é CH₃OH, o que a torna o álcool mais simples que existe na natureza. Primeiramente, é frequentemente chamado de "álcool de madeira" porque historicamente era produzido pela destilação seca de madeira. Hoje, a produção é feita sinteticamente em larga escala, tornando-o amplamente disponível e, infelizmente, acessível para adulteradores de bebidas.
@@ -26,7 +34,7 @@ A cor não revela nada. O aroma não revela nada. O sabor não revela nada. Essa
 A diferença entre **metanol e etanol** é pequena em termos moleculares, mas gigantesca em toxicidade. Conforme demonstrado na tabela abaixo, mesmo as propriedades químicas básicas diferem significativamente:
 
 | Propriedade | Metanol | Etanol |
-|---|---|---|
+| --- | --- | --- |
 | **Fórmula Química** | CH₃OH | C₂H₅OH |
 | **Densidade (g/mL)** | 0,791 | 0,789 |
 | **Viscosidade (mPa·s)** | 0,544 | 1,200 |
@@ -41,11 +49,13 @@ O etanol encontrado em bebidas alcoólicas legítimas possui a fórmula C₂H₅
 Enquanto o etanol é metabolizado de forma controlada em acetaldeído e depois em ácido acético, o metanol segue um caminho completamente diferente. Nesse sentido, entender essa distinção bioquímica é fundamental para compreender por que uma substância semelhante causa tanto dano.
 
 **Metabolização do Etanol (segura):**
+
 1. Etanol → Acetaldeído (enzima: álcool desidrogenase)
 2. Acetaldeído → Ácido acético (enzima: aldeído desidrogenase)
-3. Resultado: Ácido acético é inofensivo e facilmente eliminado
+3. Resultado: Ácido acético é de baixa toxicidade e facilmente eliminado
 
 **Metabolização do Metanol (tóxica):**
+
 1. Metanol → Formaldeído (enzima: álcool desidrogenase)
 2. Formaldeído → Ácido fórmico (enzima: aldeído desidrogenase)
 3. Resultado: Ácido fórmico é altamente tóxico
@@ -58,7 +68,7 @@ Em seguida, o formaldeído é convertido em ácido fórmico (ou ácido metanoico
 
 É verdade que o metanol aparece naturalmente em pequenas quantidades em bebidas fermentadas. Segundo a Organização Mundial da Saúde (OMS), a concentração natural de metanol em bebidas alcoólicas está abaixo de 0,1%. Portanto, em quantidades tão reduzidas, não representa risco à saúde.
 
-Além disso, a legislação brasileira (MAPA Instrução Normativa 13/2005) permite até 200 mg de metanol por 100 mL de álcool anidro em bebidas destiladas. Esses níveis são completamente seguros quando surgem naturalmente do processo de fermentação.
+Além disso, a legislação brasileira (MAPA Instrução Normativa 13/2005) permite até 20 mg de metanol por 100 mL de álcool anidro em bebidas destiladas. Esses níveis são completamente seguros quando surgem naturalmente do processo de fermentação.
 
 O perigo surge quando criminosos adicionam metanol propositalmente às bebidas. As concentrações alcançam níveis entre 20% e 80% — quantidades cem vezes maiores que as naturais.
 
@@ -69,6 +79,7 @@ A consequência mais característica da intoxicação por metanol é a cegueira.
 Além disso, o ácido fórmico causa acidose metabólica severa. Esse é um desequilíbrio perigoso no pH do sangue. Pode levar ao colapso do sistema orgânico. Afinal, praticamente nenhum órgão fica isento dos efeitos tóxicos.
 
 Os danos incluem:
+
 - Cegueira permanente (consequência mais comum de não-morte)
 - Acidose metabólica severa
 - Insuficiência renal aguda
@@ -81,6 +92,7 @@ Os danos incluem:
 As doses letais de metanol são assustadoramente pequenas. A dose letal geralmente varia entre 1 a 2 mL por quilograma de peso corporal. Para uma pessoa pesando 80 kg, isso significa que aproximadamente 80 mL de metanol puro poderia ser fatal.
 
 Porém, a realidade é ainda mais preocupante:
+
 - **10 mL de metanol puro** = Cegueira irreversível
 - **20-30 mL de metanol puro** = Potencialmente fatal
 - **80 mL (para 80 kg)** = Dose letal estimada
@@ -94,7 +106,8 @@ Um exemplo concreto ilustra o perigo. Considere uma bebida contendo 20% de metan
 Uma garrafa de 700 mL de destilado com 20% de substituição por metanol conteria aproximadamente 56 mL de metanol puro. Isso é potencialmente fatal.
 
 Estudos de surtos históricos mostram a realidade:
-- Surto Salvador 1999: concentrações entre 2,85% e 24,84%
+
+- Surto Salvador, Bahia 1999: concentrações entre 2,85% e 20%
 - Surto Brasil 2025: teores de 20% ou maiores
 
 Um simples copo contaminado pode resultar em tragédia.
@@ -104,6 +117,7 @@ Um simples copo contaminado pode resultar em tragédia.
 A resposta é simples e deplorável: lucro. O metanol é significativamente mais barato do que o etanol em muitos países, incluindo o Brasil. Criminosos adicionam metanol a bebidas para aumentar o teor alcoólico aparente. Vendem um produto de qualidade inferior pelo preço de uma bebida legítima.
 
 Essa prática é particularmente comum em:
+
 - Destilarias clandestinas
 - Bebidas falsificadas
 - Estabelecimentos desonestos
@@ -127,57 +141,9 @@ Enquanto isso, consumidores desavisados ficam completamente sem forma de se prot
 
 ## A crise de 2025 no Brasil
 
-Em 2025, o Brasil enfrentou uma situação alarmante relacionada ao metanol. Conforme ilustrado no gráfico abaixo, a busca por informações sobre "metanol" explodiu:
+Em 2025, o Brasil enfrentou uma situação alarmante relacionada ao metanol. Logo, a busca por informações sobre "metanol" explodiu.
 
-```svg
-<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
-  <!-- Axes -->
-  <line x1="50" y1="200" x2="400" y2="200" stroke="#002060" stroke-width="2"/>
-  <line x1="50" y1="20" x2="50" y2="200" stroke="#002060" stroke-width="2"/>
-  
-  <!-- Title -->
-  <text x="200" y="15" font-size="16" font-weight="bold" text-anchor="middle" fill="#002060">
-    Interesse por "metanol" no Google Brasil - 2025
-  </text>
-  
-  <!-- Y-axis label -->
-  <text x="20" y="110" font-size="11" text-anchor="middle" fill="#666">Interesse</text>
-  
-  <!-- X-axis labels -->
-  <text x="75" y="220" font-size="10" text-anchor="middle" fill="#666">Jan</text>
-  <text x="130" y="220" font-size="10" text-anchor="middle" fill="#666">Jun</text>
-  <text x="185" y="220" font-size="10" text-anchor="middle" fill="#666">Set</text>
-  <text x="240" y="220" font-size="10" text-anchor="middle" fill="#666">Out</text>
-  <text x="295" y="220" font-size="10" text-anchor="middle" fill="#666">Nov</text>
-  <text x="350" y="220" font-size="10" text-anchor="middle" fill="#666">Dez</text>
-  
-  <!-- Grid lines -->
-  <line x1="50" y1="160" x2="380" y2="160" stroke="#e0e0e0" stroke-width="1"/>
-  <line x1="50" y1="120" x2="380" y2="120" stroke="#e0e0e0" stroke-width="1"/>
-  <line x1="50" y1="80" x2="380" y2="80" stroke="#e0e0e0" stroke-width="1"/>
-  
-  <!-- Bars -->
-  <rect x="60" y="185" width="25" height="15" fill="#1F4E79" opacity="0.5"/>
-  <rect x="115" y="170" width="25" height="30" fill="#1F4E79" opacity="0.6"/>
-  <rect x="170" y="80" width="25" height="120" fill="#E74C3C"/>
-  <rect x="225" y="35" width="25" height="165" fill="#E74C3C"/>
-  <rect x="280" y="50" width="25" height="150" fill="#E74C3C"/>
-  <rect x="335" y="70" width="25" height="130" fill="#1F4E79" opacity="0.7"/>
-  
-  <!-- Y-axis values -->
-  <text x="45" y="205" font-size="9" text-anchor="end" fill="#666">0</text>
-  <text x="45" y="165" font-size="9" text-anchor="end" fill="#666">25</text>
-  <text x="45" y="125" font-size="9" text-anchor="end" fill="#666">50</text>
-  <text x="45" y="85" font-size="9" text-anchor="end" fill="#666">75</text>
-  <text x="45" y="45" font-size="9" text-anchor="end" fill="#666">100</text>
-  
-  <!-- Legend -->
-  <rect x="220" y="120" width="12" height="12" fill="#E74C3C"/>
-  <text x="240" y="128" font-size="10" fill="#333">Pico de crise</text>
-</svg>
-```
-
-Conforme ilustrado no gráfico acima, o termo "metanol" tornou-se o **segundo assunto mais pesquisado no Google Brasil durante 2025**. Essa onda de interesse foi provocada por reportagens sobre bebidas adulteradas. Intoxicações em massa afetaram cidades de todo o país, especialmente São Paulo.
+O termo "metanol" tornou-se o **segundo assunto mais pesquisado no Google Brasil durante 2025**. Essa onda de interesse foi provocada por reportagens sobre bebidas adulteradas. Intoxicações em massa afetaram cidades de todo o país, especialmente São Paulo.
 
 Essa visibilidade crescente demonstra como o problema deixou de ser uma questão técnica limitada. Tornou-se uma emergência de saúde pública. Famílias se viram desesperadas tentando encontrar informações sobre sintomas, riscos e formas de proteção.
 
