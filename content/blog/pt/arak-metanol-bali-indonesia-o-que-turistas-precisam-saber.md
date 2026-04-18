@@ -1,16 +1,26 @@
 ---
-title: "Arak Metanol Bali: Guia de Proteção para Turistas"
-description: "Risco de arak metanol Bali afeta turistas anualmente. Aprenda a identificar bebidas adulteradas e proteja-se com AlcoLab neste guia completo."
-date: 2026-04-08
-author: "Romério Rodrigues dos Santos Silva"
-locale: "pt-BR"
+title: 'Arak Metanol Bali: Guia de Proteção para Turistas'
+description: >-
+  Risco de arak metanol Bali afeta turistas anualmente. Aprenda a identificar
+  bebidas adulteradas e proteja-se com AlcoLab neste guia completo.
+date: 2026-04-08T00:00:00.000Z
+author: Romério Rodrigues dos Santos Silva
+locale: pt-BR
 published: false
-status: "em_revisao"
-image: "/images/blog/default.jpg"
-imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
-tags: [arak, Bali, Indonésia, metanol, turismo, Sudeste Asiático]
-focusKeyword: "arak metanol Bali"
-translationSlug: "arak-methanol-bali-indonesia-tourist-guide"
+status: rascunho
+image: /images/blog/default.jpg
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+tags:
+  - arak
+  - Bali
+  - Indonésia
+  - metanol
+  - turismo
+  - Sudeste Asiático
+focusKeyword: arak metanol Bali
+translationSlug: arak-methanol-bali-indonesia-tourist-guide
 ---
 
 ## Arak Metanol Bali: Como Turistas Podem se Proteger
