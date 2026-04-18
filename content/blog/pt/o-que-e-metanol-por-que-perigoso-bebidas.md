@@ -6,7 +6,7 @@ description: >-
 author: Pedro Augusto de Oliveira Morais
 date: '2026-04-08'
 published: false
-status: rascunho
+status: em_revisao
 locale: pt-BR
 translationSlug: what-is-methanol-why-dangerous-in-drinks
 image: /images/blog/063f3617-052f-4027-90fe-8a2185bb5048-1776543304133.png
