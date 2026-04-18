@@ -6,10 +6,10 @@ description: >-
 date: '2026-04-08'
 locale: pt-BR
 published: false
-status: em_revisao
+status: rascunho
 author: Pedro Augusto de Oliveira Morais
 translationSlug: how-much-methanol-can-kill-lethal-doses
-image: /images/blog/default.jpg
+image: /images/blog/7f746353-8991-4782-941b-5aa69c674eca-1776542002129.png
 imageAlt: >-
   Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
   periculosidade, ilustrando o risco da adulteração de bebidas
@@ -32,54 +32,7 @@ A dose letal de metanol varia bastante entre indivíduos. Contudo, existem parâ
 
 A dose letal estimada de metanol é de aproximadamente **1 a 2 mL de metanol puro por quilograma de peso corporal.** Para uma pessoa de 80 kg, isso significa cerca de 80 mL de metanol puro.
 
-Porém, essa é uma estimativa teórica. Na prática, a realidade é muito mais complexa:
-
-```svg
-<div class="grafico-container">
-  <svg viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; border: 1px solid #eee;">
-    <text x="250" y="25" font-size="16" font-weight="bold" text-anchor="middle" fill="#002060">
-      Relação entre Dose de Metanol e Risco de Morte
-    </text>
-    
-    <line x1="70" y1="300" x2="480" y2="300" stroke="#002060" stroke-width="2"/>
-    <line x1="70" y1="50" x2="70" y2="300" stroke="#002060" stroke-width="2"/>
-    
-    <text x="120" y="325" font-size="11" text-anchor="middle" fill="#666">10 mL</text>
-    <text x="190" y="325" font-size="11" text-anchor="middle" fill="#666">20 mL</text>
-    <text x="260" y="325" font-size="11" text-anchor="middle" fill="#666">30 mL</text>
-    <text x="330" y="325" font-size="11" text-anchor="middle" fill="#666">50 mL</text>
-    <text x="400" y="325" font-size="11" text-anchor="middle" fill="#666">80 mL</text>
-    <text x="470" y="325" font-size="11" text-anchor="middle" fill="#666">100+ mL</text>
-    
-    <text x="30" y="175" font-size="11" text-anchor="middle" fill="#666" transform="rotate(-90 30 175)">Risco de Morte (%)</text>
-    
-    <text x="65" y="305" font-size="10" text-anchor="end" fill="#666">0%</text>
-    <text x="65" y="245" font-size="10" text-anchor="end" fill="#666">25%</text>
-    <text x="65" y="185" font-size="10" text-anchor="end" fill="#666">50%</text>
-    <text x="65" y="125" font-size="10" text-anchor="end" fill="#666">75%</text>
-    <text x="65" y="65" font-size="10" text-anchor="end" fill="#666">100%</text>
-    
-    <line x1="70" y1="245" x2="480" y2="245" stroke="#e0e0e0" stroke-width="1"/>
-    <line x1="70" y1="185" x2="480" y2="185" stroke="#e0e0e0" stroke-width="1"/>
-    <line x1="70" y1="125" x2="480" y2="125" stroke="#e0e0e0" stroke-width="1"/>
-    <line x1="70" y1="65" x2="480" y2="65" stroke="#e0e0e0" stroke-width="1"/>
-    
-    <path d="M 120 270 Q 190 200 260 140 Q 330 90 400 50 L 470 40" 
-          stroke="#E74C3C" stroke-width="3" fill="none"/>
-    
-    <rect x="70" y="270" width="50" height="30" fill="#1F4E79" opacity="0.2"/>
-    <text x="95" y="290" font-size="9" text-anchor="middle" fill="#333">Cegueira</text>
-    
-    <rect x="140" y="190" width="110" height="110" fill="#E74C3C" opacity="0.2"/>
-    <text x="195" y="250" font-size="9" text-anchor="middle" fill="#333">Alto Risco</text>
-    <text x="195" y="265" font-size="9" text-anchor="middle" fill="#333">de Morte</text>
-    
-    <rect x="270" y="50" width="210" height="250" fill="#E74C3C" opacity="0.3"/>
-    <text x="375" y="175" font-size="10" text-anchor="middle" fill="#333">Morte Muito</text>
-    <text x="375" y="190" font-size="10" text-anchor="middle" fill="#333">Provável</text>
-  </svg>
-</div>
-```
+Porém, essa é uma estimativa teórica. Na prática, a realidade é muito mais complexa. 
 
 Doses muito menores já causaram mortes documentadas. Enquanto algumas pessoas sobreviveram a doses maiores. Essa variação individual torna **quanto metanol pode matar** uma questão particularmente perigosa.
 
