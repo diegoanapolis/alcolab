@@ -1,16 +1,26 @@
 ---
-title: "Metanol em Cachaça Artesanal: Riscos e Controle"
-description: "Como metanol surge na destilação de cachaça. Frações de destilação, regulação brasileira e boas práticas para segurança em bebidas artesanais."
-author: "Pedro Augusto de Oliveira Morais"
-date: 2026-04-08
-locale: "pt-BR"
+title: 'Metanol em Cachaça Artesanal: Riscos e Controle'
+description: >-
+  Como metanol surge na destilação de cachaça. Frações de destilação, regulação
+  brasileira e boas práticas para segurança em bebidas artesanais.
+author: Pedro Augusto de Oliveira Morais
+date: 2026-04-08T00:00:00.000Z
+locale: pt-BR
 published: false
-status: "rascunho"
-image: "/images/blog/default.jpg"
-imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
-tags: [cachaça artesanal, destilação, metanol, controle qualidade, MAPA, alambique]
-focusKeyword: "metanol em cachaça artesanal"
-translationSlug: "artisanal-cachaca-quality-control-methanol-risks"
+status: em_revisao
+image: /images/blog/default.jpg
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+tags:
+  - cachaça artesanal
+  - destilação
+  - metanol
+  - controle qualidade
+  - MAPA
+  - alambique
+focusKeyword: metanol em cachaça artesanal
+translationSlug: artisanal-cachaca-quality-control-methanol-risks
 ---
 
 ## Metanol em Cachaça Artesanal: Ciência da Destilação e Segurança
