@@ -6,8 +6,8 @@ description: >-
 date: '2026-04-08'
 author: Pedro Augusto de Oliveira Morais
 locale: pt-BR
-published: false
-status: aprovado
+published: true
+status: publicado
 tags:
   - vigilância sanitária
   - fiscalização
