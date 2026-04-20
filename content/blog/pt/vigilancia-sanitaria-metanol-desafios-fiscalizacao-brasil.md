@@ -1,5 +1,5 @@
 ---
-title: 'Vigilância Sanitária Metanol: Desafios da Fiscalização no Brasil'
+title: 'Vigilância Sanitária e Metanol: Desafios da Fiscalização no Brasil'
 description: >-
   Desafios da vigilância sanitária na detecção de metanol. Capacidade
   laboratorial, infraestrutura, LACEN e soluções inovadoras como AlcoLab.
