@@ -11,8 +11,8 @@ locale: en
 translationSlug: sintomas-intoxicacao-metanol-como-reconhecer-sinais
 image: /images/blog/default.jpg
 imageAlt: >-
-  Three glass bottles with a central one labeled METHANOL and GHS hazard
-  pictograms, illustrating the risk of beverage adulteration
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
 tags:
   - methanol symptoms
   - poisoning
