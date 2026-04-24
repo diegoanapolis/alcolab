@@ -23,15 +23,13 @@ focusKeyword: sintomas de intoxicação por metanol
 ---
 ## Reconhecer os sintomas pode salvar sua vida
 
-A intoxicação por metanol segue uma progressão previsível de sintomas que variam ao longo do tempo. Infelizmente, muitas pessoas confundem os sinais iniciais com uma simples ressaca alcoólica comum. Essa confusão é extremamente perigosa.
+Os primeiros sinais de intoxicação por metanol raramente assustam. Na maioria dos casos parecem apenas mais um episódio de ressaca comum, após ingestão de álcool: dor de cabeça, enjoo, cansaço. Por essa razão muitas pessoas, simplesmente esperam passar o que acaba tornando essa confusão extremamente perigosa. 
 
-Cada hora que passa sem atendimento médico apropriado aumenta o risco de danos permanentes e irreversíveis. Conhecimento é poder nessa situação. Compreender a cronologia dos **sintomas de intoxicação por metanol** pode literalmente ser a diferença entre a vida e a morte.
-
-Além disso, pode significar a diferença entre manter a visão e se tornar cego permanentemente. Esse é um aspecto absolutamente crucial que não pode ser ignorado.
+Cada hora que passa sem atendimento médico apropriado aumenta o risco de danos permanentes e irreversíveis, uma vez que o organismo está convertendo o metanol em substâncias altamente tóxicas. Conhecimento é poder nessa situação. Compreender a cronologia dos **sintomas de intoxicação por metanol** pode literalmente ser a diferença entre a vida e a morte.
 
 ## Progressão temporal dos sintomas
 
-Conforme demonstrado no figura abaixo, os **sintomas de intoxicação por metanol** evoluem em fases bem definidas:
+Conforme demonstrado na figura abaixo, os **sintomas de intoxicação por metanol** evoluem em fases bem definidas:
 
 ![Gráfico ilustrativo, mostrando as três fases da intoxicação por metanol e os alertas dessa intoxicação](/images/blog/sintomas-de-intoxica--o-por-metanol-fases-e-sinais-de-alerta--1--1777058271099.png)
 
