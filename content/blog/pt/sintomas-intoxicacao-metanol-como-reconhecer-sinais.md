@@ -1,18 +1,26 @@
 ---
-title: "Sintomas de intoxicação por metanol: fases e sinais de alerta"
-description: "Aprenda as fases dos sintomas de intoxicação por metanol, diferenças com ressaca e quando procurar ajuda emergencial para salvar sua visão."
-author: "Romério Rodrigues dos Santos Silva"
-date: "2026-04-08"
+title: 'Sintomas de intoxicação por metanol: fases e sinais de alerta'
+description: >-
+  Aprenda as fases dos sintomas de intoxicação por metanol, diferenças com
+  ressaca e quando procurar ajuda emergencial para salvar sua visão.
+author: Romério Rodrigues dos Santos Silva
+date: '2026-04-08'
 published: false
-status: "rascunho"
-locale: "pt-BR"
-translationSlug: "methanol-poisoning-symptoms-warning-signs"
-image: "/images/blog/default.jpg"
-imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
-tags: ["sintomas metanol", "intoxicação", "emergência médica", "visão turva", "saúde"]
-focusKeyword: "sintomas de intoxicação por metanol"
+status: rascunho
+locale: pt-BR
+translationSlug: methanol-poisoning-symptoms-warning-signs
+image: /images/blog/default.jpg
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+tags:
+  - sintomas metanol
+  - intoxicação
+  - emergência médica
+  - visão turva
+  - saúde
+focusKeyword: sintomas de intoxicação por metanol
 ---
-
 ## Reconhecer os sintomas pode salvar sua vida
 
 A intoxicação por metanol segue uma progressão previsível de sintomas que variam ao longo do tempo. Infelizmente, muitas pessoas confundem os sinais iniciais com uma simples ressaca alcoólica comum. Essa confusão é extremamente perigosa.
@@ -23,63 +31,18 @@ Além disso, pode significar a diferença entre manter a visão e se tornar cego
 
 ## Progressão temporal dos sintomas
 
-Conforme demonstrado no gráfico abaixo, os **sintomas de intoxicação por metanol** evoluem em fases bem definidas:
+Conforme demonstrado no figura abaixo, os **sintomas de intoxicação por metanol** evoluem em fases bem definidas:
 
-```svg
-<svg viewBox="0 0 450 280" xmlns="http://www.w3.org/2000/svg">
-  <!-- Title -->
-  <text x="225" y="20" font-size="16" font-weight="bold" text-anchor="middle" fill="#002060">
-    Progressão Temporal dos Sintomas de Intoxicação por Metanol
-  </text>
-  
-  <!-- Timeline axis -->
-  <line x1="60" y1="240" x2="420" y2="240" stroke="#002060" stroke-width="2"/>
-  <line x1="60" y1="30" x2="60" y2="240" stroke="#002060" stroke-width="2"/>
-  
-  <!-- Time markers -->
-  <circle cx="100" cy="240" r="4" fill="#002060"/>
-  <text x="100" y="260" font-size="10" text-anchor="middle" fill="#666">0-12h</text>
-  
-  <circle cx="180" cy="240" r="4" fill="#1F4E79"/>
-  <text x="180" y="260" font-size="10" text-anchor="middle" fill="#666">12-24h</text>
-  
-  <circle cx="260" cy="240" r="4" fill="#E74C3C"/>
-  <text x="260" y="260" font-size="10" text-anchor="middle" fill="#666">24-48h</text>
-  
-  <circle cx="340" cy="240" r="4" fill="#E74C3C"/>
-  <text x="340" y="260" font-size="10" text-anchor="middle" fill="#666">48h+</text>
-  
-  <!-- Severity curve -->
-  <path d="M 100 180 L 180 100 L 260 40 L 340 30" stroke="#E74C3C" stroke-width="3" fill="none"/>
-  
-  <!-- Severity labels -->
-  <text x="65" y="45" font-size="10" fill="#666">Grave</text>
-  <text x="65" y="110" font-size="10" fill="#666">Moderado</text>
-  <text x="65" y="190" font-size="10" fill="#666">Leve</text>
-  
-  <!-- Horizontal grid -->
-  <line x1="60" y1="100" x2="420" y2="100" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3,3"/>
-  <line x1="60" y1="180" x2="420" y2="180" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3,3"/>
-  
-  <!-- Legend -->
-  <rect x="50" y="30" width="10" height="10" fill="#002060"/>
-  <text x="65" y="37" font-size="9" fill="#333">Fase 1 (Inicial)</text>
-  
-  <rect x="50" y="50" width="10" height="10" fill="#1F4E79"/>
-  <text x="65" y="57" font-size="9" fill="#333">Fase 2 (Alerta)</text>
-  
-  <rect x="50" y="70" width="10" height="10" fill="#E74C3C"/>
-  <text x="65" y="77" font-size="9" fill="#333">Fase 3+ (Crítico)</text>
-</svg>
-```
+![Gráfico ilustrativo, mostrando as três fases da intoxicação por metanol e os alertas dessa intoxicação](/images/blog/sintomas-de-intoxica--o-por-metanol-fases-e-sinais-de-alerta--1--1777058271099.png)
 
-Primeiramente, compreenda que a trajetória é sempre no sentido de deterioração. Os sintomas não melhoram com o tempo. Eles pioram progressivamente. Essa é a diferença mais crítica entre intoxicação por metanol e ressaca comum.
+Primeiramente, precisamos compreender que a trajetória é sempre no sentido de deterioração. Os sintomas não melhoram com o tempo. Eles pioram progressivamente. Essa é a diferença mais crítica entre intoxicação por metanol e ressaca comum.
 
 ## Fase 1: as primeiras 12 horas após a ingestão
 
-Imediatamente após consumir uma bebida contaminada com metanol, a pessoa experimenta sintomas que parecem perfeitamente normais de intoxicação alcoólica.
+Imediatamente após consumir uma bebida contaminada com metanol, a pessoa experimenta sintomas que parecem perfeitamente normais de intoxicação alcoólica. E os níveis de metanol no sangue atingem o pico entre 30 e 90 minutos após a ingestão e, frequentemente, não se correlacionam com o tempo de aparecimento dos sintomas.
 
 **Sintomas iniciais típicos da Fase 1:**
+
 - Náusea e vômito
 - Desconforto abdominal (leve a moderado)
 - Tontura e perda de equilíbrio
@@ -88,43 +51,42 @@ Imediatamente após consumir uma bebida contaminada com metanol, a pessoa experi
 - Mal-estar geral
 - Sensação de fraqueza
 
-A pessoa pode se sentir exatamente como após beber bebidas alcoólicas legítimas. Pode até tentar dormir, achando que "acordará melhor". Esse pensamento é completamente compreensível dado os sintomas semelharem aos de um hangover comum.
+A pessoa pode se sentir exatamente como após beber bebidas alcoólicas legítimas. Pode até tentar dormir, achando que "acordará melhor". Esse pensamento é completamente compreensível dado os sintomas se assemelharem aos de uma ressaca comum.
 
-Portanto, nessa fase, muitas pessoas não procuram ajuda médica. Elas simplesmente vão para casa. Bebem água e se deitam. Esperam que os sintomas desapareçam naturalmente. Infelizmente, o que está acontecendo dentro do corpo é muito mais sinistro.
+Portanto, nessa fase, muitas pessoas não procuram ajuda médica. Elas simplesmente vão para casa. Bebem água e se deitam. Esperam que os sintomas desapareçam naturalmente. Infelizmente, o que está acontecendo dentro do corpo é muito mais sinistro. Enquanto a pessoa dorme ou descansa, o metanol está sendo metabolizado no fígado. A enzima álcool desidrogenase está convertendo metanol em formaldeído e depois em ácido fórmico, que é a substância que causará danos irreversíveis.
 
-Enquanto a pessoa dorme ou descansa, o metanol está sendo metabolizado no fígado. A enzima álcool desidrogenase está convertendo metanol em formaldeído. Depois em ácido fórmico — a substância que causará danos irreversíveis.
-
-**O grande problema nessa fase:** A falsa sensação de segurança. Os sintomas são tão similares aos de uma intoxicação normal que ninguém se preocupa seriamente.
+**O grande problema nessa fase** é a falsa sensação de segurança. Os sintomas são tão similares aos de uma ressaca normal que ninguém se preocupa seriamente.
 
 ## Fase 2: entre 12 e 24 horas — os sinais de alerta
 
 Conforme as horas passam e o metanol continua sendo metabolizado, os sintomas pioram significativamente. Nesse sentido, essa é a fase crítica onde as diferenças começam a aparecer.
 
 **Piora dos sintomas anteriores:**
-- Dor de cabeça intensifica — torna-se severa
-- Medicamentos de venda livre podem não fazer efeito
-- Vômito continua ou retorna com mais intensidade
-- Dor abdominal se agrava
-- Fraqueza muscular é notável
-- Andar ou ficar de pé se torna progressivamente mais difícil
-- Febre e debilidade geral
-- Sensação de friozinho na pele
+
+- Dor de cabeça intensifica  e torna-se severa;
+- Medicamentos de venda livre podem não fazer efeito;
+- Vômito continua ou retorna com mais intensidade;
+- Dor abdominal se agrava;
+- Fraqueza muscular é notável;
+- Andar ou ficar de pé se torna progressivamente mais difícil;
+- Febre e debilidade geral;
+- Sensação de friozinho na pele;
 
 **Sintomas específicos da Fase 2:**
-- Visão turva (sinal muito importante!)
-- Dificuldade para focar
-- Visão dupla
-- Sensação de névoa sobre os olhos
-- Sensação como se estivesse vendo através de vidro sujo
-- "Visão de campo de neve" (snowfield vision) — muito específica para metanol
-- Confusão mental e desorientação
-- Dificuldade de concentração
-- Memória prejudicada
-- Sensações corporais estranhas
-- Sopor (sonolência anormal)
-- Aceleração do ritmo cardíaco
-- Respiração mais rápida que o normal
-- Pressão arterial elevada ou irregular
+
+- Visão turva (sinal muito importante!);
+- Dificuldade para focar;
+- Visão dupla;
+- Sensação de névoa sobre os olhos;
+- Sensação como se estivesse vendo através de vidro sujo;
+- "Visão de campo de neve" (snowfield vision), muito específica para metanol;
+- Confusão mental e desorientação;
+- Dificuldade de concentração;
+- Memória prejudicada;
+- Sonolência anormal;
+- Aceleração do ritmo cardíaco;
+- Respiração mais rápida que o normal;
+- Pressão arterial elevada ou irregular;
 
 Um sintoma particularmente característico e assustador é chamado de "visão de campo de neve" (snowfield vision). Nessa condição, a pessoa vê uma estática branca ou granulada. É semelhante ao padrão que aparecia em televisores antigos quando não sintonizados. Esse sintoma é altamente específico para envenenamento por metanol.
 
@@ -135,6 +97,7 @@ Um sintoma particularmente característico e assustador é chamado de "visão de
 Passadas mais de 24 horas desde a ingestão, os sintomas evoluem para um estado perigoso e potencialmente fatal. Nessa fase, as chances de danos permanentes aumentam exponencialmente.
 
 **Deterioração crítica:**
+
 - Confusão mental piora drasticamente
 - Delirium e comportamento irracional
 - Pessoa pode não reconhecer familiares
@@ -158,7 +121,7 @@ Cegueira começa a ocorrer. Frequentemente de forma devastadoramente rápida. O 
 **Tabela comparativa:**
 
 | Aspecto | Ressaca Comum | Intoxicação por Metanol |
-|---|---|---|
+| --- | --- | --- |
 | **Evolução** | Melhora progressivamente | Piora progressivamente |
 | **Duração** | 8-24 horas | Horas até morte |
 | **Visão turva** | Não ocorre | Ocorre após 12-24h |
@@ -171,7 +134,7 @@ Cegueira começa a ocorrer. Frequentemente de forma devastadoramente rápida. O 
 
 Aqui está a distinção absolutamente crucial que pode salvar uma vida: **uma ressaca alcoólica comum melhora com o tempo e hidratação.** Quando você dorme 8 horas e acorda, bebe água, come algo e descansa, a ressaca típica irá melhorar significativamente ao longo do dia.
 
-Com intoxicação por metanol, o oposto ocorre. Os sintomas não melhoram — eles pioram. Uma pessoa que se sente apenas levemente mal pela manhã pode estar em perigo crítico à noite.
+Com intoxicação por metanol, o oposto ocorre. Os sintomas não melhoram, eles pioram. Uma pessoa que se sente apenas levemente mal pela manhã pode estar em perigo crítico à noite.
 
 Essa é a razão pela qual esperar "ver se melhora" é absolutamente a estratégia errada. Esperar pelas 24 ou 48 horas geralmente significa esperar demais. O tratamento deve ser iniciado o mais rápido possível após a ingestão suspeita.
 
@@ -180,6 +143,7 @@ Essa é a razão pela qual esperar "ver se melhora" é absolutamente a estratég
 **Se há um único sintoma que deve desencadear uma ida imediata à emergência, é qualquer tipo de problema visual.**
 
 Isso inclui:
+
 - Visão turva
 - Visão de campo de neve
 - Dor nos olhos
@@ -200,12 +164,14 @@ Quanto mais rápido o tratamento é iniciado, melhores são as chances de sobrev
 Se você ou alguém próximo suspeita de ter ingerido metanol, existem etapas críticas que devem ser seguidas imediatamente:
 
 **Passo 1: Procure atendimento médico de emergência**
+
 - Não hesite. Não espere.
 - Ligue para a ambulância (192 no Brasil)
 - Dirija-se ao hospital mais próximo
 - Quanto mais rápido o tratamento é iniciado, melhores são as chances
 
 **Passo 2: Forneça informações aos médicos**
+
 - Quando você bebeu?
 - Quanto você bebeu?
 - Qual era a origem da bebida?
@@ -214,12 +180,14 @@ Se você ou alguém próximo suspeita de ter ingerido metanol, existem etapas cr
 - Permitem o tratamento apropriado
 
 **Passo 3: Não tente se tratar em casa**
+
 - Não use remédios caseiros
 - Não use medicamentos de venda livre
 - Não há remédio caseiro que funcione para metanol
 - O tratamento requer intervenção médica profissional em hospital
 
 **Passo 4: Permita o tratamento apropriado**
+
 - Aceite intravenosa e suporte respiratório se necessário
 - Siga as recomendações dos médicos
 - Não questione a medicação recomendada
@@ -230,23 +198,25 @@ Se você ou alguém próximo suspeita de ter ingerido metanol, existem etapas cr
 Em um hospital, o tratamento de **sintomas de intoxicação por metanol** inclui várias etapas importantes:
 
 **Primeira etapa — Apoio básico:**
+
 - Suporte respiratório se necessário
 - Reposição de fluidos por via intravenosa
 - Monitoramento contínuo dos sinais vitais
 - Estabilização cardiovascular
 
-**Segunda etapa — Tratamento específico:**
-O medicamento mais eficaz é o **fomepizol**, um inibidor de álcool desidrogenase. Ao bloquear essa enzima, o fomepizol evita que o metanol seja convertido em formaldeído e ácido fórmico. Impede os danos quando administrado rapidamente.
+**Segunda etapa — Tratamento específico:** O medicamento mais eficaz é o **fomepizol**, um inibidor de álcool desidrogenase. Ao bloquear essa enzima, o fomepizol evita que o metanol seja convertido em formaldeído e ácido fórmico. Impede os danos quando administrado rapidamente.
 
 Alternativamente, em hospitais onde o fomepizol não está disponível, **etanol** (a mesma bebida alcoólica) pode ser administrado por via intravenosa como antídoto. Compete com o metanol pela atenção da enzima álcool desidrogenase. Portanto, retarda a metabolização tóxica.
 
 **Terceira etapa — Correção da acidose:**
+
 - Bicarbonato de sódio administrado por via intravenosa
 - Essa etapa é crucial porque a acidose causa danos sistêmicos
 - Restaura o pH do sangue
 - Protege contra colapso orgânico
 
 **Quarta etapa — Remoção do metanol (casos graves):**
+
 - Hemodiálise remove o metanol do sangue
 - Medida mais agressiva para casos graves
 - Especialmente importante em doses altas
@@ -307,6 +277,7 @@ Muitas vidas foram salvas graças a essa mobilização. Mas muitas outras não o
 Enquanto é crucial saber reconhecer os sintomas de intoxicação por metanol, a verdadeira solução é a prevenção. A melhor forma de evitar os sintomas é simplesmente não ingerir metanol em primeiro lugar.
 
 **Estratégias de prevenção:**
+
 - Compre bebidas apenas de estabelecimentos confiáveis
 - Prefira bebidas de marcas conhecidas e reconhecidas
 - Evite bebidas "baratas demais"
