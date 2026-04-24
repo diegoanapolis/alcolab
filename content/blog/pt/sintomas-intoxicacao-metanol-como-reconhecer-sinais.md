@@ -6,7 +6,7 @@ description: >-
 author: Romério Rodrigues dos Santos Silva
 date: '2026-04-08'
 published: false
-status: em_revisao
+status: aprovado
 locale: pt-BR
 translationSlug: methanol-poisoning-symptoms-warning-signs
 image: /images/blog/default.jpg
