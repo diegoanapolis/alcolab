@@ -1,14 +1,18 @@
 ---
-title: "Álcool Ilegal: Por Que Mata (Economia da Adulteração)"
+title: 'Álcool Ilegal: Por Que Mata (Economia da Adulteração)'
 slug: alcool-ilegal-economia-adulteracao-metanol
-description: "Por que álcool ilegal adulteração com metanol mata. Economia criminal, impostos, pobreza e mercado negro. 21% do consumo global é ilegal (OMS)."
-author: "Pedro Augusto de Oliveira Morais"
-date: 2026-04-08
-locale: "pt-BR"
+description: >-
+  Por que álcool ilegal adulteração com metanol mata. Economia criminal,
+  impostos, pobreza e mercado negro. 21% do consumo global é ilegal (OMS).
+author: Pedro Augusto de Oliveira Morais
+date: 2026-04-08T00:00:00.000Z
+locale: pt-BR
 published: false
-status: "rascunho"
-image: "/images/blog/default.jpg"
-imageAlt: "Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de periculosidade, ilustrando o risco da adulteração de bebidas"
+status: em_revisao
+image: /images/blog/default.jpg
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
 tags:
   - álcool ilegal
   - economia
@@ -16,8 +20,8 @@ tags:
   - mercado negro
   - impostos
   - adulteração
-focusKeyword: "álcool ilegal adulteração"
-translationSlug: "why-illegal-alcohol-kills-economics-of-methanol-adulteration"
+focusKeyword: álcool ilegal adulteração
+translationSlug: why-illegal-alcohol-kills-economics-of-methanol-adulteration
 ---
 
 ## Álcool Ilegal: A Economia Mortal da Adulteração com Metanol
