@@ -5,8 +5,8 @@ description: >-
   salvando vidas em 2025. Guia completo.
 date: '2026-04-08'
 locale: pt-BR
-published: false
-status: aprovado
+published: true
+status: publicado
 author: Pedro Augusto de Oliveira Morais
 image: /images/blog/default.jpg
 imageAlt: >-
