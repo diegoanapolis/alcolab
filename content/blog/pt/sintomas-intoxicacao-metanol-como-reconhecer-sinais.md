@@ -6,7 +6,7 @@ description: >-
 author: Romério Rodrigues dos Santos Silva
 date: '2026-04-08'
 published: false
-status: em_revisao
+status: aprovado
 locale: pt-BR
 translationSlug: methanol-poisoning-symptoms-warning-signs
 image: /images/blog/default.jpg
@@ -23,7 +23,7 @@ focusKeyword: sintomas de intoxicação por metanol
 ---
 ## Reconhecer os sintomas pode salvar sua vida
 
-Os primeiros sinais de intoxicação por metanol raramente assustam. Na maioria dos casos parecem apenas mais um episódio de ressaca comum, após ingestão de álcool: dor de cabeça, enjoo, cansaço. Por essa razão muitas pessoas, simplesmente esperam passar o que acaba tornando essa confusão extremamente perigosa. 
+Os primeiros sinais de intoxicação por metanol raramente assustam. Na maioria dos casos parecem apenas mais um episódio de ressaca comum, após ingestão de álcool: dor de cabeça, enjoo, cansaço. Por essa razão muitas pessoas, simplesmente esperam passar o que acaba tornando essa confusão extremamente perigosa.
 
 Cada hora que passa sem atendimento médico apropriado aumenta o risco de danos permanentes e irreversíveis, uma vez que o organismo está convertendo o metanol em substâncias altamente tóxicas. Conhecimento é poder nessa situação. Compreender a cronologia dos **sintomas de intoxicação por metanol** pode literalmente ser a diferença entre a vida e a morte.
 
@@ -61,7 +61,7 @@ Conforme as horas passam e o metanol continua sendo metabolizado, os sintomas pi
 
 **Piora dos sintomas anteriores:**
 
-- Dor de cabeça intensifica  e torna-se severa;
+- Dor de cabeça intensifica e torna-se severa;
 - Medicamentos de venda livre podem não fazer efeito;
 - Vômito continua ou retorna com mais intensidade;
 - Dor abdominal se agrava;
@@ -97,7 +97,7 @@ Passadas mais de 24 horas desde a ingestão, os sintomas evoluem para um estado 
 **Deterioração crítica:**
 
 - Confusão mental piora drasticamente
-- Delirium e comportamento irracional
+- Delírio e comportamento irracional
 - Pessoa pode não reconhecer familiares
 - Fala incoerente
 - Comportamento errático
@@ -126,8 +126,8 @@ Cegueira começa a ocorrer. Frequentemente de forma devastadoramente rápida. O 
 | **Recuperação com repouso** | Sim | Não |
 | **Reação a água/alimento** | Melhora significativa | Sem melhora |
 | **Campo de neve visual** | Nunca ocorre | Altamente específico |
-| **Delirium** | Raro | Comum após 24h |
-| **Outcome sem tratamento** | Completa recuperação | Cegueira ou morte |
+| **Delírio** | Raro | Comum após 24h |
+| **Resultado sem tratamento** | Completa recuperação | Cegueira ou morte |
 | **Urgência médica** | Não | Sim, emergência |
 
 Aqui está a distinção absolutamente crucial que pode salvar uma vida: **uma ressaca alcoólica comum melhora com o tempo e hidratação.** Quando você dorme 8 horas e acorda, bebe água, come algo e descansa, a ressaca típica irá melhorar significativamente ao longo do dia.
@@ -188,7 +188,6 @@ Se você ou alguém próximo suspeita de ter ingerido metanol, existem etapas cr
 
 - Aceite intravenosa e suporte respiratório se necessário
 - Siga as recomendações dos médicos
-- Não questione a medicação recomendada
 - Sua vida depende do tratamento hospitalar apropriado
 
 ## O tratamento médico para intoxicação por metanol
@@ -224,42 +223,6 @@ Alternativamente, em hospitais onde o fomepizol não está disponível, **etanol
 
 Em 2025, o Brasil enfrentou uma crise de intoxicação por metanol que exigiu mobilização da saúde pública:
 
-```svg
-<svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
-  <!-- Title -->
-  <text x="250" y="20" font-size="16" font-weight="bold" text-anchor="middle" fill="#002060">
-    Resposta Brasileira à Crise de Metanol - 2025
-  </text>
-  
-  <!-- Axes -->
-  <line x1="60" y1="250" x2="480" y2="250" stroke="#002060" stroke-width="2"/>
-  <line x1="60" y1="30" x2="60" y2="250" stroke="#002060" stroke-width="2"/>
-  
-  <!-- Y-axis labels -->
-  <text x="40" y="260" font-size="10" text-anchor="middle" fill="#666">0</text>
-  <text x="40" y="190" font-size="10" text-anchor="middle" fill="#666">5000</text>
-  <text x="40" y="130" font-size="10" text-anchor="middle" fill="#666">10000</text>
-  <text x="40" y="70" font-size="10" text-anchor="middle" fill="#666">15000</text>
-  
-  <!-- Bars -->
-  <rect x="100" y="140" width="100" height="110" fill="#002060"/>
-  <text x="150" y="270" font-size="11" text-anchor="middle" fill="#333">Fomepizol</text>
-  <text x="150" y="260" font-size="13" font-weight="bold" text-anchor="middle" fill="#002060">2.500</text>
-  
-  <rect x="250" y="50" width="100" height="200" fill="#1F4E79"/>
-  <text x="300" y="270" font-size="11" text-anchor="middle" fill="#333">Etanol Farm.</text>
-  <text x="300" y="260" font-size="13" font-weight="bold" text-anchor="middle" fill="#1F4E79">11.500</text>
-  
-  <!-- Grid lines -->
-  <line x1="60" y1="190" x2="480" y2="190" stroke="#e0e0e0" stroke-width="1"/>
-  <line x1="60" y1="130" x2="480" y2="130" stroke="#e0e0e0" stroke-width="1"/>
-  <line x1="60" y1="70" x2="480" y2="70" stroke="#e0e0e0" stroke-width="1"/>
-  
-  <!-- Y-axis title -->
-  <text x="30" y="140" font-size="11" text-anchor="middle" fill="#666">Unidades</text>
-</svg>
-```
-
 Através da PAHO (Organização Pan-Americana de Saúde), o Brasil recebeu **2.500 unidades de fomepizol** — uma medicação crítica e cara para o tratamento de envenenamento por metanol.
 
 Além disso, foram distribuídas **11.500 ampolas de etanol farmacêutico** através do Sistema Único de Saúde (SUS). Essas ampolas seriam usadas como antídoto nos casos onde o fomepizol não estava disponível.
@@ -291,7 +254,7 @@ Usando apenas uma seringa, uma balança de cozinha comum e um smartphone, qualqu
 
 ## Conclusão: vigilância constante
 
-Os **sintomas de intoxicação por metanol** seguem uma progressão previsível e aterradora. Evoluem de um hangover aparente para a cegueira e a morte em questão de horas.
+Os **sintomas de intoxicação por metanol** seguem uma progressão previsível e aterradora. Evoluem de uma ressaca aparente para a cegueira e a morte em questão de horas.
 
 Reconhecer essa progressão é absolutamente vital. Se você ou alguém próximo experimenta qualquer um desses sintomas, especialmente visão turva ou campo de neve visual, 12 a 48 horas após beber, procure cuidados médicos de emergência imediatamente.
 
