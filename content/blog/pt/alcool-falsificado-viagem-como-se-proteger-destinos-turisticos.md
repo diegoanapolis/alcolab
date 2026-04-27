@@ -7,7 +7,7 @@ slug: alcool-falsificado-viagem-como-se-proteger-destinos-turisticos
 date: '2026-04-08'
 locale: pt-BR
 published: false
-status: rascunho
+status: em_revisao
 author: Pedro Augusto de Oliveira Morais
 image: /images/blog/default.jpg
 imageAlt: >-
