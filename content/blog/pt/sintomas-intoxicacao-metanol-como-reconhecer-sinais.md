@@ -5,8 +5,8 @@ description: >-
   ressaca e quando procurar ajuda emergencial para salvar sua visão.
 author: Romério Rodrigues dos Santos Silva
 date: '2026-04-08'
-published: false
-status: aprovado
+published: true
+status: publicado
 locale: pt-BR
 translationSlug: methanol-poisoning-symptoms-warning-signs
 image: /images/blog/default.jpg
