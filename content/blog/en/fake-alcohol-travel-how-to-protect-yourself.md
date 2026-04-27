@@ -1,17 +1,27 @@
 ---
-title: "Fake Alcohol on Travel: Protection Guide"
-description: "Protect yourself against fake alcohol while traveling. Identify adulterated beverages in tourist destinations with AlcoLab."
-slug: "fake-alcohol-travel-how-to-protect-yourself-tourist-destinations"
-date: 2026-04-08
-locale: "en"
+title: 'Fake Alcohol on Travel: Protection Guide'
+description: >-
+  Protect yourself against fake alcohol while traveling. Identify adulterated
+  beverages in tourist destinations with AlcoLab.
+slug: fake-alcohol-travel-how-to-protect-yourself-tourist-destinations
+date: 2026-04-08T00:00:00.000Z
+locale: en
 published: false
-status: "em_revisao"
-author: "Pedro Augusto de Oliveira Morais"
-image: "/images/blog/default.jpg"
-imageAlt: "Three glass bottles with one centered labeled METHANOL and GHS hazard pictograms, illustrating the risk of beverage adulteration"
-tags: [fake alcohol, travel, tourism, methanol, safety, FCDO]
-focusKeyword: "fake alcohol while traveling"
-translationSlug: "fake-alcohol-travel-how-to-protect-yourself"
+status: em_revisao
+author: Pedro Augusto de Oliveira Morais
+image: /images/blog/default.jpg
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+tags:
+  - fake alcohol
+  - travel
+  - tourism
+  - methanol
+  - safety
+  - FCDO
+focusKeyword: fake alcohol while traveling
+translationSlug: fake-alcohol-travel-how-to-protect-yourself
 ---
 
 # Fake alcohol on travel: practical protection
