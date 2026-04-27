@@ -1,16 +1,27 @@
 ---
-title: "Adulterated Beverages: Protection, Recognition and Reporting"
-description: "Complete guide: how to recognize adulterated beverages, protect yourself from methanol and report to authorities. ANVISA, Procon, health surveillance, and AlcoLab."
-date: "2026-04-08"
-author: "Pedro Augusto de Oliveira Morais"
-locale: "en"
+title: 'Adulterated Beverages: Protection, Recognition and Reporting'
+description: >-
+  Complete guide: how to recognize adulterated beverages, protect yourself from
+  methanol and report to authorities. ANVISA, Procon, health surveillance, and
+  AlcoLab.
+date: '2026-04-08'
+author: Pedro Augusto de Oliveira Morais
+locale: en
 published: false
-status: "em_revisao"
-tags: [adulterated beverages, reporting, ANVISA, Procon, health surveillance, prevention]
-image: "/images/blog/default.jpg"
-imageAlt: "Three glass bottles with central one labeled METHANOL and GHS hazard pictograms illustrating the risk of beverage adulteration"
-focusKeyword: "adulterated beverages"
-translationSlug: "bebida-adulterada-como-se-proteger-onde-denunciar"
+status: em_revisao
+tags:
+  - adulterated beverages
+  - reporting
+  - ANVISA
+  - Procon
+  - health surveillance
+  - prevention
+image: /images/blog/default.jpg
+imageAlt: >-
+  Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
+  periculosidade, ilustrando o risco da adulteração de bebidas
+focusKeyword: adulterated beverages
+translationSlug: bebida-adulterada-como-se-proteger-onde-denunciar
 ---
 
 ## Adulterated Beverages: Protection, Recognition, and Reporting
