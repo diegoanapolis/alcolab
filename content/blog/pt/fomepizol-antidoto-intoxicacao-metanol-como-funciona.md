@@ -22,7 +22,7 @@ tags:
 focusKeyword: fomepizol antídoto metanol
 translationSlug: fomepizole-antidote-methanol-poisoning-how-it-works
 ---
-Fomepizol: antídoto usado no tratamento da intoxicação por metanol
+## Fomepizol: antídoto usado no tratamento da intoxicação por metanol
 
 O **fomepizol**, também conhecido como **4-metilpirazol**, é um medicamento utilizado como antídoto em casos de intoxicação por metanol e etilenoglicol. Seu uso deve ocorrer exclusivamente em ambiente de saúde, sob prescrição e monitoramento médico.
 
