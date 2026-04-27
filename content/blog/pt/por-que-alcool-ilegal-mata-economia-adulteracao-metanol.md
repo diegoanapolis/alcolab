@@ -8,7 +8,7 @@ author: Pedro Augusto de Oliveira Morais
 date: '2026-04-08'
 locale: pt-BR
 published: false
-status: em_revisao
+status: aprovado
 image: /images/blog/default.jpg
 imageAlt: >-
   Três garrafas de vidro com uma central rotulada METANOL e pictogramas GHS de
