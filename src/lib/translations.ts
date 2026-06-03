@@ -220,6 +220,20 @@ export const ptTranslations: Record<string, string> = {
   "seconds": "segundos",
   "Manual time entry (s)": "Inserção manual de tempo (s)",
   "No video": "Nenhum vídeo",
+  // ─── StepTimes — Meniscus marking modal ───
+  "Instants:": "Instantes:",
+  "Flow instants": "Instantes do escoamento",
+  "Use zoom 🤏🔍 and centering ✋👆 of the": "Use o zoom 🤏🔍 e a centralização ✋👆 do",
+  ", along with the": ", junto com a",
+  "Timeline": "Linha do tempo",
+  "Fine adjustment": "Ajuste fino",
+  "buttons to locate the instants when the meniscus touches each of the points": "para localizar os instantes em que o menisco toca cada um dos pontos",
+  "18 mL to 14 mL": "18 mL a 14 mL",
+  "Current time:": "Tempo atual:",
+  "Mark at least": "Marque pelo menos",
+  "marked": "marcados",
+  "Inconsistent times: times must increase from 18 to 14 mL": "Tempos inconsistentes: os tempos devem aumentar de 18 a 14 mL",
+  "Save points": "Salvar pontos",
 
   // ─── StepReviewCalculate ───
   "Review before calculating": "Revise antes de calcular",

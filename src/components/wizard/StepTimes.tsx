@@ -528,7 +528,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                       <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("water", idx)}>{t("Delete")}</button>
                     </div>
                   </div>
-                  <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
+                  <div className="text-xs text-neutral-600">{t("Instants:")} {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
                   <div className="w-full overflow-hidden h-20 rounded">
                     <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadata" />
                   </div>
@@ -582,7 +582,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                       <button type="button" className="text-xs underline text-red-600" onClick={() => deleteReplicate("sample", idx)}>{t("Delete")}</button>
                     </div>
                   </div>
-                  <div className="text-xs text-neutral-600">Instantes: {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
+                  <div className="text-xs text-neutral-600">{t("Instants:")} {([18,17,16,15,14] as Array<14|15|16|17|18>).map((v) => r.marks[v] != null ? `${v}:${(r.marks[v] as number).toFixed(2)}` : null).filter(Boolean).join(" | ")}</div>
                   <div className="w-full overflow-hidden h-20 rounded">
                     <video src={r.previewUrl} className="w-full h-full object-cover" playsInline muted controls preload="metadata" />
                   </div>
@@ -631,13 +631,18 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
       {showVideoModal && (
         <div className="fixed inset-0 bg-white z-50 h-screen w-screen flex flex-col">
           <div className="p-3 flex items-center justify-between border-b">
-            <h2 className="text-base font-semibold text-[#002060]">Instantes do flow</h2>
-            <button type="button" onClick={() => { setShowVideoModal(false); setVideoTarget(null); setVideoUrl(null) }} className="border rounded-lg py-1 px-3 text-sm">← Voltar</button>
+            <h2 className="text-base font-semibold text-[#002060]">{t("Flow instants")}</h2>
+            <button type="button" onClick={() => { setShowVideoModal(false); setVideoTarget(null); setVideoUrl(null) }} className="border rounded-lg py-1 px-3 text-sm">← {t("Back")}</button>
           </div>
           {videoUrl && (
             <div className="flex-1 flex flex-col gap-2 p-4 overflow-y-auto">
               <p className="text-xs leading-tight text-neutral-700 text-justify">
-                Use zoom 🤏🔍 e centering ✋👆 of the <span className="font-bold">meniscus</span>, along with <span className="font-bold">Linha do tempo</span> e botões de <span className="font-bold">Ajuste fino</span> para localizar os instantes que o meniscus toca cada um dos pontos <span className="font-bold">18 mL a 14 mL</span>.
+                {t("Use zoom 🤏🔍 and centering ✋👆 of the")}{" "}
+                <span className="font-bold">{t("meniscus")}</span>{t(", along with the")}{" "}
+                <span className="font-bold">{t("Timeline")}</span> {t("and")}{" "}
+                <span className="font-bold">{t("Fine adjustment")}</span>{" "}
+                {t("buttons to locate the instants when the meniscus touches each of the points")}{" "}
+                <span className="font-bold">{t("18 mL to 14 mL")}</span>.
               </p>
               <div ref={videoContainerRef} className="w-full max-w-3xl mx-auto bg-black overflow-hidden rounded-lg" style={{ touchAction: "pan-y", aspectRatio: "16 / 9.2" }} onTouchStart={(e) => {
                 const pts = Array.from(e.touches).map(t => ({id: t.identifier, x: t.clientX, y: t.clientY}))
@@ -685,14 +690,14 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                 </Slider.Root>
               </div>
               <div className="space-y-2">
-                <div className="font-medium text-xs text-[#002060]">Linha do tempo</div>
+                <div className="font-medium text-xs text-[#002060]">{t("Timeline")}</div>
                 <Slider.Root value={[coarseTime]} min={0} max={duration || 1} step={0.1} onValueChange={onChangeCoarse} className="relative flex items-center select-none touch-none h-5">
                   <Slider.Track className="bg-neutral-200 relative grow rounded-full h-1">
                     <Slider.Range className="absolute bg-[#002060] h-1 rounded-full" />
                   </Slider.Track>
                   <Slider.Thumb className="block w-4 h-4 bg-[#002060] rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#002060]" aria-label="Coarse" />
                 </Slider.Root>
-                <div className="font-medium text-xs text-[#002060]">Ajuste fino</div>
+                <div className="font-medium text-xs text-[#002060]">{t("Fine adjustment")}</div>
                 <div className="grid grid-cols-6 gap-1">
                   {[-1.0, -0.5, -0.1, 0.1, 0.5, 1.0].map((d) => (
                     <button
@@ -709,7 +714,7 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                     </button>
                   ))}
                 </div>
-                <div className="text-sm text-neutral-700">Time atual: <span className="font-semibold">{currentTimeSec.toFixed(2)} s</span></div>
+                <div className="text-sm text-neutral-700">{t("Current time:")} <span className="font-semibold">{currentTimeSec.toFixed(2)} s</span></div>
               </div>
               <div className="grid grid-cols-5 gap-2">
                 {[18,17,16,15,14].map((v) => (
@@ -722,9 +727,9 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                 ))}
               </div>
               <div className="flex flex-col gap-2">
-                {!hasEnoughMarks && <div className="text-xs text-red-600">Mark at least {minMarksRequired} points ({markedCount}/5 marked)</div>}
-                {hasEnoughMarks && !increasing && <div className="text-xs text-red-600">Inconsistent times: times must increase from 18 to 14 mL</div>}
-                <button type="button" disabled={!canFinalize} onClick={finalizeReplicate} className="bg-[#002060] hover:bg-[#001040] text-white rounded-lg py-3 px-4 disabled:bg-gray-300 disabled:cursor-not-allowed font-medium">Save points</button>
+                {!hasEnoughMarks && <div className="text-xs text-red-600">{t("Mark at least")} {minMarksRequired} {t("points")} ({markedCount}/5 {t("marked")})</div>}
+                {hasEnoughMarks && !increasing && <div className="text-xs text-red-600">{t("Inconsistent times: times must increase from 18 to 14 mL")}</div>}
+                <button type="button" disabled={!canFinalize} onClick={finalizeReplicate} className="bg-[#002060] hover:bg-[#001040] text-white rounded-lg py-3 px-4 disabled:bg-gray-300 disabled:cursor-not-allowed font-medium">{t("Save points")}</button>
               </div>
             </div>
           )}
@@ -740,11 +745,11 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
           </div>
           <div className="flex-1 flex flex-col items-center justify-center gap-6 p-4">
             <div className="text-5xl font-bold text-[#002060]">{(Math.round((elapsedMs/1000)*10)/10).toFixed(1)} s</div>
-            <button type="button" onClick={() => { timerRunning ? stopTimer() : startTimer() }} className={`rounded-full w-48 h-48 text-xl font-bold transition-colors ${timerRunning ? "bg-red-600 hover:bg-red-700 text-white" : "bg-green-600 hover:bg-green-700 text-white"}`}>{timerRunning ? "Stop" : "Start"}</button>
+            <button type="button" onClick={() => { timerRunning ? stopTimer() : startTimer() }} className={`rounded-full w-48 h-48 text-xl font-bold transition-colors ${timerRunning ? "bg-red-600 hover:bg-red-700 text-white" : "bg-green-600 hover:bg-green-700 text-white"}`}>{timerRunning ? t("Stop") : t("Start")}</button>
             {!timerRunning && elapsedMs > 0 && (
               <div className="flex gap-3">
-                <button type="button" onClick={saveTimer} className="bg-[#002060] hover:bg-[#001040] text-white rounded-lg py-3 px-6 font-medium">Save time</button>
-                <button type="button" onClick={() => { setElapsedMs(0) }} className="border border-gray-300 rounded-lg py-3 px-6">Discard</button>
+                <button type="button" onClick={saveTimer} className="bg-[#002060] hover:bg-[#001040] text-white rounded-lg py-3 px-6 font-medium">{t("Save time")}</button>
+                <button type="button" onClick={() => { setElapsedMs(0) }} className="border border-gray-300 rounded-lg py-3 px-6">{t("Discard")}</button>
               </div>
             )}
           </div>
@@ -766,14 +771,14 @@ export default function StepTimes({ onNext, onBack, initialData, demoMode }: { o
                 onClick={() => setShowSingleRepWarning(false)}
                 className="flex-1 border border-[#002060] text-[#002060] rounded-lg py-2 text-sm font-medium"
               >
-                Voltar
+                {t("Back")}
               </button>
               <button
                 type="button"
                 onClick={confirmSingleRep}
                 className="flex-1 bg-[#002060] text-white rounded-lg py-2 text-sm font-medium"
               >
-                Prosseguir
+                {t("Proceed")}
               </button>
             </div>
           </div>
