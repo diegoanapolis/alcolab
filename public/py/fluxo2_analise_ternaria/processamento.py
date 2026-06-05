@@ -14,12 +14,15 @@ import numpy as np
 from utils_nopandas import read_csv_table
 from scipy import stats
 
+import transfer_model as TM
+
 # ---------------------------------------------------------------------
 # Configurações
 # ---------------------------------------------------------------------
-MALHA_FILENAME = "malha_viscosidade_ajuste_bordas.csv"
-MALHA_FILENAME_NPZ = "malha_viscosidade_ajuste_bordas_f32.npz"
-MALHA_COARSE_NPZ = "malha_viscosidade_ajuste_bordas_coarse251_f32.npz"
+# Malha ternária de viscosidade construída e validada com dados da LITERATURA
+# (artigo MethodsX). A malha antiga (empírica/própria) foi substituída pelo par
+# "malha de literatura + modelo de transferência (B, C)" — ver transfer_model.py.
+MALHA_FILENAME_NPZ = TM.MESH_FILENAME_NPZ  # mesh_20_50C_song_anchor.npz
 
 # Número padrão de simulações Monte Carlo (pode ser ajustado)
 MC_N_DEFAULT = 3000
@@ -121,63 +124,44 @@ def _count_rep_values(rep: object) -> int:
     return int(out)
 
 
+_MOLAR_MESH_CACHE: Dict[str, "TM.NpzMolarMesh"] = {}
+
+
 def carregar_malha_e_referencia(base_dir: Path):
-    """Carrega malha e referência.
+    """Carrega a malha ternária de LITERATURA e prepara as estruturas do app.
 
-    Otimização: prefere arquivos binários float32 (.npz) quando disponíveis
-    para evitar parse de CSV pesado, especialmente em Pyodide/mobile.
+    Nova metodologia (artigo MethodsX):
+      - malha de viscosidade água–etanol–metanol construída exclusivamente com
+        dados da literatura (mesh_20_50C_song_anchor.npz; molar, T20–T50);
+      - modelo empírico de transferência (B, C) que converte a razão de tempos
+        de escoamento medida em razão de viscosidade "equivalente a 20 °C".
 
-    Retorna:
-      - malha_full: MalhaBusca (full-resolution)
-      - malha_coarse: MalhaBusca (coarse)
-      - temp_ref_df, temp_col (mantidos para compatibilidade)
+    Retorna (assinatura preservada p/ worker_entry):
+      - malha_full: MalhaBusca com a grade A_pred,20(w, z) — passo 0.001 em w e
+        z — consumida pela camada estatística; carrega o atributo `molar_mesh`
+        (NpzMolarMesh) usado pela inversão pontual (Eq. 8).
+      - malha_coarse: None (não é mais necessária)
+      - temp_ref_df, temp_col: None, None (correlação de Kestin–Sokolov–Wakeham
+        substitui a tabela de viscosidade da água)
     """
     base_dir = Path(base_dir)
+    npz_path = base_dir / MALHA_FILENAME_NPZ
+    if not npz_path.exists():
+        raise RuntimeError(
+            f"Malha de literatura não encontrada: {npz_path}. Coloque {MALHA_FILENAME_NPZ} em {base_dir}."
+        )
 
-    # 1) Malha full
-    npz_full = base_dir / MALHA_FILENAME_NPZ
-    csv_full = base_dir / MALHA_FILENAME
+    key = str(npz_path)
+    mesh = _MOLAR_MESH_CACHE.get(key)
+    if mesh is None:
+        mesh = TM.NpzMolarMesh(npz_path)
+        _MOLAR_MESH_CACHE[key] = mesh
 
-    if npz_full.exists():
-        d = np.load(npz_full)
-        w = d["w"].astype(np.float32)
-        z = d["z"].astype(np.float32)
-        mu = d["mu"].astype(np.float32)
-        malha_full = MalhaBusca.from_arrays(w, z, mu)
-    else:
-        if not csv_full.exists():
-            raise RuntimeError(
-                f"Arquivo de malha não encontrado: {csv_full}. Coloque {MALHA_FILENAME_NPZ} ou {MALHA_FILENAME} em {base_dir}."
-            )
-        header, cols = read_csv_table(csv_full)
-        malha_df = {k: v for k,v in cols.items()}
-        if "w_alcool" not in malha_df.columns:
-            raise RuntimeError("A malha não contém a coluna 'w_alcool'.")
-        visc_cols = [c for c in malha_df.columns if c.startswith("mu_zmet_")]
-        if not visc_cols:
-            raise RuntimeError("A malha não contém colunas do tipo 'mu_zmet_*'.")
-        malha_full = MalhaBusca(malha_df)
+    w_values, z_values, grid = TM.build_apred20_grid(mesh, cache_key=key)
+    malha_full = MalhaBusca.from_arrays(w_values, z_values, grid)
+    malha_full.molar_mesh = mesh
 
-    # 2) Malha coarse (opcional)
-    npz_coarse = base_dir / MALHA_COARSE_NPZ
-    malha_coarse = None
-    if npz_coarse.exists():
-        d = np.load(npz_coarse)
-        w = d["w"].astype(np.float32)
-        z = d["z"].astype(np.float32)
-        mu = d["mu"].astype(np.float32)
-        malha_coarse = MalhaBusca.from_arrays(w, z, mu)
-
-    # Referência de temperatura (mantida como CSV leve)
-    temp_ref_path = base_dir / "temperatura_referencia_v2.csv"
-    if temp_ref_path.exists():
-        htr, ctr = read_csv_table(temp_ref_path)
-        temp_ref_df = {k: v for k,v in ctr.items()}
-        temp_col = None
-    else:
-        temp_ref_df, temp_col = None, None
-
-    return malha_full, malha_coarse, temp_ref_df, temp_col
+    return malha_full, None, None, None
 
 
 def compute_mu_abs(hm_cm: float, t_s: float, delta_v_uL: float, rho: float = 997.0) -> float:
@@ -532,46 +516,76 @@ def process_dataframe(rows: List[Dict[str, object]], malha_full, malha_coarse=No
     L = 0.025
     k = (1000.0 * math.pi * (r0 ** 4) * rho * g) / (8.0 * L)
 
+    # QC Poiseuille (verificação experimental da água no front/semáforo).
+    # NÃO participa da inversão: o escoamento medido não é interpretado como
+    # viscosidade dinâmica real (nomenclatura do artigo: razão operacional).
     mu_agua_abs = k * (hm / 100.0) * t_agua / (delta_v * 1e-6)
     mu_amostra_abs = k * (hm / 100.0) * t_amostra / (delta_v * 1e-6)
 
-    mu20 = _interp_water_mu(temp_ref_df, 20.0)
-    mu20 = 0.61453 if mu20 is None else float(mu20)
-
-    mu_ratio = np.where(mu_agua_abs != 0.0, (mu_amostra_abs / mu_agua_abs), np.nan)
-    mu_amostra_abs_corr = mu_ratio * mu20
+    # Eq. (3): razão de escoamento observada (água da mesma sessão)
+    a_obs_arr = np.where(t_agua != 0.0, t_amostra / t_agua, np.nan)
 
     malha = malha_full if isinstance(malha_full, MalhaBusca) else MalhaBusca(malha_full)
+    molar_mesh = getattr(malha, "molar_mesh", None)
+    if molar_mesh is None:
+        raise RuntimeError(
+            "Malha molar de literatura ausente em MalhaBusca; use carregar_malha_e_referencia()."
+        )
 
     w_best_arr = np.zeros(len(out_rows), dtype=float)
     z_best_arr = np.zeros(len(out_rows), dtype=float)
     mu_best_arr = np.zeros(len(out_rows), dtype=float)
 
     for i, row in enumerate(out_rows):
-        try:
-            t_agua_row = float(row.get("temp_agua", row.get("waterTemperature", float("nan"))))
-        except Exception:
-            t_agua_row = float("nan")
-        mu_w_t = _interp_water_mu(temp_ref_df, t_agua_row) if np.isfinite(t_agua_row) else None
-        if mu_w_t is not None:
-            row["mu_agua_ref"] = float(mu_w_t)
-            row["mu_agua_ref_20"] = float(mu20)
-            row["mu_temp_corr_factor"] = float(mu20 / mu_w_t) if float(mu_w_t) != 0.0 else float("nan")
-            if np.isfinite(mu_ratio[i]):
-                row["mu_amostra_est_temp"] = float(mu_ratio[i] * float(mu_w_t))
+        # Temperatura medida da sessão (termômetro): prioriza a da água e
+        # aceita a da amostra como fallback. Se ausente, a temperatura efetiva
+        # é estimada da resposta da água por bissecção (Eq. 7).
+        t_meas = None
+        for key in ("temp_agua", "waterTemperature", "sampleTemperature"):
+            v = row.get(key, None)
+            try:
+                fv = float(v)
+            except (TypeError, ValueError):
+                continue
+            if np.isfinite(fv):
+                t_meas = fv
+                break
+
+        t_agua_i = float(t_agua[i])
+        t_amostra_i = float(t_amostra[i])
 
         row["mu_agua_abs"] = float(mu_agua_abs[i])
         row["mu_amostra_abs"] = float(mu_amostra_abs[i])
-        row["mu_amostra_abs_corr"] = float(mu_amostra_abs_corr[i])
 
+        # Eq. (4) + Kestin: razão observada normalizada a 20 °C
+        temp_used = TM.resolve_temperature_for_water20(t_agua_i, t_meas)
+        a_obs_i = float(a_obs_arr[i])
+        a_obs20_i = a_obs_i * TM.MU_WATER_LIT(temp_used) / TM.MU_WATER_LIT(TM.REF_TEMP_C)
+
+        row["a_obs"] = a_obs_i
+        row["a_obs_20"] = float(a_obs20_i)
+        row["temp_used_c"] = float(temp_used)
+        row["temperature_source"] = (
+            "measured" if not TM.temperature_is_missing(t_meas) else "water_effective"
+        )
+        # Observável entregue à camada estatística, na MESMA escala da grade
+        # A_pred,20 (razão de escoamento equivalente a 20 °C). O nome da coluna
+        # é mantido por compatibilidade com a camada estatística e o banco.
+        row["mu_amostra_abs_corr"] = float(a_obs20_i)
+
+        # Eq. (8): inversão ternária no grid 41×81 com janela w_ρ ± 0.02
         w_est = float(row.get("w_alcool"))
-        mu_target = float(row["mu_amostra_abs_corr"])
-        wb, zb, mub = malha.find_best_composition(mu_target, w_est)
+        inv = TM.invert_water20_local(
+            t_amostra_i, t_agua_i, t_meas, w_est, molar_mesh.mu_at_mass
+        )
+        wb = float(inv["w_total_pred"])
+        zb = float(inv["z_methanol_pred"])
         if wb == 0.0:
             zb = 0.028
+        row["err_log"] = float(inv["err_log"])
         w_best_arr[i] = wb
         z_best_arr[i] = zb
-        mu_best_arr[i] = mub
+        mu_best_arr[i] = TM.predicted_ratio_20c(wb, zb, molar_mesh.mu_at_mass)
 
     for i, row in enumerate(out_rows):
         row["w_alcool_best"] = float(w_best_arr[i])
@@ -1161,7 +1175,7 @@ def _avaliar_amostra(row: Dict[str, object], df_linhas: List[Dict[str, object]],
             trace_best = (wt1, zt1, mut1, abs(mut1 - mu_mean))
         if mut2 is not None:
             cand = (wt2, zt2, mut2, abs(mut2 - mu_mean))
-            if trace_best is None or cand[2.5] < trace_best[2.5]:
+            if trace_best is None or cand[3] < trace_best[3]:
                 trace_best = cand
         if trace_best is not None:
             best_mu["trace"] = (trace_best[0], trace_best[1], trace_best[2])

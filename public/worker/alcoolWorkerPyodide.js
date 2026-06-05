@@ -50,6 +50,7 @@ async function ensurePyodide() {
     await putFile("/py/worker_entry.py", "/app/py/worker_entry.py");
     await putFile("/py/fluxo1_w_alcool/src/app_w_alcool_v2.py", "/app/py/fluxo1_w_alcool/src/app_w_alcool_v2.py");
     await putFile("/py/fluxo2_analise_ternaria/processamento.py", "/app/py/fluxo2_analise_ternaria/processamento.py");
+    await putFile("/py/fluxo2_analise_ternaria/transfer_model.py", "/app/py/fluxo2_analise_ternaria/transfer_model.py");
     await putFile("/py/fluxo2_analise_ternaria/main.py", "/app/py/fluxo2_analise_ternaria/main.py");
 
     // Data files fluxo1
@@ -58,8 +59,10 @@ async function ensurePyodide() {
       await putFile(`/data/fluxo1/${name}`, `/app/data/fluxo1/${name}`);
     }
 
-    // Data files fluxo2
-    const f2 = ["malha_viscosidade_ajuste_bordas_f32.npz", "malha_viscosidade_ajuste_bordas_coarse251_f32.npz", "temperatura_referencia_v2.csv", "viscosidades_medianas.txt"];
+    // Data files fluxo2 — literature ternary mesh (MethodsX); the old
+    // empirical meshes and the water-viscosity table were replaced by
+    // mesh_20_50C_song_anchor.npz + the Kestin correlation in transfer_model.py
+    const f2 = ["mesh_20_50C_song_anchor.npz"];
     for (const name of f2) {
       const isBin = name.endsWith(".npz") || name.endsWith(".bin");
       await putFile(`/data/fluxo2/${name}`, `/app/data/fluxo2/${name}`, isBin);
