@@ -27,9 +27,11 @@ export const waterTempSchema = z.object({
   waterType: z.enum(["Still mineral (recommended)", "Tap/potable", "Deionized/Distilled (when available)"], { message: "Select the water type" }),
   conductivity: z.number().optional(),
   estimatedConductivity: z.number().optional(),
-  waterTemperature: z.number().min(20, "Minimum 20 °C").max(30, "Maximum 30 °C"),
-  sampleTemperature: z.number().min(20, "Minimum 20 °C").max(30, "Maximum 30 °C"),
-}).refine((data) => { return Math.abs((data.sampleTemperature ?? 0) - (data.waterTemperature ?? 0)) <= 2 }, { message: "⚠️ Sample and water must be equilibrated (max. difference 2°C).", path: ["sampleTemperature"] });
+  // Opcionais: no modo "sem termômetro" as temperaturas não são enviadas e o
+  // backend estima a temperatura efetiva da sessão pelo escoamento da água (Eq. 7)
+  waterTemperature: z.number().min(20, "Minimum 20 °C").max(30, "Maximum 30 °C").optional(),
+  sampleTemperature: z.number().min(20, "Minimum 20 °C").max(30, "Maximum 30 °C").optional(),
+}).refine((data) => { if (data.sampleTemperature == null || data.waterTemperature == null) return true; return Math.abs(data.sampleTemperature - data.waterTemperature) <= 2 }, { message: "⚠️ Sample and water must be equilibrated (max. difference 2°C).", path: ["sampleTemperature"] });
 
 export const densitySchema = z.object({
   method: z.enum(["Scale", "Hydrometer or alcoholmeter"]).optional(),

@@ -67,7 +67,7 @@ function computeMarks(dt: number, t18: number): Record<14 | 15 | 16 | 17 | 18, n
 
 const COMMON_BANNER_SAMPLE = 'Label indicated 40% v/v alcohol content, with manufacturer and batch markings illegible. Pre-filled data below.'
 const bannerDensity = (waterMass: number, sampleMass: number) => `The following masses were measured: syringe+needle 10.6 g; syringe+needle+water ${waterMass} g; syringe+needle+sample ${sampleMass} g. Pre-filled data below.`
-const COMMON_BANNER_TEMP = 'Experiment conducted at 25 °C, using still mineral water as reference.'
+const COMMON_BANNER_TEMP = 'Experiment conducted with water and sample in thermal equilibrium with the environment (20–28 °C), using still mineral water as reference. The app estimates the session temperature from the water flow.'
 export const COMMON_BANNER_TIMES_HEADER = 'Flow videos provided and pre-selected below. For a better understanding of the time marking (critical step), we recommend clicking "Edit" on each video and using visual cues to perform the markings. For a quicker test, simply advance or remove the 4 videos via "Delete" and manually enter the flow times (18 to 14 mL) provided below. After typing each time, click "+".'
 
 // Water videos are the same for all scenarios

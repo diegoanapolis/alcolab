@@ -15,8 +15,9 @@ import DemoBanner from "@/components/ui/DemoBanner"
 import { getDemoScenario } from "@/lib/demoScenarios"
 
 export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }: { onNext: (data: WaterTempData) => void; onBack: () => void; initialData?: WaterTempData; demoMode?: string | null }) {
-  const [thermometerMode, setThermometerMode] = useState<"with" | "without">("with")
-  const [sameTemperature, setSameTemperature] = useState<boolean | null>(null)
+  // Nos exemplos (demo), pré-seleciona "No thermometer" com equilíbrio confirmado
+  const [thermometerMode, setThermometerMode] = useState<"with" | "without">(demoMode ? "without" : "with")
+  const [sameTemperature, setSameTemperature] = useState<boolean | null>(demoMode ? true : null)
   const t = useT()
   const [showMethodology, setShowMethodology] = useState(false)
 
@@ -68,11 +69,12 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
 
   const handleFormSubmit = (data: WaterTempData) => {
     if (thermometerMode === "without" && sameTemperature === true) {
-      // Sem termômetro: usa temperatura padrão de 25°C (thermal equilibrium assumido)
+      // Sem termômetro: não envia temperaturas — o backend estima a temperatura
+      // efetiva da sessão a partir do escoamento da água (bissecção, Eq. 7 do artigo)
       onNext({
         ...data,
-        waterTemperature: 25,
-        sampleTemperature: 25
+        waterTemperature: undefined,
+        sampleTemperature: undefined
       })
     } else {
       onNext(data)
@@ -212,13 +214,13 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
               <InlineTooltip 
                 term={t("thermal equilibrium")} 
                 tooltip={t("Water, sample and environment at the same temperature.")}
-              />{t(". Leave the liquids for at least 1 hour in the test environment and ensure it is between 20 and 30°C.")}
+              />{t(". Leave the liquids for at least 1 hour in the test environment and ensure it is between 20 and 28°C.")}
             </p>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-[#002060] mb-3">
-                  {t("Both liquids at equal temperatures (between 20 and 28°C)?")}
+                  {t("Both liquids at equal temperatures?")}
                 </label>
                 <div className="space-y-2">
                   <label className="flex items-center gap-3 border rounded-lg p-3 cursor-pointer hover:border-[#002060] transition-colors">
@@ -249,9 +251,9 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
               {sameTemperature === false && (
                 <div className="bg-yellow-50 border-l-4 border-yellow-500 rounded-r-lg p-4">
                   <p className="text-sm text-yellow-800">
-                    <span className="font-semibold">⚠️ Wait for stabilization!</span><br />
-                    It is recommended to wait at least 1 hour with the containers in contact, 
-                    in an environment known to be between 20 and 28°C.
+                    <span className="font-semibold">⚠️ {t("Wait for stabilization!")}</span><br />
+                    {t("It is recommended to wait at least 1 hour with the containers in contact,")}{" "}
+                    {t("in an environment known to be between 20 and 28°C.")}
                   </p>
                 </div>
               )}

@@ -1150,11 +1150,11 @@ export default function ResultsPage() {
                   const w = result?.wAlcoolInicial
                   return w != null ? `${(w * 100).toFixed(2)}%` : '-'
                 })()}</li>
-                <li>{t("Search range (±0.025):")} {(() => {
+                <li>{t("Search range (±0.02):")} {(() => {
                   const w = result?.wAlcoolInicial
                   if (w == null) return '-'
-                  const min = Math.max(0, w - 0.025)
-                  const max = Math.min(1, w + 0.025)
+                  const min = Math.max(0, w - 0.02)
+                  const max = Math.min(1, w + 0.02)
                   return `${(min * 100).toFixed(2)}% – ${(max * 100).toFixed(2)}%`
                 })()}</li>
                 <li>{t("Viscosity error (mesh):")} {(() => {
