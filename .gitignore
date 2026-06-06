@@ -42,3 +42,8 @@ next-env.d.ts
 
 # Private site project (separate repo)
 alcolab-site/
+
+# Blog content lives in the PRIVATE repo (diegoanapolis/alcolab-blog-content),
+# fetched at build time by scripts/fetch-blog-content.mjs. Do not track here.
+/content/blog/
+/public/images/blog/
