@@ -151,11 +151,7 @@ export default function StepWaterTemp({ onNext, onBack, initialData, demoMode }:
             {/* Camada 1: Instruções com termômetro */}
             <p className="text-sm text-neutral-700 text-justify">
               {t("With a thermometer, measure the temperature immediately before or after the flow.")}{" "}
-              {t("Differences of up to 3 °C between water and sample are acceptable; the app performs")}{" "}
-              <InlineTooltip 
-                term={t("viscosity correction")} 
-                tooltip={t("Adjustment of water viscosity according to temperature.")}
-              />.
+              {t("Differences of up to 3 °C between water and sample are acceptable; the same-session water is used as an internal reference, so no thermal correction is needed.")}
             </p>
 
             <div className="space-y-2">

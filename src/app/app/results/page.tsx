@@ -7,7 +7,7 @@ import { DatabaseService, ExperimentRun, RunInputs, RunOutputs, RunTags } from "
 import AnalysisListPage from "@/components/AnalysisListPage"
 import { Download, FileText, ArrowLeft, Info } from "lucide-react"
 import InfoTooltip from "@/components/ui/InfoTooltip"
-import { useT } from "@/lib/i18n"
+import { useT, useLang, localizeReport } from "@/lib/i18n"
 import MethodologyModal, { MethodologyButton } from "@/components/ui/MethodologyModal"
 import { MethodologyRelatorioI18n as MethodologyRelatorio, useTooltipEquivalentes, useTooltipMonteCarlo } from "@/lib/methodologyContent.i18n"
 
@@ -77,6 +77,7 @@ export default function ResultsPage() {
   const [isProcessing, setIsProcessing] = useState(false) // Estado para controlar loading durante processamento
   const router = useRouter()
   const t = useT()
+  const lang = useLang()
   const TooltipComposicoesEquivalentes = useTooltipEquivalentes()
   const TooltipMonteCarlo = useTooltipMonteCarlo()
 
@@ -424,9 +425,9 @@ export default function ResultsPage() {
             cvSampleMass: safeNum(first.cv_sample_mass ?? first.cvSampleMass),
           },
           viscosity: {
-            viscosityRel: safeNum(first.mu_ratio ?? first.viscosityRel),
+            viscosityRel: safeNum(first.a_obs ?? first.mu_ratio ?? first.viscosityRel),
             muAbsWater: safeNum(first.mu_agua_abs ?? first.muAbsWater),
-            muAbsSample: safeNum(first.mu_amostra_abs_corr ?? first.mu_amostra_abs ?? first.muAbsSample),
+            muAbsSample: safeNum(first.mu_amostra_abs ?? first.muAbsSample),
           },
           expectedComposition: {
             agua: safeNum(rep?.w_agua_est ?? first.w_agua_est) ?? 0,
@@ -443,7 +444,7 @@ export default function ResultsPage() {
           mostLikely: rep?.most_likely_txt ?? rep?.classe_final ?? undefined,
           conclusao: rep?.conclusao ?? undefined,
           seletividade: rep?.seletividade ?? undefined,
-          erroMuMalhaAbs: safeNumOrNull(first.erro_mu_malha ?? first.erroMuMalhaAbs),
+          erroMuMalhaAbs: safeNumOrNull(first.err_log ?? first.erro_mu_malha ?? first.erroMuMalhaAbs),
           erroMuMalhaPct: safeNumOrNull(first.erro_mu_malha_pct ?? first.erroMuMalhaPct),
           wAlcoolInicial: safeNum(first.w_alcool),
           wAlcoolBest: safeNum(first.w_alcool_best ?? rep?.w_alcool_best),
@@ -572,10 +573,10 @@ export default function ResultsPage() {
         result.viscosity?.viscosityRel || '',
         result.viscosity?.muAbsWater || '',
         result.viscosity?.muAbsSample || '',
-        typeof result.equivalentes === 'string' ? result.equivalentes.replace(/\n/g, ' | ') : '',
-        result.classe_final || '',
+        typeof result.equivalentes === 'string' ? localizeReport(result.equivalentes.replace(/\n/g, ' | '), lang) : '',
+        localizeReport(result.classe_final || '', lang),
         result.compativel || '',
-        result.mostLikely || ''
+        localizeReport(result.mostLikely || '', lang)
       ]
     }
     
@@ -1084,7 +1085,7 @@ export default function ResultsPage() {
                 const s0 = typeof eq === 'string' ? eq : (eq != null ? String(eq) : "")
                 const lines = String(s0).split(/\r?\n/).map(l => l.trim()).filter(Boolean)
                 const uniq = Array.from(new Set(lines))
-                if (uniq.length) return uniq.join("\n")
+                if (uniq.length) return uniq.map((l) => localizeReport(l, lang)).join("\n")
                 const exp = result?.expectedComposition
                 if (exp) {
                   const a = Number(((exp.agua ?? 0)*100).toFixed(1))
@@ -1096,7 +1097,7 @@ export default function ResultsPage() {
                   if (m > 0) parts.push(`methanol ${m}%;`)
                   if (parts.length === 2) return parts[0] + " " + parts[1].replace(";", ".")
                   if (parts.length === 1) return parts[0].replace(";", ".")
-                  return `${parts[0]} ${parts[1]} e ${parts[2].replace(";", "")}.`
+                  return `${parts[0]} ${parts[1]} and ${parts[2].replace(";", "")}.`
                 }
                 return "-"
               })()}</div>
@@ -1114,7 +1115,7 @@ export default function ResultsPage() {
                   if (!exp || (exp.agua === undefined && exp.et === undefined && exp.met === undefined)) {
                     exp = computeExpectedFromProfile(result?.conditions)
                   }
-                  return pickCompatibleLine(eq, exp) ?? "-"
+                  return localizeReport(pickCompatibleLine(eq, exp) ?? "-", lang)
                 })()}</li>
                 <li className="flex items-center gap-1 flex-wrap">{t("Most probable composition")} <InfoTooltip text={TooltipMonteCarlo} />: {(() => {
                   const ternaria: TernariaOut | undefined = result ? ((result as unknown as { ternaria?: TernariaOut }).ternaria) : undefined
@@ -1125,24 +1126,29 @@ export default function ResultsPage() {
                   const equivalentes = result?.equivalentes ?? ternaria?.equivalentes ?? ''
                   
                   if (mostLikely) {
-                    return mostLikely
+                    return localizeReport(mostLikely, lang)
                   } else if (seletividade === 'baixa' || conclusao.includes('inconclusivo')) {
                     const lines = String(equivalentes).split(/\r?\n/).map(l => l.trim()).filter(Boolean)
                     if (lines.length > 1) {
-                      return `Inconclusivo entre: ${lines.join(' e ')}`
+                      const loc = lines.map((l) => localizeReport(l, lang))
+                      return `${t("Inconclusive between:")} ${loc.join(lang === "en" ? " and " : " e ")}`
                     }
                   }
                   
                   return '-'
                 })()}</li>
-                <li>{t("Sample viscosity (20ºC):")} {(() => {
+                <li>{t("Flow ratio (sample/water):")} {(() => {
+                  const r = result?.viscosity?.viscosityRel
+                  return r != null ? Number(r).toFixed(4) : '-'
+                })()}</li>
+                <li>{t("Sample viscosity (QC, mPa·s):")} {(() => {
                   const v = result?.viscosity?.muAbsSample
                   return v != null ? Number(v).toFixed(4) : '-'
                 })()}</li>
                 {(() => {
                   const muW = result?.viscosity?.muAbsWater
                   if (muW != null) {
-                    return <li>{t("Water viscosity (20ºC):")} {Number(muW).toFixed(4)}</li>
+                    return <li>{t("Water viscosity (QC, mPa·s):")} {Number(muW).toFixed(4)}</li>
                   }
                   return null
                 })()}
@@ -1157,9 +1163,9 @@ export default function ResultsPage() {
                   const max = Math.min(1, w + 0.02)
                   return `${(min * 100).toFixed(2)}% – ${(max * 100).toFixed(2)}%`
                 })()}</li>
-                <li>{t("Viscosity error (mesh):")} {(() => {
+                <li>{t("Mesh fit residual (log ratio):")} {(() => {
                   const err = result?.erroMuMalhaAbs
-                  return err != null ? `${err.toFixed(4)} mPa·s` : '-'
+                  return err != null ? err.toFixed(4) : '-'
                 })()}</li>
               </ul>
               <p className="mt-2 text-xs text-neutral-500 italic">{t("This is an estimative screening test; it does not replace official laboratory analyses.")}</p>

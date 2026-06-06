@@ -250,11 +250,11 @@ export default function HomePage() {
                 </h3>
               </div>
               <p className="text-sm text-neutral-700 leading-relaxed">
-                Combina relative density e relative viscosity (corrigida para
-                20 °C) em uma malha 3D de referência pré-calculada, localizando
-                as composições (substância pura, binárias e/ou ternárias) cuja
-                densidade e viscosidade mais se aproximam dos valores obtidos pelo
-                usuário.
+                Combina a densidade relativa com a razão de escoamento
+                amostra/água, comparando-a com uma malha de referência da
+                literatura (consultada em uma camada fixa de 24 °C), para
+                localizar as composições (substância pura, binárias e/ou
+                ternárias) mais consistentes com os valores obtidos pelo usuário.
               </p>
             </div>
 

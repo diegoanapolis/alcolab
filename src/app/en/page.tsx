@@ -247,11 +247,11 @@ export default function HomePageEN() {
                 </h3>
               </div>
               <p className="text-sm text-neutral-700 leading-relaxed">
-                Combines relative density and relative viscosity (corrected to
-                20 °C) in a pre-computed 3D reference mesh, locating the
-                compositions (pure substance, binary and/or ternary) whose
-                density and viscosity most closely match the user&apos;s measured
-                values.
+                Combines the relative density with the sample-to-water flow
+                ratio, comparing it against a literature reference mesh (queried
+                at a fixed 24 °C layer), to locate the compositions (pure
+                substance, binary and/or ternary) most consistent with the
+                user&apos;s measured values.
               </p>
             </div>
 

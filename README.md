@@ -38,7 +38,7 @@ AlcoLab is an open-source, non-profit initiative maintained as a voluntary contr
 
 2. **Alcohol content estimation** — From the relative density and reference tables (Gay-Lussac, OIML), the app estimates the total alcohol content by mass — regardless of whether it is ethanol and/or methanol, since both have very similar densities. Unit conversions (% v/v, °GL, INPM, % w/w) are performed automatically.
 
-3. **Ternary composition screening** — Combines relative density and relative viscosity (corrected to 20 °C) in a pre-computed 3D reference mesh, locating the compositions (pure substance, binary, and/or ternary) whose density and viscosity most closely match the values obtained by the user.
+3. **Ternary composition screening** — Combines the relative density with the sample-to-water flow ratio, compared against a literature reference mesh (queried at a fixed 24 °C layer; no temperature correction is applied — the same-session water acts as an internal reference), to locate the compositions (pure substance, binary, and/or ternary) most consistent with the values obtained by the user.
 
 4. **Statistical evaluation** — The app assesses the experimental uncertainty of the measurements, comparing the composition identified in the previous step with nearby compositions using a Z-test for mean comparison and Monte Carlo probabilistic simulation. The goal is to include statistically equivalent and/or probabilistically likely compositions.
 

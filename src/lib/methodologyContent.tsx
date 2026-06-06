@@ -154,7 +154,7 @@ export const MethodologyTemperatura = () => (
     <ul className="list-disc pl-5 space-y-1">
       <li>Meça a temperatura imediatamente antes ou após o escoamento.</li>
       <li>Recomenda-se medir em recipiente plástico, por ex., copo limpo ou recipiente coletor do descarte do escoamento, limpos.</li>
-      <li>Diferenças de até 3 °C entre água e amostra são aceitáveis; o aplicativo realiza correção da viscosidade da água.</li>
+      <li>Diferenças de até 3 °C entre água e amostra são aceitáveis; a razão de escoamento usa a água da mesma sessão como referência interna, dispensando correção térmica.</li>
       <li>Caso opte por medir após o escoamento: avance normalmente no fluxo do app; e depois retorne à tela de temperatura e atualize os valores. Os dados do escoamento serão preservados.</li>
     </ul>
 
@@ -166,7 +166,7 @@ export const MethodologyTemperatura = () => (
       <li>Água, amostra e ambiente estejam em equilíbrio térmico</li>
       <li>Nenhuma das amostras tenha sido refrigerada</li>
       <li>Aguarde-se mínimo de 1 hora no ambiente do ensaio</li>
-      <li>O ambiente deve estar entre 20 e 30 °C</li>
+      <li>O ambiente deve estar entre 20 e 28 °C</li>
     </ul>
 
     <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 mt-3">
@@ -179,8 +179,8 @@ export const MethodologyTemperatura = () => (
 
     <p className="text-gray-600 italic mt-3 text-xs">
       Nota: A ausência de medição direta, quando respeitados os critérios acima, não reduz a qualidade 
-      do exame, pois a viscosidade medida é sempre normalizada para 20 °C com base em dados de referência 
-      (procedimento que independe da temperatura real, desde que dentro do intervalo de 20 a 30ºC).
+      do exame, pois a razão de escoamento amostra/água da mesma sessão já compensa o efeito térmico comum; 
+      a temperatura serve apenas como controle de qualidade, desde que dentro do intervalo de 20 a 28 °C.
     </p>
   </>
 )

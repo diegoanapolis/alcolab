@@ -154,7 +154,7 @@ export const MethodologyTemperatura_EN = () => (
     <ul className="list-disc pl-5 space-y-1">
       <li>Measure the temperature immediately before or after the flow.</li>
       <li>It is recommended to measure in a plastic container, e.g., a clean cup or the flow discharge collection container.</li>
-      <li>Differences of up to 3 °C between water and sample are acceptable; the application corrects the water viscosity.</li>
+      <li>Differences of up to 3 °C between water and sample are acceptable; the same-session water is used as an internal reference, so no thermal correction is needed.</li>
       <li>If you choose to measure after the flow: proceed normally in the app flow; then return to the temperature screen and update the values. Flow data will be preserved.</li>
     </ul>
 
@@ -166,7 +166,7 @@ export const MethodologyTemperatura_EN = () => (
       <li>Water, sample and environment are in thermal equilibrium</li>
       <li>None of the samples has been refrigerated</li>
       <li>A minimum of 1 hour is waited in the test environment</li>
-      <li>The environment must be between 20 and 30 °C</li>
+      <li>The environment must be between 20 and 28 °C</li>
     </ul>
 
     <div className="bg-yellow-50 border-l-4 border-yellow-500 p-3 mt-3">
@@ -179,8 +179,8 @@ export const MethodologyTemperatura_EN = () => (
 
     <p className="text-gray-600 italic mt-3 text-xs">
       Note: The absence of direct measurement, when the above criteria are met, does not reduce the quality 
-      of the examination, as the measured viscosity is always normalized to 20 °C based on reference data 
-      (a procedure that is independent of the actual temperature, as long as it is within the 20 to 30°C range).
+      of the examination, because the same-session sample/water flow ratio already compensates for the common 
+      thermal effect; temperature is used only as quality control, as long as it is within the 20 to 28 °C range.
     </p>
   </>
 )

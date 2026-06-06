@@ -44,7 +44,7 @@ AlcoLab é uma **Progressive Web App (PWA)** de triagem analítica de soluções
 - Converte entre unidades: % v/v, °GL, INPM, % m/m.
 
 **Fluxo 2 — Composição ternária (água-etanol-metanol)**
-- Combina densidade relativa + viscosidade relativa (corrigida para 20°C) em uma malha 3D pré-calculada que mapeia (densidade, viscosidade) → composições ternárias equivalentes.
+- Combina densidade relativa + razão de escoamento amostra/água (sem correção térmica) consultando uma malha 3D de literatura numa camada fixa de 24°C, mapeando (densidade, razão de escoamento) → composições ternárias equivalentes.
 - Usa interpolação na malha (`malha_viscosidade_ajuste_bordas_f32.npz`) para encontrar todas as composições que satisfazem simultaneamente a densidade e a viscosidade medidas.
 - Compara com a composição esperada pelo rótulo e classifica: compatível, incompatível, ou possível presença de metanol.
 

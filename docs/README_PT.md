@@ -38,7 +38,7 @@ O AlcoLab é uma iniciativa open-source e sem fins lucrativos, mantida como cont
 
 2. **Estimativa do teor alcoólico** — A partir da densidade relativa e de tabelas de referência (Gay-Lussac, OIML), o app estima o teor em massa de álcool total — independentemente de ser etanol e/ou metanol, já que ambos possuem densidades muito próximas. Conversões entre unidades (% v/v, °GL, INPM, % m/m) são realizadas automaticamente.
 
-3. **Triagem da composição ternária** — Combina densidade relativa e viscosidade relativa (corrigida para 20 °C) em uma malha 3D de referência pré-calculada, localizando as composições (substância pura, binárias e/ou ternárias) cuja densidade e viscosidade mais se aproximam dos valores obtidos pelo usuário.
+3. **Triagem da composição ternária** — Combina a densidade relativa com a razão de escoamento amostra/água, comparada com uma malha de referência da literatura (consultada em uma camada fixa de 24 °C; sem correção de temperatura — a água da mesma sessão atua como referência interna), para localizar as composições (substância pura, binárias e/ou ternárias) mais consistentes com os valores obtidos pelo usuário.
 
 4. **Avaliação estatística** — O app avalia a incerteza experimental das medições, comparando a composição identificada no passo anterior com composições de resultados próximos por meio de teste Z de comparação de médias e simulação probabilística de Monte Carlo. O objetivo é incluir composições estatisticamente equivalentes e/ou probabilisticamente prováveis.
 
