@@ -22,7 +22,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/fetch-blog-content.mjs && next build",
     "start": "next start",
     "lint": "next lint"
   },
