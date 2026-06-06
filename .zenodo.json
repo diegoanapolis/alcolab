@@ -1,0 +1,41 @@
+{
+  "title": "AlcoLab: an open-source application for methanol screening by density and syringe-flow measurements",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "AGPL-3.0-only",
+  "description": "AlcoLab is an open-source progressive web app for reagent-free semiquantitative screening of ethanol and methanol in hydroalcoholic mixtures, using a balance readable to 0.1 g and a 20 mL disposable syringe fitted with a 22-gauge needle. Composition is estimated by combining a density-based total alcohol mass fraction with the same-session sample-to-water syringe-flow ratio, compared against a literature-derived ternary viscosity grid (queried at a fixed 24 C layer) via a few-parameter empirical transfer model. This archive is a snapshot of the application source code and the embedded scientific pipeline (Python/Pyodide). The editorial blog content of alcolab.org is maintained in a separate private repository and is NOT part of this archive. AlcoLab software is registered with the Brazilian National Institute of Industrial Property (INPI, computer program registration No. BR 51 2026 001483-2).",
+  "creators": [
+    {
+      "name": "Mendes de Souza, Diego",
+      "orcid": "0000-0002-3634-971X",
+      "affiliation": "Baru Tech, Brasília – DF, Brazil"
+    },
+    {
+      "name": "de Oliveira Morais, Pedro Augusto",
+      "orcid": "0000-0002-6032-3886",
+      "affiliation": "Universidade Federal do Maranhão (UFMA), MA, Brazil"
+    },
+    {
+      "name": "Ferreira Santos, Nayara",
+      "orcid": "0009-0002-8974-8287",
+      "affiliation": "Baru Tech, Brasília – DF, Brazil"
+    },
+    {
+      "name": "Rodrigues dos Santos Silva, Romério",
+      "orcid": "0000-0003-2712-4495",
+      "affiliation": "Universidade Federal do Maranhão (UFMA), Campus Chapadinha, Chapadinha – MA, Brazil"
+    }
+  ],
+  "keywords": [
+    "methanol",
+    "methanol screening",
+    "food safety",
+    "public health",
+    "hydroalcoholic solutions",
+    "viscosity",
+    "density",
+    "analytical chemistry",
+    "progressive web app",
+    "pyodide"
+  ]
+}
