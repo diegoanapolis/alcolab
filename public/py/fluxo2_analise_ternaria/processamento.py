@@ -130,19 +130,20 @@ _MOLAR_MESH_CACHE: Dict[str, "TM.NpzMolarMesh"] = {}
 def carregar_malha_e_referencia(base_dir: Path):
     """Carrega a malha ternária de LITERATURA e prepara as estruturas do app.
 
-    Nova metodologia (artigo MethodsX):
+    Metodologia final (artigo MethodsX — modelo fixed_layer_24C_song_anchor):
       - malha de viscosidade água–etanol–metanol construída exclusivamente com
-        dados da literatura (mesh_20_50C_song_anchor.npz; molar, T20–T50);
-      - modelo empírico de transferência (B, C) que converte a razão de tempos
-        de escoamento medida em razão de viscosidade "equivalente a 20 °C".
+        dados da literatura (mesh_20_50C_song_anchor.npz; molar, T20–T50),
+        consultada numa camada FIXA de 24 °C;
+      - modelo empírico de transferência (B, C) que mapeia a razão BRUTA de
+        tempos de escoamento (sem correção térmica) na escala da malha.
 
     Retorna (assinatura preservada p/ worker_entry):
-      - malha_full: MalhaBusca com a grade A_pred,20(w, z) — passo 0.001 em w e
+      - malha_full: MalhaBusca com a grade A_pred,24(w, z) — passo 0.001 em w e
         z — consumida pela camada estatística; carrega o atributo `molar_mesh`
-        (NpzMolarMesh) usado pela inversão pontual (Eq. 8).
+        (NpzMolarMesh) usado pela inversão pontual.
       - malha_coarse: None (não é mais necessária)
-      - temp_ref_df, temp_col: None, None (correlação de Kestin–Sokolov–Wakeham
-        substitui a tabela de viscosidade da água)
+      - temp_ref_df, temp_col: None, None (a temperatura não entra na inversão;
+        é apenas metadado de QC)
     """
     base_dir = Path(base_dir)
     npz_path = base_dir / MALHA_FILENAME_NPZ
@@ -157,7 +158,7 @@ def carregar_malha_e_referencia(base_dir: Path):
         mesh = TM.NpzMolarMesh(npz_path)
         _MOLAR_MESH_CACHE[key] = mesh
 
-    w_values, z_values, grid = TM.build_apred20_grid(mesh, cache_key=key)
+    w_values, z_values, grid = TM.build_apred_grid(mesh, cache_key=key)
     malha_full = MalhaBusca.from_arrays(w_values, z_values, grid)
     malha_full.molar_mesh = mesh
 
@@ -537,9 +538,9 @@ def process_dataframe(rows: List[Dict[str, object]], malha_full, malha_coarse=No
     mu_best_arr = np.zeros(len(out_rows), dtype=float)
 
     for i, row in enumerate(out_rows):
-        # Temperatura medida da sessão (termômetro): prioriza a da água e
-        # aceita a da amostra como fallback. Se ausente, a temperatura efetiva
-        # é estimada da resposta da água por bissecção (Eq. 7).
+        # Temperatura da sessão: apenas metadado de QC — NÃO entra na inversão.
+        # A razão amostra/água da mesma sessão já é padrão interno térmico
+        # (modelo final fixed_layer_24C_song_anchor, sem correção térmica).
         t_meas = None
         for key in ("temp_agua", "waterTemperature", "sampleTemperature"):
             v = row.get(key, None)
@@ -557,26 +558,20 @@ def process_dataframe(rows: List[Dict[str, object]], malha_full, malha_coarse=No
         row["mu_agua_abs"] = float(mu_agua_abs[i])
         row["mu_amostra_abs"] = float(mu_amostra_abs[i])
 
-        # Eq. (4) + Kestin: razão observada normalizada a 20 °C
-        temp_used = TM.resolve_temperature_for_water20(t_agua_i, t_meas)
+        # Razão de escoamento observada BRUTA (sem correção térmica)
         a_obs_i = float(a_obs_arr[i])
-        a_obs20_i = a_obs_i * TM.MU_WATER_LIT(temp_used) / TM.MU_WATER_LIT(TM.REF_TEMP_C)
-
         row["a_obs"] = a_obs_i
-        row["a_obs_20"] = float(a_obs20_i)
-        row["temp_used_c"] = float(temp_used)
-        row["temperature_source"] = (
-            "measured" if not TM.temperature_is_missing(t_meas) else "water_effective"
-        )
+        row["temp_used_c"] = float(t_meas) if t_meas is not None else float("nan")
+        row["temperature_source"] = "measured" if t_meas is not None else "not_provided"
         # Observável entregue à camada estatística, na MESMA escala da grade
-        # A_pred,20 (razão de escoamento equivalente a 20 °C). O nome da coluna
-        # é mantido por compatibilidade com a camada estatística e o banco.
-        row["mu_amostra_abs_corr"] = float(a_obs20_i)
+        # A_pred,24 (razão de escoamento bruta). Nome de coluna mantido por
+        # compatibilidade com a camada estatística e o banco.
+        row["mu_amostra_abs_corr"] = a_obs_i
 
-        # Eq. (8): inversão ternária no grid 41×81 com janela w_ρ ± 0.02
+        # Inversão ternária no grid 41×81, janela w_ρ ± 0.02, malha a 24 °C
         w_est = float(row.get("w_alcool"))
-        inv = TM.invert_water20_local(
-            t_amostra_i, t_agua_i, t_meas, w_est, molar_mesh.mu_at_mass
+        inv = TM.invert_final_model(
+            t_amostra_i, t_agua_i, w_est, molar_mesh.mu_at_mass, TM.MU_WATER_LIT
         )
         wb = float(inv["w_total_pred"])
         zb = float(inv["z_methanol_pred"])
@@ -585,7 +580,7 @@ def process_dataframe(rows: List[Dict[str, object]], malha_full, malha_coarse=No
         row["err_log"] = float(inv["err_log"])
         w_best_arr[i] = wb
         z_best_arr[i] = zb
-        mu_best_arr[i] = TM.predicted_ratio_20c(wb, zb, molar_mesh.mu_at_mass)
+        mu_best_arr[i] = TM.predicted_ratio(wb, zb, molar_mesh.mu_at_mass, TM.MU_WATER_LIT)
 
     for i, row in enumerate(out_rows):
         row["w_alcool_best"] = float(w_best_arr[i])
