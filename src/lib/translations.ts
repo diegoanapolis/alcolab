@@ -393,6 +393,8 @@ export const ptTranslations: Record<string, string> = {
   "Submit a suggestion": "Enviar sugestão",
   "Team": "Equipe",
   "Contact & partnerships": "Contato e parcerias",
+  "Website maintenance and institutional contact": "Manutenção do site e contato institucional",
+  "co-founder and researcher": "cofundador e pesquisador",
   "Institutions, organizations and companies interested in supporting, partnering or integrating AlcoLab into their programs are welcome to get in touch.": "Instituições, organizações e empresas interessadas em apoio, parceria ou integração do AlcoLab em seus programas são bem-vindas a entrar em contato.",
   "Open source under": "Código aberto sob licença",
   "Development, experiments & statistics": "Desenvolvimento, experimentos e estatística",

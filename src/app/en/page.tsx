@@ -31,7 +31,9 @@ import {
 /* ─── Constants ─── */
 const GITHUB_REPO = "https://github.com/diegoanapolis/alcolab";
 const BUYME_COFFEE_URL = "https://buymeacoffee.com/alcolab";
-const FORM_SUGESTAO_URL = "mailto:alcolabapp@gmail.com?subject=AlcoLab%20Suggestion";
+const CONTACT_EMAIL = "founders@alcolab.org";
+const DIEGO_EMAIL = "diego@alcolab.org";
+const FORM_SUGESTAO_URL = `mailto:${CONTACT_EMAIL}?subject=AlcoLab%20Suggestion`;
 const PIX_KEY = "alcolabapp@gmail.com";
 
 /* ─── Date ─── */
@@ -649,10 +651,10 @@ export default function HomePageEN() {
           <p className="text-sm text-neutral-600 text-center">
             For partnership or funding proposals, please contact us at{" "}
             <a
-              href={`mailto:${PIX_KEY}`}
+              href={`mailto:${CONTACT_EMAIL}`}
               className="text-[#002060] font-medium underline"
             >
-              alcolabapp@gmail.com
+              {CONTACT_EMAIL}
             </a>
           </p>
         </div>
@@ -665,17 +667,29 @@ export default function HomePageEN() {
             <Mail className="w-6 h-6" />
             Contact & partnerships
           </h2>
+          <p className="text-sm text-neutral-600">
+            Website maintenance and institutional contact — BARU TECH INOVA SIMPLES (I.S.)
+          </p>
           <a
-            href={`mailto:${PIX_KEY}`}
+            href={`mailto:${CONTACT_EMAIL}`}
             className="text-lg font-semibold text-[#002060] underline"
           >
-            alcolabapp@gmail.com
+            {CONTACT_EMAIL}
           </a>
           <p className="text-sm text-neutral-700 max-w-xl mx-auto leading-relaxed">
             Institutions, organizations, and companies interested in supporting,
             partnering, or integrating AlcoLab into their programs are welcome to
             get in touch.
           </p>
+          <div className="text-sm text-neutral-700 space-y-1">
+            <p>Diego Mendes de Souza — co-founder and researcher</p>
+            <a
+              href={`mailto:${DIEGO_EMAIL}`}
+              className="text-[#002060] underline"
+            >
+              {DIEGO_EMAIL}
+            </a>
+          </div>
         </div>
       </section>
 
@@ -711,7 +725,7 @@ export default function HomePageEN() {
               About
             </Link>
             <a
-              href={`mailto:${PIX_KEY}`}
+              href={`mailto:${CONTACT_EMAIL}`}
               className="text-blue-200 hover:text-white transition-colors"
             >
               Contact

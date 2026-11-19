@@ -18,9 +18,11 @@ import {
 } from "lucide-react";
 
 const PIX_KEY = "alcolabapp@gmail.com";
+const CONTACT_EMAIL = "founders@alcolab.org";
+const DIEGO_EMAIL = "diego@alcolab.org";
 const GITHUB_REPO = "https://github.com/diegoanapolis/alcolab";
 const BUYME_COFFEE_URL = "https://buymeacoffee.com/alcolab";
-const FORM_SUGESTAO_URL = "https://forms.gle/PLACEHOLDER"; // TODO: substituir pelo link real do Google Forms
+const FORM_SUGESTAO_URL = `mailto:${CONTACT_EMAIL}?subject=AlcoLab`;
 
 const team = [
   {
@@ -217,16 +219,28 @@ export default function AboutPage() {
           {t("Contact & partnerships")}
         </h2>
 
+        <p className="text-sm text-neutral-600">
+          {t("Website maintenance and institutional contact")} — BARU TECH INOVA SIMPLES (I.S.)
+        </p>
         <a
-          href={`mailto:${PIX_KEY}`}
+          href={`mailto:${CONTACT_EMAIL}`}
           className="text-sm font-medium text-[#002060] underline"
         >
-          alcolabapp@gmail.com
+          {CONTACT_EMAIL}
         </a>
 
         <p className="text-sm text-neutral-700 text-justify">
           {t("Institutions, organizations and companies interested in supporting, partnering or integrating AlcoLab into their programs are welcome to get in touch.")}
         </p>
+        <div className="text-sm text-neutral-700 space-y-1">
+          <p>Diego Mendes de Souza — {t("co-founder and researcher")}</p>
+          <a
+            href={`mailto:${DIEGO_EMAIL}`}
+            className="text-[#002060] underline"
+          >
+            {DIEGO_EMAIL}
+          </a>
+        </div>
       </section>
 
       {/* ── Licença (rodapé) ── */}
